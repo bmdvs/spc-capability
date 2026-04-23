@@ -1,0 +1,421 @@
+gauge_id,type,range,resolution,location,interval_months,status,export_batch_id
+F-10823,check fixture,part-specific,0.01,press PR-03,6,active,20260106T053000Z-SPC36M
+F-11687,check fixture,part-specific,0.01,press PR-03,6,active,20260106T053000Z-SPC36M
+F-13708,check fixture,part-specific,0.01,press PR-03,6,active,20260106T053000Z-SPC36M
+F-15609,check fixture,part-specific,0.01,press PR-03,6,active,20260106T053000Z-SPC36M
+F-11333,check fixture,part-specific,0.01,press PR-03,6,active,20260106T053000Z-SPC36M
+F-12836,check fixture,part-specific,0.01,press PR-03,6,active,20260106T053000Z-SPC36M
+F-14026,check fixture,part-specific,0.01,press PR-03,6,active,20260106T053000Z-SPC36M
+F-16467,check fixture,part-specific,0.01,press PR-03,6,active,20260106T053000Z-SPC36M
+F-15731,check fixture,part-specific,0.01,press PR-03,6,active,20260106T053000Z-SPC36M
+F-16315,check fixture,part-specific,0.01,press PR-03,6,active,20260106T053000Z-SPC36M
+F-20417,check fixture,part-specific,0.01,press PR-06,6,active,20260106T053000Z-SPC36M
+F-29540,check fixture,part-specific,0.01,press PR-06,6,active,20260106T053000Z-SPC36M
+F-22558,check fixture,part-specific,0.01,press PR-06,6,active,20260106T053000Z-SPC36M
+F-27778,check fixture,part-specific,0.01,press PR-06,6,active,20260106T053000Z-SPC36M
+F-26998,check fixture,part-specific,0.01,press PR-06,6,active,20260106T053000Z-SPC36M
+F-26076,check fixture,part-specific,0.01,press PR-06,6,active,20260106T053000Z-SPC36M
+F-22617,check fixture,part-specific,0.01,press PR-06,6,active,20260106T053000Z-SPC36M
+F-23247,check fixture,part-specific,0.01,press PR-06,6,active,20260106T053000Z-SPC36M
+F-20696,check fixture,part-specific,0.01,press PR-06,6,active,20260106T053000Z-SPC36M
+F-28553,check fixture,part-specific,0.01,press PR-06,6,active,20260106T053000Z-SPC36M
+F-31102,check fixture,part-specific,0.01,press PR-09,6,active,20260106T053000Z-SPC36M
+F-31056,check fixture,part-specific,0.01,press PR-09,6,active,20260106T053000Z-SPC36M
+F-39057,check fixture,part-specific,0.01,press PR-09,6,active,20260106T053000Z-SPC36M
+F-36526,check fixture,part-specific,0.01,press PR-09,6,active,20260106T053000Z-SPC36M
+F-39736,check fixture,part-specific,0.01,press PR-09,6,active,20260106T053000Z-SPC36M
+F-37321,check fixture,part-specific,0.01,press PR-09,6,active,20260106T053000Z-SPC36M
+F-37771,check fixture,part-specific,0.01,press PR-09,6,active,20260106T053000Z-SPC36M
+F-35987,check fixture,part-specific,0.01,press PR-09,6,active,20260106T053000Z-SPC36M
+F-37329,check fixture,part-specific,0.01,press PR-09,6,active,20260106T053000Z-SPC36M
+F-35884,check fixture,part-specific,0.01,press PR-09,6,active,20260106T053000Z-SPC36M
+F-16584,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-17726,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-12485,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-18000,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-14411,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-16280,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-16291,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-19387,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-18072,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-19113,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-11859,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-10531,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-11860,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-11348,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-18473,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-16233,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-14494,check fixture,part-specific,0.01,press PR-01,6,active,20260106T053000Z-SPC36M
+F-15351,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-12587,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-16662,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-10719,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-18750,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-14849,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-11209,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-19593,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-16602,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-16483,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-14393,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-15051,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-12409,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-11181,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-19454,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-16511,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-19700,check fixture,part-specific,0.01,press PR-02,6,active,20260106T053000Z-SPC36M
+F-12803,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-14390,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-10090,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-19408,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-12201,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-18287,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-17180,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-19604,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-11396,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-10372,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-14507,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-14813,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-16559,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-17862,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-13459,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-18431,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-12139,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-10030,check fixture,part-specific,0.01,press PR-04,6,active,20260106T053000Z-SPC36M
+F-22722,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-23421,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-28761,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-27723,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-26652,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-22268,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-20320,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-22043,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-23929,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-20436,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-20415,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-23926,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-24807,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-26720,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-25864,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-29717,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-23075,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-27181,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-23130,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-22345,check fixture,part-specific,0.01,press PR-05,6,active,20260106T053000Z-SPC36M
+F-26504,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-23101,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-27389,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-27463,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-26081,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-29835,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-23997,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-20396,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-22071,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-26458,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-23012,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-20893,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-25815,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-28954,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-20983,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-27163,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-26000,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-23506,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-28187,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-26340,check fixture,part-specific,0.01,press PR-07,6,active,20260106T053000Z-SPC36M
+F-28862,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-22488,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-26125,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-23264,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-24560,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-24604,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-24884,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-23078,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-25420,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-29313,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-22788,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-26775,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-26514,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-22485,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-24764,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-28071,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-23068,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-24690,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-29216,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-24561,check fixture,part-specific,0.01,press PR-08,6,active,20260106T053000Z-SPC36M
+F-32296,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-39473,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-38248,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-37465,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-32591,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-36648,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-35811,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-31540,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-34169,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-38551,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-38468,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-34479,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-35914,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-34749,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-33084,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-38263,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-36680,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-37915,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-36044,check fixture,part-specific,0.01,press PR-10,6,active,20260106T053000Z-SPC36M
+F-39564,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-31103,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-30054,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-38578,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-32474,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-34988,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-38884,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-37007,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-38681,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-39101,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-35186,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-34769,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-32929,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-36584,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-36457,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-35908,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-39809,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-33230,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+F-33411,check fixture,part-specific,0.01,press PR-11,6,active,20260106T053000Z-SPC36M
+G-0101,pin,go/no-go set,,press PR-01,6,active,20260106T053000Z-SPC36M
+G-0102,pin,go/no-go set,,press PR-01,6,active,20260106T053000Z-SPC36M
+G-0103,pin,go/no-go set,,press PR-01,6,active,20260106T053000Z-SPC36M
+G-0104,pin,go/no-go set,,press PR-01,6,active,20260106T053000Z-SPC36M
+G-0105,pin,go/no-go set,,press PR-01,6,active,20260106T053000Z-SPC36M
+G-0106,pin,go/no-go set,,press PR-01,6,active,20260106T053000Z-SPC36M
+G-0107,pin,go/no-go set,,press PR-01,6,active,20260106T053000Z-SPC36M
+G-0108,pin,go/no-go set,,press PR-01,6,active,20260106T053000Z-SPC36M
+G-0109,indicator,0-25 mm,0.001,press PR-01,6,active,20260106T053000Z-SPC36M
+G-0110,indicator,0-25 mm,0.001,press PR-01,6,active,20260106T053000Z-SPC36M
+G-0111,indicator,0-25 mm,0.001,press PR-01,6,active,20260106T053000Z-SPC36M
+G-0112,indicator,0-25 mm,0.001,press PR-01,6,active,20260106T053000Z-SPC36M
+G-0113,indicator,0-25 mm,0.001,press PR-01,6,active,20260106T053000Z-SPC36M
+G-0114,caliper,0-150 mm,0.01,press PR-01,12,active,20260106T053000Z-SPC36M
+G-0115,caliper,0-150 mm,0.01,press PR-01,12,active,20260106T053000Z-SPC36M
+G-0116,caliper,0-150 mm,0.01,press PR-01,12,active,20260106T053000Z-SPC36M
+G-0117,micrometer,0-25 mm,0.001,press PR-01,12,active,20260106T053000Z-SPC36M
+G-0118,micrometer,0-25 mm,0.001,press PR-01,12,active,20260106T053000Z-SPC36M
+G-0119,pin,go/no-go set,,press PR-02,6,active,20260106T053000Z-SPC36M
+G-0120,pin,go/no-go set,,press PR-02,6,active,20260106T053000Z-SPC36M
+G-0121,pin,go/no-go set,,press PR-02,6,active,20260106T053000Z-SPC36M
+G-0122,pin,go/no-go set,,press PR-02,6,active,20260106T053000Z-SPC36M
+G-0123,pin,go/no-go set,,press PR-02,6,active,20260106T053000Z-SPC36M
+G-0124,pin,go/no-go set,,press PR-02,6,active,20260106T053000Z-SPC36M
+G-0125,pin,go/no-go set,,press PR-02,6,active,20260106T053000Z-SPC36M
+G-0126,pin,go/no-go set,,press PR-02,6,active,20260106T053000Z-SPC36M
+G-0127,indicator,0-25 mm,0.001,press PR-02,6,active,20260106T053000Z-SPC36M
+G-0128,indicator,0-25 mm,0.001,press PR-02,6,active,20260106T053000Z-SPC36M
+G-0129,indicator,0-25 mm,0.001,press PR-02,6,active,20260106T053000Z-SPC36M
+G-0130,indicator,0-25 mm,0.001,press PR-02,6,active,20260106T053000Z-SPC36M
+G-0131,indicator,0-25 mm,0.001,press PR-02,6,active,20260106T053000Z-SPC36M
+G-0132,caliper,0-150 mm,0.01,press PR-02,12,active,20260106T053000Z-SPC36M
+G-0133,caliper,0-150 mm,0.01,press PR-02,12,active,20260106T053000Z-SPC36M
+G-0134,caliper,0-150 mm,0.01,press PR-02,12,active,20260106T053000Z-SPC36M
+G-0135,micrometer,0-25 mm,0.001,press PR-02,12,active,20260106T053000Z-SPC36M
+G-0136,micrometer,0-25 mm,0.001,press PR-02,12,active,20260106T053000Z-SPC36M
+G-0137,pin,go/no-go set,,press PR-03,6,active,20260106T053000Z-SPC36M
+G-0138,pin,go/no-go set,,press PR-03,6,active,20260106T053000Z-SPC36M
+G-0139,pin,go/no-go set,,press PR-03,6,active,20260106T053000Z-SPC36M
+G-0140,pin,go/no-go set,,press PR-03,6,active,20260106T053000Z-SPC36M
+G-0141,pin,go/no-go set,,press PR-03,6,active,20260106T053000Z-SPC36M
+G-0142,pin,go/no-go set,,press PR-03,6,active,20260106T053000Z-SPC36M
+G-0143,pin,go/no-go set,,press PR-03,6,active,20260106T053000Z-SPC36M
+G-0144,pin,go/no-go set,,press PR-03,6,active,20260106T053000Z-SPC36M
+G-0145,indicator,0-25 mm,0.001,press PR-03,6,active,20260106T053000Z-SPC36M
+G-0146,indicator,0-25 mm,0.001,press PR-03,6,active,20260106T053000Z-SPC36M
+G-0147,indicator,0-25 mm,0.001,press PR-03,6,active,20260106T053000Z-SPC36M
+G-0148,indicator,0-25 mm,0.001,press PR-03,6,active,20260106T053000Z-SPC36M
+G-0149,indicator,0-25 mm,0.001,press PR-03,6,active,20260106T053000Z-SPC36M
+G-0150,caliper,0-150 mm,0.01,press PR-03,12,active,20260106T053000Z-SPC36M
+G-0151,caliper,0-150 mm,0.01,press PR-03,12,active,20260106T053000Z-SPC36M
+G-0152,caliper,0-150 mm,0.01,press PR-03,12,active,20260106T053000Z-SPC36M
+G-0153,micrometer,0-25 mm,0.001,press PR-03,12,active,20260106T053000Z-SPC36M
+G-0154,micrometer,0-25 mm,0.001,press PR-03,12,active,20260106T053000Z-SPC36M
+G-0155,pin,go/no-go set,,press PR-04,6,active,20260106T053000Z-SPC36M
+G-0156,pin,go/no-go set,,press PR-04,6,active,20260106T053000Z-SPC36M
+G-0157,pin,go/no-go set,,press PR-04,6,active,20260106T053000Z-SPC36M
+G-0158,pin,go/no-go set,,press PR-04,6,active,20260106T053000Z-SPC36M
+G-0159,pin,go/no-go set,,press PR-04,6,active,20260106T053000Z-SPC36M
+G-0160,pin,go/no-go set,,press PR-04,6,active,20260106T053000Z-SPC36M
+G-0161,pin,go/no-go set,,press PR-04,6,active,20260106T053000Z-SPC36M
+G-0162,pin,go/no-go set,,press PR-04,6,active,20260106T053000Z-SPC36M
+G-0163,indicator,0-25 mm,0.001,press PR-04,6,active,20260106T053000Z-SPC36M
+G-0164,indicator,0-25 mm,0.001,press PR-04,6,active,20260106T053000Z-SPC36M
+G-0165,indicator,0-25 mm,0.001,press PR-04,6,active,20260106T053000Z-SPC36M
+G-0166,indicator,0-25 mm,0.001,press PR-04,6,active,20260106T053000Z-SPC36M
+G-0167,indicator,0-25 mm,0.001,press PR-04,6,active,20260106T053000Z-SPC36M
+G-0168,caliper,0-150 mm,0.01,press PR-04,12,active,20260106T053000Z-SPC36M
+G-0169,caliper,0-150 mm,0.01,press PR-04,12,active,20260106T053000Z-SPC36M
+G-0170,caliper,0-150 mm,0.01,press PR-04,12,active,20260106T053000Z-SPC36M
+G-0171,micrometer,0-25 mm,0.001,press PR-04,12,active,20260106T053000Z-SPC36M
+G-0172,micrometer,0-25 mm,0.001,press PR-04,12,active,20260106T053000Z-SPC36M
+G-0173,pin,go/no-go set,,press PR-05,6,active,20260106T053000Z-SPC36M
+G-0174,pin,go/no-go set,,press PR-05,6,active,20260106T053000Z-SPC36M
+G-0175,pin,go/no-go set,,press PR-05,6,active,20260106T053000Z-SPC36M
+G-0176,pin,go/no-go set,,press PR-05,6,active,20260106T053000Z-SPC36M
+G-0177,pin,go/no-go set,,press PR-05,6,active,20260106T053000Z-SPC36M
+G-0178,pin,go/no-go set,,press PR-05,6,active,20260106T053000Z-SPC36M
+G-0179,pin,go/no-go set,,press PR-05,6,active,20260106T053000Z-SPC36M
+G-0180,pin,go/no-go set,,press PR-05,6,active,20260106T053000Z-SPC36M
+G-0181,indicator,0-25 mm,0.001,press PR-05,6,active,20260106T053000Z-SPC36M
+G-0182,indicator,0-25 mm,0.001,press PR-05,6,active,20260106T053000Z-SPC36M
+G-0183,indicator,0-25 mm,0.001,press PR-05,6,active,20260106T053000Z-SPC36M
+G-0184,indicator,0-25 mm,0.001,press PR-05,6,active,20260106T053000Z-SPC36M
+G-0185,indicator,0-25 mm,0.001,press PR-05,6,active,20260106T053000Z-SPC36M
+G-0186,caliper,0-150 mm,0.01,press PR-05,12,active,20260106T053000Z-SPC36M
+G-0187,caliper,0-150 mm,0.01,press PR-05,12,active,20260106T053000Z-SPC36M
+G-0188,caliper,0-150 mm,0.01,press PR-05,12,active,20260106T053000Z-SPC36M
+G-0189,micrometer,0-25 mm,0.001,press PR-05,12,active,20260106T053000Z-SPC36M
+G-0190,micrometer,0-25 mm,0.001,press PR-05,12,active,20260106T053000Z-SPC36M
+G-0191,pin,go/no-go set,,press PR-06,6,active,20260106T053000Z-SPC36M
+G-0192,pin,go/no-go set,,press PR-06,6,active,20260106T053000Z-SPC36M
+G-0193,pin,go/no-go set,,press PR-06,6,active,20260106T053000Z-SPC36M
+G-0194,pin,go/no-go set,,press PR-06,6,active,20260106T053000Z-SPC36M
+G-0195,pin,go/no-go set,,press PR-06,6,active,20260106T053000Z-SPC36M
+G-0196,pin,go/no-go set,,press PR-06,6,active,20260106T053000Z-SPC36M
+G-0197,pin,go/no-go set,,press PR-06,6,active,20260106T053000Z-SPC36M
+G-0198,pin,go/no-go set,,press PR-06,6,active,20260106T053000Z-SPC36M
+G-0199,indicator,0-25 mm,0.001,press PR-06,6,active,20260106T053000Z-SPC36M
+G-0200,indicator,0-25 mm,0.001,press PR-06,6,active,20260106T053000Z-SPC36M
+G-0201,indicator,0-25 mm,0.001,press PR-06,6,active,20260106T053000Z-SPC36M
+G-0202,indicator,0-25 mm,0.001,press PR-06,6,active,20260106T053000Z-SPC36M
+G-0203,indicator,0-25 mm,0.001,press PR-06,6,active,20260106T053000Z-SPC36M
+G-0204,caliper,0-150 mm,0.01,press PR-06,12,active,20260106T053000Z-SPC36M
+G-0205,caliper,0-150 mm,0.01,press PR-06,12,active,20260106T053000Z-SPC36M
+G-0206,caliper,0-150 mm,0.01,press PR-06,12,active,20260106T053000Z-SPC36M
+G-0207,micrometer,0-25 mm,0.001,press PR-06,12,active,20260106T053000Z-SPC36M
+G-0208,micrometer,0-25 mm,0.001,press PR-06,12,active,20260106T053000Z-SPC36M
+G-0209,pin,go/no-go set,,press PR-07,6,active,20260106T053000Z-SPC36M
+G-0210,pin,go/no-go set,,press PR-07,6,active,20260106T053000Z-SPC36M
+G-0211,pin,go/no-go set,,press PR-07,6,active,20260106T053000Z-SPC36M
+G-0212,pin,go/no-go set,,press PR-07,6,active,20260106T053000Z-SPC36M
+G-0213,pin,go/no-go set,,press PR-07,6,active,20260106T053000Z-SPC36M
+G-0214,pin,go/no-go set,,press PR-07,6,active,20260106T053000Z-SPC36M
+G-0215,pin,go/no-go set,,press PR-07,6,active,20260106T053000Z-SPC36M
+G-0216,pin,go/no-go set,,press PR-07,6,active,20260106T053000Z-SPC36M
+G-0217,indicator,0-25 mm,0.001,press PR-07,6,active,20260106T053000Z-SPC36M
+G-0218,indicator,0-25 mm,0.001,press PR-07,6,active,20260106T053000Z-SPC36M
+G-0219,indicator,0-25 mm,0.001,press PR-07,6,active,20260106T053000Z-SPC36M
+G-0220,indicator,0-25 mm,0.001,press PR-07,6,active,20260106T053000Z-SPC36M
+G-0221,indicator,0-25 mm,0.001,press PR-07,6,active,20260106T053000Z-SPC36M
+G-0222,caliper,0-150 mm,0.01,press PR-07,12,active,20260106T053000Z-SPC36M
+G-0223,caliper,0-150 mm,0.01,press PR-07,12,active,20260106T053000Z-SPC36M
+G-0224,caliper,0-150 mm,0.01,press PR-07,12,active,20260106T053000Z-SPC36M
+G-0225,micrometer,0-25 mm,0.001,press PR-07,12,active,20260106T053000Z-SPC36M
+G-0226,micrometer,0-25 mm,0.001,press PR-07,12,active,20260106T053000Z-SPC36M
+G-0227,pin,go/no-go set,,press PR-08,6,active,20260106T053000Z-SPC36M
+G-0228,pin,go/no-go set,,press PR-08,6,active,20260106T053000Z-SPC36M
+G-0229,pin,go/no-go set,,press PR-08,6,active,20260106T053000Z-SPC36M
+G-0230,pin,go/no-go set,,press PR-08,6,active,20260106T053000Z-SPC36M
+G-0231,pin,go/no-go set,,press PR-08,6,active,20260106T053000Z-SPC36M
+G-0232,pin,go/no-go set,,press PR-08,6,active,20260106T053000Z-SPC36M
+G-0233,pin,go/no-go set,,press PR-08,6,active,20260106T053000Z-SPC36M
+G-0234,pin,go/no-go set,,press PR-08,6,active,20260106T053000Z-SPC36M
+G-0235,indicator,0-25 mm,0.001,press PR-08,6,lost,20260106T053000Z-SPC36M
+G-0236,indicator,0-25 mm,0.001,press PR-08,6,active,20260106T053000Z-SPC36M
+G-0237,indicator,0-25 mm,0.001,press PR-08,6,active,20260106T053000Z-SPC36M
+G-0238,indicator,0-25 mm,0.001,press PR-08,6,active,20260106T053000Z-SPC36M
+G-0239,indicator,0-25 mm,0.001,press PR-08,6,active,20260106T053000Z-SPC36M
+G-0240,caliper,0-150 mm,0.01,press PR-08,12,active,20260106T053000Z-SPC36M
+G-0241,caliper,0-150 mm,0.01,press PR-08,12,active,20260106T053000Z-SPC36M
+G-0242,caliper,0-150 mm,0.01,press PR-08,12,active,20260106T053000Z-SPC36M
+G-0243,micrometer,0-25 mm,0.001,press PR-08,12,active,20260106T053000Z-SPC36M
+G-0244,micrometer,0-25 mm,0.001,press PR-08,12,active,20260106T053000Z-SPC36M
+G-0245,pin,go/no-go set,,press PR-09,6,active,20260106T053000Z-SPC36M
+G-0246,pin,go/no-go set,,press PR-09,6,active,20260106T053000Z-SPC36M
+G-0247,pin,go/no-go set,,press PR-09,6,active,20260106T053000Z-SPC36M
+G-0248,pin,go/no-go set,,press PR-09,6,active,20260106T053000Z-SPC36M
+G-0249,pin,go/no-go set,,press PR-09,6,active,20260106T053000Z-SPC36M
+G-0250,pin,go/no-go set,,press PR-09,6,active,20260106T053000Z-SPC36M
+G-0251,pin,go/no-go set,,press PR-09,6,active,20260106T053000Z-SPC36M
+G-0252,pin,go/no-go set,,press PR-09,6,active,20260106T053000Z-SPC36M
+G-0253,indicator,0-25 mm,0.001,press PR-09,6,active,20260106T053000Z-SPC36M
+G-0254,indicator,0-25 mm,0.001,press PR-09,6,active,20260106T053000Z-SPC36M
+G-0255,indicator,0-25 mm,0.001,press PR-09,6,active,20260106T053000Z-SPC36M
+G-0256,indicator,0-25 mm,0.001,press PR-09,6,active,20260106T053000Z-SPC36M
+G-0257,indicator,0-25 mm,0.001,press PR-09,6,active,20260106T053000Z-SPC36M
+G-0258,caliper,0-150 mm,0.01,press PR-09,12,active,20260106T053000Z-SPC36M
+G-0259,caliper,0-150 mm,0.01,press PR-09,12,active,20260106T053000Z-SPC36M
+G-0260,caliper,0-150 mm,0.01,press PR-09,12,active,20260106T053000Z-SPC36M
+G-0261,micrometer,0-25 mm,0.001,press PR-09,12,active,20260106T053000Z-SPC36M
+G-0262,micrometer,0-25 mm,0.001,press PR-09,12,active,20260106T053000Z-SPC36M
+G-0263,pin,go/no-go set,,press PR-10,6,active,20260106T053000Z-SPC36M
+G-0264,pin,go/no-go set,,press PR-10,6,active,20260106T053000Z-SPC36M
+G-0265,pin,go/no-go set,,press PR-10,6,active,20260106T053000Z-SPC36M
+G-0266,pin,go/no-go set,,press PR-10,6,active,20260106T053000Z-SPC36M
+G-0267,pin,go/no-go set,,press PR-10,6,active,20260106T053000Z-SPC36M
+G-0268,pin,go/no-go set,,press PR-10,6,active,20260106T053000Z-SPC36M
+G-0269,pin,go/no-go set,,press PR-10,6,active,20260106T053000Z-SPC36M
+G-0270,pin,go/no-go set,,press PR-10,6,active,20260106T053000Z-SPC36M
+G-0271,indicator,0-25 mm,0.001,press PR-10,6,active,20260106T053000Z-SPC36M
+G-0272,indicator,0-25 mm,0.001,press PR-10,6,active,20260106T053000Z-SPC36M
+G-0273,indicator,0-25 mm,0.001,press PR-10,6,active,20260106T053000Z-SPC36M
+G-0274,indicator,0-25 mm,0.001,press PR-10,6,active,20260106T053000Z-SPC36M
+G-0275,indicator,0-25 mm,0.001,press PR-10,6,active,20260106T053000Z-SPC36M
+G-0276,caliper,0-150 mm,0.01,press PR-10,12,active,20260106T053000Z-SPC36M
+G-0277,caliper,0-150 mm,0.01,press PR-10,12,active,20260106T053000Z-SPC36M
+G-0278,caliper,0-150 mm,0.01,press PR-10,12,active,20260106T053000Z-SPC36M
+G-0279,micrometer,0-25 mm,0.001,press PR-10,12,active,20260106T053000Z-SPC36M
+G-0280,micrometer,0-25 mm,0.001,press PR-10,12,active,20260106T053000Z-SPC36M
+G-0281,pin,go/no-go set,,press PR-11,6,active,20260106T053000Z-SPC36M
+G-0282,pin,go/no-go set,,press PR-11,6,active,20260106T053000Z-SPC36M
+G-0283,pin,go/no-go set,,press PR-11,6,active,20260106T053000Z-SPC36M
+G-0284,pin,go/no-go set,,press PR-11,6,active,20260106T053000Z-SPC36M
+G-0285,pin,go/no-go set,,press PR-11,6,active,20260106T053000Z-SPC36M
+G-0286,pin,go/no-go set,,press PR-11,6,active,20260106T053000Z-SPC36M
+G-0287,pin,go/no-go set,,press PR-11,6,active,20260106T053000Z-SPC36M
+G-0288,pin,go/no-go set,,press PR-11,6,active,20260106T053000Z-SPC36M
+G-0289,indicator,0-25 mm,0.001,press PR-11,6,active,20260106T053000Z-SPC36M
+G-0290,indicator,0-25 mm,0.001,press PR-11,6,active,20260106T053000Z-SPC36M
+G-0291,indicator,0-25 mm,0.001,press PR-11,6,active,20260106T053000Z-SPC36M
+G-0292,indicator,0-25 mm,0.001,press PR-11,6,active,20260106T053000Z-SPC36M
+G-0293,indicator,0-25 mm,0.001,press PR-11,6,active,20260106T053000Z-SPC36M
+G-0294,caliper,0-150 mm,0.01,press PR-11,12,active,20260106T053000Z-SPC36M
+G-0295,caliper,0-150 mm,0.01,press PR-11,12,active,20260106T053000Z-SPC36M
+G-0296,caliper,0-150 mm,0.01,press PR-11,12,active,20260106T053000Z-SPC36M
+G-0297,micrometer,0-25 mm,0.001,press PR-11,12,active,20260106T053000Z-SPC36M
+G-0298,micrometer,0-25 mm,0.001,press PR-11,12,active,20260106T053000Z-SPC36M
+G-0299,burr gauge,0-1 mm,0.005,lab,6,active,20260106T053000Z-SPC36M
+G-0300,burr gauge,0-1 mm,0.005,lab,6,active,20260106T053000Z-SPC36M
+G-0301,hardness tester,HRB,0.1,receiving,6,active,20260106T053000Z-SPC36M
+G-0302,micrometer,various,0.001,receiving,12,active,20260106T053000Z-SPC36M
+G-0303,micrometer,various,0.001,receiving,12,active,20260106T053000Z-SPC36M
+G-0304,micrometer,various,0.001,receiving,12,active,20260106T053000Z-SPC36M
+G-0305,micrometer,various,0.001,receiving,12,active,20260106T053000Z-SPC36M
+G-0306,micrometer,various,0.001,receiving,12,active,20260106T053000Z-SPC36M
+G-0307,micrometer,various,0.001,receiving,12,active,20260106T053000Z-SPC36M
+G-0308,caliper,various,0.01,lab,12,active,20260106T053000Z-SPC36M
+G-0309,caliper,various,0.01,lab,12,active,20260106T053000Z-SPC36M
+G-0310,caliper,various,0.01,lab,12,active,20260106T053000Z-SPC36M
+G-0311,caliper,various,0.01,lab,12,active,20260106T053000Z-SPC36M
+G-0312,caliper,various,0.01,lab,12,active,20260106T053000Z-SPC36M
+G-0313,caliper,various,0.01,lab,12,active,20260106T053000Z-SPC36M
+G-0314,plug,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0315,plug,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0316,plug,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0317,plug,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0318,plug,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0319,plug,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0320,plug,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0321,indicator,various,0.001,lab,12,active,20260106T053000Z-SPC36M
+G-0322,indicator,various,0.001,lab,12,active,20260106T053000Z-SPC36M
+G-0323,indicator,various,0.001,lab,12,active,20260106T053000Z-SPC36M
+G-0324,indicator,various,0.001,lab,12,active,20260106T053000Z-SPC36M
+G-0325,indicator,various,0.001,lab,12,active,20260106T053000Z-SPC36M
+G-0326,pin,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0327,pin,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0328,pin,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0329,pin,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0330,pin,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0331,pin,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0332,pin,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0333,pin,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0334,pin,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0335,pin,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0336,pin,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0337,pin,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0338,pin,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0339,pin,various,,lab,12,active,20260106T053000Z-SPC36M
+G-0340,pin,various,,lab,12,active,20260106T053000Z-SPC36M
