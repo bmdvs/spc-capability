@@ -82,6 +82,8 @@ docs/                  published pages and screenshots
 
 ## Running it
 
+Run from `molding_predictive_quality/`.
+
 ```bash
 python -m data_source.generate.run_generator
 ```
