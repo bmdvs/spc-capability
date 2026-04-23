@@ -1,0 +1,19 @@
+section,value_as_printed,read_from
+Tiles,749,"mart_dashboard_monthly: pieces_rejected over pieces_shipped, current month"
+Tiles,276,"mart_dashboard_monthly: pieces_rejected over pieces_shipped, 12 months"
+Tiles,301,mart_dashboard_monthly: the 12 months before
+Tiles,15,"mart_dashboard_monthly.sorting_events, 12 months"
+Tiles,15,"mart_dashboard_monthly.sorting_events, the 12 months before"
+Tiles,2.69%,"mart_dashboard_monthly: scrap_booked and rework_labor_booked over revenue, 12 months"
+Tiles,3.11%,mart_dashboard_monthly: the 12 months before
+Tiles,1.37,"mart_dashboard_capability.production_ppk, median, formed"
+Tiles,89,mart_dashboard_capability: formed characteristics
+Tiles,4.5,"mart_dashboard_monthly: alarm_signals over variable_subgroups, current month"
+Tiles,99%,"mart_dashboard_monthly: signals_with_an_action_recorded over alarm_signals, current month"
+Customer PPM,"table: PPM by customer, 12 months",mart_dashboard_ppm_by_customer
+Sorting,table: sorting events by press and month,"mart_dashboard_by_press.sorting_events, quantity_sorted"
+Production capability,60,dbt variable dashboard_min_subgroups
+Production capability,table: capability by press set and class,mart_dashboard_capability
+Alarm signals,"table: signals by press, current month",mart_dashboard_by_press
+Gauge study status,table: fixtures by status,mart_dashboard_gauge_studies
+Burr nonconformances,table: burr nonconformances by year,mart_burr_nonconformances
