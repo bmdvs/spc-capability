@@ -1,15 +1,15 @@
 # mfg-spc-program
 
-Statistical process control at a progressive-die metal stamper, January 2023 to December 2025: an assessment of every chart in use on the shop's own record, a redesign of the charts, limits, sampling and reaction plan on three pilot presses with per-stroke tonnage monitoring, and the results against the same months of 2024 and 2023 with the other presses as the comparison. Nine analyses feed two reports, a control plan and chart book, three SPC boards and a plant quality dashboard, all computed from the shop's exported records by one pipeline.
+Statistical process control at a progressive-die metal stamper, January 2023 to December 2025: an assessment of every chart in use on the shop's own record, a redesign of the charts, limits, sampling and reaction plan on three pilot presses with per-stroke tonnage monitoring, and the results against the same months of 2024 and 2023 with the other presses as the comparison. Nine analyses feed two reports, an SPC terminal screen and a press monitor screen for PR-03, an SPC monthly summary, and control plans and a chart book, all computed from the shop's exported records by one pipeline.
 
-[![SPC board, PR-06](docs/readme/pr_06_board.png)](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/spc_board/pr_06.html)
+[![SPC terminal screen, PR-03](docs/readme/spc_terminal_screen.png)](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)
 
 ## What is included
 
 - Two reports: the [SPC Assessment](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_assessment.html) and the [SPC Redesign and Results](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_redesign_and_results.html), each with findings and exhibits, and an appendix of the tables and statistical detail behind them.
-- The [control plan and chart book](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/control_plan/control_plan_and_chart_book.html): what is in force at 31 December 2025 on the 30 parts that run on the pilot presses, three in full.
-- Three SPC boards, one per pilot press: [PR-03](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/spc_board/pr_03.html), [PR-06](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/spc_board/pr_06.html), [PR-09](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/spc_board/pr_09.html).
-- The [plant quality dashboard](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/dashboard/index.html), December 2025 as the current month. Index of deliverables: [docs/index.html](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/index.html).
+- The [SPC terminal screen](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html) and the [press monitor screen](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/press_monitor_pr_03.html) for PR-03.
+- The [SPC monthly summary](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/monthly_summary/spc_monthly_summary_2025_12.html) for December 2025.
+- The [control plans and chart book](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/control_plan/control_plan_and_chart_book.html). Index of deliverables: [docs/index.html](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/index.html).
 - The pipeline from the exported files to the marts: dlt, DuckDB and dbt with schema tests, and one build command that writes every table, figure and page.
 
 ## Business Context
@@ -38,7 +38,7 @@ From March to December 2025 on the pilot presses, against the same months of 202
 
 Statistics: control charts and capability indices by AIAG SPC, 2nd edition, with within-subgroup sigma pooled across subgroups and overall sigma from all readings; stability by Western Electric rules 1 to 4; average run length by the Markov chain method; variance components by a nested random-effects model fitted by REML; gauge R&R by the AIAG MSA, 4th edition, ANOVA method with %tolerance at 6 sigma and ndc; attribute agreement with Fleiss' kappa; Anderson-Darling with the Box-Cox transformation on bounded characteristics; lag-1 autocorrelation of subgroup means within a run and coil; an EWMA for autocorrelated data on the per-stroke total and a residual chart on each channel's share; the exact Poisson rate test on event and complaint counts, a bootstrap interval over complaints on PPM, and the two-proportion score test with the Newcombe interval. Every result carries its interval, its sample size and its coverage.
 
-Data engineering: the exported files are loaded to DuckDB with dlt, the per-stroke and per-minute press monitor exports are read in place as Parquet, and a dbt project builds 84 staging, intermediate and mart models with schema tests on every layer. Every table, figure and page is written by scripts that read the marts; no number is typed into a page, and two consecutive builds are byte-identical. Each report, the control plan, the boards and the dashboard has a table of every number it prints with the mart it is read from, under `analytics/reports/traces/`.
+Data engineering: the exported files are loaded to DuckDB with dlt, the per-stroke and per-minute press monitor exports are read in place as Parquet, and a dbt project builds 85 staging, intermediate and mart models with schema tests on every layer. Every table, figure and page is written by scripts that read the marts; no number is typed into a page, and two consecutive builds are byte-identical. Each report, the two screens, the monthly summary and the control plans has a table of every number it prints with the mart it is read from, under `analytics/reports/traces/`.
 
 ## Data
 
@@ -57,7 +57,7 @@ Conditions of the record, each stated in the reports where it bears on a figure:
 | Accounting | quality cost lines, contribution by part | 924 |
 | Study worksheets | seven gauge R&R studies and two attribute agreement studies, as recorded | 9 |
 
-Pipeline: `pipeline/load` loads each exported file to the `raw` schema; `pipeline/dbt` builds one staging model per source table, the intermediate models (the characteristic history with run, press, coil, die shot count, limits in force and gauge status joined; coil assignment; sharpening intervals; the trace of each sorting event to its die event and the check before) and the marts each analysis, the boards and the dashboard read. Every mart carries the export batch id.
+Pipeline: `pipeline/load` loads each exported file to the `raw` schema; `pipeline/dbt` builds one staging model per source table, the intermediate models (the characteristic history with run, press, coil, die shot count, limits in force and gauge status joined; coil assignment; sharpening intervals; the trace of each sorting event to its die event and the check before) and the marts each analysis, the two screens, the monthly summary and the control plans read. Every mart carries the export batch id.
 
 ## How to run
 
@@ -85,7 +85,7 @@ cd pipeline/dbt && dbt build --profiles-dir . && cd ../..
 python -m analytics.build_all
 ```
 
-The last command writes every figure under `docs/figures`, the two reports, the control plan and chart book, the three boards, the dashboard, `docs/index.html`, this README and the number traces.
+The last command writes every figure under `docs/figures`, the two reports, the two screens, the monthly summary, the control plans and chart book, `docs/index.html`, this README and the number traces.
 
 ## Author
 
