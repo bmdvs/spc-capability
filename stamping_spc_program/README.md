@@ -6,7 +6,7 @@ Statistical process control at a progressive-die metal stamper, January 2023 to 
 
 ## What is included
 
-- Two reports: the [SPC Assessment](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_assessment.html) and the [SPC Redesign and Results](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_redesign_and_results.html), each with findings, exhibits, actions and an appendix of the tables behind every finding.
+- Two reports: the [SPC Assessment](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_assessment.html) and the [SPC Redesign and Results](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_redesign_and_results.html), each with findings and exhibits, and an appendix of the tables and statistical detail behind them.
 - The [control plan and chart book](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/control_plan/control_plan_and_chart_book.html): what is in force at 31 December 2025 on the 30 parts that run on the pilot presses, three in full.
 - Three SPC boards, one per pilot press: [PR-03](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/spc_board/pr_03.html), [PR-06](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/spc_board/pr_06.html), [PR-09](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/spc_board/pr_09.html).
 - The [plant quality dashboard](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/dashboard/index.html), December 2025 as the current month. Index of deliverables: [docs/index.html](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/index.html).
