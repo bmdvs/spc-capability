@@ -12,7 +12,16 @@ Read the [case README](molding_predictive_quality/README.md) and the [deliverabl
 
 ## Metal stamping: SPC program
 
-An SPC program for a progressive-die metal stamper with eleven presses: an assessment of every chart in use (limits, capability, the risk window between checks, measurement systems, adjustment, die wear and recording), a redesign of the charts, limits, sampling and reaction plan on three pilot presses with per-stroke tonnage monitoring, and the results against the same months of the two years before, with the other presses as the comparison. It delivers the SPC Assessment report, the SPC Redesign and Results report, an SPC terminal screen and a press monitor screen for PR-03, an SPC monthly summary, and control plans and a chart book.
+An SPC program for a progressive-die metal stamper with eleven presses, in three parts:
+- an assessment of every chart in use in 2025: chart selection and limits, capability, measurement systems, sampling and recording, and reaction, with the sources of variation behind the gaps;
+- a redesign of the charts, limits, sampling and reaction plan on three pilot presses from February 2026, with per-stroke tonnage monitoring from April 2026;
+- the results for April to June 2026, with the other eight presses as the comparison.
+
+It delivers:
+- the SPC Assessment and SPC Redesign and Results reports;
+- an SPC terminal screen and a press monitor screen for PR-03;
+- the SPC monthly summary for June 2026;
+- control plans and a chart book.
 
 [![SPC terminal screen, PR-03](stamping_spc_program/docs/readme/spc_terminal_screen.png)](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)
 
