@@ -1,80 +1,80 @@
 corrective_action_id,source,opened,owner,root_cause_text,actions,verification,closed,export_batch_id
-CA-23-001,CMP-23-003,2023-01-17,E-1038,burr: material variation,operators retrained,"30-day review, no recurrence",2023-02-14,20260106T053000Z-SPC36M
-CA-23-002,SE-23-003,2023-01-23,E-1039,nonconforming parts sorted: inspection method,check added to the control plan,next three lots audited,2023-02-25,20260106T053000Z-SPC36M
-CA-23-003,CMP-23-005,2023-01-31,E-1039,dimension: die condition,operators retrained,customer accepted the 8D,2023-02-23,20260106T053000Z-SPC36M
-CA-23-004,CMP-23-007,2023-02-16,E-1039,burr: die condition,die repaired and first-piece approved,"30-day review, no recurrence",2023-04-15,20260106T053000Z-SPC36M
-CA-23-005,CMP-23-008,2023-02-25,E-1038,packaging: inspection method,check added to the control plan,next three lots audited,2023-05-11,20260106T053000Z-SPC36M
-CA-23-006,CMP-23-017,2023-04-20,E-1038,formed dimension: die condition,100% sort of stock and pipeline,next three lots audited,2023-05-16,20260106T053000Z-SPC36M
-CA-23-007,CMP-23-016,2023-04-21,E-1038,scratch: operator did not detect at the check,100% sort of stock and pipeline,customer accepted the 8D,2023-07-02,20260106T053000Z-SPC36M
-CA-23-008,CMP-23-020,2023-05-10,E-1039,formed dimension: die condition,100% sort of stock and pipeline,"30-day review, no recurrence",2023-08-27,20260106T053000Z-SPC36M
-CA-23-009,CMP-23-022,2023-05-11,E-1038,mixed part: operator did not detect at the check,operators retrained,next three lots audited,2023-06-17,20260106T053000Z-SPC36M
-CA-23-010,SE-23-007,2023-05-14,E-1038,nonconforming parts sorted: die condition,die repaired and first-piece approved,customer accepted the 8D,2023-08-21,20260106T053000Z-SPC36M
-CA-23-011,CMP-23-024,2023-05-18,E-1039,formed dimension: inspection method,100% sort of stock and pipeline,next three lots audited,2023-08-11,20260106T053000Z-SPC36M
-CA-23-012,CMP-23-026,2023-05-29,E-1039,burr: material variation,die repaired and first-piece approved,next three lots audited,2023-08-07,20260106T053000Z-SPC36M
-CA-23-013,CMP-23-028,2023-06-22,E-1038,packaging: inspection method,operators retrained,customer accepted the 8D,2023-07-25,20260106T053000Z-SPC36M
-CA-23-014,SE-23-010,2023-07-01,E-1039,nonconforming parts sorted: die condition,check added to the control plan,"30-day review, no recurrence",2023-08-09,20260106T053000Z-SPC36M
-CA-23-015,CMP-23-029,2023-07-02,E-1038,burr: material variation,die repaired and first-piece approved,"30-day review, no recurrence",2023-08-10,20260106T053000Z-SPC36M
-CA-23-016,SE-23-012,2023-07-11,E-1039,nonconforming parts sorted: operator did not detect at the check,operators retrained,next three lots audited,2023-08-23,20260106T053000Z-SPC36M
-CA-23-017,SE-23-013,2023-07-29,E-1039,nonconforming parts sorted: operator did not detect at the check,check added to the control plan,customer accepted the 8D,2023-10-20,20260106T053000Z-SPC36M
-CA-23-018,CMP-23-038,2023-08-13,E-1039,dimension: material variation,100% sort of stock and pipeline,customer accepted the 8D,2023-11-17,20260106T053000Z-SPC36M
-CA-23-019,SE-23-018,2023-09-14,E-1038,nonconforming parts sorted: material variation,100% sort of stock and pipeline,customer accepted the 8D,2023-12-23,20260106T053000Z-SPC36M
-CA-23-020,CMP-23-044,2023-09-21,E-1038,mixed part: material variation,100% sort of stock and pipeline,"30-day review, no recurrence",2023-10-14,20260106T053000Z-SPC36M
-CA-23-021,CMP-23-047,2023-10-18,E-1039,formed dimension: inspection method,100% sort of stock and pipeline,next three lots audited,2024-01-03,20260106T053000Z-SPC36M
-CA-23-022,SE-23-022,2023-10-22,E-1038,nonconforming parts sorted: material variation,100% sort of stock and pipeline,customer accepted the 8D,2023-12-16,20260106T053000Z-SPC36M
-CA-23-023,CMP-23-049,2023-10-24,E-1039,burr: inspection method,100% sort of stock and pipeline,"30-day review, no recurrence",2024-01-27,20260106T053000Z-SPC36M
-CA-23-024,CMP-23-053,2023-11-13,E-1038,formed dimension: material variation,operators retrained,"30-day review, no recurrence",2024-02-17,20260106T053000Z-SPC36M
-CA-23-025,CMP-23-054,2023-11-16,E-1038,burr: operator did not detect at the check,die repaired and first-piece approved,customer accepted the 8D,2023-12-10,20260106T053000Z-SPC36M
-CA-23-026,CMP-23-056,2023-11-23,E-1039,packaging: material variation,operators retrained,customer accepted the 8D,2024-01-31,20260106T053000Z-SPC36M
-CA-24-001,CMP-24-003,2024-01-25,E-1038,scratch: inspection method,die repaired and first-piece approved,next three lots audited,2024-02-25,20260106T053000Z-SPC36M
-CA-24-002,CMP-24-004,2024-02-13,E-1039,missing or deformed hole: material variation,100% sort of stock and pipeline,"30-day review, no recurrence",2024-03-05,20260106T053000Z-SPC36M
-CA-24-003,SE-24-002,2024-02-28,E-1039,nonconforming parts sorted: operator did not detect at the check,operators retrained,next three lots audited,2024-04-07,20260106T053000Z-SPC36M
-CA-24-004,CMP-24-007,2024-03-29,E-1038,missing or deformed hole: inspection method,operators retrained,customer accepted the 8D,2024-05-31,20260106T053000Z-SPC36M
-CA-24-005,CMP-24-008,2024-03-30,E-1038,missing or deformed hole: inspection method,operators retrained,"30-day review, no recurrence",2024-07-15,20260106T053000Z-SPC36M
-CA-24-006,SE-24-003,2024-03-31,E-1039,nonconforming parts sorted: operator did not detect at the check,100% sort of stock and pipeline,"30-day review, no recurrence",2024-07-03,20260106T053000Z-SPC36M
-CA-24-007,CMP-24-009,2024-04-03,E-1038,formed dimension: operator did not detect at the check,check added to the control plan,"30-day review, no recurrence",2024-06-25,20260106T053000Z-SPC36M
-CA-24-008,SE-24-004,2024-04-06,E-1038,nonconforming parts sorted: die condition,die repaired and first-piece approved,next three lots audited,2024-06-08,20260106T053000Z-SPC36M
-CA-24-009,CMP-24-010,2024-04-07,E-1038,burr: operator did not detect at the check,check added to the control plan,customer accepted the 8D,2024-06-26,20260106T053000Z-SPC36M
-CA-24-010,SE-24-005,2024-04-24,E-1038,nonconforming parts sorted: inspection method,100% sort of stock and pipeline,customer accepted the 8D,2024-05-27,20260106T053000Z-SPC36M
-CA-24-011,CMP-24-015,2024-05-10,E-1038,mixed part: operator did not detect at the check,operators retrained,customer accepted the 8D,2024-06-19,20260106T053000Z-SPC36M
-CA-24-012,CMP-24-017,2024-05-14,E-1038,burr: material variation,100% sort of stock and pipeline,next three lots audited,2024-06-17,20260106T053000Z-SPC36M
-CA-24-013,CMP-24-020,2024-05-27,E-1039,missing or deformed hole: operator did not detect at the check,operators retrained,"30-day review, no recurrence",2024-08-27,20260106T053000Z-SPC36M
-CA-24-014,CMP-24-021,2024-06-06,E-1038,formed dimension: die condition,100% sort of stock and pipeline,next three lots audited,2024-07-20,20260106T053000Z-SPC36M
-CA-24-015,CMP-24-024,2024-06-20,E-1039,missing or deformed hole: die condition,check added to the control plan,next three lots audited,2024-09-22,20260106T053000Z-SPC36M
-CA-24-016,CMP-24-026,2024-07-02,E-1039,formed dimension: material variation,die repaired and first-piece approved,next three lots audited,2024-07-22,20260106T053000Z-SPC36M
-CA-24-017,CMP-24-028,2024-07-23,E-1039,missing or deformed hole: die condition,operators retrained,"30-day review, no recurrence",2024-08-27,20260106T053000Z-SPC36M
-CA-24-018,CMP-24-030,2024-07-28,E-1039,missing or deformed hole: operator did not detect at the check,operators retrained,"30-day review, no recurrence",2024-10-20,20260106T053000Z-SPC36M
-CA-24-019,CMP-24-031,2024-08-05,E-1039,dimension: operator did not detect at the check,die repaired and first-piece approved,next three lots audited,2024-09-06,20260106T053000Z-SPC36M
-CA-24-020,CMP-24-033,2024-08-15,E-1038,formed dimension: operator did not detect at the check,die repaired and first-piece approved,customer accepted the 8D,2024-11-03,20260106T053000Z-SPC36M
-CA-24-021,CMP-24-036,2024-08-29,E-1039,formed dimension: operator did not detect at the check,die repaired and first-piece approved,customer accepted the 8D,2024-11-16,20260106T053000Z-SPC36M
-CA-24-022,CMP-24-038,2024-09-06,E-1038,formed dimension: material variation,operators retrained,next three lots audited,2024-10-15,20260106T053000Z-SPC36M
-CA-24-023,CMP-24-041,2024-10-03,E-1038,missing or deformed hole: inspection method,100% sort of stock and pipeline,"30-day review, no recurrence",2024-11-05,20260106T053000Z-SPC36M
-CA-24-024,CMP-24-042,2024-10-04,E-1039,missing or deformed hole: material variation,100% sort of stock and pipeline,customer accepted the 8D,2025-01-24,20260106T053000Z-SPC36M
-CA-24-025,SE-24-012,2024-10-21,E-1038,nonconforming parts sorted: die condition,die repaired and first-piece approved,customer accepted the 8D,2025-01-12,20260106T053000Z-SPC36M
-CA-24-026,CMP-24-048,2024-11-09,E-1038,missing or deformed hole: operator did not detect at the check,100% sort of stock and pipeline,next three lots audited,2025-02-13,20260106T053000Z-SPC36M
-CA-24-027,CMP-24-049,2024-11-11,E-1039,scratch: die condition,operators retrained,customer accepted the 8D,2024-12-31,20260106T053000Z-SPC36M
-CA-24-028,CMP-24-050,2024-11-28,E-1039,burr: material variation,100% sort of stock and pipeline,"30-day review, no recurrence",2025-01-05,20260106T053000Z-SPC36M
-CA-24-029,CMP-24-051,2024-12-01,E-1039,missing or deformed hole: die condition,check added to the control plan,"30-day review, no recurrence",2025-02-11,20260106T053000Z-SPC36M
-CA-25-001,SE-25-001,2025-01-05,E-1039,nonconforming parts sorted: die condition,die repaired and first-piece approved,customer accepted the 8D,2025-02-19,20260106T053000Z-SPC36M
-CA-25-002,CMP-25-002,2025-01-13,E-1038,dimension: die condition,100% sort of stock and pipeline,"30-day review, no recurrence",2025-05-02,20260106T053000Z-SPC36M
-CA-25-003,CMP-25-003,2025-01-17,E-1039,formed dimension: inspection method,die repaired and first-piece approved,customer accepted the 8D,2025-03-25,20260106T053000Z-SPC36M
-CA-25-004,CMP-25-005,2025-02-06,E-1038,dimension: inspection method,check added to the control plan,"30-day review, no recurrence",2025-05-09,20260106T053000Z-SPC36M
-CA-25-005,CMP-25-007,2025-02-18,E-1038,dimension: operator did not detect at the check,operators retrained,customer accepted the 8D,2025-03-25,20260106T053000Z-SPC36M
-CA-25-006,CMP-25-008,2025-03-04,E-1039,missing or deformed hole: die condition,check added to the control plan,customer accepted the 8D,2025-06-21,20260106T053000Z-SPC36M
-CA-25-007,CMP-25-010,2025-03-15,E-1038,formed dimension: die condition,die repaired and first-piece approved,customer accepted the 8D,2025-06-13,20260106T053000Z-SPC36M
-CA-25-008,SE-25-007,2025-03-23,E-1039,nonconforming parts sorted: operator did not detect at the check,check added to the control plan,next three lots audited,2025-04-14,20260106T053000Z-SPC36M
-CA-25-009,CMP-25-014,2025-03-27,E-1039,burr: operator did not detect at the check,100% sort of stock and pipeline,next three lots audited,2025-07-01,20260106T053000Z-SPC36M
-CA-25-010,CMP-25-015,2025-03-29,E-1038,burr: material variation,100% sort of stock and pipeline,customer accepted the 8D,2025-06-09,20260106T053000Z-SPC36M
-CA-25-011,CMP-25-016,2025-03-29,E-1039,dimension: operator did not detect at the check,operators retrained,customer accepted the 8D,2025-07-18,20260106T053000Z-SPC36M
-CA-25-012,SE-25-010,2025-04-05,E-1038,nonconforming parts sorted: die condition,die repaired and first-piece approved,customer accepted the 8D,2025-05-22,20260106T053000Z-SPC36M
-CA-25-013,CMP-25-018,2025-04-11,E-1039,missing or deformed hole: die condition,operators retrained,"30-day review, no recurrence",2025-05-15,20260106T053000Z-SPC36M
-CA-25-014,CMP-25-019,2025-04-11,E-1038,burr: operator did not detect at the check,operators retrained,next three lots audited,2025-07-06,20260106T053000Z-SPC36M
-CA-25-015,CMP-25-022,2025-05-24,E-1038,missing or deformed hole: inspection method,100% sort of stock and pipeline,next three lots audited,2025-09-08,20260106T053000Z-SPC36M
-CA-25-016,CMP-25-023,2025-06-13,E-1039,missing or deformed hole: die condition,100% sort of stock and pipeline,customer accepted the 8D,2025-09-19,20260106T053000Z-SPC36M
-CA-25-017,CMP-25-028,2025-06-22,E-1039,scratch: operator did not detect at the check,check added to the control plan,"30-day review, no recurrence",2025-07-23,20260106T053000Z-SPC36M
-CA-25-018,CMP-25-030,2025-07-01,E-1039,mixed part: inspection method,check added to the control plan,"30-day review, no recurrence",2025-08-11,20260106T053000Z-SPC36M
-CA-25-019,CMP-25-031,2025-07-10,E-1039,formed dimension: die condition,100% sort of stock and pipeline,"30-day review, no recurrence",2025-09-10,20260106T053000Z-SPC36M
-CA-25-020,CMP-25-033,2025-08-09,E-1039,formed dimension: inspection method,die repaired and first-piece approved,customer accepted the 8D,2025-09-03,20260106T053000Z-SPC36M
-CA-25-021,SE-25-013,2025-08-11,E-1039,nonconforming parts sorted: die condition,die repaired and first-piece approved,customer accepted the 8D,2025-10-16,20260106T053000Z-SPC36M
-CA-25-022,CMP-25-036,2025-10-02,E-1039,missing or deformed hole: die condition,check added to the control plan,customer accepted the 8D,2025-10-27,20260106T053000Z-SPC36M
-CA-25-023,SE-25-015,2025-10-31,E-1038,nonconforming parts sorted: inspection method,die repaired and first-piece approved,next three lots audited,2025-12-25,20260106T053000Z-SPC36M
-CA-25-024,CMP-25-038,2025-12-09,E-1039,formed dimension: material variation,die repaired and first-piece approved,next three lots audited,,20260106T053000Z-SPC36M
+CA-24-001,CMP-24-002,2024-01-11,E-1038,missing or deformed hole: die condition,operators retrained,customer accepted the 8D,2024-05-08,20260713T053000Z-SPC30M
+CA-24-002,CMP-24-003,2024-01-14,E-1038,scratch: material variation,100% sort of stock and pipeline,next three lots audited,2024-05-07,20260713T053000Z-SPC30M
+CA-24-003,SE-24-002,2024-01-20,E-1038,nonconforming parts sorted: die condition,check added to the control plan,customer accepted the 8D,2024-04-04,20260713T053000Z-SPC30M
+CA-24-004,CMP-24-007,2024-02-23,E-1038,formed dimension: operator did not detect at the check,operators retrained,next three lots audited,2024-04-09,20260713T053000Z-SPC30M
+CA-24-005,CMP-24-009,2024-02-29,E-1039,burr: die condition,die repaired and first-piece approved,customer accepted the 8D,2024-06-18,20260713T053000Z-SPC30M
+CA-24-006,SE-24-005,2024-03-15,E-1038,nonconforming parts sorted: operator did not detect at the check,die repaired and first-piece approved,next three lots audited,2024-05-04,20260713T053000Z-SPC30M
+CA-24-007,SE-24-006,2024-05-04,E-1039,nonconforming parts sorted: die condition,operators retrained,customer accepted the 8D,2024-07-07,20260713T053000Z-SPC30M
+CA-24-008,SE-24-007,2024-05-12,E-1038,nonconforming parts sorted: material variation,check added to the control plan,"30-day review, no recurrence",2024-06-23,20260713T053000Z-SPC30M
+CA-24-009,CMP-24-026,2024-06-16,E-1038,scratch: inspection method,die repaired and first-piece approved,customer accepted the 8D,2024-08-14,20260713T053000Z-SPC30M
+CA-24-010,SE-24-008,2024-06-18,E-1039,nonconforming parts sorted: operator did not detect at the check,die repaired and first-piece approved,next three lots audited,2024-10-01,20260713T053000Z-SPC30M
+CA-24-011,CMP-24-028,2024-06-29,E-1038,burr: operator did not detect at the check,check added to the control plan,next three lots audited,2024-08-08,20260713T053000Z-SPC30M
+CA-24-012,SE-24-009,2024-06-30,E-1038,nonconforming parts sorted: material variation,100% sort of stock and pipeline,"30-day review, no recurrence",2024-08-15,20260713T053000Z-SPC30M
+CA-24-013,SE-24-012,2024-07-05,E-1039,nonconforming parts sorted: inspection method,die repaired and first-piece approved,customer accepted the 8D,2024-09-18,20260713T053000Z-SPC30M
+CA-24-014,SE-24-013,2024-07-08,E-1038,nonconforming parts sorted: inspection method,operators retrained,next three lots audited,2024-09-30,20260713T053000Z-SPC30M
+CA-24-015,CMP-24-031,2024-07-11,E-1039,burr: die condition,die repaired and first-piece approved,customer accepted the 8D,2024-09-27,20260713T053000Z-SPC30M
+CA-24-016,CMP-24-029,2024-07-12,E-1039,dimension: die condition,check added to the control plan,customer accepted the 8D,2024-10-20,20260713T053000Z-SPC30M
+CA-24-017,CMP-24-032,2024-07-15,E-1038,missing or deformed hole: operator did not detect at the check,100% sort of stock and pipeline,next three lots audited,2024-10-26,20260713T053000Z-SPC30M
+CA-24-018,CMP-24-033,2024-07-15,E-1038,scratch: die condition,100% sort of stock and pipeline,next three lots audited,2024-10-22,20260713T053000Z-SPC30M
+CA-24-019,CMP-24-034,2024-07-17,E-1039,burr: operator did not detect at the check,check added to the control plan,customer accepted the 8D,2024-08-19,20260713T053000Z-SPC30M
+CA-24-020,CMP-24-035,2024-07-27,E-1038,missing or deformed hole: material variation,check added to the control plan,customer accepted the 8D,2024-11-02,20260713T053000Z-SPC30M
+CA-24-021,SE-24-016,2024-08-02,E-1038,nonconforming parts sorted: material variation,die repaired and first-piece approved,"30-day review, no recurrence",2024-09-05,20260713T053000Z-SPC30M
+CA-24-022,CMP-24-038,2024-08-08,E-1039,burr: die condition,check added to the control plan,next three lots audited,2024-11-14,20260713T053000Z-SPC30M
+CA-24-023,CMP-24-042,2024-09-01,E-1039,burr: inspection method,100% sort of stock and pipeline,next three lots audited,2024-10-26,20260713T053000Z-SPC30M
+CA-24-024,SE-24-018,2024-09-02,E-1038,nonconforming parts sorted: operator did not detect at the check,check added to the control plan,customer accepted the 8D,2024-10-01,20260713T053000Z-SPC30M
+CA-24-025,CMP-24-043,2024-09-06,E-1039,burr: die condition,100% sort of stock and pipeline,customer accepted the 8D,2024-09-26,20260713T053000Z-SPC30M
+CA-24-026,SE-24-020,2024-09-11,E-1038,nonconforming parts sorted: die condition,die repaired and first-piece approved,"30-day review, no recurrence",2024-11-10,20260713T053000Z-SPC30M
+CA-24-027,SE-24-021,2024-09-16,E-1038,nonconforming parts sorted: die condition,check added to the control plan,next three lots audited,2024-10-10,20260713T053000Z-SPC30M
+CA-24-028,SE-24-022,2024-10-12,E-1039,nonconforming parts sorted: die condition,100% sort of stock and pipeline,customer accepted the 8D,2024-12-13,20260713T053000Z-SPC30M
+CA-24-029,CMP-24-049,2024-10-18,E-1039,formed dimension: material variation,operators retrained,next three lots audited,2024-11-23,20260713T053000Z-SPC30M
+CA-24-030,CMP-24-050,2024-10-21,E-1038,packaging: operator did not detect at the check,operators retrained,customer accepted the 8D,2024-11-17,20260713T053000Z-SPC30M
+CA-24-031,SE-24-023,2024-10-23,E-1039,nonconforming parts sorted: die condition,operators retrained,next three lots audited,2025-02-12,20260713T053000Z-SPC30M
+CA-24-032,CMP-24-052,2024-10-28,E-1039,missing or deformed hole: operator did not detect at the check,die repaired and first-piece approved,"30-day review, no recurrence",2025-01-31,20260713T053000Z-SPC30M
+CA-24-033,SE-24-026,2024-11-19,E-1039,nonconforming parts sorted: operator did not detect at the check,die repaired and first-piece approved,customer accepted the 8D,2025-02-09,20260713T053000Z-SPC30M
+CA-24-034,CMP-24-054,2024-11-28,E-1039,formed dimension: die condition,die repaired and first-piece approved,"30-day review, no recurrence",2025-01-19,20260713T053000Z-SPC30M
+CA-24-035,CMP-24-055,2024-11-29,E-1038,dimension: material variation,operators retrained,"30-day review, no recurrence",2025-03-12,20260713T053000Z-SPC30M
+CA-24-036,SE-24-028,2024-12-04,E-1039,nonconforming parts sorted: operator did not detect at the check,100% sort of stock and pipeline,next three lots audited,2025-01-19,20260713T053000Z-SPC30M
+CA-24-037,CMP-24-059,2024-12-09,E-1039,burr: material variation,operators retrained,"30-day review, no recurrence",2024-12-31,20260713T053000Z-SPC30M
+CA-24-038,CMP-24-061,2024-12-15,E-1039,missing or deformed hole: material variation,die repaired and first-piece approved,"30-day review, no recurrence",2025-04-10,20260713T053000Z-SPC30M
+CA-24-039,CMP-24-063,2024-12-26,E-1039,dimension: operator did not detect at the check,check added to the control plan,customer accepted the 8D,2025-04-13,20260713T053000Z-SPC30M
+CA-25-001,SE-24-029,2025-01-01,E-1038,nonconforming parts sorted: inspection method,100% sort of stock and pipeline,"30-day review, no recurrence",2025-04-18,20260713T053000Z-SPC30M
+CA-25-002,CMP-25-002,2025-01-17,E-1038,burr: material variation,operators retrained,"30-day review, no recurrence",2025-04-03,20260713T053000Z-SPC30M
+CA-25-003,CMP-25-008,2025-02-24,E-1039,missing or deformed hole: inspection method,operators retrained,customer accepted the 8D,2025-04-12,20260713T053000Z-SPC30M
+CA-25-004,CMP-25-009,2025-03-06,E-1038,burr: material variation,check added to the control plan,next three lots audited,2025-04-24,20260713T053000Z-SPC30M
+CA-25-005,CMP-25-011,2025-03-24,E-1038,burr: material variation,check added to the control plan,next three lots audited,2025-04-13,20260713T053000Z-SPC30M
+CA-25-006,CMP-25-017,2025-04-30,E-1039,scratch: die condition,check added to the control plan,next three lots audited,2025-07-22,20260713T053000Z-SPC30M
+CA-25-007,CMP-25-032,2025-07-03,E-1038,scratch: die condition,check added to the control plan,next three lots audited,2025-09-06,20260713T053000Z-SPC30M
+CA-25-008,CMP-25-033,2025-07-04,E-1038,missing or deformed hole: inspection method,100% sort of stock and pipeline,"30-day review, no recurrence",2025-08-12,20260713T053000Z-SPC30M
+CA-25-009,CMP-25-037,2025-07-18,E-1039,missing or deformed hole: operator did not detect at the check,operators retrained,"30-day review, no recurrence",2025-08-09,20260713T053000Z-SPC30M
+CA-25-010,CMP-25-040,2025-08-14,E-1039,formed dimension: material variation,die repaired and first-piece approved,next three lots audited,2025-10-17,20260713T053000Z-SPC30M
+CA-25-011,CMP-25-041,2025-08-18,E-1038,formed dimension: inspection method,100% sort of stock and pipeline,"30-day review, no recurrence",2025-09-18,20260713T053000Z-SPC30M
+CA-25-012,CMP-25-045,2025-09-06,E-1038,burr: material variation,operators retrained,next three lots audited,2025-12-27,20260713T053000Z-SPC30M
+CA-25-013,CMP-25-046,2025-09-10,E-1039,scratch: operator did not detect at the check,check added to the control plan,"30-day review, no recurrence",2025-12-10,20260713T053000Z-SPC30M
+CA-25-014,CMP-25-048,2025-09-13,E-1039,missing or deformed hole: die condition,check added to the control plan,"30-day review, no recurrence",2026-01-01,20260713T053000Z-SPC30M
+CA-25-015,CMP-25-051,2025-10-09,E-1039,burr: die condition,check added to the control plan,next three lots audited,2025-11-25,20260713T053000Z-SPC30M
+CA-25-016,CMP-25-054,2025-10-20,E-1038,scratch: die condition,100% sort of stock and pipeline,"30-day review, no recurrence",2026-02-14,20260713T053000Z-SPC30M
+CA-25-017,SE-25-011,2025-10-20,E-1038,nonconforming parts sorted: inspection method,operators retrained,next three lots audited,2026-01-14,20260713T053000Z-SPC30M
+CA-25-018,CMP-25-055,2025-10-31,E-1038,missing or deformed hole: operator did not detect at the check,operators retrained,"30-day review, no recurrence",2025-12-14,20260713T053000Z-SPC30M
+CA-25-019,SE-25-012,2025-10-31,E-1039,nonconforming parts sorted: material variation,die repaired and first-piece approved,next three lots audited,2026-01-16,20260713T053000Z-SPC30M
+CA-25-020,SE-25-013,2025-11-04,E-1038,nonconforming parts sorted: material variation,die repaired and first-piece approved,"30-day review, no recurrence",2026-01-04,20260713T053000Z-SPC30M
+CA-25-021,SE-25-014,2025-11-10,E-1038,nonconforming parts sorted: operator did not detect at the check,operators retrained,"30-day review, no recurrence",2026-02-15,20260713T053000Z-SPC30M
+CA-25-022,CMP-25-058,2025-11-12,E-1038,missing or deformed hole: operator did not detect at the check,operators retrained,next three lots audited,2026-01-28,20260713T053000Z-SPC30M
+CA-25-023,CMP-25-061,2025-12-09,E-1039,packaging: operator did not detect at the check,die repaired and first-piece approved,customer accepted the 8D,2026-03-13,20260713T053000Z-SPC30M
+CA-25-024,CMP-25-064,2025-12-29,E-1039,burr: inspection method,die repaired and first-piece approved,customer accepted the 8D,2026-01-18,20260713T053000Z-SPC30M
+CA-26-001,SE-26-001,2026-01-06,E-1038,nonconforming parts sorted: material variation,die repaired and first-piece approved,customer accepted the 8D,2026-04-28,20260713T053000Z-SPC30M
+CA-26-002,CMP-26-001,2026-01-16,E-1038,missing or deformed hole: inspection method,check added to the control plan,customer accepted the 8D,2026-02-23,20260713T053000Z-SPC30M
+CA-26-003,CMP-26-002,2026-01-20,E-1038,scratch: material variation,die repaired and first-piece approved,customer accepted the 8D,2026-04-16,20260713T053000Z-SPC30M
+CA-26-004,SE-26-004,2026-01-31,E-1038,nonconforming parts sorted: inspection method,check added to the control plan,"30-day review, no recurrence",2026-03-22,20260713T053000Z-SPC30M
+CA-26-005,CMP-26-008,2026-02-01,E-1038,burr: inspection method,die repaired and first-piece approved,customer accepted the 8D,2026-04-20,20260713T053000Z-SPC30M
+CA-26-006,CMP-26-009,2026-02-08,E-1039,missing or deformed hole: material variation,operators retrained,customer accepted the 8D,2026-05-20,20260713T053000Z-SPC30M
+CA-26-007,CMP-26-011,2026-02-17,E-1038,burr: operator did not detect at the check,operators retrained,customer accepted the 8D,2026-05-31,20260713T053000Z-SPC30M
+CA-26-008,CMP-26-012,2026-03-01,E-1039,burr: operator did not detect at the check,100% sort of stock and pipeline,customer accepted the 8D,2026-06-25,20260713T053000Z-SPC30M
+CA-26-009,SE-26-006,2026-03-06,E-1039,nonconforming parts sorted: inspection method,operators retrained,next three lots audited,2026-06-14,20260713T053000Z-SPC30M
+CA-26-010,CMP-26-015,2026-03-16,E-1039,formed dimension: operator did not detect at the check,operators retrained,customer accepted the 8D,2026-04-28,20260713T053000Z-SPC30M
+CA-26-011,CMP-26-018,2026-04-10,E-1039,burr: material variation,100% sort of stock and pipeline,"30-day review, no recurrence",2026-06-21,20260713T053000Z-SPC30M
+CA-26-012,CMP-26-019,2026-04-10,E-1038,burr: inspection method,die repaired and first-piece approved,customer accepted the 8D,,20260713T053000Z-SPC30M
+CA-26-013,CMP-26-022,2026-04-11,E-1039,burr: operator did not detect at the check,die repaired and first-piece approved,"30-day review, no recurrence",2026-05-08,20260713T053000Z-SPC30M
+CA-26-014,CMP-26-024,2026-04-23,E-1038,missing or deformed hole: operator did not detect at the check,operators retrained,next three lots audited,,20260713T053000Z-SPC30M
+CA-26-015,CMP-26-027,2026-05-13,E-1038,missing or deformed hole: operator did not detect at the check,check added to the control plan,"30-day review, no recurrence",,20260713T053000Z-SPC30M
+CA-26-016,CMP-26-030,2026-06-22,E-1039,dimension: inspection method,operators retrained,customer accepted the 8D,,20260713T053000Z-SPC30M

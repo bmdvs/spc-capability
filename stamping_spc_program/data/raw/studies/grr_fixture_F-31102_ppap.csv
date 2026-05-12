@@ -2,7 +2,7 @@
 # Fixture: F-31102   Characteristic: C-31102-02 184 (mm)
 # Nominal 23.85   USL 24.0   LSL 23.7   Tolerance 0.3
 # Date: 2019-07-29   Engineer: E-1038   Appraisers: E-1035, E-1036, E-1037   Parts: 10   Trials: 3   Method: ANOVA
-# export_batch_id: 20260106T053000Z-SPC36M
+# export_batch_id: 20260713T053000Z-SPC30M
 operator,part,trial,value
 E-1035,1,1,23.91
 E-1035,2,1,23.83
