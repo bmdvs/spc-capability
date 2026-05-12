@@ -194,9 +194,17 @@ def build():
 
     # -- 1. Executive summary ------------------------------------------------
     body.append(section("summary", "1. Executive summary"))
-    body.append(f"<p>The shop's charts and capability hold where variation stays within the subgroup, and fail where it does not. On punched characteristics and flatness, the charts in use signal close to the rate of correctly set limits, and production capability stays above 1.33: "
-                f"Ppk {num(cs.loc['punched', 'ppk'], 'capability_summary.ppk, punched', '{:.2f}', '1.55')} on punched characteristics, and Ppu {num(bd_.loc['flatness', 'ppu_percentile_median'], 'bounded_summary.ppu_percentile_median, flatness', '{:.2f}', '1.79')} on flatness. "
-                f"On formed characteristics, hole diameters and burr, they do not. Production Ppk on critical formed characteristics is {num(cs.loc['formed', 'ppk'], 'capability_summary.ppk, formed', '{:.2f}', '1.04')} against {num(cs.loc['formed', 'filed_ppk'], 'capability_summary.filed_ppk, formed', '{:.2f}', '1.84')} filed at PPAP. "
+    charted_parts = int(query(f"""select count(distinct k.part_id) as n from intermediate.int_characteristic_history h join staging.stg_spc__characteristics k using (characteristic_id)
+                                   where k.part_id in (select part_id from intermediate.int_run_shots where year(production_start) = {YEAR})""")["n"].iloc[0])
+    assert charted_parts == int(sco["parts"])          # every part run in the year is charted at the press
+    days = pc.loc[("all presses", "days"), "recorded_share"]
+    body.append(f"<p>The shop runs a complete SPC program, and much of it holds. Every part in production is charted at the press, about {num(round(total_ch, -1), 'scope.classes.characteristics, total, to the ten', was='1,550')} characteristics on "
+                f"{num(sco['parts'], 'scope.parts', was='179')} parts. {pct(in_service, 'plant_wide.share, subgroups on a gauge in service and in calibration, all', was='93%')} of subgroups were measured on a gauge in service and in calibration, "
+                f"the software presses acknowledged all {num(ack.alarms, 'software_acknowledgements.alarms', was='10,474')} alarms, and the day shift recorded {pct(days, 'planned_checks.recorded_share, all presses days', was='94%')} of planned checks. "
+                f"On punched characteristics and flatness, the charts signal close to the rate of correctly set limits, and production capability stays above 1.33: "
+                f"Ppk {num(cs.loc['punched', 'ppk'], 'capability_summary.ppk, punched', '{:.2f}', '1.55')} on punched characteristics and Ppu {num(bd_.loc['flatness', 'ppu_percentile_median'], 'bounded_summary.ppu_percentile_median, flatness', '{:.2f}', '1.79')} on flatness.</p>")
+    body.append(f"<p>The program does not hold on formed characteristics, hole diameters and burr. Production Ppk on critical formed characteristics is {num(cs.loc['formed', 'ppk'], 'capability_summary.ppk, formed', '{:.2f}', '1.04')} against "
+                f"{num(cs.loc['formed', 'filed_ppk'], 'capability_summary.filed_ppk, formed', '{:.2f}', '1.84')} filed at PPAP. "
                 f"{num(rp.burr_nonconformances_past_the_interval, 'runs_past_the_interval.burr_nonconformances_past_the_interval', was='60')} of the {num(rp.burr_nonconformances_with_shots_known, 'runs_past_the_interval.burr_nonconformances_with_shots_known', was='61')} burr nonconformances of {YEAR} fell on runs past the die's stated sharpening interval.</p>")
     body.append(f"<p>Three sources of variation sit behind these gaps. Coil-to-coil shifts carry {pct(cs.loc['formed', 'share_between_coils'], 'capability_summary.share_between_coils, formed', was='54%')} of the variance on formed characteristics. "
                 f"Burr and hole size grow with shots since sharpening, and dies are sharpened at a median {num(il.logged_over_stated_median, 'intervals_as_logged.logged_over_stated_median', '{:.2f}', '1.14')} times their stated interval. "
@@ -238,7 +246,18 @@ def build():
 
     # -- 3. SPC assessment ---------------------------------------------------
     body.append(section("assessment", "3. SPC assessment"))
-    body.append("<p>Charts, limits and capability hold on punched characteristics and flatness, and do not hold on formed characteristics, hole diameters and burr.</p><ul>"
+    assert int(ack.acknowledged_with_text) == int(ack.alarms)
+    body.append("<p>Charts, limits and capability hold on punched characteristics and flatness, and do not hold on formed characteristics, hole diameters and burr.</p><p>Where it holds:</p><ul>"
+                f"<li><strong>Charting:</strong> every part in production is charted at the press, and the software presses acknowledged all {num(ack.alarms, 'software_acknowledgements.alarms', was='10,474')} alarms.</li>"
+                f"<li><strong>Punched characteristics:</strong> the software runs at {num(sc.loc[('rolling 25 at entry', OTHER), 'rate_as_set_per_100'], 'signal_comparison.rate_as_set_per_100, rolling: other punched', '{:.1f}', '2.6')} signals per 100 subgroups against "
+                f"{num(sc.loc[('rolling 25 at entry', OTHER), 'rate_as_computed_per_100'], 'signal_comparison.rate_as_computed_per_100, rolling: other punched', '{:.1f}', '3.5')} under computed limits, and production Ppk is {num(cs.loc['punched', 'ppk'], 'capability_summary.ppk, punched', '{:.2f}', '1.55')}. "
+                f"Hole position stays within 0.25 of the filed Ppk on {num(hp['within_0_25'].sum(), 'punched_by_type.within_0_25, hole-to-hole and hole-to-edge', was='22')} of {num(hp['studies'].sum(), 'punched_by_type.studies, hole-to-hole and hole-to-edge', was='36')} studies.</li>"
+                f"<li><strong>Flatness:</strong> production Ppu is {num(bd_.loc['flatness', 'ppu_percentile_median'], 'bounded_summary.ppu_percentile_median, flatness', '{:.2f}', '1.79')}.</li>"
+                f"<li><strong>Gauges:</strong> {pct(in_service, 'plant_wide.share, subgroups on a gauge in service and in calibration, all', was='93%')} of subgroups were measured on a gauge in service and in calibration. Check fixtures read "
+                f"{num(cmm.mean_difference_mm, 'fixture_against_cmm.mean_difference_mm, to the assessment date', '{:.3f}', '0.014')} mm above the CMM, {pct(min(bias_share), 'fixture_against_cmm.mean_difference_mm over gauge_rr.tolerance_mm, lowest of the three studied fixtures', was='3%')} to "
+                f"{pct(max(bias_share), 'the same, highest', was='5%')} of tolerance, and readings show no pile-up at the specification limits.</li>"
+                f"<li><strong>Recording on days:</strong> the day shift records {pct(pc.loc[('all presses', 'days'), 'recorded_share'], 'planned_checks.recorded_share, all presses days', was='94%')} of planned checks, and "
+                f"{pct(rest.min(), 'planned_checks_by_hour.recorded_share, lowest other day hour', was='95%')} to {pct(rest.max(), 'planned_checks_by_hour.recorded_share, highest other day hour', was='97%')} at every hour after the first.</li></ul><p>Where it does not hold:</p><ul>"
                 "<li><strong>Formed characteristics</strong> fail on limits, capability and reaction.</li><li><strong>Hole diameters</strong> fail on limits, and their capability is out of line with PPAP.</li>"
                 "<li><strong>Burr on the lab gauge</strong> fails on capability and has no gauge study; the burr check by limit sample is partial on measurement.</li></ul>"
                 "<p>Two gaps run across every class: gauge studies cover few of the gauges in use, which leaves measurement short on every class but hole diameters, and signals on the paper presses mostly go unanswered. "
