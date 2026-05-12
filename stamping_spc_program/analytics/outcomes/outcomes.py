@@ -1,5 +1,5 @@
-"""Outcomes: the pilot presses from March to December 2025 against the same months of 2024 and 2023, the comparison
-presses from February to August, and the rollout presses from September to December, on sorting, customer PPM, scrap
+"""Outcomes: the pilot presses from April to June 2026 against the same months of 2025 and 2024, the comparison
+presses on the same months, on sorting, customer PPM, scrap
 and rework, production capability, burr, alarm signals and the quality cost lines as booked."""
 import numpy as np
 import pandas as pd
@@ -9,7 +9,7 @@ from analytics.data import query
 from analytics.stats import wilson
 
 SEED = 20250109
-SETS = ["pilot presses", "comparison presses", "rollout presses"]
+SETS = ["pilot presses", "comparison presses"]
 FORMED, PUNCHED = ("formed height", "bend angle"), ("hole diameter", "hole-to-edge", "hole-to-hole")
 MIN_SUBGROUPS = 60
 R5 = ["r1", "r2", "r3", "r4", "r5"]
@@ -39,20 +39,20 @@ def _outcomes():
 
 
 def _against(d, press_set, year, col_k, col_e=None):
-    """p of the 2025 count against the given year's on the set, exposure equal periods or the named column."""
-    a = d[(d["press_set"] == press_set) & (d["period_year"] == year)].iloc[0]; b = d[(d["press_set"] == press_set) & (d["period_year"] == 2025)].iloc[0]
+    """p of the 2026 count against the given year's on the set, exposure equal periods or the named column."""
+    a = d[(d["press_set"] == press_set) & (d["period_year"] == year)].iloc[0]; b = d[(d["press_set"] == press_set) & (d["period_year"] == 2026)].iloc[0]
     return rate_test(a[col_k], a[col_e] if col_e else 1.0, b[col_k], b[col_e] if col_e else 1.0)
 
 
 def sorting():
-    """Sorting events and quantity by press set and year, with the Poisson rate test of 2025 against each earlier year."""
+    """Sorting events and quantity by press set and year, with the Poisson rate test of 2026 against each earlier year."""
     d = _outcomes(); rows = []
     for s in SETS:
-        for y in (2023, 2024, 2025):
+        for y in (2024, 2025, 2026):
             r = d[(d["press_set"] == s) & (d["period_year"] == y)].iloc[0]; lo, hi = poisson_interval(int(r.sorting_events))
             rows.append({"press_set": s, "months": r.months, "year": y, "sorting_events": int(r.sorting_events), "low": lo, "high": hi, "quantity_sorted": int(r.quantity_sorted),
                          "quantity_per_event_median": r.quantity_sorted_median, "largest": r.quantity_sorted_largest, "cost_booked": r.sorting_cost_booked, "cost_booked_or_estimated": r.sorting_cost_booked_or_estimated,
-                         "p_2025_against_this_year": _against(d, s, y, "sorting_events") if y < 2025 else np.nan})
+                         "p_2026_against_this_year": _against(d, s, y, "sorting_events") if y < 2026 else np.nan})
     return pd.DataFrame(rows)
 
 
@@ -61,13 +61,13 @@ def ppm():
     complaints and the Poisson rate test on complaint counts over shipped pieces."""
     d = _outcomes(); c = query("select press_set, period_year, quantity from marts.mart_outcome_complaints where not duplicate_entry order by press_set, period_year, complaint_id"); rows = []
     for i, s in enumerate(SETS):
-        for y in (2023, 2024, 2025):
+        for y in (2024, 2025, 2026):
             r = d[(d["press_set"] == s) & (d["period_year"] == y)].iloc[0]; q = c[(c["press_set"] == s) & (c["period_year"] == y)]["quantity"].values.astype(float)
             g = np.random.default_rng([SEED, 20, i, y])
             tot = [g.choice(q, size=g.poisson(len(q)), replace=True).sum() for _ in range(2000)] if len(q) else [0.0]
             rows.append({"press_set": s, "months": r.months, "year": y, "complaints": int(r.complaints), "duplicate_entries_left_out": int(r.duplicate_complaint_entries), "pieces_rejected": int(r.pieces_rejected),
                          "pieces_shipped": int(r.pieces_shipped), "ppm": r.pieces_rejected / r.pieces_shipped * 1e6, "low": np.percentile(tot, 2.5) / r.pieces_shipped * 1e6, "high": np.percentile(tot, 97.5) / r.pieces_shipped * 1e6,
-                         "complaints_per_million_shipped": r.complaints / r.pieces_shipped * 1e6, "p_2025_against_this_year": _against(d, s, y, "complaints", "pieces_shipped") if y < 2025 else np.nan})
+                         "complaints_per_million_shipped": r.complaints / r.pieces_shipped * 1e6, "p_2026_against_this_year": _against(d, s, y, "complaints", "pieces_shipped") if y < 2026 else np.nan})
     return pd.DataFrame(rows)
 
 
@@ -75,19 +75,21 @@ def scrap_and_rework():
     """Scrap and rework as booked as a share of revenue, and scrapped pieces over produced pieces with the score test."""
     d = _outcomes(); rows = []
     for s in SETS:
-        b = d[(d["press_set"] == s) & (d["period_year"] == 2025)].iloc[0]
-        for y in (2023, 2024, 2025):
+        b = d[(d["press_set"] == s) & (d["period_year"] == 2026)].iloc[0]
+        for y in (2024, 2025, 2026):
             r = d[(d["press_set"] == s) & (d["period_year"] == y)].iloc[0]
-            p, lo, hi = score_test(r.pieces_scrapped, r.pieces_produced, b.pieces_scrapped, b.pieces_produced) if y < 2025 else (np.nan, np.nan, np.nan)
+            p, lo, hi = score_test(r.pieces_scrapped, r.pieces_produced, b.pieces_scrapped, b.pieces_produced) if y < 2026 else (np.nan, np.nan, np.nan)
             rows.append({"press_set": s, "months": r.months, "year": y, "scrap_booked": r.scrap_booked, "rework_labor_booked": r.rework_labor_booked, "revenue": r.revenue,
                          "scrap_and_rework_share_of_revenue": (r.scrap_booked + r.rework_labor_booked) / r.revenue, "pieces_scrapped": int(r.pieces_scrapped), "pieces_produced": int(r.pieces_produced),
-                         "pieces_scrapped_share": r.pieces_scrapped / r.pieces_produced, "p_2025_against_this_year": p, "difference_low": lo, "difference_high": hi})
+                         "pieces_scrapped_share": r.pieces_scrapped / r.pieces_produced, "p_2026_against_this_year": p, "difference_low": lo, "difference_high": hi})
     return pd.DataFrame(rows)
 
 
 def capability():
     """Production Cpk and Ppk on critical formed and punched characteristics by press set and year: the median over
-    characteristics with at least 60 subgroups in the period, with a bootstrap interval over characteristics."""
+    characteristics with at least 60 subgroups in the period, with a bootstrap interval over characteristics. Returns the
+    table on the characteristics that meet the minimum in both of the last two periods, the rows by characteristic, and
+    the table on each period's own characteristics."""
     d = query(f"""
         select p.press_set, p.period_year, h.characteristic_id, h.characteristic_type, h.usl, h.lsl, h.r1, h.r2, h.r3, h.r4, h.r5
         from marts.mart_outcome_periods p join intermediate.int_characteristic_history h
@@ -101,13 +103,22 @@ def capability():
             continue
         x = g[R5].values.astype(float); m = x.mean(); within = np.sqrt(x.var(axis=1, ddof=1).mean()); overall = x.std(ddof=1); near = min(g["usl"].iloc[0] - m, m - g["lsl"].iloc[0])
         rows.append({"press_set": s, "year": y, "characteristic_id": cid, "class": "formed" if g["characteristic_type"].iloc[0] in FORMED else "punched", "subgroups": len(g), "cpk": near / (3 * within), "ppk": near / (3 * overall)})
-    c = pd.DataFrame(rows); out = []
-    for i, ((s, cls, y), g) in enumerate(c.groupby(["press_set", "class", "year"], sort=True)):
-        r = np.random.default_rng([SEED, 40, i]); pick = r.integers(0, len(g), (2000, len(g))); row = {"press_set": s, "characteristics_class": cls, "year": y, "characteristics": len(g), "subgroups": int(g["subgroups"].sum())}
-        for k in ("ppk", "cpk"):
-            v = g[k].values; b = np.median(v[pick], axis=1); row[k + "_median"] = float(np.median(v)); row[k + "_low"] = float(np.percentile(b, 2.5)); row[k + "_high"] = float(np.percentile(b, 97.5))
-        row["characteristics_with_ppk_under_1_33"] = int((g["ppk"] < 1.33).sum()); out.append(row)
-    return pd.DataFrame(out), c
+    c = pd.DataFrame(rows)
+
+    def summary(frame, seed):
+        out = []
+        for i, ((s, cls, y), g) in enumerate(frame.groupby(["press_set", "class", "year"], sort=True)):
+            r = np.random.default_rng([SEED, seed, i]); pick = r.integers(0, len(g), (2000, len(g))); row = {"press_set": s, "characteristics_class": cls, "year": y, "characteristics": len(g), "subgroups": int(g["subgroups"].sum())}
+            for k in ("ppk", "cpk"):
+                v = g[k].values; b = np.median(v[pick], axis=1); row[k + "_median"] = float(np.median(v)); row[k + "_low"] = float(np.percentile(b, 2.5)); row[k + "_high"] = float(np.percentile(b, 97.5))
+            row["characteristics_with_ppk_under_1_33"] = int((g["ppk"] < 1.33).sum()); out.append(row)
+        return pd.DataFrame(out)
+
+    # the comparison rests on the characteristics that meet the minimum in both periods; an earlier year is shown on those of them that meet it there too
+    after = int(c["year"].max()); before = after - 1
+    n = c[c["year"].isin([before, after])].groupby(["press_set", "characteristic_id"])["year"].nunique()
+    both = c.merge(n[n == 2].rename("in_both").reset_index()[["press_set", "characteristic_id"]], on=["press_set", "characteristic_id"])
+    return summary(both, 41), c, summary(c, 40)
 
 
 def burr():
@@ -164,7 +175,7 @@ def cost_lines():
     return pd.concat([t, est], ignore_index=True).sort_values(["press_set", "category"]), plant.pivot_table(index=["months", "category"], columns="period_year", values="amount_booked", aggfunc="sum", fill_value=0).reset_index()
 
 
-def redesign_by_class(as_at="2025-12-31"):
+def redesign_by_class(as_at="2026-06-30"):
     """The limits in force on the pilot presses at the end of the record, by characteristic class and the method the
     limit set records, with the check frequency in the characteristics master."""
     return query("""
@@ -186,11 +197,11 @@ def reaction_plan():
 
 
 def rule_1_by_month():
-    """Rule 1 alarms per 100 subgroups by month on the pilot presses' formed characteristics, March to December 2025."""
+    """Rule 1 alarms per 100 subgroups by month on the pilot presses' formed characteristics, April to June 2026."""
     d = query("""select date_trunc('month', sample_time) as month_start, count(*) as subgroups, count(*) filter (where alarm_rule_1) as rule_1_alarms
                  from intermediate.int_characteristic_history
                  where is_pilot_press and after_redesign and data_type = 'variable' and subgroup_mean is not null and characteristic_type in ('formed height', 'bend angle')
-                   and sample_time >= date '2025-03-01' and sample_time < date '2026-01-01' group by 1 order by 1""")
+                   and sample_time >= date '2026-04-01' and sample_time < date '2026-07-01' group by 1 order by 1""")
     d["rule_1_per_100_subgroups"] = d["rule_1_alarms"] / d["subgroups"] * 100
     return d
 
@@ -202,27 +213,87 @@ def pilot_complaints_by_month():
                    from staging.stg_qms__complaints c)
         select date_trunc('month', c.received) as month_start, count(*) as complaints
         from c join intermediate.int_run_shots r on r.run_id = split_part(c.run_ids, ';', 1) join intermediate.int_press_redesign x using (press_id)
-        where x.is_pilot_press and not c.duplicate_entry and c.received >= date '2023-01-01' and c.received < date '2026-01-01' group by 1 order by 1""")
+        where x.is_pilot_press and not c.duplicate_entry and c.received >= date '2024-01-01' and c.received < date '2026-07-01' group by 1 order by 1""")
 
 
 def sharpening_at_the_count():
     """Sharpenings logged as made at the count from the burr regression, by whether the die runs on a pilot press."""
     return query("""
         with d as (select die_id, bool_or(press_id in (select press_id from intermediate.int_press_redesign where is_pilot_press)) as on_a_pilot_press
-                   from intermediate.int_run_shots where production_start >= date '2025-01-01' group by 1)
+                   from intermediate.int_run_shots where production_start >= date '2026-01-01' group by 1)
         select case when d.on_a_pilot_press then 'pilot presses' else 'other presses' end as dies_on, count(*) as sharpenings_at_the_count, min(e.event_date) as first_logged
         from intermediate.int_die_event_timeline e join d using (die_id)
         where e.event_type = 'sharpening' and e.notes like '%burr regression%' group by 1 order by 1 desc""")
 
 
-def pilot_sorting_starts(year=2025):
-    """Sorting events on the pilot presses in March to December of the year, by whether they started before per-stroke monitoring."""
-    return query("""select count(*) as sorting_events, count(*) filter (where sort_started < date '2025-05-05') as started_before_per_stroke_monitoring,
+def pilot_intervals(count_from="2026-02-02"):
+    """The pilot dies' sharpening intervals ending in the results period with five burr gauge subgroups or more: when each
+    began, the shots logged, the highest burr reading as a share of the limit, and whether it began before sharpening at the count."""
+    d = query("""
+        with press as (select die_id, mode(press_id) as press_id from intermediate.int_run_shots group by 1),
+        b as (select die_id, sharpening_interval_no, count(*) as burr_gauge_subgroups, max(share_of_limit) as highest_share_of_the_limit from marts.mart_wear_points where characteristic_type = 'burr height' group by 1, 2)
+        select p.press_id, i.die_id, i.interval_start, i.interval_end, i.shots_in_interval_logged, b.burr_gauge_subgroups, b.highest_share_of_the_limit
+        from intermediate.int_sharpening_intervals i join press p using (die_id) join intermediate.int_press_redesign r on r.press_id = p.press_id
+        join b on b.die_id = i.die_id and b.sharpening_interval_no = i.sharpening_interval_no
+        join marts.mart_outcome_periods o on o.press_set = 'pilot presses' and o.period_year = (select max(period_year) from marts.mart_outcome_periods) and i.interval_end >= o.period_start and i.interval_end < o.period_end
+        where r.is_pilot_press and b.burr_gauge_subgroups >= 5 order by i.interval_start, i.die_id""")
+    d["began_before_the_count"] = pd.to_datetime(d["interval_start"]) < pd.Timestamp(count_from); d["over_the_limit"] = d["highest_share_of_the_limit"] > 1
+    from analytics.die_wear.die_wear import compute as wear          # the due count is the die's shot count at 80% of the burr limit
+    d = d.merge(wear()["burr_by_die"][["die_id", "shots_at_80pct_of_limit"]], on="die_id", how="left"); d["logged_over_the_count"] = d["shots_in_interval_logged"] / d["shots_at_80pct_of_limit"]
+    return d
+
+
+def pilot_open_intervals(count_from="2026-02-02"):
+    """The pilot dies' sharpening intervals still open at the end of the record: when each began, the strokes run since, and
+    those over the die's due count."""
+    from analytics.die_wear.die_wear import compute as wear
+    d = query("""
+        with press as (select die_id, mode(press_id) as press_id from intermediate.int_run_shots group by 1),
+        since as (select die_id, sharpening_date, sum(strokes) as strokes_since from intermediate.int_run_shots group by 1, 2)
+        select i.die_id, p.press_id, i.interval_start, coalesce(s.strokes_since, 0) as shots_since_sharpening
+        from intermediate.int_sharpening_intervals i join press p using (die_id) join intermediate.int_press_redesign r on r.press_id = p.press_id
+        left join since s on s.die_id = i.die_id and s.sharpening_date = i.interval_start
+        where r.is_pilot_press and i.interval_end is null order by i.interval_start, i.die_id""").merge(wear()["burr_by_die"][["die_id", "shots_at_80pct_of_limit"]], on="die_id", how="left")
+    d["over_the_count"] = d["shots_since_sharpening"] / d["shots_at_80pct_of_limit"]; d["began_before_the_count"] = pd.to_datetime(d["interval_start"]) < pd.Timestamp(count_from)
+    return d
+
+
+def coil_change_subgroups(since="2026-02-02", to="2026-07-01", quarter_from="2026-04-01"):
+    """Coil-change subgroups on the formed characteristics of the pilot presses under the redesign, by the distance of the
+    subgroup mean from the centre line in force (sigma is a third of the centre line to upper limit distance of the means
+    chart), with the rule 1 alarms and the adjustments recorded on them. With it, for those past one sigma, the next five
+    subgroups of the characteristic on the same run and coil: the share beyond one sigma on the same side, by whether an
+    adjustment was recorded at the coil change. Returns (by distance, what follows)."""
+    h = query(f"""select h.subgroup_id, h.press_id, h.run_id, h.characteristic_id, h.sample_time, h.subgroup_type, h.coil_id, (h.subgroup_mean - h.centre_line) / ((h.ucl_mean - h.centre_line) / 3) as z,
+                         coalesce(h.alarm_rule_1, false) as rule_1, coalesce(h.adjustment_recorded, false) as adjustment_recorded
+                  from intermediate.int_characteristic_history h join staging.stg_spc__characteristics k using (characteristic_id) join intermediate.int_press_redesign r on r.press_id = h.press_id
+                  where r.is_pilot_press and k.type in ('formed height', 'bend angle') and h.sample_time >= timestamp '{since}' and h.sample_time < timestamp '{to}' and h.subgroup_mean is not null and h.centre_line is not null
+                  order by h.characteristic_id, h.sample_time, h.subgroup_id""")
+    rows = []
+    for _, g in h.groupby(["characteristic_id", "run_id"], sort=False):
+        g = g.reset_index(drop=True)
+        for i in np.where(g["subgroup_type"] == "coil-change")[0]:
+            r = g.iloc[i]; nxt = g.iloc[i + 1:]; five = nxt[(nxt["coil_id"] == r.coil_id) & (nxt["subgroup_type"] != "coil-change")].head(5); side = np.sign(r.z)
+            rows.append({"press_id": r.press_id, "sample_time": r.sample_time, "distance": abs(r.z), "rule_1": bool(r.rule_1), "adjustment_recorded": bool(r.adjustment_recorded), "next_subgroups": len(five), "beyond_one_sigma_same_side": int((five["z"] * side > 1).sum())})
+    d = pd.DataFrame(rows); bands = ["Within one sigma", "One to two sigma", "Two to three sigma", "Beyond three sigma"]
+    d["distance_from_the_centre_line"] = pd.cut(d["distance"], [0, 1, 2, 3, np.inf], labels=bands, include_lowest=True).astype(str)
+    by = d.groupby("distance_from_the_centre_line").agg(coil_change_subgroups=("rule_1", "size"), rule_1_alarms=("rule_1", "sum"), adjustments_recorded=("adjustment_recorded", "sum")).reindex(bands).reset_index()
+    out = []
+    for period, part in (("2 February to 30 June 2026", d), ("April to June 2026", d[d["sample_time"] >= pd.Timestamp(quarter_from)])):
+        for adj, g in part[part["distance"] > 1].groupby("adjustment_recorded"):
+            out.append({"period": period, "at_the_coil_change": "adjustment recorded" if adj else "no adjustment recorded", "coil_change_subgroups_past_one_sigma": len(g), "next_subgroups": int(g["next_subgroups"].sum()),
+                        "beyond_one_sigma_same_side": int(g["beyond_one_sigma_same_side"].sum()), "share": g["beyond_one_sigma_same_side"].sum() / g["next_subgroups"].sum()})
+    return by, pd.DataFrame(out)
+
+
+def pilot_sorting_starts(year=2026):
+    """Sorting events on the pilot presses in April to June of the year, by whether they started before per-stroke monitoring."""
+    return query("""select count(*) as sorting_events, count(*) filter (where sort_started < date '2026-04-01') as started_before_per_stroke_monitoring,
                            count(*) filter (where month(sort_started) = 3) as started_in_march
                     from marts.mart_sorting_events where is_pilot_press and sort_started >= make_date(?, 3, 1) and sort_started < make_date(? + 1, 1, 1)""", [year, year])
 
 
-def plant_losses(years=(2023, 2024)):
+def plant_losses(years=(2024, 2025)):
     """Plant-wide quality losses by calendar year, on the definitions of the outcome tables: scrap and rework as booked
     to a press over revenue on runs ended in the year, customer PPM with a bootstrap interval over complaints (duplicate
     entries left out), and sorting events on the date the sorting started."""
@@ -235,7 +306,7 @@ def plant_losses(years=(2023, 2024)):
                        where l.category in ('scrap', 'rework labor') and year(cast(l.period || '-01' as date)) = $y and regexp_extract(l.source_record, 'PR-[0-9]{2}') in (select press_id from presses)),
             production as (select sum(r.quantity_produced * c.price) as revenue, sum(r.quantity_produced) as pieces_produced, sum(r.quantity_scrapped) as pieces_scrapped
                            from intermediate.int_run_shots r join presses using (press_id)
-                           left join staging.stg_accounting__contribution c on c.part_id = r.part_id and c.year = least(greatest(year(r.production_start), 2023), 2025)
+                           left join staging.stg_accounting__contribution c on c.part_id = r.part_id and c.year = least(greatest(year(r.production_start), 2024), 2026)
                            where year(r.actual_end) = $y),
             shipments as (select sum(s.quantity) as pieces_shipped from staging.stg_erp__shipments s join intermediate.int_run_shots r using (run_id) join presses using (press_id) where year(s.ship_date) = $y),
             sorting as (select count(*) as sorting_events, sum(quantity_sorted) as quantity_sorted, sum(sorting_cost_booked) as sorting_cost_booked, sum(sorting_cost_booked_or_estimated) as sorting_cost_booked_or_estimated
@@ -257,13 +328,13 @@ def plant_losses(years=(2023, 2024)):
 
 
 def hole_diameter_under_the_tool_wear_chart():
-    """The pilot presses' hole diameters, March to December of 2024 and of 2025: alarm signals per 100 subgroups under the
+    """The pilot presses' hole diameters, April to June of 2025 and of 2026: alarm signals per 100 subgroups under the
     limits in force in each period, and production Ppk as the median over characteristics with a bootstrap interval."""
     h = query("""
         select p.period_year, h.characteristic_id, h.die_id, h.press_id, h.usl, h.lsl, h.r1, h.r2, h.r3, h.r4, h.r5, h.implausible_readings, h.alarm_raised
         from marts.mart_outcome_periods p join intermediate.int_characteristic_history h
           on h.is_pilot_press = p.is_pilot_press and h.sample_time >= p.period_start and h.sample_time < p.period_end
-        where p.press_set = 'pilot presses' and p.period_year >= 2024 and h.characteristic_type = 'hole diameter' and h.data_type = 'variable' and h.subgroup_mean is not null
+        where p.press_set = 'pilot presses' and p.period_year >= 2025 and h.characteristic_type = 'hole diameter' and h.data_type = 'variable' and h.subgroup_mean is not null
         order by p.period_year, h.characteristic_id, h.sample_time, h.subgroup_id""")
     by, rows = [], []
     for k, (y, g) in enumerate(h.groupby("period_year", sort=True)):
@@ -274,14 +345,15 @@ def hole_diameter_under_the_tool_wear_chart():
                 m = x.mean(); row["ppk"] = min(c["usl"].iloc[0] - m, m - c["lsl"].iloc[0]) / (3 * x.std(ddof=1))
             by.append(row)
         b = pd.DataFrame([x for x in by if x["year"] == int(y)]); v = b["ppk"].dropna().values; boot = np.median(v[np.random.default_rng([SEED, 41, k]).integers(0, len(v), (2000, len(v)))], axis=1)
-        rows.append({"months": "March to December", "year": int(y), "characteristics": len(b), "subgroups": int(b["subgroups"].sum()), "alarm_signals": int(b["alarm_signals"].sum()),
+        rows.append({"months": "April to June", "year": int(y), "characteristics": len(b), "subgroups": int(b["subgroups"].sum()), "alarm_signals": int(b["alarm_signals"].sum()),
                      "alarm_signals_per_100_subgroups": b["alarm_signals"].sum() / b["subgroups"].sum() * 100, "ppk_median": float(np.median(v)), "ppk_low": float(np.percentile(boot, 2.5)), "ppk_high": float(np.percentile(boot, 97.5))})
     return pd.DataFrame(rows), pd.DataFrame(by)
 
 
 def compute():
-    cap, by_characteristic = capability(); lines, plant = cost_lines()
-    return {"sorting": sorting(), "ppm": ppm(), "scrap_and_rework": scrap_and_rework(), "capability": cap, "capability_by_characteristic": by_characteristic, "burr": burr(), "signals": signals(),
+    cap, by_characteristic, cap_own = capability(); lines, plant = cost_lines()
+    by_distance, follows = coil_change_subgroups()
+    return {"coil_change_by_distance": by_distance, "coil_change_what_follows": follows, "sorting": sorting(), "ppm": ppm(), "scrap_and_rework": scrap_and_rework(), "capability": cap, "capability_own_sets": cap_own, "pilot_intervals": pilot_intervals(), "pilot_open_intervals": pilot_open_intervals(), "capability_by_characteristic": by_characteristic, "burr": burr(), "signals": signals(),
             "cost_lines": lines, "cost_lines_plant_level": plant, "redesign_by_class": redesign_by_class(), "reaction_plan": reaction_plan(), "rule_1_by_month": rule_1_by_month(), "pilot_complaints_by_month": pilot_complaints_by_month(), "sharpening_at_the_count": sharpening_at_the_count(), "pilot_sorting_starts": pilot_sorting_starts()}
 
 

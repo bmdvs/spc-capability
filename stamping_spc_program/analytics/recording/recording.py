@@ -5,9 +5,9 @@ import pandas as pd
 from analytics.data import query
 from analytics.stats import wilson
 
-BASELINE_YEAR = 2024
-PILOT_BEFORE = "sample_time >= date '2024-03-01' and sample_time < date '2025-01-01'"
-PILOT_AFTER = "sample_time >= date '2025-03-01' and sample_time < date '2026-01-01'"
+BASELINE_YEAR = 2025
+PILOT_BEFORE = "sample_time >= date '2025-04-01' and sample_time < date '2025-07-01'"
+PILOT_AFTER = "sample_time >= date '2026-04-01' and sample_time < date '2026-07-01'"
 
 
 def _with_intervals(d, pairs):
@@ -61,18 +61,18 @@ def minutes_to_entry():
         with s as (
             select 'keyed, software presses, {BASELINE_YEAR}' as record, minutes_to_entry from marts.mart_recording_routine_subgroups where sample_year = {BASELINE_YEAR} and not after_redesign and entry_method = 'keyed'
             union all
-            select 'gauge-connected, pilot presses, March to December 2025', minutes_to_entry from marts.mart_recording_routine_subgroups where is_pilot_press and after_redesign and entry_method = 'gauge-connected' and {PILOT_AFTER}
+            select 'gauge-connected, pilot presses, April to June 2026', minutes_to_entry from marts.mart_recording_routine_subgroups where is_pilot_press and after_redesign and entry_method = 'gauge-connected' and {PILOT_AFTER}
             union all
-            select 'keyed attribute checks, pilot presses, March to December 2025', minutes_to_entry from marts.mart_recording_routine_subgroups where is_pilot_press and after_redesign and entry_method = 'keyed' and {PILOT_AFTER})
+            select 'keyed attribute checks, pilot presses, April to June 2026', minutes_to_entry from marts.mart_recording_routine_subgroups where is_pilot_press and after_redesign and entry_method = 'keyed' and {PILOT_AFTER})
         select record, floor(log10(greatest(minutes_to_entry, 0.1)) * 8) as band, count(*) as subgroups
         from s group by 1, 2 order by 1, 2""")
 
 
 def time_of_the_parts_before_and_after():
-    """Time of the parts within five minutes of the hour on the medium pilot presses: keyed, March to December 2024,
-    against gauge-connected, March to December 2025."""
+    """Time of the parts within five minutes of the hour on the medium pilot presses: keyed, April to June 2025,
+    against gauge-connected, April to June 2026."""
     d = query(f"""
-        select case when after_redesign then 'March to December 2025, gauge-connected' else 'March to December 2024, keyed' end as record, count(*) as subgroups,
+        select case when after_redesign then 'April to June 2026, gauge-connected' else 'April to June 2025, keyed' end as record, count(*) as subgroups,
                count(*) filter (where minute(sample_time) <= 5 or minute(sample_time) >= 55) as parts_time_within_five_minutes_of_the_hour
         from marts.mart_recording_routine_subgroups
         where is_pilot_press and press_group = 'medium' and ((not after_redesign and entry_method = 'keyed' and {PILOT_BEFORE}) or (after_redesign and entry_method = 'gauge-connected' and {PILOT_AFTER}))
@@ -100,31 +100,31 @@ def entry_after_the_parts():
             select 1 as o, 'software presses, {BASELINE_YEAR}, keyed' as record, count(*) as subgroups, count(*) filter (where minutes_to_entry > 20) as entered_more_than_20_minutes_after, median(minutes_to_entry) as minutes_to_entry_median
             from marts.mart_recording_routine_subgroups where sample_year = {BASELINE_YEAR} and not after_redesign and entry_method = 'keyed'
             union all
-            select 2, 'pilot presses, March to December 2024, keyed', count(*), count(*) filter (where minutes_to_entry > 20), median(minutes_to_entry)
+            select 2, 'pilot presses, April to June 2025, keyed', count(*), count(*) filter (where minutes_to_entry > 20), median(minutes_to_entry)
             from marts.mart_recording_routine_subgroups where is_pilot_press and not after_redesign and entry_method = 'keyed' and {PILOT_BEFORE}
             union all
-            select 3, 'pilot presses, March to December 2025, gauge-connected', count(*), count(*) filter (where minutes_to_entry > 20), median(minutes_to_entry)
+            select 3, 'pilot presses, April to June 2026, gauge-connected', count(*), count(*) filter (where minutes_to_entry > 20), median(minutes_to_entry)
             from marts.mart_recording_routine_subgroups where is_pilot_press and after_redesign and entry_method = 'gauge-connected' and {PILOT_AFTER}
             union all
-            select 4, 'pilot presses, March to December 2025, keyed (attribute checks)', count(*), count(*) filter (where minutes_to_entry > 20), median(minutes_to_entry)
+            select 4, 'pilot presses, April to June 2026, keyed (attribute checks)', count(*), count(*) filter (where minutes_to_entry > 20), median(minutes_to_entry)
             from marts.mart_recording_routine_subgroups where is_pilot_press and after_redesign and entry_method = 'keyed' and {PILOT_AFTER}
         ) order by o""").drop(columns=["o"])
     return _with_intervals(d, (("entered_more_than_20_minutes_after", "subgroups", "share"),))
 
 
 def pilot_before_and_after():
-    """The pilot presses, March to December 2024 against March to December 2025: planned checks recorded by shift and
+    """The pilot presses, April to June 2025 against April to June 2026: planned checks recorded by shift and
     routine subgroups stamped within five minutes of the hour or the half hour."""
     c = query("""
-        select c.press_id, case when c.after_redesign then 'March to December 2025' else 'March to December 2024' end as period, c.shift,
+        select c.press_id, case when c.after_redesign then 'April to June 2026' else 'April to June 2025' end as period, c.shift,
                count(*) as planned_checks, count(*) filter (where c.recorded) as recorded
         from marts.mart_recording_planned_checks c
-        where c.is_pilot_press and ((not c.after_redesign and c.planned_time >= date '2024-03-01' and c.planned_time < date '2025-01-01')
-                                 or (c.after_redesign and c.planned_time >= date '2025-03-01' and c.planned_time < date '2026-01-01'))
+        where c.is_pilot_press and ((not c.after_redesign and c.planned_time >= date '2025-04-01' and c.planned_time < date '2025-07-01')
+                                 or (c.after_redesign and c.planned_time >= date '2026-04-01' and c.planned_time < date '2026-07-01'))
         group by 1, 2, 3 order by 1, 2, 3""")
     c = _with_intervals(c, (("recorded", "planned_checks", "recorded_share"),))
     s = query(f"""
-        select press_id, case when after_redesign then 'March to December 2025' else 'March to December 2024' end as period, entry_method, count(*) as subgroups,
+        select press_id, case when after_redesign then 'April to June 2026' else 'April to June 2025' end as period, entry_method, count(*) as subgroups,
                count(*) filter (where minute(stamped_time) <= 5 or minute(stamped_time) >= 55) as within_five_minutes_of_the_hour,
                count(*) filter (where minute(stamped_time) between 25 and 35) as within_five_minutes_of_the_half_hour
         from marts.mart_recording_routine_subgroups

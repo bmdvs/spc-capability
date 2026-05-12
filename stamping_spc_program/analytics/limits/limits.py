@@ -120,7 +120,7 @@ def software_acknowledgements():
         with a as (
             select h.alarm_rule_1, h.alarm_rule_2, lower(trim(h.acknowledgement_text)) as txt, h.adjustment_recorded
             from intermediate.int_characteristic_history h
-            where year(h.sample_time) = 2024 and h.entry_method = 'keyed' and h.alarm_raised and h.data_type = 'variable'
+            where year(h.sample_time) = 2025 and h.entry_method = 'keyed' and h.alarm_raised and h.data_type = 'variable'
               and h.characteristic_type <> 'burr height' and h.subgroup_mean is not null)
         select count(*) as alarms,
                count(*) filter (where alarm_rule_1) as rule_1, count(*) filter (where alarm_rule_2 and not alarm_rule_1) as rule_2_only,
@@ -143,7 +143,7 @@ def paper_limit_age():
                max(s.sharpenings_while_in_force_to_assessment) as sharpenings_since_set
         from marts.mart_limits_as_set s
         left join (select die_id, max(event_date) as last_rebuild from intermediate.int_die_event_timeline
-                   where event_type = 'rebuild' and event_date <= date '2024-12-31' group by 1) t on t.die_id = s.die_id
+                   where event_type = 'rebuild' and event_date <= date '2025-12-31' group by 1) t on t.die_id = s.die_id
         where s.method = 'PPAP study' and s.in_force_at_assessment and s.press_group = 'high_speed'
         group by 1 order by 1""")
     between = query("""

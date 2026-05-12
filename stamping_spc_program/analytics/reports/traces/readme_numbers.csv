@@ -1,60 +1,95 @@
-readme_figure,value,page,read_from
-formed characteristics and hole diameters on the software presses,210,docs/reports/spc_assessment.html,signal_comparison
-share of baseline-limit signals the rolling limits also flag,18.5%,docs/reports/spc_assessment.html,signal_comparison
-"paper presses, subgroups signalled",22.5%,docs/reports/spc_assessment.html,paper_signals_all_subgroups
-"paper presses, signals with an action",28.0%,docs/reports/spc_assessment.html,paper_signals_all_subgroups
-critical formed characteristics,84,docs/reports/spc_assessment.html,capability_summary
-"PPAP Ppk, formed",1.85,docs/reports/spc_assessment.html,capability_summary
-"production Ppk, formed",1.03,docs/reports/spc_assessment.html,capability_summary
-"variance between coils, formed",55%,docs/reports/spc_assessment.html,capability_summary
-"parts between checks, lowest","1,010",docs/reports/spc_assessment.html,risk_window
-"parts between checks, highest","21,113",docs/reports/spc_assessment.html,risk_window
-sorting events of 2024 traced,12,docs/reports/spc_assessment.html,sorting_summary
-sorting events of 2024,15,docs/reports/spc_assessment.html,sorting_summary
-"%GRR, F-20417 assessment study",31.2%,docs/reports/spc_assessment.html,gauge_rr
-"%GRR, F-31102 assessment study",33.6%,docs/reports/spc_assessment.html,gauge_rr
-"%GRR, F-20417 PPAP",8.9%,docs/reports/spc_assessment.html,gauge_rr
-"%GRR, F-31102 PPAP",8.4%,docs/reports/spc_assessment.html,gauge_rr
-burr check agreement,80%,docs/reports/spc_assessment.html,attribute_agreement
-burr check kappa,0.44,docs/reports/spc_assessment.html,attribute_agreement
-"keyed readings ending 0 or 5, times uniform",1.75,docs/reports/spc_assessment.html,entry_methods
-points beyond two sigma with a recorded adjustment,23.4%,docs/reports/spc_assessment.html,after_a_point
-"autocorrelation, adjusted",-0.15,docs/reports/spc_assessment.html,autocorrelation
-"autocorrelation, not adjusted",-0.07,docs/reports/spc_assessment.html,autocorrelation
-added variance,10.0%,docs/reports/spc_assessment.html,variance
-dies with the stated interval past the count at 80%,41,docs/reports/spc_assessment.html,burr_summary
-dies fitted,124,docs/reports/spc_assessment.html,burr_summary
-"logged over stated interval, median",1.14,docs/reports/spc_assessment.html,intervals_as_logged
-burr nonconformances past the interval,54,docs/reports/spc_assessment.html,runs_past_the_interval
-burr nonconformances with shots known,55,docs/reports/spc_assessment.html,runs_past_the_interval
-routine checks within five minutes of the hour,65.2%,docs/reports/spc_assessment.html,on_the_hour
-"planned checks recorded, nights",84%,docs/reports/spc_assessment.html,planned_checks
-"planned checks recorded, days",94%,docs/reports/spc_assessment.html,planned_checks
-keyed entries more than 20 minutes after the parts,15.0%,docs/reports/spc_assessment.html,entry_after_the_parts
-per-stroke stops,112,docs/reports/spc_redesign_and_results.html,stops_by_chart
-stops with a worn or chipped punch,70,docs/reports/spc_redesign_and_results.html,stops_by_chart
-stops with slug pulling,24,docs/reports/spc_redesign_and_results.html,stops_by_chart
-stops with nothing found,18,docs/reports/spc_redesign_and_results.html,stops_by_chart
-"nothing found per 1,000,000 strokes",0.88,docs/reports/spc_redesign_and_results.html,stops_with_nothing_found
-punch replacements in the monitoring months,70,docs/reports/spc_redesign_and_results.html,punch_replacements
-punch breaks,13,docs/reports/spc_redesign_and_results.html,punch_break_summary
-pilot PPM 2024,389,docs/reports/spc_redesign_and_results.html,ppm
-pilot PPM 2025,118,docs/reports/spc_redesign_and_results.html,ppm
-p against 2024,0.0046,docs/reports/spc_redesign_and_results.html,ppm
-pilot PPM 2023,198,docs/reports/spc_redesign_and_results.html,ppm
-p against 2023,0.45,docs/reports/spc_redesign_and_results.html,ppm
-pilot scrap and rework 2024,2.60%,docs/reports/spc_redesign_and_results.html,scrap_and_rework
-pilot scrap and rework 2025,1.69%,docs/reports/spc_redesign_and_results.html,scrap_and_rework
-pilot Ppk 2024,1.00,docs/reports/spc_redesign_and_results.html,capability
-pilot Ppk 2025,1.43,docs/reports/spc_redesign_and_results.html,capability
-pilot alarm signals 2024,15.1,docs/reports/spc_redesign_and_results.html,signals
-pilot alarm signals 2025,4.4,docs/reports/spc_redesign_and_results.html,signals
-pilot sorting events 2024,7,docs/reports/spc_redesign_and_results.html,sorting
-pilot sorting events 2025,5,docs/reports/spc_redesign_and_results.html,sorting
-"p, sorting",0.77,docs/reports/spc_redesign_and_results.html,sorting
-dbt models,85,pipeline/dbt,information_schema.tables
-subgroups,"658,446",data/raw/spc,raw.spc__subgroups
-characteristics,"1,560",data/raw/spc,raw.spc__characteristics
-production runs,"6,710",data/raw/erp,raw.erp__production_runs
-coils,"5,529",data/raw/erp,raw.erp__coils
-strokes kept by the historian,"20,570,818",data/raw/press_monitor,mart_per_stroke_run_tonnage
+readme_figure,value,value_in_the_text,page,read_from
+parts,180,180,,"raw.erp__parts, to the ten"
+dies,170,,,"raw.erp__dies, to the ten"
+scrap_share,3.12%,3.12%,docs/reports/spc_assessment.html,plant_losses
+scrap_cost,"1,242,201","1,242,201",docs/reports/spc_assessment.html,plant_losses
+ppm,463,463,docs/reports/spc_assessment.html,plant_losses
+sorts,14,14,docs/reports/spc_assessment.html,sorting_summary
+sorted,"101,154","101,154",docs/reports/spc_assessment.html,sorting_summary
+traced,12,12,docs/reports/spc_assessment.html,sorting_summary
+flagged,17.0%,17.0%,docs/reports/spc_assessment.html,signal_comparison
+printed,42,42,docs/reports/spc_assessment.html,paper_signals
+action,28%,28%,docs/reports/spc_assessment.html,paper_signals_all_subgroups
+ppk_formed,1.04,1.04,docs/reports/spc_assessment.html,capability_summary
+filed_formed,1.84,1.84,docs/reports/spc_assessment.html,capability_summary
+ppk_punched,1.55,1.55,docs/reports/spc_assessment.html,capability_summary
+filed_punched,1.85,1.85,docs/reports/spc_assessment.html,capability_summary
+coil_share,54%,54%,docs/reports/spc_assessment.html,capability_summary
+coil_punched,2%,2%,docs/reports/spc_assessment.html,capability_summary
+coil_fit,2.5%,2.5%,docs/reports/spc_assessment.html,coil_regression_summary
+burr_past,60,60,docs/reports/spc_assessment.html,runs_past_the_interval
+burr_all,61,61,docs/reports/spc_assessment.html,runs_past_the_interval
+fx_before,2,2,docs/reports/spc_assessment.html,gauge studies on check fixtures before January 2026
+fixtures,180,180,docs/reports/spc_assessment.html,stg_calibration__gauges
+grr1,31.2%,31.2%,docs/reports/spc_assessment.html,gauge_rr
+grr2,33.6%,33.6%,docs/reports/spc_assessment.html,gauge_rr
+agree,80%,80%,docs/reports/spc_assessment.html,attribute_agreement
+kappa,0.44,0.44,docs/reports/spc_assessment.html,attribute_agreement
+between_low,"1,934","1,934",docs/reports/spc_assessment.html,risk_window
+between_high,"16,333","16,333",docs/reports/spc_assessment.html,risk_window
+nights,84%,84%,docs/reports/spc_assessment.html,planned_checks
+days,94%,94%,docs/reports/spc_assessment.html,planned_checks
+late,15.1%,15.1%,docs/reports/spc_assessment.html,entry_after_the_parts
+alarms,"10,474","10,474",docs/reports/spc_assessment.html,software_acknowledgements
+one_word,"4,691","4,691",docs/reports/spc_assessment.html,software_acknowledgements
+ac_adj,-0.14,-0.14,docs/reports/spc_assessment.html,autocorrelation
+ac_not,-0.07,-0.07,docs/reports/spc_assessment.html,autocorrelation
+added,9.9%,9.9%,docs/reports/spc_assessment.html,variance
+logged,1.14,1.14,docs/reports/spc_assessment.html,intervals_as_logged
+long,41,41,docs/reports/spc_assessment.html,burr_summary
+fitted,124,124,docs/reports/spc_assessment.html,burr_summary
+rej_back,37%,37%,docs/reports/spc_assessment.html,sorting_by_basis
+rej_fault,77%,77%,docs/reports/spc_assessment.html,sorting_by_basis
+scrap_before,2.60%,2.60%,docs/reports/spc_redesign_and_results.html,scrap_and_rework
+scrap_after,1.69%,1.69%,docs/reports/spc_redesign_and_results.html,scrap_and_rework
+saved,"32,000","32,000",docs/reports/spc_redesign_and_results.html,scrap_and_rework
+scrap_comparison,3.32%,3.32%,docs/reports/spc_redesign_and_results.html,scrap_and_rework
+ppk_before,1.07,1.07,docs/reports/spc_redesign_and_results.html,"capability, characteristics in both periods"
+ppk_after,1.42,1.42,docs/reports/spc_redesign_and_results.html,"capability, characteristics in both periods"
+both_n,46,46,docs/reports/spc_redesign_and_results.html,capability
+gap_before,0.46,0.46,docs/reports/spc_redesign_and_results.html,capability
+gap_after,0.28,0.28,docs/reports/spc_redesign_and_results.html,capability
+centred,30,30,docs/reports/spc_redesign_and_results.html,coil_change_by_distance
+centred_of,276,276,docs/reports/spc_redesign_and_results.html,coil_change_by_distance
+alarms_before,15.3,15.3,docs/reports/spc_redesign_and_results.html,signals
+alarms_after,5.3,5.3,docs/reports/spc_redesign_and_results.html,signals
+adj_before,17%,17%,docs/reports/spc_redesign_and_results.html,signals
+adj_after,84%,84%,docs/reports/spc_redesign_and_results.html,signals
+breaks,6,6,docs/reports/spc_redesign_and_results.html,punch_break_summary
+ppm_before,191,191,docs/reports/spc_redesign_and_results.html,ppm
+ppm_after,267,267,docs/reports/spc_redesign_and_results.html,ppm
+complaints,6,6,docs/reports/spc_redesign_and_results.html,ppm
+sorts_before,1,1,docs/reports/spc_redesign_and_results.html,sorting
+sorts_after,0,0,docs/reports/spc_redesign_and_results.html,sorting
+late_n,13,13,docs/reports/spc_redesign_and_results.html,pilot_intervals
+hd_before,14.4,14.4,docs/reports/spc_redesign_and_results.html,hole_diameter_under_the_tool_wear_chart
+hd_after,0.6,0.6,docs/reports/spc_redesign_and_results.html,hole_diameter_under_the_tool_wear_chart
+stops,36,36,docs/reports/spc_redesign_and_results.html,stops_by_chart
+worn,22,22,docs/reports/spc_redesign_and_results.html,stops_by_chart
+slug,9,9,docs/reports/spc_redesign_and_results.html,stops_by_chart
+nothing,5,5,docs/reports/spc_redesign_and_results.html,stops_by_chart
+nf_rate,0.63,0.63,docs/reports/spc_redesign_and_results.html,stops_with_nothing_found
+after_stop,22,22,docs/reports/spc_redesign_and_results.html,punch_replacements
+replacements,25,25,docs/reports/spc_redesign_and_results.html,punch_replacements
+models,83,,,"information_schema.tables: staging, intermediate, marts"
+tests,263,,,dbt manifest: test nodes
+batch,20260713T053000Z-SPC30M,,,mart_outcomes.export_batch_id
+subgroups,"525,576",,,raw.spc__subgroups
+characteristics,"1,560",,,raw.spc__characteristics
+runs,"5,620",,,raw.erp__production_runs
+coils,"4,665",,,raw.erp__coils
+strokes,"8,030,315",,,mart_per_stroke_run_tonnage
+digit,1.76,1.76,docs/reports/spc_assessment.html,entry_methods
+set_aside,0.35%,,docs/reports/spc_assessment.html,entry_methods
+out_of_service,4.4%,4.4%,docs/reports/spc_assessment.html,gauge_status
+past_due,2.7%,2.7%,docs/reports/spc_assessment.html,gauge_status
+rounded,349,349,,stg_die_room__die_events
+sharpenings,845,845,,stg_die_room__die_events
+records: SPC software,"591,376",,,"characteristics, control limits, subgroups, alarms, reaction plan steps"
+records: Press monitors,"8,050,637",,,"per-stroke peaks (pilot presses), tonnage windows, fault events"
+records: ERP,"33,411",,,"parts, dies, presses, production runs, coils, scrap, shipments"
+records: QMS,"8,468",,,"nonconformances, sorting events, complaints, dock audits, PPAP studies, scorecards"
+records: Die maintenance log,"1,909",,,"sharpenings, punch replacements, rebuilds, repairs"
+records: Calibration system,"2,478",,,"gauges, calibrations, gauge studies"
+records: Accounting,"1,358",,,"quality cost lines, contribution by part"
+records: Study worksheets,9,,,"gauge R&R and attribute agreement studies, as recorded"

@@ -157,7 +157,7 @@ def fixture_against_cmm():
     return pd.DataFrame(rows), d
 
 
-def bounded_characteristics(year=2024):
+def bounded_characteristics(year=2025):
     """Burr height (lab readings) and flatness in the baseline year: the normal fit, the Box-Cox fit, and the upper
     capability index on the readings as recorded by the percentile method, with the normal and Box-Cox results beside."""
     d = query(f"""

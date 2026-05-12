@@ -1,172 +1,98 @@
-section,value_as_printed,read_from
-1. Summary: outcomes on the pilot presses,2.60%,"scrap_and_rework.scrap_and_rework_share_of_revenue, pilot 2024"
-1. Summary: outcomes on the pilot presses,1.69%,"scrap_and_rework.scrap_and_rework_share_of_revenue, pilot 2025"
-1. Summary: outcomes on the pilot presses,"96,000","scrap_and_rework: the fall in the share of revenue, pilot 2024 to 2025, times revenue of 2025, to the thousand"
-1. Summary: outcomes on the pilot presses,0.84,"scrap_and_rework.pieces_scrapped_share, pilot 2025 less 2024"
-1. Summary: outcomes on the pilot presses,0.20,"scrap_and_rework.pieces_scrapped_share, comparison 2025 less 2024"
-1. Summary: outcomes on the pilot presses,"18,921","cost_lines: customer charge-back, pilot 2024"
-1. Summary: outcomes on the pilot presses,"6,305","cost_lines: customer charge-back, pilot 2025"
-1. Summary: outcomes on the pilot presses,"17,043","cost_lines: premium freight, pilot 2024"
-1. Summary: outcomes on the pilot presses,"2,994","cost_lines: premium freight, pilot 2025"
-1. Summary: outcomes on the pilot presses,83,"capability.characteristics, pilot formed 2025"
-1. Summary: outcomes on the pilot presses,1.00,"capability.ppk_median, pilot formed 2024"
-1. Summary: outcomes on the pilot presses,1.43,"capability.ppk_median, pilot formed 2025"
-1. Summary: outcomes on the pilot presses,13,punch_break_summary.punch_breaks_stopped_by_the_charts
-1. Summary: outcomes on the pilot presses,15.1,"signals.alarm_signals_per_100_subgroups, pilot 2024"
-1. Summary: outcomes on the pilot presses,4.4,"signals.alarm_signals_per_100_subgroups, pilot 2025"
-1. Summary: outcomes on the pilot presses,99%,"signals.acknowledgement_or_adjustment_share, pilot 2025"
-1. Summary: outcomes on the pilot presses,64%,"signals.acknowledgement_or_adjustment_share, pilot 2024"
-1. Summary: outcomes on the pilot presses,30,"ppm.complaints, pilot 2024"
-1. Summary: outcomes on the pilot presses,11,"ppm.complaints, pilot 2025"
-1. Summary: outcomes on the pilot presses,389,"ppm.ppm, pilot 2024"
-1. Summary: outcomes on the pilot presses,118,"ppm.ppm, pilot 2025"
-1. Summary: outcomes on the pilot presses,198,"ppm.ppm, pilot 2023"
-1. Summary: outcomes on the pilot presses,3.28%,"scrap_and_rework.scrap_and_rework_share_of_revenue, rollout 2024"
-1. Summary: outcomes on the pilot presses,2.67%,"scrap_and_rework.scrap_and_rework_share_of_revenue, rollout 2025"
-3.1 Formed characteristics: three-way charts and coil-change centring,1.00,"capability.ppk_median, pilot formed 2024"
-3.1 Formed characteristics: three-way charts and coil-change centring,1.43,"capability.ppk_median, pilot formed 2025"
-3.1 Formed characteristics: three-way charts and coil-change centring,72,capability_by_characteristic: Ppk under 1.33 in 2024
-3.1 Formed characteristics: three-way charts and coil-change centring,21,capability_by_characteristic: Ppk under 1.33 in 2025
-3.1 Formed characteristics: three-way charts and coil-change centring,83,capability_by_characteristic: pilot formed characteristics in both years
-3.1 Formed characteristics: three-way charts and coil-change centring,76,capability_by_characteristic: Ppk higher in 2025
-3.1 Formed characteristics: three-way charts and coil-change centring,83,capability_by_characteristic: pilot formed characteristics in both years
-3.1 Formed characteristics: three-way charts and coil-change centring,1.64,"capability.cpk_median, pilot formed 2024"
-3.1 Formed characteristics: three-way charts and coil-change centring,1.75,"capability.cpk_median, pilot formed 2025"
-3.1 Formed characteristics: three-way charts and coil-change centring,0.64,"capability: cpk_median less ppk_median as printed, pilot formed 2024"
-3.1 Formed characteristics: three-way charts and coil-change centring,0.32,"capability: cpk_median less ppk_median as printed, pilot formed 2025"
-3.2 Sharpening at the count and tool-wear charts,19%,"burr.share_over_the_limit, pilot 2024"
-3.2 Sharpening at the count and tool-wear charts,7%,"burr.share_over_the_limit, pilot 2025"
-3.2 Sharpening at the count and tool-wear charts,15,"burr.intervals_with_burr_over_the_limit, pilot 2024"
-3.2 Sharpening at the count and tool-wear charts,77,"burr.intervals_with_burr_gauge_subgroups, pilot 2024"
-3.2 Sharpening at the count and tool-wear charts,7,"burr.intervals_with_burr_over_the_limit, pilot 2025"
-3.2 Sharpening at the count and tool-wear charts,94,"burr.intervals_with_burr_gauge_subgroups, pilot 2025"
-3.2 Sharpening at the count and tool-wear charts,16%,"burr.share_over_the_limit, comparison 2024"
-3.2 Sharpening at the count and tool-wear charts,19%,"burr.share_over_the_limit, comparison 2025"
-3.2 Sharpening at the count and tool-wear charts,12,"burr.burr_nonconformances_at_the_press_check, pilot 2024"
-3.2 Sharpening at the count and tool-wear charts,4,"burr.burr_nonconformances_at_the_press_check, pilot 2025"
-3.2 Sharpening at the count and tool-wear charts,17.8,"hole_diameter_under_the_tool_wear_chart.alarm_signals_per_100_subgroups, 2024"
-3.2 Sharpening at the count and tool-wear charts,0.7,"hole_diameter_under_the_tool_wear_chart.alarm_signals_per_100_subgroups, 2025"
-3.2 Sharpening at the count and tool-wear charts,1.52,"hole_diameter_under_the_tool_wear_chart.ppk_median, 2025"
-3.2 Sharpening at the count and tool-wear charts,1.54,"hole_diameter_under_the_tool_wear_chart.ppk_median, 2024"
-3.2 Sharpening at the count and tool-wear charts,247,int_characteristic_history: subgroups on the interval shown
-3.3 Per-stroke monitoring,"5,990","sorting_before_and_under_monitoring.parts_since_the_check_before_median, hourly check"
-3.3 Per-stroke monitoring,112,"stops_by_chart.stops, both charts"
-3.3 Per-stroke monitoring,70,"stops_by_chart: punch worn and punch chipped, both charts"
-3.3 Per-stroke monitoring,24,"stops_by_chart.slug pulling cleared, both charts"
-3.3 Per-stroke monitoring,18,"stops_by_chart.nothing found, both charts"
-3.3 Per-stroke monitoring,70,"punch_replacements: all, 2025"
-3.3 Per-stroke monitoring,8,"punch_replacements: after nonconforming parts, 2024"
-3.3 Per-stroke monitoring,11,"punch_replacements: after nonconforming parts, 2023"
-3.3 Per-stroke monitoring,0.88,"stops_with_nothing_found.nothing_found_per_million_strokes, pilot presses"
-3.3 Per-stroke monitoring,2.0,stops_with_nothing_found.design_false_signals_per_million_at_most
-3.3 Per-stroke monitoring,"1,084",sorting_under_monitoring.quantity_sorted
-"4. Signals, adjustment and the record",4.4,"signals.alarm_signals_per_100_subgroups, pilot 2025"
-"4. Signals, adjustment and the record",15.1,"signals.alarm_signals_per_100_subgroups, pilot 2024"
-"4. Signals, adjustment and the record",82%,"signals.adjustment_share, pilot 2025"
-"4. Signals, adjustment and the record",18%,"signals.adjustment_share, pilot 2024"
-"4. Signals, adjustment and the record",-0.15,"autocorrelation.lag_1_autocorrelation, 2024 adjusted"
-"4. Signals, adjustment and the record",0.04,"autocorrelation.lag_1_autocorrelation, pilot adjusted"
-"4. Signals, adjustment and the record",7.7%,"gauge_rr.pct_tolerance, F-20417 after rebuild"
-"4. Signals, adjustment and the record",9.5%,"gauge_rr.pct_tolerance, F-31102 after rebuild"
-"4. Signals, adjustment and the record",92%,"attribute_agreement.against_reference, after new limit samples"
-"4. Signals, adjustment and the record",0.78,"attribute_agreement.fleiss_kappa, after"
-"4. Signals, adjustment and the record",2.1%,"entry_after_the_parts.share, pilot gauge-connected 2025"
-"4. Signals, adjustment and the record",14.8%,"entry_after_the_parts.share, pilot keyed 2024"
-5. What has not moved,"7 to 5, p = 0.77; 4 of the 5 began before per-stroke monitoring",sorting and pilot_sorting_starts
-5. What has not moved,"198 to 118, p = 0.45",ppm
-5. What has not moved,"PPM 226 to 316; burr at the press check 6 to 10, over four months","ppm and burr, rollout"
-5. What has not moved,Still 7 of 94 intervals,"burr.intervals_with_burr_over_the_limit and intervals_with_burr_gauge_subgroups, pilot 2025"
-5. What has not moved,"1,084 parts sorted back to the previous check",sorting_under_monitoring.quantity_sorted
-5. What has not moved,89.7% and 88.6% of planned checks recorded,"pilot_planned_checks.recorded_share, nights 2025"
-Appendix,897,reaction_plan.characteristics
-Appendix,30,mart_control_plan: attribute burr characteristics
-Appendix,30,mart_control_plan: burr gauge characteristics with no limit set in force
-Appendix,7.7%,"gauge_rr.pct_tolerance, F-20417 after rebuild"
-Appendix,9.5%,"gauge_rr.pct_tolerance, F-31102 after rebuild"
-Appendix,20,"gauge_rr.ndc, F-20417 after rebuild"
-Appendix,12,"gauge_rr.ndc, F-31102 after rebuild"
-Appendix,9%,"gauge_rr.reproducibility_share_of_grr, F-20417 after rebuild"
-Appendix,15%,"gauge_rr.reproducibility_share_of_grr, F-31102 after rebuild"
-Appendix,92%,"attribute_agreement.against_reference, after new limit samples"
-Appendix,0.78,"attribute_agreement.fleiss_kappa, after"
-Appendix,0.67,"attribute_agreement.kappa_low, after"
-Appendix,0.88,"attribute_agreement.kappa_high, after"
-Appendix,80%,"attribute_agreement.against_reference, assessment"
-Appendix,0.44,"attribute_agreement.fleiss_kappa, assessment"
-Appendix,50,attribute_agreement.parts
-Appendix,2,attribute_agreement.trials
-Appendix,6,attribute_by_operator: operators
-Appendix,7,"attribute_by_operator: widest reject rate less the burr gauge, after"
-Appendix,"2,776",after_the_reaction_plan.following_a_rule_1_alarm
-Appendix,49,after_the_reaction_plan.at_a_coil_change
-Appendix,96.7%,after_the_reaction_plan: rule_1_alarms_with_an_adjustment_recorded over rule_1_alarms
-Appendix,0.04,"autocorrelation.lag_1_autocorrelation, pilot adjusted"
-Appendix,0.02,"autocorrelation.low, pilot adjusted"
-Appendix,0.07,"autocorrelation.high, pilot adjusted"
-Appendix,-0.15,"autocorrelation.lag_1_autocorrelation, 2024 adjusted"
-Appendix,-0.05,"autocorrelation.lag_1_autocorrelation, pilot not adjusted"
-Appendix,-0.07,"autocorrelation.lag_1_autocorrelation, 2024 not adjusted"
-Appendix,14.8%,"entry_after_the_parts.share, pilot keyed 2024"
-Appendix,2.1%,"entry_after_the_parts.share, pilot gauge-connected 2025"
-Appendix,15.2%,"entry_after_the_parts.share, pilot keyed attribute checks 2025"
-Appendix,90.2%,"pilot_planned_checks.recorded_share, PR-03 nights 2024"
-Appendix,99.3%,"pilot_planned_checks.recorded_share, PR-03 nights 2025"
-Appendix,80.8%,"pilot_planned_checks.recorded_share, PR-06 nights 2024"
-Appendix,89.7%,"pilot_planned_checks.recorded_share, PR-06 nights 2025"
-Appendix,79.2%,"pilot_planned_checks.recorded_share, PR-09 nights 2024"
-Appendix,88.6%,"pilot_planned_checks.recorded_share, PR-09 nights 2025"
-Appendix,1.8%,"rise_before_the_stop.rise_against_the_first_500_median, worn punch on the EWMA"
-Appendix,1.4%,rise_before_the_stop.rise_p10
-Appendix,2.1%,rise_before_the_stop.rise_p90
-Appendix,48,"rise_before_the_stop.stops, worn punch on the EWMA"
-Appendix,1.8%,"rise_rows.rise_against_the_first_500, the stop shown"
-Appendix,24,"stops_by_chart.slug pulling cleared, both charts"
-Appendix,17,"stops_by_press.slug pulling cleared, PR-09"
-Appendix,14,"stops_by_chart.nothing found, EWMA"
-Appendix,9,rise_rows: EWMA stops with nothing found and a fall in the total
-Appendix,5,rise_rows: EWMA stops with nothing found and a rise in the total
-Appendix,0.9%,"rise_rows: smallest shift, EWMA nothing found"
-Appendix,1.5%,"rise_rows: largest shift, EWMA nothing found"
-Appendix,0.88,"stops_with_nothing_found.nothing_found_per_million_strokes, pilot presses"
-Appendix,0.52,stops_with_nothing_found.low
-Appendix,1.39,stops_with_nothing_found.high
-Appendix,2.0,stops_with_nothing_found.design_false_signals_per_million_at_most
-Appendix,70,"punch_replacements: all, 2025"
-Appendix,61,"punch_replacements: all, 2023"
-Appendix,51,"punch_replacements: all, 2024"
-Appendix,"1,084",sorting_under_monitoring.quantity_sorted
-Appendix,808,sorting_under_monitoring.quantity_rejected
-Appendix,4,pilot_sorting_starts.started_in_march
-Appendix,5,pilot_sorting_starts.sorting_events
-Appendix,1,pilot_sorting_starts: sorting_events less started_before_per_stroke_monitoring
-Appendix,8,"sorting.sorting_events, pilot 2023"
-Appendix,0.58,"sorting.p_2025_against_this_year, pilot 2023"
-Appendix,"3,509","sorting.cost_booked_or_estimated, pilot 2024"
-Appendix,620,"sorting.cost_booked_or_estimated, pilot 2025"
-Appendix,30,"ppm.complaints, pilot 2024"
-Appendix,16,"ppm.complaints, pilot 2023"
-Appendix,6,"pilot_complaints_by_month.complaints, March 2025"
-Appendix,11,"ppm.complaints, pilot 2025"
-Appendix,0.84,"scrap_and_rework.pieces_scrapped_share, pilot 2025 less 2024"
-Appendix,0.20,"scrap_and_rework.pieces_scrapped_share, comparison 2025 less 2024"
-Appendix,0.57,"scrap_and_rework.pieces_scrapped_share, rollout 2025 less 2024"
-Appendix,0.64,scrap_and_rework.pieces_scrapped_share: pilot change less comparison change
-Appendix,3,"sorting.sorting_events, comparison 2024"
-Appendix,6,"sorting.sorting_events, comparison 2025"
-Appendix,0.51,"sorting.p_2025_against_this_year, comparison 2024"
-Appendix,328,"ppm.ppm, comparison 2024"
-Appendix,382,"ppm.ppm, comparison 2025"
-Appendix,0.47,"ppm.p_2025_against_this_year, comparison 2024"
-Appendix,1.19,"capability.ppk_median, comparison formed 2024"
-Appendix,1.03,"capability.ppk_median, comparison formed 2025"
-Appendix,3,"capability.characteristics, comparison formed 2024"
-Appendix,2,"capability.characteristics, comparison formed 2025"
-Appendix,226,"ppm.ppm, rollout 2024"
-Appendix,316,"ppm.ppm, rollout 2025"
-Appendix,6,"ppm.complaints, rollout 2024"
-Appendix,6,"burr.burr_nonconformances_at_the_press_check, rollout 2024"
-Appendix,10,"burr.burr_nonconformances_at_the_press_check, rollout 2025"
-Appendix,"1,084 sorted, 808 rejected",sorting_under_monitoring
-Appendix,"18, 0.88 per 1,000,000 strokes",stops_by_chart and stops_with_nothing_found
-Appendix,15.2% entered more than 20 minutes after the parts,entry_after_the_parts
-Appendix,"5.7 per 100 subgroups in March, 4.1 in December","rule_1_by_month.rule_1_per_100_subgroups, first and last month"
+section,value_as_printed,read_from,value_in_the_text
+1. Summary: outcomes on the pilot presses,2.60%,"scrap_and_rework.scrap_and_rework_share_of_revenue, pilot 2025",2.60%
+1. Summary: outcomes on the pilot presses,1.69%,"scrap_and_rework.scrap_and_rework_share_of_revenue, pilot 2026",1.69%
+1. Summary: outcomes on the pilot presses,"32,000","scrap_and_rework: the fall in the share of revenue, pilot 2025 to 2026, times revenue of 2026, to the thousand","32,000"
+1. Summary: outcomes on the pilot presses,3.32%,"scrap_and_rework.scrap_and_rework_share_of_revenue, comparison 2026",3.32%
+1. Summary: outcomes on the pilot presses,0.77,"scrap_and_rework.pieces_scrapped_share, pilot 2026 less 2025",0.77
+1. Summary: outcomes on the pilot presses,0.19,"scrap_and_rework.pieces_scrapped_share, comparison 2026 less 2025",0.19
+1. Summary: outcomes on the pilot presses,1.07,"capability.ppk_median, pilot formed 2025, characteristics in both periods",1.07
+1. Summary: outcomes on the pilot presses,1.42,"capability.ppk_median, pilot formed 2026, characteristics in both periods",1.42
+1. Summary: outcomes on the pilot presses,15.3,"signals.alarm_signals_per_100_subgroups, pilot 2025",15.3
+1. Summary: outcomes on the pilot presses,5.3,"signals.alarm_signals_per_100_subgroups, pilot 2026",5.3
+1. Summary: outcomes on the pilot presses,99%,"signals.acknowledgement_or_adjustment_share, pilot 2026",99%
+1. Summary: outcomes on the pilot presses,65%,"signals.acknowledgement_or_adjustment_share, pilot 2025",65%
+1. Summary: outcomes on the pilot presses,6,punch_break_summary.punch_breaks_stopped_by_the_charts,6
+1. Summary: outcomes on the pilot presses,267,"ppm.ppm, pilot 2026",267
+1. Summary: outcomes on the pilot presses,6,"ppm.complaints, pilot 2026",6
+1. Summary: outcomes on the pilot presses,191,"ppm.ppm, pilot 2025",191
+1. Summary: outcomes on the pilot presses,6,"ppm.complaints, pilot 2025",6
+1. Summary: outcomes on the pilot presses,193,"ppm.ppm, pilot 2024",193
+1. Summary: outcomes on the pilot presses,5,"ppm.complaints, pilot 2024",5
+1. Summary: outcomes on the pilot presses,one,"sorting.sorting_events, pilot 2025",one
+1. Summary: outcomes on the pilot presses,none,"sorting.sorting_events, pilot 2026",none
+1. Summary: outcomes on the pilot presses,"3,734","cost_lines: customer charge-back, pilot 2026","3,734"
+1. Summary: outcomes on the pilot presses,"2,925","cost_lines: customer charge-back, pilot 2025","2,925"
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,46,capability_by_characteristic: pilot formed characteristics in both periods,46
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,1.07,"capability.ppk_median, pilot formed 2025, characteristics in both periods",1.07
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,1.42,"capability.ppk_median, pilot formed 2026, characteristics in both periods",1.42
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,36,capability_by_characteristic: Ppk under 1.33 in 2025,36
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,10,capability_by_characteristic: Ppk under 1.33 in 2026,10
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,39,capability_by_characteristic: Ppk higher in 2026,39
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,46,capability_by_characteristic: pilot formed characteristics in both periods,46
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,1.53,"capability.cpk_median, pilot formed 2025, characteristics in both periods",1.53
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,1.70,"capability.cpk_median, pilot formed 2026, characteristics in both periods",1.70
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,0.46,"capability: cpk_median less ppk_median as printed, pilot formed 2025",0.46
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,0.28,"capability: cpk_median less ppk_median as printed, pilot formed 2026",0.28
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,1.57,"capability.ppk_median, pilot punched 2025, characteristics in both periods",1.57
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,1.63,"capability.ppk_median, pilot punched 2026, characteristics in both periods",1.63
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,158,"coil_change_by_distance.adjustments_recorded, beyond three sigma",158
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,159,"coil_change_by_distance.coil_change_subgroups, beyond three sigma",159
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,30,"coil_change_by_distance.adjustments_recorded, one to three sigma",30
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,276,"coil_change_by_distance.coil_change_subgroups, one to three sigma",276
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,59%,"coil_change_what_follows.share, April to June 2026, no adjustment recorded",59%
+3.1 Formed characteristics: three-way charts and the coil-change subgroup,39%,"coil_change_what_follows.share, April to June 2026, adjustment recorded",39%
+3.2 Sharpening at the count and tool-wear charts,13,pilot_intervals: began on or after 2 February 2026,13
+3.2 Sharpening at the count and tool-wear charts,8,pilot_intervals: began before 2 February 2026,8
+3.2 Sharpening at the count and tool-wear charts,Five,pilot_intervals: began before 2 February 2026 and passed the count,Five
+3.2 Sharpening at the count and tool-wear charts,two,"pilot_intervals: over the limit, began before 2 February 2026",two
+3.2 Sharpening at the count and tool-wear charts,21,pilot_intervals: ending April to June 2026 with burr gauge subgroups,21
+3.2 Sharpening at the count and tool-wear charts,10%,"burr.share_over_the_limit, pilot 2026",10%
+3.2 Sharpening at the count and tool-wear charts,9%,"burr.share_over_the_limit, pilot 2025",9%
+3.2 Sharpening at the count and tool-wear charts,Eight,pilot dies on an interval begun before 2 February 2026 and open at 30 June,Eight
+3.2 Sharpening at the count and tool-wear charts,1.33,"pilot dies with an open interval: shots since sharpening over the due count, highest of those begun before 2 February",1.33
+3.2 Sharpening at the count and tool-wear charts,1,"burr.burr_nonconformances_at_the_press_check, pilot 2026",1
+3.2 Sharpening at the count and tool-wear charts,2,"burr.burr_nonconformances_at_the_press_check, pilot 2025",2
+3.2 Sharpening at the count and tool-wear charts,14.4,"hole_diameter_under_the_tool_wear_chart.alarm_signals_per_100_subgroups, 2025",14.4
+3.2 Sharpening at the count and tool-wear charts,0.6,"hole_diameter_under_the_tool_wear_chart.alarm_signals_per_100_subgroups, 2026",0.6
+3.2 Sharpening at the count and tool-wear charts,1.55,"hole_diameter_under_the_tool_wear_chart.ppk_median, 2026",1.55
+3.2 Sharpening at the count and tool-wear charts,1.57,"hole_diameter_under_the_tool_wear_chart.ppk_median, 2025",1.57
+3.3 Per-stroke monitoring,"5,756","sorting_before_and_under_monitoring.parts_since_the_check_before_median, hourly check","5,756"
+3.3 Per-stroke monitoring,one,punch_break_summary.strokes_largest,one
+3.3 Per-stroke monitoring,36,"stops_by_chart.stops, both charts",36
+3.3 Per-stroke monitoring,22,"stops_by_chart: punch worn and punch chipped, both charts",22
+3.3 Per-stroke monitoring,9,"stops_by_chart.slug pulling cleared, both charts",9
+3.3 Per-stroke monitoring,5,"stops_by_chart.nothing found, both charts",5
+3.3 Per-stroke monitoring,0.63,"stops_with_nothing_found.nothing_found_per_million_strokes, pilot presses",0.63
+3.3 Per-stroke monitoring,2.0,stops_with_nothing_found.design_false_signals_per_million_at_most,2.0
+3.3 Per-stroke monitoring,22,"punch_replacements: after a stop by the per-stroke charts, 2026",22
+3.3 Per-stroke monitoring,25,"punch_replacements: all, 2026",25
+3.3 Per-stroke monitoring,1,"punch_replacements: after nonconforming parts, 2026",1
+3.3 Per-stroke monitoring,3,"punch_replacements: after nonconforming parts, 2025",3
+3.3 Per-stroke monitoring,15,"punch_replacements: all, 2025",15
+"4. Signals, adjustment and the record",5.3,"signals.alarm_signals_per_100_subgroups, pilot 2026",5.3
+"4. Signals, adjustment and the record",15.3,"signals.alarm_signals_per_100_subgroups, pilot 2025",15.3
+"4. Signals, adjustment and the record",84%,"signals.adjustment_share, pilot 2026",84%
+"4. Signals, adjustment and the record",17%,"signals.adjustment_share, pilot 2025",17%
+"4. Signals, adjustment and the record",-0.14,"autocorrelation.lag_1_autocorrelation, 2025 adjusted",-0.14
+"4. Signals, adjustment and the record",0.07,"autocorrelation.lag_1_autocorrelation, pilot adjusted",0.07
+"4. Signals, adjustment and the record",7.7%,"gauge_rr.pct_tolerance, F-20417 after rebuild",7.7%
+"4. Signals, adjustment and the record",9.5%,"gauge_rr.pct_tolerance, F-31102 after rebuild",9.5%
+"4. Signals, adjustment and the record",92%,"attribute_agreement.against_reference, after new limit samples",92%
+"4. Signals, adjustment and the record",0.78,"attribute_agreement.fleiss_kappa, after",0.78
+"4. Signals, adjustment and the record",2.1%,"entry_after_the_parts.share, pilot gauge-connected 2026",2.1%
+"4. Signals, adjustment and the record",15.4%,"entry_after_the_parts.share, pilot keyed 2025",15.4%
+"4. Signals, adjustment and the record",77%,"pilot_planned_checks.recorded_share, PR-06 nights 2025",77%
+"4. Signals, adjustment and the record",72%,"pilot_planned_checks.recorded_share, PR-09 nights 2025",72%
+"4. Signals, adjustment and the record",86%,"pilot_planned_checks.recorded_share, PR-06 nights 2026",86%
+"4. Signals, adjustment and the record",90%,"pilot_planned_checks.recorded_share, PR-09 nights 2026",90%
+5. What has not moved,"191 to 267, on 6 complaints in each quarter","ppm.ppm and complaints, pilot 2025 and 2026","191 to 267, on 6 complaints in each quarter"
+5. What has not moved,"$2,925 to $3,734","cost_lines: customer charge-back, pilot 2025 and 2026","$2,925 to $3,734"
+5. What has not moved,1 to 0; 3 in 2024,"sorting.sorting_events, pilot",1 to 0; 3 in 2024
+5. What has not moved,"2 of 21 intervals, both begun before 2 February; 8 pilot dies still on intervals begun before it","burr.intervals_with_burr_over_the_limit and intervals_with_burr_gauge_subgroups, pilot 2026; pilot_intervals; pilot_open_intervals","2 of 21 intervals, both begun before 2 February; 8 pilot dies still on intervals begun before it"
+5. What has not moved,Adjustment recorded on 30 of 276 coil-change subgroups between one and three sigma off centre,"coil_change_by_distance: adjustments_recorded and coil_change_subgroups, one to three sigma",Adjustment recorded on 30 of 276 coil-change subgroups between one and three sigma off centre
+5. What has not moved,"86% of planned checks recorded, against 99% on days","pilot_planned_checks.recorded_share, PR-06 nights and days 2026","86% of planned checks recorded, against 99% on days"
+Appendix,50,attribute_agreement.parts,
+Appendix,2,attribute_agreement.trials,
+Appendix,6,attribute_by_operator: operators,
+Appendix,7,"attribute_by_operator: widest reject rate less the burr gauge, after",
+Appendix,1.9%,"rise_rows.rise_against_the_first_500, the stop shown",

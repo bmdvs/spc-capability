@@ -6,7 +6,7 @@ import pandas as pd
 from analytics.data import query
 from analytics.stats import wilson
 
-BASELINE_YEAR = 2024
+BASELINE_YEAR = 2025
 
 
 def risk_window():
@@ -60,7 +60,7 @@ def sorting_summary():
     return pd.DataFrame(rows)
 
 
-def sorting_by_basis(years=(2023, 2024)):
+def sorting_by_basis(years=(2024, 2025)):
     """Sorting events found at the press, by the basis of the sort: from a logged die-protection fault, or back to the
     check before (in-house, or by the sorting service)."""
     return query("""
@@ -83,7 +83,7 @@ def stroke_rates():
     return query("select press_id, runs, realised_share_of_run_speed, realised_share_of_run_speed_pooled from intermediate.int_press_stroke_rate order by 1")
 
 
-def findings_and_checks(years=(2023, 2024)):
+def findings_and_checks(years=(2024, 2025)):
     """Findings at the press: made at a check or between checks, and the interval from the check before, by the plan's frequency."""
     return query("""
         with e as (

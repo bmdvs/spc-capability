@@ -6,7 +6,6 @@ from analytics.die_wear.die_wear import BASELINE_YEAR
 from analytics.data import query
 from analytics.style import style as S
 
-PILOT_DIES = ("D-0417-B", "D-1102-A", "D-0823-C")
 SEED = 20250106
 
 
@@ -24,14 +23,16 @@ def hole_diameter_on_one_die(t, die="D-0417-B", year=BASELINE_YEAR):
         ax.scatter(x, y, s=9, color=c, alpha=0.45, lw=0, label=f"Interval {n + 1} ({len(g)} subgroups)")
         xx = np.array([x.min(), x.max()]); ax.plot(xx, y.mean() + b * (xx - x.mean()), color=c, lw=1.8)
     ax.set_xlabel("Shots since sharpening, thousands"); ax.set_ylabel("Hole diameter, subgroup mean, mm")
+    ax.text(0.015, 0.97, f"{row.slope_mm_per_100k_shots:.4f} mm per 100,000 shots ({row.slope_low:.4f} to {row.slope_high:.4f}); {row.growth_as_share_of_tolerance * 100:.0f}% of tolerance over the stated interval", transform=ax.transAxes, ha="left", va="top", fontsize=9, color=S.TEXT, fontweight="bold")
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=3, frameon=False, fontsize=8.5)
     f.tight_layout()
     return S.save(f, "die_wear_hole_diameter_one_die", f"Hole diameter {row.characteristic_id} against shots since sharpening on die {die} by sharpening interval, {year}, with the common slope and the tolerance")
 
 
 def the_burr_die(t):
-    """The die with the most burr gauge subgroups among those whose stated interval is past the count at 80%."""
-    f = t["burr_by_die"]; f = f[f["interval_longer_than_80pct_count"]]
+    """The die with the most burr gauge subgroups among those whose stated interval is past the count at 80% of the
+    burr limit and whose median interval as run is past the stated interval."""
+    f = t["burr_by_die"]; f = f[f["interval_longer_than_80pct_count"] & (f["logged_interval_median"] > f["sharpening_interval_shots"])]
     return f.sort_values(["subgroups", "die_id"], ascending=[False, True]).iloc[0]
 
 
@@ -66,11 +67,6 @@ def count_against_interval(t):
         g = d[d[col].notna()]; x, y = S.sig(g[col].values / 1000), S.sig(g["shots_at_80pct_of_limit"].values / 1000); below = x > y
         ax.plot([100, 650], [100, 650], color=S.DARK_GREY, ls="--", lw=1.0)
         ax.scatter(x[~below], y[~below], s=18, color=S.LIGHT_BLUE, lw=0); ax.scatter(x[below], y[below], s=18, color=S.BRAND_BLUE, lw=0)
-        for die in PILOT_DIES:
-            r = g[g["die_id"] == die]
-            if len(r):
-                xv, yv = float(S.sig(r[col].iloc[0] / 1000)), float(S.sig(r["shots_at_80pct_of_limit"].iloc[0] / 1000))
-                ax.scatter([xv], [yv], s=40, facecolors="none", edgecolors=S.AMBER, linewidths=1.6); ax.text(xv + 8, yv + {"D-0417-B": 14, "D-1102-A": -14}.get(die, 0), die, fontsize=8, color=S.AMBER, va="center")
         ax.set_title(f"{title}\n{int(below.sum())} of {len(g)} dies below the line", fontsize=10.5); ax.set_xlabel("Interval, thousand shots"); ax.set_xlim(100, 520); ax.set_ylim(100, 650)
     axes[0].set_ylabel("Shots at 80% of the burr limit, thousands")
     f.tight_layout()
@@ -97,6 +93,8 @@ def nonconformances_by_position(t, year=BASELINE_YEAR):
     for a in axes:
         a.axvline(1.0, color=S.DARK_GREY, ls="--", lw=1.0)
     axes[1].set_xlabel("Shots since sharpening at the end of the run, as a multiple of the die's stated sharpening interval"); axes[1].set_xlim(0, 1.8)
+    burr = n[n["defect_code"] == "burr"]; past = int((burr["share_of_the_interval"] > 1).sum())
+    ax.text(0.015, 0.97, f"{past} of {len(burr)} burr nonconformances past the stated interval; {(runs > 1).mean() * 100:.0f}% of runs", transform=ax.transAxes, ha="left", va="top", fontsize=9.5, color=S.TEXT, fontweight="bold")
     f.tight_layout()
     return S.save(f, "die_wear_nonconformances_by_position", f"Burr nonconformances opened in {year} by the die's position in its stated sharpening interval at the end of the run, over all runs of the year with shots since sharpening known")
 
