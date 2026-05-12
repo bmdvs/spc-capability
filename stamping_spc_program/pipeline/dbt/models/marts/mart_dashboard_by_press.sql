@@ -1,7 +1,7 @@
 -- Sorting events and alarm signals by press and month for the dashboard. Grain: one row per press and month.
 
 with months as (
-    select p.press_id, p.press_group, p.is_pilot_press, unnest(range(date '2023-01-01', date '2026-01-01', interval 1 month))::date as month_start
+    select p.press_id, p.press_group, p.is_pilot_press, unnest(range(date '2024-01-01', date '2026-07-01', interval 1 month))::date as month_start
     from {{ ref('int_press_redesign') }} p
 ),
 
