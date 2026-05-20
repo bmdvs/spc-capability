@@ -1,95 +1,65 @@
-readme_figure,value,value_in_the_text,page,read_from
-parts,180,180,,"raw.erp__parts, to the ten"
-dies,170,,,"raw.erp__dies, to the ten"
-scrap_share,3.12%,3.12%,docs/reports/spc_assessment.html,plant_losses
-scrap_cost,"1,242,201","1,242,201",docs/reports/spc_assessment.html,plant_losses
-ppm,463,463,docs/reports/spc_assessment.html,plant_losses
-sorts,14,14,docs/reports/spc_assessment.html,sorting_summary
-sorted,"101,154","101,154",docs/reports/spc_assessment.html,sorting_summary
-traced,12,12,docs/reports/spc_assessment.html,sorting_summary
-flagged,17.0%,17.0%,docs/reports/spc_assessment.html,signal_comparison
-printed,42,42,docs/reports/spc_assessment.html,paper_signals
-action,28%,28%,docs/reports/spc_assessment.html,paper_signals_all_subgroups
-ppk_formed,1.04,1.04,docs/reports/spc_assessment.html,capability_summary
-filed_formed,1.84,1.84,docs/reports/spc_assessment.html,capability_summary
-ppk_punched,1.55,1.55,docs/reports/spc_assessment.html,capability_summary
-filed_punched,1.85,1.85,docs/reports/spc_assessment.html,capability_summary
-coil_share,54%,54%,docs/reports/spc_assessment.html,capability_summary
-coil_punched,2%,2%,docs/reports/spc_assessment.html,capability_summary
-coil_fit,2.5%,2.5%,docs/reports/spc_assessment.html,coil_regression_summary
-burr_past,60,60,docs/reports/spc_assessment.html,runs_past_the_interval
-burr_all,61,61,docs/reports/spc_assessment.html,runs_past_the_interval
-fx_before,2,2,docs/reports/spc_assessment.html,gauge studies on check fixtures before January 2026
-fixtures,180,180,docs/reports/spc_assessment.html,stg_calibration__gauges
-grr1,31.2%,31.2%,docs/reports/spc_assessment.html,gauge_rr
-grr2,33.6%,33.6%,docs/reports/spc_assessment.html,gauge_rr
-agree,80%,80%,docs/reports/spc_assessment.html,attribute_agreement
-kappa,0.44,0.44,docs/reports/spc_assessment.html,attribute_agreement
-between_low,"1,934","1,934",docs/reports/spc_assessment.html,risk_window
-between_high,"16,333","16,333",docs/reports/spc_assessment.html,risk_window
-nights,84%,84%,docs/reports/spc_assessment.html,planned_checks
-days,94%,94%,docs/reports/spc_assessment.html,planned_checks
-late,15.1%,15.1%,docs/reports/spc_assessment.html,entry_after_the_parts
-alarms,"10,474","10,474",docs/reports/spc_assessment.html,software_acknowledgements
-one_word,"4,691","4,691",docs/reports/spc_assessment.html,software_acknowledgements
-ac_adj,-0.14,-0.14,docs/reports/spc_assessment.html,autocorrelation
-ac_not,-0.07,-0.07,docs/reports/spc_assessment.html,autocorrelation
-added,9.9%,9.9%,docs/reports/spc_assessment.html,variance
-logged,1.14,1.14,docs/reports/spc_assessment.html,intervals_as_logged
-long,41,41,docs/reports/spc_assessment.html,burr_summary
-fitted,124,124,docs/reports/spc_assessment.html,burr_summary
-rej_back,37%,37%,docs/reports/spc_assessment.html,sorting_by_basis
-rej_fault,77%,77%,docs/reports/spc_assessment.html,sorting_by_basis
-scrap_before,2.60%,2.60%,docs/reports/spc_redesign_and_results.html,scrap_and_rework
-scrap_after,1.69%,1.69%,docs/reports/spc_redesign_and_results.html,scrap_and_rework
-saved,"32,000","32,000",docs/reports/spc_redesign_and_results.html,scrap_and_rework
-scrap_comparison,3.32%,3.32%,docs/reports/spc_redesign_and_results.html,scrap_and_rework
-ppk_before,1.07,1.07,docs/reports/spc_redesign_and_results.html,"capability, characteristics in both periods"
-ppk_after,1.42,1.42,docs/reports/spc_redesign_and_results.html,"capability, characteristics in both periods"
-both_n,46,46,docs/reports/spc_redesign_and_results.html,capability
-gap_before,0.46,0.46,docs/reports/spc_redesign_and_results.html,capability
-gap_after,0.28,0.28,docs/reports/spc_redesign_and_results.html,capability
-centred,30,30,docs/reports/spc_redesign_and_results.html,coil_change_by_distance
-centred_of,276,276,docs/reports/spc_redesign_and_results.html,coil_change_by_distance
-alarms_before,15.3,15.3,docs/reports/spc_redesign_and_results.html,signals
-alarms_after,5.3,5.3,docs/reports/spc_redesign_and_results.html,signals
-adj_before,17%,17%,docs/reports/spc_redesign_and_results.html,signals
-adj_after,84%,84%,docs/reports/spc_redesign_and_results.html,signals
-breaks,6,6,docs/reports/spc_redesign_and_results.html,punch_break_summary
-ppm_before,191,191,docs/reports/spc_redesign_and_results.html,ppm
-ppm_after,267,267,docs/reports/spc_redesign_and_results.html,ppm
-complaints,6,6,docs/reports/spc_redesign_and_results.html,ppm
-sorts_before,1,1,docs/reports/spc_redesign_and_results.html,sorting
-sorts_after,0,0,docs/reports/spc_redesign_and_results.html,sorting
-late_n,13,13,docs/reports/spc_redesign_and_results.html,pilot_intervals
-hd_before,14.4,14.4,docs/reports/spc_redesign_and_results.html,hole_diameter_under_the_tool_wear_chart
-hd_after,0.6,0.6,docs/reports/spc_redesign_and_results.html,hole_diameter_under_the_tool_wear_chart
-stops,36,36,docs/reports/spc_redesign_and_results.html,stops_by_chart
-worn,22,22,docs/reports/spc_redesign_and_results.html,stops_by_chart
-slug,9,9,docs/reports/spc_redesign_and_results.html,stops_by_chart
-nothing,5,5,docs/reports/spc_redesign_and_results.html,stops_by_chart
-nf_rate,0.63,0.63,docs/reports/spc_redesign_and_results.html,stops_with_nothing_found
-after_stop,22,22,docs/reports/spc_redesign_and_results.html,punch_replacements
-replacements,25,25,docs/reports/spc_redesign_and_results.html,punch_replacements
-models,83,,,"information_schema.tables: staging, intermediate, marts"
-tests,263,,,dbt manifest: test nodes
-batch,20260713T053000Z-SPC30M,,,mart_outcomes.export_batch_id
-subgroups,"525,576",,,raw.spc__subgroups
-characteristics,"1,560",,,raw.spc__characteristics
-runs,"5,620",,,raw.erp__production_runs
-coils,"4,665",,,raw.erp__coils
-strokes,"8,030,315",,,mart_per_stroke_run_tonnage
-digit,1.76,1.76,docs/reports/spc_assessment.html,entry_methods
-set_aside,0.35%,,docs/reports/spc_assessment.html,entry_methods
-out_of_service,4.4%,4.4%,docs/reports/spc_assessment.html,gauge_status
-past_due,2.7%,2.7%,docs/reports/spc_assessment.html,gauge_status
-rounded,349,349,,stg_die_room__die_events
-sharpenings,845,845,,stg_die_room__die_events
-records: SPC software,"591,376",,,"characteristics, control limits, subgroups, alarms, reaction plan steps"
-records: Press monitors,"8,050,637",,,"per-stroke peaks (pilot presses), tonnage windows, fault events"
-records: ERP,"33,411",,,"parts, dies, presses, production runs, coils, scrap, shipments"
-records: QMS,"8,468",,,"nonconformances, sorting events, complaints, dock audits, PPAP studies, scorecards"
-records: Die maintenance log,"1,909",,,"sharpenings, punch replacements, rebuilds, repairs"
-records: Calibration system,"2,478",,,"gauges, calibrations, gauge studies"
-records: Accounting,"1,358",,,"quality cost lines, contribution by part"
-records: Study worksheets,9,,,"gauge R&R and attribute agreement studies, as recorded"
+readme_figure,value,value_in_the_text,read_from
+parts,180,180,"raw.erp__parts, to the ten"
+dies,170,170,"raw.erp__dies, to the ten"
+verify_n,25,25,mart_chart_design.verification_subgroups
+cc_n,10,10,mart_chart_design.coil_change_subgroup_size
+burr_share,80%,80%,mart_chart_design.sharpening_burr_share_of_limit
+incoming,49.7%,49.7%,"docs/reports/control_chart_design.html: mart_variance_components.incoming_coil_share, formed, median"
+formed_within,80.0%,80.0%,"docs/reports/control_chart_design.html: mart_variance_components.share_within, formed"
+trend,36.2%,36.2%,"docs/reports/control_chart_design.html: mart_variance_components.trend_share, hole diameter, median"
+hp_within,97.4%,97.4%,"docs/reports/control_chart_design.html: mart_variance_components.share_within, hole position, median"
+fl_within,97.5%,97.5%,"docs/reports/control_chart_design.html: mart_variance_components.share_within, flatness, median"
+r2,0.82,0.82,"docs/reports/control_chart_design.html: mart_coil_fit.r_squared, median"
+resid,3.2%,3.2%,"docs/reports/control_chart_design.html: mart_coil_fit.residual_sigma_share_of_tolerance, median"
+spread,10.1%,10.1%,"docs/reports/control_chart_design.html: mart_coil_fit.coil_means_sigma_share_of_tolerance, median"
+baselines,244,244,docs/reports/control_chart_design.html: mart_phase1_baselines: baselines
+sharp_fail,8.1%,8.1%,docs/reports/control_chart_design.html: share of sharpenings failed
+below,23,23,docs/reports/control_chart_design.html: mart_limit_sets: three-way annual-review sets below the coil-change minimum
+annual_tw,45,45,docs/reports/control_chart_design.html: mart_limit_sets: three-way sets at the annual review
+oe_xr,1.30,1.30,"docs/reports/control_chart_design.html: observed over expected, X-bar and R"
+oe_tw3,0.83,0.83,"docs/reports/control_chart_design.html: observed over expected, three-way"
+oe_tw,1.79,1.79,"docs/reports/control_chart_design.html: observed over expected, tool-wear"
+tw_rate,0.27,0.27,"docs/reports/control_chart_design.html: coil_block_rate, rule 1, limits in force"
+mr_rate,20.5,20.5,"docs/reports/control_chart_design.html: coil_block_rate, rules 1 to 4, moving-range limits"
+lam,0.02,0.02,docs/reports/control_chart_design.html: mart_chart_design.ewma_lambda
+L,5.5,5.5,docs/reports/control_chart_design.html: mart_chart_design.ewma_L
+base_strokes,500,500,docs/reports/control_chart_design.html: mart_chart_design.ewma_baseline_strokes
+arl_est,2.64,2.64,"docs/reports/control_chart_design.html: ewma_arl averaged over the estimates, L 5.5, millions"
+nf_rate,1.02,1.02,docs/reports/control_chart_design.html: mart_per_stroke_stop_rates: nothing found per million strokes
+chip_med,0,0,"docs/reports/control_chart_design.html: mart_parts_exposed.strokes_exposed_per_stroke_charts, median"
+hourly,"11,773","11,773","docs/reports/control_chart_design.html: mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03, median"
+obs,3.80,3.80,"docs/reports/spc_quarterly_review_2026_q2.html: observed per 100, quarter"
+exp,3.08,3.08,"docs/reports/spc_quarterly_review_2026_q2.html: expected per 100, quarter"
+assignable,418,418,"docs/reports/spc_quarterly_review_2026_q2.html: mart_signals: assignable-cause alarms, quarter"
+cap_ok,93,93,docs/reports/spc_quarterly_review_2026_q2.html: mart_capability: critical characteristics at or above 1.33
+cap_n,100,100,docs/reports/spc_quarterly_review_2026_q2.html: mart_capability: critical characteristics
+gate_out,0,0,"docs/reports/spc_quarterly_review_2026_q2.html: mart_charts_in_force with mart_gauge_quarter_end: variable charts fed by a gauge past due, away or without a study"
+var_charts,897,897,docs/reports/spc_quarterly_review_2026_q2.html: mart_charts_in_force: variable charts
+operators,24,24,docs/reports/spc_quarterly_review_2026_q2.html: mart_operator_kappa: operators
+k_lo,0.78,0.78,"docs/reports/spc_quarterly_review_2026_q2.html: latest kappa, lowest"
+k_hi,0.89,0.89,"docs/reports/spc_quarterly_review_2026_q2.html: latest kappa, highest"
+on_time,69,69,"docs/reports/spc_quarterly_review_2026_q2.html: mart_sharpenings: on time, quarter"
+sharpenings,76,76,docs/reports/spc_quarterly_review_2026_q2.html: mart_sharpenings: quarter
+burr_max,90.8%,90.8%,"docs/reports/spc_quarterly_review_2026_q2.html: mart_sharpenings.burr_peak_share_of_limit, highest"
+held,19,19,docs/reports/spc_quarterly_review_2026_q2.html: mart_first_piece_approvals.held
+starts,583,583,docs/reports/spc_quarterly_review_2026_q2.html: mart_first_piece_approvals: run starts
+days,97.9%,97.9%,"docs/reports/spc_quarterly_review_2026_q2.html: planned checks recorded, days"
+nights,96.9%,96.9%,"docs/reports/spc_quarterly_review_2026_q2.html: planned checks recorded, nights"
+same_day,15,15,docs/reports/spc_quarterly_review_2026_q2.html: int_run_shots: runs starting on the day their sharpening is logged
+away,0.27%,0.27%,docs/reports/spc_quarterly_review_2026_q2.html: share of the quarter
+verifications,"1,308","1,308",raw.spc__limit_verifications
+models,75,75,dbt manifest: model nodes
+tests,297,297,dbt manifest: test nodes
+batch,20260713T053000Z-SPC12M,20260713T053000Z-SPC12M,mart_chart_design.export_batch_id
+subgroups,"379,677","379,677",raw.spc__subgroups
+characteristics,"1,560","1,560",raw.spc__characteristics
+runs,"2,228","2,228",raw.erp__production_runs
+coils,"1,914","1,914",raw.erp__coils
+strokes,37.9,37.9,"data/raw/press_monitor/strokes: rows, millions"
+records: SPC software,"404,717",,"characteristics, control limits, limit verifications, subgroups, alarms with dispositions, reaction plan steps"
+records: Press monitors,"37,905,094",,"per-stroke peaks, tonnage windows, fault events"
+records: ERP,"4,503",,"parts, dies, presses, production runs, coils"
+records: QMS,"2,403",,"nonconformances, corrective actions, first-piece approvals"
+records: Die maintenance log,"1,114",,"sharpenings with corrections, punch replacements, rebuilds, repairs"
+records: Calibration system,"5,913",,"gauges, calibrations, gauge studies, fixture verifications, attribute qualifications"
+records: Study worksheets,52,,"gauge R&R studies, as recorded"

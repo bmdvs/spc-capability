@@ -1,7 +1,7 @@
 panel,value_as_shown,read_from
-Stop log,"10:55:45, stroke 246,786, EWMA on the total, EWMA 611.6 kN against the limit 611.4 kN, punch worn and replaced, 60 min to restart",stg_press_monitor__fault_events; EWMA from mart_screen_run_strokes with the baseline of mart_per_stroke_run_tonnage
-Header,"192 strokes a minute; run stroke count 248,379; die shot count 20,851,379",mart_screen_run_strokes: last stroke; int_die_event_timeline: shot count at the last sharpening plus shots since
-Per-stroke total,baseline 596.6 kN; limits 581.7 to 611.4 kN; EWMA now 596.7 kN,"mart_per_stroke_run_tonnage: baseline of the first 500 strokes; EWMA lambda 0.02, limits at 5.5 sigma of the EWMA"
-Channel shares,"channel 1 level 61.88%, limits 60.28% to 63.49%; channel 2 level 38.12%, limits 36.51% to 39.72%","mart_screen_run_strokes: share over the first 500 production strokes, 5.5 sigma"
-Die panel,"248,379 shots since sharpening of 6 May 2026; due count 364,211; 115,832 strokes to go","int_run_shots, mart_screen_run_strokes; due count from the die's burr line (die wear analysis)"
+Stop log,"10:55:47, stroke 239,498, EWMA on the total, EWMA 605.7 kN against the limit 606.1 kN, punch chipped and replaced, 60 min to restart",stg_press_monitor__fault_events; EWMA from mart_screen_run_strokes with the baseline of mart_per_stroke_run_tonnage
+Header,"189 strokes a minute; run stroke count 241,057; die shot count 10,203,028",mart_screen_run_strokes: last stroke; int_die_event_timeline: shot count at the last sharpening plus shots since
+Per-stroke total,baseline 618.0 kN; limits 606.1 to 629.9 kN; EWMA now 618.5 kN,"mart_per_stroke_run_tonnage: baseline of the first 500 strokes; EWMA lambda 0.02, limits at 5.5 sigma of the EWMA"
+Channel shares,"channel 1 level 61.85%, limits 60.37% to 63.32%; channel 2 level 38.15%, limits 36.68% to 39.63%","mart_screen_run_strokes: share over the first 500 production strokes, 5.5 sigma"
+Die panel,"241,057 shots since sharpening of 9 May 2026; due count 400,000; 158,943 strokes to go","int_run_shots, mart_screen_run_strokes; stg_erp__dies.sharpening_due_count"
 Die panel,1 punch replacements since the last sharpening,int_die_event_timeline
