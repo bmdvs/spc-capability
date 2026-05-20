@@ -1,23 +1,15 @@
--- Readings against shots since the last sharpening, for the die wear analysis.
--- Grain: one row per subgroup of variable readings on a critical hole diameter or on burr height (the burr gauge in
--- the lab), with the die's shots since sharpening known and no reading set aside by the plausibility rule. The value
--- is the mean of the five readings. Burr height carries an upper limit only; its value is also given as a share of it.
-
-with s as (
-
-    select
-        h.subgroup_id, h.characteristic_id, h.characteristic_type, h.part_id, h.die_id, h.press_id, h.is_pilot_press, h.after_redesign,
-        h.sharpening_interval_no, h.sharpening_date, h.shots_since_sharpening, h.sample_time, h.subgroup_type, h.usl, h.lsl, h.tolerance_width,
-        (h.r1 + h.r2 + h.r3 + h.r4 + h.r5) / 5 as reading_mean
-    from {{ ref('int_characteristic_history') }} h
-    where h.data_type = 'variable' and h.r5 is not null and h.implausible_readings = 0 and h.shots_since_sharpening is not null
-      and ((h.characteristic_type = 'hole diameter' and h.critical) or h.characteristic_type = 'burr height')
-
-)
+-- Readings against shots since the last sharpening, for the die wear analysis. Grain: one row per routine subgroup
+-- on a variable hole diameter or on burr height (the lab burr gauge), with the die's shots since sharpening known.
+-- The value is the subgroup mean; the lab burr readings carry no mean in the SPC software (burr height is not charted),
+-- so their value is the mean of the five readings. Burr height carries an upper limit only, and its value is also given as
+-- a share of it.
 
 select
-    s.*,
-    year(s.sample_time) as sample_year,
-    case when s.characteristic_type = 'burr height' then s.reading_mean / s.usl end as share_of_limit,
+    h.subgroup_id, h.characteristic_id, h.characteristic_type, h.part_id, h.family_part, h.die_id, h.press_id, h.press_group,
+    h.sharpening_interval_no, h.sharpening_date, h.shots_since_sharpening, h.sample_time, h.in_quarter, h.usl, h.lsl, h.tolerance_width,
+    coalesce(h.subgroup_mean, (h.r1 + h.r2 + h.r3 + h.r4 + h.r5) / 5) as subgroup_mean, h.subgroup_range, h.limit_set_id, h.centre_line, h.ucl_mean, h.lcl_mean,
+    case when h.characteristic_type = 'burr height' then (h.r1 + h.r2 + h.r3 + h.r4 + h.r5) / 5 / h.usl end as share_of_limit,
     {{ batch_id() }} as export_batch_id
-from s
+from {{ ref('int_characteristic_history') }} h
+where h.in_record and h.data_type = 'variable' and coalesce(h.subgroup_mean, h.r5) is not null and h.shots_since_sharpening is not null
+  and h.subgroup_type = 'routine' and h.characteristic_class in ('hole diameter', 'burr height')

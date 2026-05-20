@@ -1,4 +1,4 @@
--- Die maintenance log export: export batch, typed. One row per export row.
+-- die maintenance log export: export batch, typed. One row per export row.
 
 select
     nullif(trim(export_batch_id), '') as export_batch_id,

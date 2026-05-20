@@ -24,9 +24,9 @@ placed as (
 )
 
 select
-    r.run_id, r.part_id, r.die_id, r.press_id, r.operator_shift_1, r.operator_shift_2,
-    r.actual_start, r.production_start, r.actual_end, r.quantity_produced, r.quantity_scrapped, r.strokes, r.run_speed_spm,
-    r.standard_hours, r.labor_hours, r.coils_consumed, r.status,
+    r.run_id, r.part_id, r.die_id, r.press_id, pr.press_group, r.operator_shift_1, r.operator_shift_2,
+    r.scheduled_start, r.actual_start, r.production_start, r.actual_end,
+    r.quantity_ordered, r.quantity_produced, r.quantity_scrapped, r.strokes, r.run_speed_spm, r.coils_consumed, r.status,
     len(string_split(r.coils_consumed, ';')) as coils_on_run,
     d.parts_per_stroke,
     p.sharpening_interval_no,
@@ -38,4 +38,5 @@ select
 from runs r
 join placed p on p.run_id = r.run_id
 left join {{ ref('stg_erp__dies') }} d on d.die_id = r.die_id
+left join {{ ref('stg_erp__presses') }} pr on pr.press_id = r.press_id
 order by r.run_id

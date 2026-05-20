@@ -2,8 +2,8 @@
 
 select
     nullif(trim(characteristic_id), '') as characteristic_id,
-    nullif(trim(signal), '') as signal,
-    cast(nullif(trim(step), '') as bigint) as step,
+    nullif(trim("signal"), '') as "signal",
+    cast(nullif(trim("step"), '') as bigint) as "step",
     nullif(trim(action), '') as action,
     nullif(trim(owner), '') as owner,
     cast(nullif(trim(effective_from), '') as date) as effective_from,
