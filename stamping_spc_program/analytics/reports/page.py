@@ -58,6 +58,31 @@ class Page:
         html = S.table(d, fmt or {})          # formats keyed by the column names as shown
         self.body.append(f"<div class='chart-title'>{title}</div>{html}" + (f'<div class="caption">{note}</div>' if note else ""))
 
+    def body_table(self, title, df, columns, fmt=None, bold_cols=(), bold_cells=(), shade_rows=(), caption=None):
+        """A table in the body under the house conventions: the column or cells the takeaway rests on in bold, rows outside
+        their design range shaded in the warning tint, the range stated in the caption. bold_cells holds (row position,
+        column as shown); shade_rows holds row positions."""
+        d = df[list(columns)].rename(columns=columns).reset_index(drop=True); fmt = fmt or {}
+        assert len(d) <= 8, "a table in the body runs to eight rows at most"
+        head = "".join(f"<th>{c}</th>" for c in d.columns); body = ""
+        for i, r in d.iterrows():
+            cells = ""
+            for c in d.columns:
+                v = r[c]; f = fmt.get(c)
+                s = f(v) if f and v == v and v is not None else ("" if v != v or v is None else str(v))
+                if c in bold_cols or (i, c) in bold_cells:
+                    s = f"<strong>{s}</strong>"
+                num = isinstance(v, (int, float)) and not isinstance(v, bool)
+                cells += f'<td class="{"num" if num else ""}">{s}</td>'
+            body += f'<tr{" class=" + chr(34) + "warn" + chr(34) if i in shade_rows else ""}>{cells}</tr>'
+        self.body.append(f"<div class='chart-title'>{title}</div><table class=\"data\"><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>"
+                         + (f'<div class="caption">{caption}</div>' if caption else ""))
+
+    def figval(self, figure, value, src):
+        """A value a figure shows (a label, a bar's length written on it, a reference line), traced to its mart."""
+        self.trace.append((f"Figure {figure}", value, src, ""))
+        return value
+
     def raw(self, html):
         self.body.append(html)
 
