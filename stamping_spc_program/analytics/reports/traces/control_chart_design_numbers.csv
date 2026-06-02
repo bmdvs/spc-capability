@@ -1,12 +1,22 @@
 section,value_as_printed,read_from,value_in_the_text
 1. Summary,"1,380",mart_charts_in_force: charts,"1,380"
 1. Summary,11,mart_charts_in_force: presses,11
-1. Summary,399,"mart_charts_in_force: three-way, formed",399
-1. Summary,23,mart_charts_in_force: tool-wear,23
-1. Summary,474,mart_charts_in_force: X-bar and R,474
-1. Summary,483,mart_charts_in_force: p,483
-1. Summary,one,"mart_charts_in_force: three-way, hole position",one
-1. Summary,180,stg_spc__characteristics: chart none,180
+1. Summary,five,"mart_charts_in_force: characteristic classes, by characteristic type",five
+Figure 1,399,"mart_charts_in_force: charts, formed",
+Figure 1,399,"mart_charts_in_force: measured charts, formed",
+Figure 1,0,"mart_charts_in_force: attribute charts, formed",
+Figure 1,443,"mart_charts_in_force: charts, cut geometry",
+Figure 1,443,"mart_charts_in_force: measured charts, cut geometry",
+Figure 1,0,"mart_charts_in_force: attribute charts, cut geometry",
+Figure 1,326,"mart_charts_in_force: charts, hole diameter",
+Figure 1,23,"mart_charts_in_force: measured charts, hole diameter",
+Figure 1,303,"mart_charts_in_force: attribute charts, hole diameter",
+Figure 1,32,"mart_charts_in_force: charts, flatness",
+Figure 1,32,"mart_charts_in_force: measured charts, flatness",
+Figure 1,0,"mart_charts_in_force: attribute charts, flatness",
+Figure 1,180,"mart_charts_in_force: charts, sheared edges",
+Figure 1,0,"mart_charts_in_force: measured charts, sheared edges",
+Figure 1,180,"mart_charts_in_force: attribute charts, sheared edges",
 1. Summary,133,"mart_signal_rates with the expected rate per chart: false alarms per week, plant",133
 1. Summary,3.1,"false alarms per 100 routine subgroups, plant",3.1
 1. Summary,"4,236","mart_signal_rates.routine_subgroups per week, plant","4,236"
@@ -23,12 +33,6 @@ section,value_as_printed,read_from,value_in_the_text
 1. Summary,45,mart_limit_sets: three-way sets at the annual review,45
 1. Summary,1.79,mart_signal_rates with the expected rate: tool-wear observed over expected,1.79
 1. Summary,0.83,mart_signal_rates with the expected rate: three-way observed over expected,0.83
-Figure 1,399,"mart_charts_in_force: charts, formed",
-Figure 1,369,"mart_charts_in_force: charts, hole position",
-Figure 1,483,"mart_charts_in_force: charts, attribute",
-Figure 1,74,"mart_charts_in_force: charts, length and width",
-Figure 1,32,"mart_charts_in_force: charts, flatness",
-Figure 1,23,"mart_charts_in_force: charts, hole diameter",
 Figure 2,16.0,"expected false alarms per week, PR-01",
 Figure 2,15.3,"expected false alarms per week, PR-02",
 Figure 2,23.7,"expected false alarms per week, PR-03",
@@ -174,8 +178,8 @@ Figure 7,0.78,"flag_rate_rules, rule 4, known",
 4. Variance structure and chart design,49.7%,"mart_variance_components.incoming_coil_share, formed, median",49.7%
 4. Variance structure and chart design,36.2%,"mart_variance_components.trend_share, hole diameter, median",36.2%
 4. Variance structure and chart design,56.1%,"mart_variance_components.trend_within_share, hole diameter",56.1%
-4. Variance structure and chart design,97.4%,"mart_variance_components.share_within, hole position, median",97.4%
-4. Variance structure and chart design,0.8%,"mart_variance_components.share_between_coils, hole position",0.8%
+4. Variance structure and chart design,97.4%,"mart_variance_components.share_within, cut geometry, median",97.4%
+4. Variance structure and chart design,0.8%,"mart_variance_components.share_between_coils, cut geometry",0.8%
 4. Variance structure and chart design,97.5%,"mart_variance_components.share_within, flatness, median",97.5%
 Figure 10,0.1%,"mart_variance_components.share_between_intervals, largest class median (bound)",
 4. Variance structure and chart design,7,"mart_variance_components.share_between_coils, family formed, lowest",7
