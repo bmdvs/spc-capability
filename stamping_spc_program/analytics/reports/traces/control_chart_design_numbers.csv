@@ -43,6 +43,7 @@ Figure 1,1.02,"observed over expected, 95% interval high, plant, flatness",
 1. Executive Summary,23,mart_limit_sets: three-way annual-review sets below the coil-change minimum,23
 2.1 Overview,"1,380",mart_charts_in_force: charts,"1,380"
 2.1 Overview,11,mart_charts_in_force: presses,11
+2.1 Overview,"1,380",mart_charts_in_force: charts,"1,380"
 2.1 Overview,five,"mart_charts_in_force: characteristic classes, by characteristic type",five
 2.1 Overview,399,"mart_charts_in_force: three-way, formed",399
 2.1 Overview,23,mart_charts_in_force: tool-wear (regression) charts,23
@@ -64,6 +65,9 @@ Figure 2,0,"mart_charts_in_force: attribute charts, flatness",
 Figure 2,180,"mart_charts_in_force: charts, sheared edges",
 Figure 2,0,"mart_charts_in_force: measured charts, sheared edges",
 Figure 2,180,"mart_charts_in_force: attribute charts, sheared edges",
+Figure 2,47,"stg_erp__presses: per-stroke charts, one EWMA and one channel-share chart per load channel, press tonnage",
+Figure 2,47,"mart_charts_in_force: measured charts, press tonnage",
+Figure 2,0,"mart_charts_in_force: attribute charts, press tonnage",
 Figure 3,138,"mart_charts_in_force: charts, PR-01",
 Figure 3,127,"mart_charts_in_force: charts, PR-02",
 Figure 3,80,"mart_charts_in_force: charts, PR-03",
@@ -75,11 +79,12 @@ Figure 3,151,"mart_charts_in_force: charts, PR-08",
 Figure 3,83,"mart_charts_in_force: charts, PR-09",
 Figure 3,146,"mart_charts_in_force: charts, PR-10",
 Figure 3,146,"mart_charts_in_force: charts, PR-11",
-2.1 Overview,"1,380",mart_charts_in_force: charts,"1,380"
 2.1 Overview,897,mart_charts_in_force: variable charts,897
 2.1 Overview,825,mart_charts_in_force.study_basis: this gauge,825
 2.1 Overview,72,mart_charts_in_force.study_basis: gauge type at the press,72
 2.1 Overview,16,mart_charts_in_force.in_baseline,16
+2.1 Overview,"1,380",mart_charts_in_force: charts,"1,380"
+2.1 Overview,47,stg_erp__presses: per-stroke charts at 30 June 2026,
 2.2 Chart Limits,25,mart_chart_design.baseline_subgroups,25
 2.2 Chart Limits,25,mart_chart_design.verification_subgroups,25
 2.2 Chart Limits,"1,216",mart_limit_sets: limit sets,"1,216"
@@ -129,6 +134,16 @@ Figure 3,146,"mart_charts_in_force: charts, PR-11",
 2.2 Chart Limits,nine,"mart_limit_sets.coil_changes_spanned, highest",nine
 2.2 Chart Limits,50,"mart_limit_sets.subgroups_used, lowest",50
 2.2 Chart Limits,978,"mart_limit_sets.subgroups_used, highest",978
+2.2 Chart Limits,500,mart_chart_design.ewma_baseline_strokes,500
+2.2 Chart Limits,"2,219","mart_per_stroke_stop_rates.runs, the year","2,219"
+2.2 Chart Limits,0.02,mart_chart_design.ewma_lambda,0.02
+2.2 Chart Limits,5.5,mart_chart_design.ewma_L,5.5
+2.2 Chart Limits,5.5,mart_chart_design.channel_share_L,5.5
+2.2 Chart Limits,77.8,"ewma_arl, L 5.5, known, millions",77.8
+2.2 Chart Limits,2.64,"ewma_arl averaged over the estimates, L 5.5, millions",2.64
+2.2 Chart Limits,3.68,"ewma_arl, L 4.9, known, millions",3.68
+2.2 Chart Limits,"312,000","ewma_arl averaged over the estimates, L 4.9, to the thousand","312,000"
+2.2 Chart Limits,eight,strokes at L 4.9 over PR-03 strokes per worked shift in the quarter,eight
 2.3 Performance,"1,657",mart_signals: routine alarms with an assignable cause,"1,657"
 2.3 Performance,58,mart_signals: runs with a routine assignable-cause alarm,58
 2.3 Performance,"1,620","mart_signals: level after sharpening or rebuild, on a limit set whose verification failed","1,620"
@@ -271,17 +286,6 @@ Figure 8,0.78,"flag_rate_rules, rule 4, known",
 2.3 Performance,92,"arl_rules, rules 1 to 4, independent",92
 2.3 Performance,109,arl_ar1_rules at the measured median,109
 2.3 Performance,"11,773","mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03, median","11,773"
-2.3 Performance,0.02,mart_chart_design.ewma_lambda,0.02
-2.3 Performance,5.5,mart_chart_design.ewma_L,5.5
-2.3 Performance,500,mart_chart_design.ewma_baseline_strokes,500
-2.3 Performance,5.5,mart_chart_design.channel_share_L,5.5
-2.3 Performance,0.60,"mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median",0.60
-2.3 Performance,1.49%,"mart_per_stroke_run_tonnage: baseline sd over mean, median",1.49%
-2.3 Performance,77.8,"ewma_arl, L 5.5, known, millions",77.8
-2.3 Performance,2.64,"ewma_arl averaged over the estimates, L 5.5, millions",2.64
-2.3 Performance,3.68,"ewma_arl, L 4.9, known, millions",3.68
-2.3 Performance,"312,000","ewma_arl averaged over the estimates, L 4.9, to the thousand","312,000"
-2.3 Performance,eight,strokes at L 4.9 over PR-03 strokes per worked shift in the quarter,eight
 2.3 Performance,3.06%,"mart_parts_exposed.total_shift_at_onset, median",3.06%
 2.3 Performance,1.32,"mart_parts_exposed.largest_channel_share_shift_points, median",1.32
 2.3 Performance,38,ewma_arl at the median chipped-punch shift,38
@@ -384,6 +388,10 @@ Figure 16,0.0095,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-2855
 Figure 16,3,"mart_wear_slopes.qualifying_intervals, C-28553-01",
 Figure 16,0.0100,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-31102-01",
 Figure 16,2,"mart_wear_slopes.qualifying_intervals, C-31102-01",
+2.4 Variation,0.60,"mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median",0.60
+2.4 Variation,1.49%,"mart_per_stroke_run_tonnage: baseline sd over mean, median",1.49%
+2.4 Variation,3.06%,"mart_parts_exposed.total_shift_at_onset, median",3.06%
+2.4 Variation,1.32,"mart_parts_exposed.largest_channel_share_shift_points, median",1.32
 3.1 Overview,27,mart_charts_in_force: family charts,27
 3.1 Overview,"1,380",mart_charts_in_force: charts,"1,380"
 3.1 Overview,12,"mart_charts_in_force: family formed, three-way",12
@@ -406,6 +414,8 @@ Figure 16,2,"mart_wear_slopes.qualifying_intervals, C-31102-01",
 3.1 Overview,17 August 2026,"mart_charts_in_force.restudy_due, F-11333",17 August 2026
 Figure 17,restudy 17 August 2026,"mart_charts_in_force.restudy_due, F-11333",
 Figure 17,"after rebuild, 17 June 2026","mart_charts_in_force.study_date, F-14026",
+3.1 Overview,3,"stg_erp__presses: per-stroke charts, PR-03",
+3.1 Overview,2,"stg_erp__presses.load_cell_channels, PR-03",
 3.2 Chart Limits,20,mart_limit_sets: family sets issued in the year,20
 3.2 Chart Limits,9,"mart_limit_sets: family, rebuild",9
 3.2 Chart Limits,7,"mart_limit_sets: family, tool-wear re-fit",7
@@ -436,6 +446,7 @@ Figure 17,"after rebuild, 17 June 2026","mart_charts_in_force.study_date, F-1402
 3.2 Chart Limits,9.4555,mart_limit_sets.centre_line,9.4555
 3.2 Chart Limits,0.0060,mart_limit_sets.sigma_of_means times 3,0.0060
 3.2 Chart Limits,ten,mart_limit_sets: C-15731-02 sets in force in the year,ten
+3.2 Chart Limits,151,"mart_per_stroke_stop_rates.runs, PR-03, the year",
 3.3 Performance,1.13,"family: observed over expected, total",1.13
 3.3 Performance,107,mart_signals: family routine alarms with an assignable cause,107
 3.3 Performance,3,mart_signals: family runs with an assignable cause,3
@@ -566,3 +577,7 @@ Figure 22,19.3%,"mart_variance_components.share_between_coils, C-15731-09",
 3.4 Variation,3.2%,"mart_coil_fit.residual_sigma_share_of_tolerance, C-11333-05",3.2%
 3.4 Variation,9.3%,"mart_coil_fit.coil_means_sigma_share_of_tolerance, C-11333-05",9.3%
 3.4 Variation,1 May 2026,mart_wear_points.sharpening_date,1 May 2026
+3.4 Variation,0.59,"mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, PR-03, median",
+3.4 Variation,1.49%,"mart_per_stroke_run_tonnage: baseline sd over mean, PR-03, median",
+3.4 Variation,0.60,"mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median",0.60
+3.4 Variation,1.49%,"mart_per_stroke_run_tonnage: baseline sd over mean, median",1.49%

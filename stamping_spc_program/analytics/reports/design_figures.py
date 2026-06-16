@@ -150,7 +150,7 @@ def parts_exposed(px):
 
 # ── the restructured page's new figures ───────────────────────────────────────
 CLASS_COLOURS = {"formed": S.BRAND_BLUE, "cut geometry": S.ACCENT, "hole diameter": S.AMBER, "flatness": S.GREY, "sheared edges": S.GREEN}
-CLASS_LABEL = {"formed": "Formed characteristics", "cut geometry": "Cut geometry", "hole diameter": "Hole diameter", "flatness": "Flatness", "sheared edges": "Sheared edges"}
+CLASS_LABEL = {"formed": "Formed characteristics", "cut geometry": "Cut geometry", "hole diameter": "Hole diameter", "flatness": "Flatness", "sheared edges": "Sheared edges", "press tonnage": "Press tonnage"}
 
 
 def charts_by_class(rows):
@@ -162,7 +162,7 @@ def charts_by_class(rows):
     ax.bar(x, rows["attribute"], bottom=rows["measured"], width=0.6, color=S.LIGHT_BLUE, label="Attribute charts")
     for i, r in rows.reset_index(drop=True).iterrows():
         ax.text(i, tot[i] + tot.max() * 0.02, f"{tot[i]:,}\n({r.chart_label})", ha="center", va="bottom", fontsize=8.5, linespacing=1.3)
-    ax.set_xticks(x); ax.set_xticklabels([CLASS_LABEL[c].replace(" characteristics", "\ncharacteristics") for c in rows["characteristic_class"]])
+    ax.set_xticks(x); ax.set_xticklabels([CLASS_LABEL[c].replace(" ", "\n") for c in rows["characteristic_class"]])
     ax.set_ylim(0, tot.max() * 1.3); ax.set_ylabel("Active SPC charts")
     ax.legend(frameon=False, loc="upper right", fontsize=9)
     return S.save(f, "d1_charts_in_force_by_class", "Active SPC charts by characteristic class")

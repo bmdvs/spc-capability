@@ -94,7 +94,7 @@ def build():
     # ═══════════════ 1. Summary
     pg.h2("summary", "1. Summary")
     ctn = cif["chart_type"].value_counts()
-    pg.p(f"At 30 June 2026 there are {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} active SPC charts on {n(cif['press_id'].nunique(), 'mart_charts_in_force: presses', was='11')} presses. The charts correspond to the "
+    pg.p(f"At 30 June 2026 there are {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} active SPC charts on {n(cif['press_id'].nunique(), 'mart_charts_in_force: presses', was='11')} presses. The {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} charts correspond to the "
          f"{wd(cif['characteristic_class'].nunique(), 'mart_charts_in_force: characteristic classes, by characteristic type', was='five')} characteristic classes: formed heights and bend angles, cut geometry (hole position and part length and width), hole diameter, flatness, and sheared edges. "
          f"By chart type: {n(int(((cif['chart_type'] == 'three-way (I-MR-R)') & (cif['characteristic_class'] == 'formed')).sum()), 'mart_charts_in_force: three-way, formed', was='399')} three-way charts, {n(int(ctn.get('tool-wear', 0)), 'mart_charts_in_force: tool-wear (regression) charts', was='23')} regression charts, "
          f"{n(int(ctn.get('Xbar-R', 0)), 'mart_charts_in_force: X-bar and R', was='474')} X-bar and R charts, {n(int(ctn.get('p', 0)), 'mart_charts_in_force: p', was='483')} p charts and "
@@ -105,13 +105,17 @@ def build():
         g = cif[cif["characteristic_class"] == c]
         f1.append({"characteristic_class": c, "measured": int((g["data_type"] == "variable").sum()), "attribute": int((g["data_type"] == "attribute").sum()),
                    "chart_label": ", ".join(CHART_NAME[t] for t in g["chart_type"].value_counts().sort_index().sort_values(ascending=False, kind="stable").index)})
+    presses = query("select press_id, load_cell_channels from staging.stg_erp__presses where status = 'active' order by press_id")
+    presses["per_stroke_charts"] = 1 + presses["load_cell_channels"]          # an EWMA on the total and a residual chart on each channel's share
+    n_ps = int(presses["per_stroke_charts"].sum())
+    f1.append({"characteristic_class": "press tonnage", "measured": n_ps, "attribute": 0, "chart_label": "EWMA, channel share"})
     f1 = pd.DataFrame(f1)
     for r in f1.itertuples():
-        pg.figval(1, f"{r.measured + r.attribute:,}", f"mart_charts_in_force: charts, {r.characteristic_class}")
+        pg.figval(1, f"{r.measured + r.attribute:,}", f"{'stg_erp__presses: per-stroke charts, one EWMA and one channel-share chart per load channel' if r.characteristic_class == 'press tonnage' else 'mart_charts_in_force: charts'}, {r.characteristic_class}")
         pg.figval(1, f"{r.measured:,}", f"mart_charts_in_force: measured charts, {r.characteristic_class}")
         pg.figval(1, f"{r.attribute:,}", f"mart_charts_in_force: attribute charts, {r.characteristic_class}")
     pg.figure(FIG.charts_by_class(f1), "Figure 1: Active SPC charts by characteristic class",
-              f"{len(cif):,} charts on {cif['press_id'].nunique()} presses, measured and attribute by class; {n_none} burr characteristics on the sharpening count carry no chart. The one three-way chart on a hole position (C-34479-05) is counted with cut geometry.")
+              f"{len(cif):,} charts on {cif['press_id'].nunique()} presses, measured and attribute by class; {n_none} burr characteristics on the sharpening count carry no chart. The one three-way chart on a hole position (C-34479-05) is counted with cut geometry. Press tonnage is a process variable, charted per stroke on every press.")
     sig = query("select * from marts.mart_signals where in_record order by alarm_id")
     rt_ = sig[(sig["subgroup_type"] == "routine") & (sig["chart"] != "coil-change means")]
     ac = rt_[rt_["assignable_cause"]]; lvl = ac[ac["cause_code"].isin(["level after sharpening", "level after the rebuild"])]
@@ -427,8 +431,11 @@ def build():
                                     hourly_up_to=("parts_exposed_hourly_check_up_to", "median"), hourly_average=("parts_exposed_hourly_check_average", "median")).reset_index()
     p3x = px.set_index("press_id").loc["PR-03"]
     lam, Lx, Lc = float(design["ewma_lambda"]), float(design["ewma_L"]), float(design["ewma_L_considered"])
-    pg.p(f"The per-stroke charts catch a chipped punch on the stroke, where an hourly check would pass up to {n(p3x.hourly_up_to, 'mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03, median', was='11,773')} parts on PR-03 before seeing it. The EWMA on the per-stroke tonnage total runs with lambda "
-         f"{n(lam, 'mart_chart_design.ewma_lambda', '{:.2f}', was='0.02')} and L {n(Lx, 'mart_chart_design.ewma_L', '{:.1f}', was='5.5')}, from a baseline of {n(design['ewma_baseline_strokes'], 'mart_chart_design.ewma_baseline_strokes', was='500')} production strokes at each run start; a residual chart on each channel's share of the total runs beside it at L "
+    pg.p(f"The per-stroke charts catch a chipped punch on the stroke, where an hourly check would pass up to {n(p3x.hourly_up_to, 'mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03, median', was='11,773')} parts on PR-03 before seeing it.")
+    ps_runs = query("select sum(runs) n from marts.mart_per_stroke_stop_rates where period = 'record'")["n"].iloc[0]
+    sr3_runs = query("select sum(runs) n from marts.mart_per_stroke_stop_rates where period = 'record' and press_id = 'PR-03'")["n"].iloc[0]
+    pg.p(f"The per-stroke limits are set at each run start from a baseline of {n(design['ewma_baseline_strokes'], 'mart_chart_design.ewma_baseline_strokes', was='500')} production strokes, {n(ps_runs, 'mart_per_stroke_stop_rates.runs, the year', was='2,219')} times in the year, and are not held across runs. The EWMA on the per-stroke tonnage total runs with lambda "
+         f"{n(lam, 'mart_chart_design.ewma_lambda', '{:.2f}', was='0.02')} and L {n(Lx, 'mart_chart_design.ewma_L', '{:.1f}', was='5.5')}; a residual chart on each channel's share of the total runs beside it at L "
          f"{n(design['channel_share_L'], 'mart_chart_design.channel_share_L', '{:.1f}', was='5.5')}.")
     phi_r = float(rt["baseline_lag_1_autocorrelation"].median()); cv_r = float((rt["baseline_total_kn_sd"] / rt["baseline_total_kn_mean"]).median())
     neff = float(design["ewma_baseline_strokes"]) * (1 - phi_r) / (1 + phi_r)
@@ -437,7 +444,7 @@ def build():
     a0, a0c = A.ewma_arl(lam, Lx, 0, phi_r), A.ewma_arl(lam, Lc, 0, phi_r)
     p3_strokes = float(query("select sum(strokes) s from intermediate.int_run_shots where press_id = 'PR-03' and cast(production_start as date) between '2026-04-01' and '2026-06-30'")["s"].iloc[0])
     p3_shifts = float(query("select count(distinct (cast(sample_time as date), hour(sample_time) * 60 + minute(sample_time) >= 870)) n from intermediate.int_characteristic_history where press_id = 'PR-03' and in_quarter")["n"].iloc[0])
-    pg.p(f"<strong>The design.</strong> The total is autocorrelated at lag 1 by a median {n(phi_r, 'mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median', '{:.2f}', was='0.60')} and varies by {pct(cv_r, 'mart_per_stroke_run_tonnage: baseline sd over mean, median', 2, was='1.49%')} within a run, so the EWMA limits are set on the AR(1)-adjusted variance. At known parameters the in-control ARL is "
+    pg.p(f"The EWMA limits are set on the AR(1)-adjusted variance of the total. At known parameters the in-control ARL is "
          f"{n(a0 / 1e6, 'ewma_arl, L 5.5, known, millions', '{:.1f}', was='77.8')} million strokes; with the parameters estimated from 500 strokes it is {n(est[Lx] / 1e6, 'ewma_arl averaged over the estimates, L 5.5, millions', '{:.2f}', was='2.64')} million. L is set at 5.5 for the estimated case: at L 4.9 the known-parameter ARL of "
          f"{n(a0c / 1e6, 'ewma_arl, L 4.9, known, millions', '{:.2f}', was='3.68')} million falls to {n(round(est[Lc], -3), 'ewma_arl averaged over the estimates, L 4.9, to the thousand', was='312,000')} strokes once estimation is allowed for, about one false stop in "
          f"{wd(round(est[Lc] / (p3_strokes / p3_shifts)), 'strokes at L 4.9 over PR-03 strokes per worked shift in the quarter', was='eight')} shifts on PR-03.")
@@ -672,7 +679,7 @@ def build():
         "fam_bc_fig": "Between-coil share of variance by family", "coil_plant": "The coil effect and centring.</strong>", "fam_cf_fig": "Coil means against the certificate fit",
         "threeway": "The three-way design.</strong>", "fig_threeway": "False alarms per 100 points by three-way design", "fam_p1_p": "Phase I baselines.</strong>",
         "fam_p1_fig": "A Phase I baseline after a rebuild", "tw_plant": "The regression chart.</strong>", "fam_tw_p": "On C-15731-02 the line in force", "fam_tw_fig": "The regression chart on C-15731-02",
-        "fig_wear": "Hole diameter wear rate by die", "s5_open": "The per-stroke charts catch a chipped punch", "s5_design": "The design.</strong> The total is autocorrelated",
+        "fig_wear": "Hole diameter wear rate by die", "s5_open": "The per-stroke charts catch a chipped punch", "s5_design": "The EWMA limits are set on the AR(1)-adjusted variance of the total", "ps_limits": "The per-stroke limits are set at each run start",
         "s5_chip": "A chipped punch drops the total", "fig_ewma": "EWMA ARL1 against shift size", "s5_record": "The record.</strong> The charts stopped",
         "fig_stops": "Stops by the per-stroke charts, by finding and chart", "fig_13": "The 13 May stop on D-1333-C", "p_13": "On 13 May 2026 the EWMA on PR-03",
         "s5_parts": "Parts exposed.</strong>", "fig_parts": "Parts exposed per chipped punch", "fam_intro": "are followed here through the same four headings",
@@ -686,9 +693,7 @@ def build():
     edit(B["obs_ul"], "(Section 4)", "(2.4)")
     edit(B["fam_rates"], "(Section 3)", "(2.3)")
     edit(B["actions_ul"], "accrue (Section 3).", "accrue (2.2).")
-    edit(B["s5_open"], "<p>", "<p><strong>Per-stroke charts.</strong> ")
     edit(B["fam_p1_p"], "<strong>Phase I baselines.</strong> ", "")
-    edit(B["fam_ps"], "<p>", "<p><strong>Per-stroke charts on PR-03.</strong> ")
     first = keys[0]; assert entries[first].startswith("<style>")
     first_new = nxt[0]
     order = [first]
@@ -696,7 +701,7 @@ def build():
     n_sub = int(query("select count(*) n from staging.stg_spc__subgroups where sample_time >= '2025-07-01' and sample_time < '2026-07-01'")["n"].iloc[0])
     order.append(new(f"<p>This report revalidates the plant's SPC chart design on the 1 July 2025 to 30 June 2026 record: {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} active charts on {n(cif['press_id'].nunique(), 'mart_charts_in_force: presses', was='11')} presses, "
                      f"{n(n_sub, 'stg_spc__subgroups: subgroups in the year')} subgroups, and the per-stroke tonnage charts on {n(sr_st.s / 1e6, 'mart_per_stroke_stop_rates.strokes, the year, millions', '{:.1f}')} million strokes. "
-                     "It asks four questions of the charts, in the order of Section 2: what is charted and on what chart type; how limits are set, held and verified; whether each chart signalled when the process changed and stayed quiet when it did not; and whether the variance structure of each characteristic class is the one its chart type assumes. "
+                     "It asks four questions of the charts, in the order of Section 2: what is charted and on what chart type; how limits are set, held and verified; whether each chart signalled when the process changed and stayed quiet when it did not; and whether the variance structure of each characteristic class is the one its chart type assumes. The per-stroke tonnage charts are taken through the same four questions in their own block of each subsection. "
                      "Performance is tested by comparing each chart's signals with the false-alarm rate its own rules and baseline size predict, on intervals with no special cause, so a chart type on the wrong variance structure shows as a rate far from expectation. "
                      "Variation is tested by decomposing each class into within-subgroup, between-subgroup, between-coil and wear components and checking the chart type against where the variance lies.</p>"))
     order.append(new(f"<p>Section 3 asks the same four questions of one part family, the three C110 copper parts on PR-03: {n(len(fam_cif), 'mart_charts_in_force: family charts', was='27')} charts on {wd(fam_cif['die_id'].nunique(), 'mart_charts_in_force: family dies', was='three')} dies and "
@@ -727,19 +732,31 @@ def build():
                      f"{n(sr_st.nf / (sr_st.s / 1e6), 'mart_per_stroke_stop_rates: nothing found per million strokes', '{:.2f}', was='1.02')} for the plant, is the one family figure outside the plant's pattern.</p>"))
     order.append(new(f"<p>Two actions follow: the {n(int(rw['below_coil_change_minimum'].sum()), 'mart_limit_sets: three-way annual-review sets below the coil-change minimum', was='23')} three-way limit sets issued at the annual review on fewer than ten coil changes are re-issued as ten accrue, "
                      "and the regression charts' verification criterion is tightened to 1.0 sigma with the line re-fitted at each planned trigger.</p>"))
-    order += [h(2, "chart-summary", "2. SPC Chart Summary"), h(3, "overview", "2.1 Overview"),
-              B["overview"], B["fig_classes"], B["fig_press_class"]]
-    order += [new(f"<p>The per-stroke charts on tonnage, an EWMA on the total and a residual chart on each channel's share, run on every press beside the {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} and are covered in 2.3.</p>"), B["s2_open"]]
-    order += [h(3, "limits", "2.2 Chart Limits"), B["limits_gov"], B["limits_counts"], B["fig_recalc"], B["two_charts_p"], B["two_charts_ul"], B["dielog"], B["verif"], B["verif_take"], B["tab_verif"], B["annual"]]
-    order += [h(3, "performance", "2.3 Performance"), B["perf_special"], B["perf_take"], B["tab_special"], B["perf_class"], B["fig_class_signals"], B["perf_false"], B["fig_load"],
+    CH = lambda: new("<p><strong>Characteristic charts.</strong></p>")
+    PS = lambda: new("<p><strong>Per-stroke tonnage charts.</strong></p>")
+    p3p = presses.set_index("press_id").loc["PR-03"]; rt3 = rt[rt["press_id"] == "PR-03"]
+    order += [h(2, "chart-summary", "2. SPC Chart Summary"), h(3, "overview", "2.1 Overview"), CH(), B["overview"], B["fig_classes"], B["fig_press_class"], B["s2_open"], PS(),
+              new(f"<p>Beside the {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} charts on part characteristics, {n(n_ps, 'stg_erp__presses: per-stroke charts at 30 June 2026')} per-stroke charts run on press tonnage: on each press an EWMA on the per-stroke total and a residual chart on each load channel's share of it, read on every stroke by the press monitor. "
+                  "They catch what no subgroup check can see on the stroke: a chipped or worn punch and slug pulling.</p>")]
+    order += [h(3, "limits", "2.2 Chart Limits"), CH(), B["limits_gov"], B["limits_counts"], B["fig_recalc"], B["two_charts_p"], B["two_charts_ul"], B["dielog"], B["verif"], B["verif_take"], B["tab_verif"], B["annual"],
+              PS(), B["ps_limits"], B["s5_design"]]
+    order += [h(3, "performance", "2.3 Performance"), CH(), B["perf_special"], B["perf_take"], B["tab_special"], B["perf_class"], B["fig_class_signals"], B["perf_false"], B["fig_load"],
               B["arl"], B["arl_take"], B["tab_arl"], B["fig_arl"], B["obs"], B["obs_ul"], B["obs_take"], B["tab_obs"], B["fig_rules"], B["fig_press_obs"], B["bypress"], B["autocorr"], B["fig_autocorr"],
-              B["s5_open"], B["s5_design"], B["s5_chip"], B["fig_ewma"], B["s5_record"], B["fig_stops"], B["s5_parts"], B["fig_parts"], new("<p><strong>Actions.</strong></p>"), B["actions_ul"]]
-    order += [h(3, "variation", "2.4 Variation"), B["var_open"], B["var_ul"], B["fig_var"], B["coil_plant"], B["threeway"], B["fig_threeway"], B["tw_plant"], B["fig_wear"]]
+              PS(), B["s5_open"], B["s5_chip"], B["fig_ewma"], B["s5_record"], B["fig_stops"], B["s5_parts"], B["fig_parts"], new("<p><strong>Actions.</strong></p>"), B["actions_ul"]]
+    order += [h(3, "variation", "2.4 Variation"), CH(), B["var_open"], B["var_ul"], B["fig_var"], B["coil_plant"], B["threeway"], B["fig_threeway"], B["tw_plant"], B["fig_wear"], PS(),
+              new(f"<p>The per-stroke total is autocorrelated at lag 1 by a median {n(phi_r, 'mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median', '{:.2f}', was='0.60')} and varies by "
+                  f"{pct(cv_r, 'mart_per_stroke_run_tonnage: baseline sd over mean, median', 2, was='1.49%')} within a run, which is why the EWMA limits are set on the AR(1)-adjusted variance rather than the stroke-to-stroke one; a chipped punch moves it by a median "
+                  f"{pct(shift_tot, 'mart_parts_exposed.total_shift_at_onset, median', 2, was='3.06%')} and the largest channel share by {n(shift_sh, 'mart_parts_exposed.largest_channel_share_shift_points, median', '{:.2f}', was='1.32')} points, which sets the shift the lambda is chosen for.</p>")]
     order += [h(2, "family", "3. Part Family"), new("<p>The three C110 copper parts on PR-03 (P-11333 on D-1333-C, P-15731 on D-5731-A, P-14026 on D-4026-A) are followed through the same four headings as the plant.</p>"),
-              h(3, "family-overview", "3.1 Overview"), B["fam_overview"], B["fam_fixtures"], B["fam_grr"],
-              h(3, "family-limits", "3.2 Chart Limits"), B["fam_limits"], B["fam_verif"], B["fam_p1_p"], B["fam_p1_fig"], B["fam_tw_p"],
-              h(3, "family-performance", "3.3 Performance"), B["fam_special"], B["fam_take"], B["fam_table"], B["fam_rates"], B["fam_fig"], B["fam_ps"], B["fam_ps_fig"], B["p_13"], B["fig_13"],
-              h(3, "family-variation", "3.4 Variation"), B["fam_bc_p"], B["fam_bc_fig"], B["fam_coil"], B["fam_cf_fig"], new("<p>C-15731-02's chart carries the wear trend as its centre line:</p>"), B["fam_tw_fig"]]
+              h(3, "family-overview", "3.1 Overview"), CH(), B["fam_overview"], B["fam_fixtures"], B["fam_grr"], PS(),
+              new(f"<p>PR-03 carries {n(int(p3p.per_stroke_charts), 'stg_erp__presses: per-stroke charts, PR-03')} per-stroke charts, an EWMA on the total and {n(int(p3p.load_cell_channels), 'stg_erp__presses.load_cell_channels, PR-03')} channel-share charts.</p>"),
+              h(3, "family-limits", "3.2 Chart Limits"), CH(), B["fam_limits"], B["fam_verif"], B["fam_p1_p"], B["fam_p1_fig"], B["fam_tw_p"], PS(),
+              new(f"<p>PR-03's per-stroke limits were set at {n(sr3_runs, 'mart_per_stroke_stop_rates.runs, PR-03, the year')} run starts in the year.</p>"),
+              h(3, "family-performance", "3.3 Performance"), CH(), B["fam_special"], B["fam_take"], B["fam_table"], B["fam_rates"], B["fam_fig"], PS(), B["fam_ps"], B["fam_ps_fig"], B["p_13"], B["fig_13"],
+              h(3, "family-variation", "3.4 Variation"), CH(), B["fam_bc_p"], B["fam_bc_fig"], B["fam_coil"], B["fam_cf_fig"], new("<p>C-15731-02's chart carries the wear trend as its centre line:</p>"), B["fam_tw_fig"], PS(),
+              new(f"<p>PR-03's per-stroke total runs at a lag-1 autocorrelation of {n(float(rt3['baseline_lag_1_autocorrelation'].median()), 'mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, PR-03, median', '{:.2f}')} and "
+                  f"{pct(float((rt3['baseline_total_kn_sd'] / rt3['baseline_total_kn_mean']).median()), 'mart_per_stroke_run_tonnage: baseline sd over mean, PR-03, median', 2)} within a run, against {n(phi_r, 'mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median', '{:.2f}', was='0.60')} and "
+                  f"{pct(cv_r, 'mart_per_stroke_run_tonnage: baseline sd over mean, median', 2, was='1.49%')} across the plant.</p>")]
     order += [k for k in keys if appendix_key <= k < first_new]          # the appendix, as built
     dropped = {B["actions_head"], B["fam_intro"], B["recs"]} | {k for k in keys if k < appendix_key and entries[k].startswith(("<h2", "<h3"))}
     used = set(order)
