@@ -83,10 +83,12 @@ def tool_wear_chart(g, centre, slope_per_100k, half_width, usl, lsl):
 
 def arl_curves(f6):
     f, ax = S.fig(h=4.0)
-    for col, colour, style in (("X-bar rule 1", S.BRAND_BLUE, "-"), ("X-bar rules 1 to 4", S.BRAND_BLUE, "--"), ("three-way individuals rule 1", S.AMBER, "-"), ("three-way all three charts", S.AMBER, "--")):
-        ax.plot(f6["shift"], S.sig(f6[col]), color=colour, linestyle=style, marker="o", markersize=3, label=col)
+    for col, label, colour, style in (("X-bar rule 1", "rule 1 (X-bar; three-way individuals)", S.BRAND_BLUE, "-"), ("X-bar rules 1 to 4", "X-bar rules 1 to 4", S.ACCENT, "-"),
+                                      ("X-bar rule 1, limits from 25 subgroups", "X-bar rule 1, limits from 25 subgroups", S.BRAND_BLUE, "--"), ("X-bar rules 1 to 4, limits from 25 subgroups", "X-bar rules 1 to 4, limits from 25 subgroups", S.ACCENT, "--"),
+                                      ("three-way all three charts", "three-way all three charts", S.RED, "-")):
+        ax.plot(f6["shift"], S.sig(f6[col]), color=colour, linestyle=style, marker="o", markersize=3, label=label)
     ax.set_yscale("log"); ax.set_xlabel("Shift in the mean (sigmas of the plotted statistic)"); ax.set_ylabel("Average run length (subgroups)")
-    ax.legend(frameon=False)
+    ax.legend(frameon=False, ncol=2, fontsize=8.5, loc="upper center", bbox_to_anchor=(0.5, -0.17))
     return S.save(f, "d1_arl_curves_by_chart_type", "ARL curves by chart type")
 
 
