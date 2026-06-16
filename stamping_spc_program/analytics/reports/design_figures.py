@@ -149,7 +149,7 @@ def parts_exposed(px):
 
 
 # ── the restructured page's new figures ───────────────────────────────────────
-CLASS_COLOURS = {"formed": S.BRAND_BLUE, "cut geometry": S.ACCENT, "hole diameter": S.AMBER, "flatness": S.GREY, "sheared edges": S.GREEN}
+CLASS_COLOURS = {"formed": S.BRAND_BLUE, "cut geometry": S.ACCENT, "hole diameter": S.AMBER, "flatness": S.GREY, "sheared edges": S.GREEN, "press tonnage": S.DARK_GREY}
 CLASS_LABEL = {"formed": "Formed characteristics", "cut geometry": "Cut geometry", "hole diameter": "Hole diameter", "flatness": "Flatness", "sheared edges": "Sheared edges", "press tonnage": "Press tonnage"}
 
 
@@ -165,7 +165,7 @@ def charts_by_class(rows):
     ax.set_xticks(x); ax.set_xticklabels([CLASS_LABEL[c].replace(" ", "\n") for c in rows["characteristic_class"]])
     ax.set_ylim(0, tot.max() * 1.3); ax.set_ylabel("Active SPC charts")
     ax.legend(frameon=False, loc="upper right", fontsize=9)
-    return S.save(f, "d1_charts_in_force_by_class", "Active SPC charts by characteristic class")
+    return S.save(f, "d1_charts_in_force_by_class", "Active SPC charts by control target")
 
 
 def false_alarm_load(load, median, label_press, label_text):
@@ -180,16 +180,17 @@ def false_alarm_load(load, median, label_press, label_text):
     return S.save(f, "d1_false_alarm_load_by_press", "False-alarm load as designed, per press per week")
 
 
-def charts_by_press_and_class(pw, order):
+def charts_by_press_and_class(pw, order, labels=None):
+    labels = labels or {}
     f, ax = S.fig(h=4.2, grid="x")
     y = np.arange(len(pw)); left = np.zeros(len(pw))
     for c in order:
-        v = pw[c].values.astype(float); ax.barh(y, v, left=left, color=CLASS_COLOURS[c], label=CLASS_LABEL[c], height=0.65); left += v
+        v = pw[c].values.astype(float); ax.barh(y, v, left=left, color=CLASS_COLOURS[c], label=labels.get(c, CLASS_LABEL[c]), height=0.65); left += v
     for i, t in enumerate(left):
         ax.text(t + 2, i, f"{int(t)}", va="center", fontsize=9)
     ax.set_yticks(y); ax.set_yticklabels(pw["press_id"]); ax.invert_yaxis(); ax.set_xlim(0, left.max() * 1.1); ax.set_xlabel("Charts in force at 30 June 2026")
     ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, 1.18), fontsize=9)
-    return S.save(f, "d1_charts_in_force_by_press_and_class", "Charts in force by press and class")
+    return S.save(f, "d1_charts_in_force_by_press_and_class", "Active SPC charts by press and control target")
 
 
 def fixture_grr(rows):
@@ -357,4 +358,30 @@ def plant_family_ratios(pf, bands):
     ax.set_ylabel("Observed over expected signals"); ax.set_ylim(0, float(pf["hi"].max()) * 1.18)
     ax.legend(frameon=False, fontsize=8.5, loc="upper left", ncol=2)
     return S.save(f, "d1_signals_against_expectation_plant_and_family", "Signals against expectation by characteristic class, plant and family")
+
+
+def subgroups_by_press(ld, freq, total):
+    """ld: press_id, per_week. Bars by press with the check frequency under each press label and the plant total in the plot."""
+    f, ax = S.fig(h=3.6)
+    x = np.arange(len(ld))
+    ax.bar(x, S.sig(ld["per_week"]), color=S.ACCENT, width=0.65)
+    for i, v in enumerate(ld["per_week"]):
+        ax.text(i, v + 8, f"{v:,.0f}", ha="center", va="bottom", fontsize=8.5)
+    ax.set_xticks(x); ax.set_xticklabels([f"{p}\n{int(freq[p])} min" for p in ld["press_id"]], fontsize=8.5)
+    ax.set_ylabel("Routine subgroups a week"); ax.set_ylim(0, float(ld["per_week"].max()) * 1.18)
+    ax.text(0.99, 0.95, f"Plant total {total:,.0f} a week", transform=ax.transAxes, ha="right", va="top", fontsize=9.5)
+    return S.save(f, "d1_routine_subgroups_by_press", "Routine subgroups per week by press")
+
+
+def program_by_class(pv, parts):
+    """pv: programs (rows, in descending chart count) by class (columns). Stacked horizontal bars with the part count at the end of each bar."""
+    f, ax = S.fig(h=3.4, grid="x")
+    y = np.arange(len(pv)); left = np.zeros(len(pv))
+    for c in pv.columns:
+        v = pv[c].values.astype(float); ax.barh(y, v, left=left, color=CLASS_COLOURS[c], label=CLASS_LABEL[c], height=0.62); left += v
+    for i, (t, n_) in enumerate(zip(left, parts.values)):
+        ax.text(t + 4, i, f"{int(t)} charts, {int(n_)} parts", va="center", fontsize=8.5)
+    ax.set_yticks(y); ax.set_yticklabels(pv.index); ax.invert_yaxis(); ax.set_xlim(0, left.max() * 1.35); ax.set_xlabel("Active SPC charts at 30 June 2026")
+    ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, 1.25), fontsize=8.5)
+    return S.save(f, "d1_charts_by_program_and_class", "Active SPC charts by program and characteristic class")
 
