@@ -5,52 +5,35 @@ section,value_as_printed,read_from,value_in_the_text
 1. Executive Summary,47,stg_erp__presses: per-stroke charts at 30 June 2026,47
 1. Executive Summary,"379,677",stg_spc__subgroups: subgroups in the year,"379,677"
 1. Executive Summary,90.9,"mart_per_stroke_stop_rates.strokes, the year, millions",90.9
-1. Executive Summary,27,mart_charts_in_force: family charts,27
-1. Executive Summary,three,mart_charts_in_force: family dies,three
-1. Executive Summary,three,mart_charts_in_force: family check fixtures,three
-1. Executive Summary,"1,380",mart_charts_in_force: charts,"1,380"
 1. Executive Summary,"1,657",mart_signals: routine alarms with an assignable cause,"1,657"
 1. Executive Summary,58,mart_signals: runs with a routine assignable-cause alarm,58
 1. Executive Summary,one,"mart_signals: coil-change chart, assignable cause",one
 1. Executive Summary,one,mart_signals: sharpening logged at the wrong count,one
 1. Executive Summary,427,"mart_per_stroke_stops: stops on slug pulling, worn and chipped punches",427
-"Figure: Signals against expectation by characteristic class, plant and family",0.83,"observed over expected, plant, formed",
-"Figure: Signals against expectation by characteristic class, plant and family",0.79,"observed over expected, 95% interval low, plant, formed",
-"Figure: Signals against expectation by characteristic class, plant and family",0.86,"observed over expected, 95% interval high, plant, formed",
-"Figure: Signals against expectation by characteristic class, plant and family",0.80,"observed over expected, family, formed",
-"Figure: Signals against expectation by characteristic class, plant and family",0.68,"observed over expected, 95% interval low, family, formed",
-"Figure: Signals against expectation by characteristic class, plant and family",0.94,"observed over expected, 95% interval high, family, formed",
-"Figure: Signals against expectation by characteristic class, plant and family",1.32,"observed over expected, plant, cut geometry",
-"Figure: Signals against expectation by characteristic class, plant and family",1.28,"observed over expected, 95% interval low, plant, cut geometry",
-"Figure: Signals against expectation by characteristic class, plant and family",1.36,"observed over expected, 95% interval high, plant, cut geometry",
-"Figure: Signals against expectation by characteristic class, plant and family",1.64,"observed over expected, family, cut geometry",
-"Figure: Signals against expectation by characteristic class, plant and family",1.43,"observed over expected, 95% interval low, family, cut geometry",
-"Figure: Signals against expectation by characteristic class, plant and family",1.88,"observed over expected, 95% interval high, family, cut geometry",
-"Figure: Signals against expectation by characteristic class, plant and family",1.79,"observed over expected, plant, hole diameter",
-"Figure: Signals against expectation by characteristic class, plant and family",1.60,"observed over expected, 95% interval low, plant, hole diameter",
-"Figure: Signals against expectation by characteristic class, plant and family",2.00,"observed over expected, 95% interval high, plant, hole diameter",
-"Figure: Signals against expectation by characteristic class, plant and family",0.40,"observed over expected, family, hole diameter",
-"Figure: Signals against expectation by characteristic class, plant and family",0.08,"observed over expected, 95% interval low, family, hole diameter",
-"Figure: Signals against expectation by characteristic class, plant and family",1.16,"observed over expected, 95% interval high, family, hole diameter",
-"Figure: Signals against expectation by characteristic class, plant and family",0.88,"observed over expected, plant, flatness",
-"Figure: Signals against expectation by characteristic class, plant and family",0.75,"observed over expected, 95% interval low, plant, flatness",
-"Figure: Signals against expectation by characteristic class, plant and family",1.02,"observed over expected, 95% interval high, plant, flatness",
+Figure: Signals against expectation by characteristic class,0.83,"observed over expected, plant, formed",
+Figure: Signals against expectation by characteristic class,0.79,"observed over expected, 95% interval low, plant, formed",
+Figure: Signals against expectation by characteristic class,0.86,"observed over expected, 95% interval high, plant, formed",
+Figure: Signals against expectation by characteristic class,1.32,"observed over expected, plant, cut geometry",
+Figure: Signals against expectation by characteristic class,1.28,"observed over expected, 95% interval low, plant, cut geometry",
+Figure: Signals against expectation by characteristic class,1.36,"observed over expected, 95% interval high, plant, cut geometry",
+Figure: Signals against expectation by characteristic class,1.79,"observed over expected, plant, hole diameter",
+Figure: Signals against expectation by characteristic class,1.60,"observed over expected, 95% interval low, plant, hole diameter",
+Figure: Signals against expectation by characteristic class,2.00,"observed over expected, 95% interval high, plant, hole diameter",
+Figure: Signals against expectation by characteristic class,0.88,"observed over expected, plant, flatness",
+Figure: Signals against expectation by characteristic class,0.75,"observed over expected, 95% interval low, plant, flatness",
+Figure: Signals against expectation by characteristic class,1.02,"observed over expected, 95% interval high, plant, flatness",
 1. Executive Summary,408,mart_limit_verifications: sharpenings,408
 1. Executive Summary,8.1%,share of sharpenings failed,8.1%
-1. Executive Summary,97,mart_per_stroke_stops: PR-03 stops,97
-1. Executive Summary,0,"mart_parts_exposed: PR-03 chipped punches, median strokes from onset",0
-1. Executive Summary,2.21,mart_per_stroke_stop_rates: PR-03 nothing found per million strokes,2.21
-1. Executive Summary,1.02,mart_per_stroke_stop_rates: nothing found per million strokes,1.02
 1. Executive Summary,23,mart_limit_sets: three-way annual-review sets below the coil-change minimum,23
-2.1 Overview,"1,427",mart_charts_in_force with stg_erp__presses: active charts,"1,427"
-2.1 Overview,11,mart_charts_in_force: presses,11
-2.1 Overview,"1,380",mart_charts_in_force: charts,"1,380"
-2.1 Overview,five,"mart_charts_in_force: characteristic classes, by characteristic type",five
-2.1 Overview,897,mart_charts_in_force: variable charts,897
-2.1 Overview,65%,mart_charts_in_force: variable share of charts,65%
-2.1 Overview,483,mart_charts_in_force: attribute charts,483
-2.1 Overview,35%,mart_charts_in_force: attribute share of charts,35%
-2.1 Overview,47,stg_erp__presses: per-stroke charts at 30 June 2026,47
+2. SPC Chart Overview,"1,427",mart_charts_in_force with stg_erp__presses: active charts,"1,427"
+2. SPC Chart Overview,11,mart_charts_in_force: presses,11
+2. SPC Chart Overview,"1,380",mart_charts_in_force: charts,"1,380"
+2. SPC Chart Overview,five,"mart_charts_in_force: characteristic classes, by characteristic type",five
+2. SPC Chart Overview,897,mart_charts_in_force: variable charts,897
+2. SPC Chart Overview,65%,mart_charts_in_force: variable share of charts,65%
+2. SPC Chart Overview,483,mart_charts_in_force: attribute charts,483
+2. SPC Chart Overview,35%,mart_charts_in_force: attribute share of charts,35%
+2. SPC Chart Overview,47,stg_erp__presses: per-stroke charts at 30 June 2026,47
 Figure: Active SPC charts by control target,443,"active charts, cut geometry",
 Figure: Active SPC charts by control target,443,"variable charts, cut geometry",
 Figure: Active SPC charts by control target,399,"active charts, formed",
@@ -63,13 +46,12 @@ Figure: Active SPC charts by control target,32,"active charts, flatness",
 Figure: Active SPC charts by control target,32,"variable charts, flatness",
 Figure: Active SPC charts by control target,47,"active charts, press tonnage",
 Figure: Active SPC charts by control target,47,"variable charts, press tonnage",
-2.1 Overview,8,mart_charts_in_force: charts per active part,8
-2.1 Overview,six,stg_erp__parts: programs,six
-2.1 Overview,48,"stg_erp__parts: active parts, automotive",48
-2.1 Overview,373,"mart_charts_in_force: charts, automotive",373
-2.1 Overview,12,"stg_erp__parts: active parts, HVAC",12
-2.1 Overview,90,"mart_charts_in_force: charts, HVAC",90
-2.1 Overview,"appliance (P-15731) and automotive (P-11333, P-14026)","stg_erp__parts.program, the family parts","appliance (P-15731) and automotive (P-11333, P-14026)"
+2. SPC Chart Overview,8,mart_charts_in_force: charts per active part,8
+2. SPC Chart Overview,six,stg_erp__parts: programs,six
+2. SPC Chart Overview,48,"stg_erp__parts: active parts, automotive",48
+2. SPC Chart Overview,373,"mart_charts_in_force: charts, automotive",373
+2. SPC Chart Overview,12,"stg_erp__parts: active parts, HVAC",12
+2. SPC Chart Overview,90,"mart_charts_in_force: charts, HVAC",90
 Figure: Active SPC charts by program and control target,373,"mart_charts_in_force: charts, automotive",
 Figure: Active SPC charts by program and control target,48,"stg_erp__parts: active parts, automotive",
 Figure: Active SPC charts by program and control target,314,"mart_charts_in_force: charts, industrial",
@@ -82,10 +64,10 @@ Figure: Active SPC charts by program and control target,114,"mart_charts_in_forc
 Figure: Active SPC charts by program and control target,17,"stg_erp__parts: active parts, consumer",
 Figure: Active SPC charts by program and control target,90,"mart_charts_in_force: charts, HVAC",
 Figure: Active SPC charts by program and control target,12,"stg_erp__parts: active parts, HVAC",
-2.1 Overview,20,stg_erp__parts: most active parts on a press,20
-2.1 Overview,ten,"stg_erp__parts: active parts, PR-03, PR-06 and PR-09",ten
-2.1 Overview,three,stg_erp__presses: fewest per-stroke charts on a press,three
-2.1 Overview,five,stg_erp__presses: most per-stroke charts on a press,five
+2. SPC Chart Overview,20,stg_erp__parts: most active parts on a press,20
+2. SPC Chart Overview,ten,"stg_erp__parts: active parts, PR-03, PR-06 and PR-09",ten
+2. SPC Chart Overview,three,stg_erp__presses: fewest per-stroke charts on a press,three
+2. SPC Chart Overview,five,stg_erp__presses: most per-stroke charts on a press,five
 Figure: Active SPC charts by press and control target,141,"mart_charts_in_force with stg_erp__presses: charts, PR-01",
 Figure: Active SPC charts by press and control target,130,"mart_charts_in_force with stg_erp__presses: charts, PR-02",
 Figure: Active SPC charts by press and control target,83,"mart_charts_in_force with stg_erp__presses: charts, PR-03",
@@ -97,11 +79,11 @@ Figure: Active SPC charts by press and control target,156,"mart_charts_in_force 
 Figure: Active SPC charts by press and control target,88,"mart_charts_in_force with stg_erp__presses: charts, PR-09",
 Figure: Active SPC charts by press and control target,151,"mart_charts_in_force with stg_erp__presses: charts, PR-10",
 Figure: Active SPC charts by press and control target,151,"mart_charts_in_force with stg_erp__presses: charts, PR-11",
-2.1 Overview,30,"mart_charts_in_force.frequency_minutes, high-speed presses",30
-2.1 Overview,60,"mart_charts_in_force.frequency_minutes, medium presses",60
-2.1 Overview,750,"routine subgroups per week, PR-03",750
-2.1 Overview,18%,"routine subgroups per week, PR-03 share of the plant",18%
-2.1 Overview,16%,"int_run_shots: PR-03 running hours over the mean of the other high-speed presses, less one",
+2. SPC Chart Overview,30,"mart_charts_in_force.frequency_minutes, high-speed presses",30
+2. SPC Chart Overview,60,"mart_charts_in_force.frequency_minutes, medium presses",60
+2. SPC Chart Overview,750,"routine subgroups per week, PR-03",750
+2. SPC Chart Overview,18%,"routine subgroups per week, PR-03 share of the plant",18%
+2. SPC Chart Overview,16%,"int_run_shots: PR-03 running hours over the mean of the other high-speed presses, less one",
 Figure: Subgroup Measurements per week by press,501,"routine subgroups per week, PR-01",
 Figure: Subgroup Measurements per week by press,478,"routine subgroups per week, PR-02",
 Figure: Subgroup Measurements per week by press,750,"routine subgroups per week, PR-03",
@@ -113,113 +95,455 @@ Figure: Subgroup Measurements per week by press,226,"routine subgroups per week,
 Figure: Subgroup Measurements per week by press,455,"routine subgroups per week, PR-09",
 Figure: Subgroup Measurements per week by press,215,"routine subgroups per week, PR-10",
 Figure: Subgroup Measurements per week by press,221,"routine subgroups per week, PR-11",
-2.2 Chart design,four,mart_variance_components: variable classes,four
-2.2 Chart design,97%,"mart_variance_components.share_within, cut geometry and flatness, the lower median",97%
-2.2 Chart design,13.5%,"mart_variance_components.share_between_coils, formed",13.5%
-2.2 Chart design,49.7%,"mart_variance_components.incoming_coil_share, formed, median",49.7%
-2.2 Chart design,36.2%,"mart_variance_components.trend_share, hole diameter, median",36.2%
-Figure: Variance components by class,0.1%,"mart_variance_components.share_between_intervals, largest class median (bound)",
-2.2 Chart design,474,mart_charts_in_force: X-bar and R,474
-2.2 Chart design,C-34479-05,mart_chart_changes: characteristic moved to three-way,C-34479-05
-2.2 Chart design,35.2%,mart_chart_changes.evidence_value,35.2%
-2.2 Chart design,9 March 2026,mart_chart_changes.changed_on,9 March 2026
-"Figure: Sample X-bar and R chart: C-26998-02, hole to edge B",23.346,"int_characteristic_history.ucl_mean, C-26998-02",
-"Figure: Sample X-bar and R chart: C-26998-02, hole to edge B",23.304,"int_characteristic_history.lcl_mean, C-26998-02",
-2.2 Chart design,0.82,"mart_coil_fit.r_squared, median",0.82
-2.2 Chart design,242,mart_coil_fit: characteristics,242
-2.2 Chart design,10,"mart_charts_in_force.coil_change_subgroup_size, three-way charts",10
-2.2 Chart design,20,analytics.chart_performance.coil_change: window of coils,20
-2.2 Chart design,39.1%,"mart_variance_components: residual coil share of the variance of formed subgroup means, median",39.1%
-2.2 Chart design,1.57,"coil_block_rate, rule 1, moving-range limits",1.57
-2.2 Chart design,0.27,"coil_block_rate, rule 1, limits in force",0.27
-2.2 Chart design,399,"mart_charts_in_force: three-way, formed",399
-"Figure: Sample three-way chart: C-30054-04, formed height D",7.714,"int_characteristic_history.ucl_mean, C-30054-04",
-"Figure: Sample three-way chart: C-30054-04, formed height D",7.438,"int_characteristic_history.lcl_mean, C-30054-04",
-2.2 Chart design,23,mart_charts_in_force: tool-wear (regression) charts,23
-2.2 Chart design,0.0041,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, lowest",0.0041
-2.2 Chart design,0.0100,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, highest",0.0100
-2.2 Chart design,19,mart_wear_slopes: characteristics,19
-2.2 Chart design,six,mart_wear_slopes.qualifying_intervals equal to 1,six
+3.1 Variance components,45.3%,mart_tonnage_components: between runs,45.3%
+3.1 Variance components,54.7%,mart_tonnage_components: stroke to stroke within a run,54.7%
+3.1 Variance components,0.01%,mart_tonnage_components: wear within a run,0.01%
+3.1 Variance components,97.5%,"mart_variance_components.within_share_wear_first, cut geometry, median",97.5%
+3.1 Variance components,98.4%,"mart_variance_components.within_share_wear_first, flatness, median",98.4%
+3.1 Variance components,12.3%,"mart_variance_components.between_coils_share_wear_first, formed, median",12.3%
+3.1 Variance components,49.7%,"mart_variance_components.incoming_coil_share, formed, median",49.7%
+3.1 Variance components,36.1%,"mart_variance_components.wear_share, hole diameter, median",36.1%
+3.1 Variance components,1.5%,"mart_variance_components.between_coils_share_wear_first, hole diameter, median",1.5%
+Figure: Variance components by class,97.5%,"mart_variance_components.within_share_wear_first, cut geometry, median",
+Figure: Variance components by class,0.2%,"mart_variance_components.between_subgroups_share_wear_first, cut geometry, median",
+Figure: Variance components by class,0.6%,"mart_variance_components.between_coils_share_wear_first, cut geometry, median",
+Figure: Variance components by class,0.0%,"mart_variance_components.wear_share, cut geometry, median",
+Figure: Variance components by class,80.0%,"mart_variance_components.within_share_wear_first, formed, median",
+Figure: Variance components by class,5.5%,"mart_variance_components.between_subgroups_share_wear_first, formed, median",
+Figure: Variance components by class,12.3%,"mart_variance_components.between_coils_share_wear_first, formed, median",
+Figure: Variance components by class,0.2%,"mart_variance_components.wear_share, formed, median",
+Figure: Variance components by class,55.8%,"mart_variance_components.within_share_wear_first, hole diameter, median",
+Figure: Variance components by class,6.9%,"mart_variance_components.between_subgroups_share_wear_first, hole diameter, median",
+Figure: Variance components by class,1.5%,"mart_variance_components.between_coils_share_wear_first, hole diameter, median",
+Figure: Variance components by class,36.1%,"mart_variance_components.wear_share, hole diameter, median",
+Figure: Variance components by class,98.4%,"mart_variance_components.within_share_wear_first, flatness, median",
+Figure: Variance components by class,0.5%,"mart_variance_components.between_subgroups_share_wear_first, flatness, median",
+Figure: Variance components by class,0.0%,"mart_variance_components.between_coils_share_wear_first, flatness, median",
+Figure: Variance components by class,0.1%,"mart_variance_components.wear_share, flatness, median",
+Figure: Variance components by class,49.7%,"mart_variance_components.incoming_coil_share, formed, median (marker)",
+Figure: Variance components by class,45.26%,"mart_tonnage_components: share of the per-stroke total's sum of squares, between_runs",
+Figure: Variance components by class,0.01%,"mart_tonnage_components: share of the per-stroke total's sum of squares, wear_within_run",
+Figure: Variance components by class,54.73%,"mart_tonnage_components: share of the per-stroke total's sum of squares, stroke_to_stroke",
+3.1 Variance components,0.82,"mart_coil_fit.r_squared, median",0.82
+3.1 Variance components,242,mart_coil_fit: characteristics,242
+3.1 Variance components,C-11333-05,"mart_coil_fit: characteristic with R squared nearest the plant median, 20 coil-change subgroups or more",C-11333-05
+3.1 Variance components,2.73,"mart_coil_fit.per_mm_thickness, C-11333-05",2.73
+3.1 Variance components,-0.0094,"mart_coil_fit.per_hrb, C-11333-05",-0.0094
+3.1 Variance components,0.814,"mart_coil_fit.r_squared, C-11333-05",0.814
+3.1 Variance components,20,"mart_coil_fit.coil_change_subgroups, C-11333-05",20
+3.1 Variance components,9,"mart_coil_fit.coils, C-11333-05",9
+3.1 Variance components,0.02,"mart_attribute_fails_by_interval: burr fails per thousand pieces, first fifth",0.02
+3.1 Variance components,6.73,"mart_attribute_fails_by_interval: burr fails per thousand pieces, last fifth",6.73
+3.1 Variance components,0.73,"mart_attribute_fails_by_interval: pin fails per thousand pieces, lowest fifth",0.73
+3.1 Variance components,1.07,"mart_attribute_fails_by_interval: pin fails per thousand pieces, highest fifth",1.07
+3.1 Variance components,23%,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots x stg_erp__dies.sharpening_due_count / tolerance width, hole diameters, median",23%
+Figure: Burr and pin fails across the sharpening interval,0.02,"mart_attribute_fails_by_interval: burr fails per thousand, fifth 1 (1 of 44,820)",
+Figure: Burr and pin fails across the sharpening interval,0.00,"mart_attribute_fails_by_interval: burr fails per thousand, fifth 2 (0 of 38,755)",
+Figure: Burr and pin fails across the sharpening interval,0.21,"mart_attribute_fails_by_interval: burr fails per thousand, fifth 3 (7 of 33,160)",
+Figure: Burr and pin fails across the sharpening interval,0.66,"mart_attribute_fails_by_interval: burr fails per thousand, fifth 4 (16 of 24,180)",
+Figure: Burr and pin fails across the sharpening interval,6.73,"mart_attribute_fails_by_interval: burr fails per thousand, fifth 5 (88 of 13,085)",
+Figure: Burr and pin fails across the sharpening interval,0.96,"mart_attribute_fails_by_interval: pin fails per thousand, fifth 1 (64 of 66,345)",
+Figure: Burr and pin fails across the sharpening interval,0.76,"mart_attribute_fails_by_interval: pin fails per thousand, fifth 2 (43 of 56,445)",
+Figure: Burr and pin fails across the sharpening interval,0.93,"mart_attribute_fails_by_interval: pin fails per thousand, fifth 3 (43 of 46,410)",
+Figure: Burr and pin fails across the sharpening interval,0.73,"mart_attribute_fails_by_interval: pin fails per thousand, fifth 4 (26 of 35,630)",
+Figure: Burr and pin fails across the sharpening interval,1.07,"mart_attribute_fails_by_interval: pin fails per thousand, fifth 5 (20 of 18,770)",
+3.2 Measurement systems,180,mart_charts_in_force with stg_calibration__gauges: check fixtures on variable charts,180
+3.2 Measurement systems,800,mart_charts_in_force: charts on a check fixture,800
+3.2 Measurement systems,369,mart_charts_in_force: cut geometry charts on a check fixture,369
+3.2 Measurement systems,399,mart_charts_in_force: formed charts on a check fixture,399
+3.2 Measurement systems,32,mart_charts_in_force: flatness charts on a check fixture,32
+3.2 Measurement systems,29,mart_charts_in_force with stg_calibration__gauges: calipers on variable charts,29
+3.2 Measurement systems,74,mart_charts_in_force: charts on a caliper,74
+3.2 Measurement systems,12,mart_charts_in_force with stg_calibration__gauges: indicators on variable charts,12
+3.2 Measurement systems,23,mart_charts_in_force: regression charts on an indicator,23
+3.2 Measurement systems,35,"mart_charts_in_force.gauge_id: pins, distinct",35
+3.2 Measurement systems,825,mart_charts_in_force.study_basis: this gauge,825
+3.2 Measurement systems,72,mart_charts_in_force.study_basis: gauge type at the press,72
+3.2 Measurement systems,765,stg_calibration__calibrations: done in the year,765
+3.2 Measurement systems,756,stg_calibration__calibrations: passed,756
+3.2 Measurement systems,8,stg_calibration__calibrations: adjusted,8
+3.2 Measurement systems,one,stg_calibration__calibrations: rebuilt,one
+3.2 Measurement systems,F-14026,"stg_calibration__calibrations.gauge_id, rebuilt",F-14026
+3.2 Measurement systems,"4,102",mart_fixture_verifications: verifications in the year,"4,102"
+3.2 Measurement systems,once,mart_fixture_verifications: failed in the year (1),once
+3.2 Measurement systems,4,mart_charts_in_force.ndc: studies in force under 5,4
+3.2 Measurement systems,16,mart_charts_in_force.pct_grr_of_tolerance: variable-chart gauges at 10% to 30%,16
+3.2 Measurement systems,205,mart_charts_in_force.pct_grr_of_tolerance: variable-chart gauges under 10%,205
+3.2 Measurement systems,221,mart_charts_in_force: variable-chart gauges,221
+3.2 Measurement systems,16,mart_charts_in_force.pct_grr_of_tolerance: variable-chart gauges at 10% to 30%,16
+3.2 Measurement systems,2 June 2026,"mart_fixture_verifications.verification_date, F-14026 fail",2 June 2026
+3.2 Measurement systems,3 June,"mart_gauge_studies.study_date, F-14026 restudy",3 June
+3.2 Measurement systems,16.7,"mart_gauge_studies.pct_grr_of_tolerance, F-14026 restudy",16.7
+3.2 Measurement systems,5.3,"mart_gauge_studies.pct_grr_of_tolerance, F-14026 after rebuild",5.3
+3.2 Measurement systems,17 June,"mart_gauge_studies.study_date, F-14026 after rebuild",17 June
+3.2 Measurement systems,16.3,"mart_gauge_studies.pct_grr_of_tolerance, F-11333",16.3
+3.2 Measurement systems,5 May,"mart_gauge_studies.study_date, F-11333",5 May
+3.2 Measurement systems,17 August,"mart_gauge_studies.restudy_due, F-11333",17 August
+Figure: %GRR of tolerance by gauge,7.4,"mart_charts_in_force.pct_grr_of_tolerance, F-10030",
+Figure: %GRR of tolerance by gauge,7.5,"mart_charts_in_force.pct_grr_of_tolerance, F-10090",
+Figure: %GRR of tolerance by gauge,6.1,"mart_charts_in_force.pct_grr_of_tolerance, F-10372",
+Figure: %GRR of tolerance by gauge,8.2,"mart_charts_in_force.pct_grr_of_tolerance, F-10531",
+Figure: %GRR of tolerance by gauge,7.2,"mart_charts_in_force.pct_grr_of_tolerance, F-10719",
+Figure: %GRR of tolerance by gauge,6.4,"mart_charts_in_force.pct_grr_of_tolerance, F-10823",
+Figure: %GRR of tolerance by gauge,5.3,"mart_charts_in_force.pct_grr_of_tolerance, F-11181",
+Figure: %GRR of tolerance by gauge,6.9,"mart_charts_in_force.pct_grr_of_tolerance, F-11209",
+Figure: %GRR of tolerance by gauge,16.3,"mart_charts_in_force.pct_grr_of_tolerance, F-11333",
+Figure: %GRR of tolerance by gauge,7.5,"mart_charts_in_force.pct_grr_of_tolerance, F-11348",
+Figure: %GRR of tolerance by gauge,4.0,"mart_charts_in_force.pct_grr_of_tolerance, F-11396",
+Figure: %GRR of tolerance by gauge,5.7,"mart_charts_in_force.pct_grr_of_tolerance, F-11687",
+Figure: %GRR of tolerance by gauge,6.6,"mart_charts_in_force.pct_grr_of_tolerance, F-11859",
+Figure: %GRR of tolerance by gauge,7.1,"mart_charts_in_force.pct_grr_of_tolerance, F-11860",
+Figure: %GRR of tolerance by gauge,6.5,"mart_charts_in_force.pct_grr_of_tolerance, F-12139",
+Figure: %GRR of tolerance by gauge,7.5,"mart_charts_in_force.pct_grr_of_tolerance, F-12201",
+Figure: %GRR of tolerance by gauge,5.4,"mart_charts_in_force.pct_grr_of_tolerance, F-12409",
+Figure: %GRR of tolerance by gauge,20.4,"mart_charts_in_force.pct_grr_of_tolerance, F-12485",
+Figure: %GRR of tolerance by gauge,7.0,"mart_charts_in_force.pct_grr_of_tolerance, F-12587",
+Figure: %GRR of tolerance by gauge,8.1,"mart_charts_in_force.pct_grr_of_tolerance, F-12803",
+Figure: %GRR of tolerance by gauge,4.9,"mart_charts_in_force.pct_grr_of_tolerance, F-12836",
+Figure: %GRR of tolerance by gauge,23.4,"mart_charts_in_force.pct_grr_of_tolerance, F-13459",
+Figure: %GRR of tolerance by gauge,9.2,"mart_charts_in_force.pct_grr_of_tolerance, F-13708",
+Figure: %GRR of tolerance by gauge,5.3,"mart_charts_in_force.pct_grr_of_tolerance, F-14026",
+Figure: %GRR of tolerance by gauge,5.3,"mart_charts_in_force.pct_grr_of_tolerance, F-14390",
+Figure: %GRR of tolerance by gauge,6.0,"mart_charts_in_force.pct_grr_of_tolerance, F-14393",
+Figure: %GRR of tolerance by gauge,7.9,"mart_charts_in_force.pct_grr_of_tolerance, F-14411",
+Figure: %GRR of tolerance by gauge,6.8,"mart_charts_in_force.pct_grr_of_tolerance, F-14494",
+Figure: %GRR of tolerance by gauge,5.3,"mart_charts_in_force.pct_grr_of_tolerance, F-14507",
+Figure: %GRR of tolerance by gauge,7.5,"mart_charts_in_force.pct_grr_of_tolerance, F-14813",
+Figure: %GRR of tolerance by gauge,6.0,"mart_charts_in_force.pct_grr_of_tolerance, F-14849",
+Figure: %GRR of tolerance by gauge,8.1,"mart_charts_in_force.pct_grr_of_tolerance, F-15051",
+Figure: %GRR of tolerance by gauge,8.7,"mart_charts_in_force.pct_grr_of_tolerance, F-15351",
+Figure: %GRR of tolerance by gauge,5.6,"mart_charts_in_force.pct_grr_of_tolerance, F-15609",
+Figure: %GRR of tolerance by gauge,6.0,"mart_charts_in_force.pct_grr_of_tolerance, F-15731",
+Figure: %GRR of tolerance by gauge,8.3,"mart_charts_in_force.pct_grr_of_tolerance, F-16233",
+Figure: %GRR of tolerance by gauge,6.7,"mart_charts_in_force.pct_grr_of_tolerance, F-16280",
+Figure: %GRR of tolerance by gauge,6.8,"mart_charts_in_force.pct_grr_of_tolerance, F-16291",
+Figure: %GRR of tolerance by gauge,7.2,"mart_charts_in_force.pct_grr_of_tolerance, F-16315",
+Figure: %GRR of tolerance by gauge,6.9,"mart_charts_in_force.pct_grr_of_tolerance, F-16467",
+Figure: %GRR of tolerance by gauge,5.6,"mart_charts_in_force.pct_grr_of_tolerance, F-16483",
+Figure: %GRR of tolerance by gauge,18.5,"mart_charts_in_force.pct_grr_of_tolerance, F-16511",
+Figure: %GRR of tolerance by gauge,6.9,"mart_charts_in_force.pct_grr_of_tolerance, F-16559",
+Figure: %GRR of tolerance by gauge,5.9,"mart_charts_in_force.pct_grr_of_tolerance, F-16584",
+Figure: %GRR of tolerance by gauge,7.8,"mart_charts_in_force.pct_grr_of_tolerance, F-16602",
+Figure: %GRR of tolerance by gauge,18.8,"mart_charts_in_force.pct_grr_of_tolerance, F-16662",
+Figure: %GRR of tolerance by gauge,21.5,"mart_charts_in_force.pct_grr_of_tolerance, F-17180",
+Figure: %GRR of tolerance by gauge,5.3,"mart_charts_in_force.pct_grr_of_tolerance, F-17726",
+Figure: %GRR of tolerance by gauge,7.9,"mart_charts_in_force.pct_grr_of_tolerance, F-17862",
+Figure: %GRR of tolerance by gauge,7.9,"mart_charts_in_force.pct_grr_of_tolerance, F-18000",
+Figure: %GRR of tolerance by gauge,6.7,"mart_charts_in_force.pct_grr_of_tolerance, F-18072",
+Figure: %GRR of tolerance by gauge,8.0,"mart_charts_in_force.pct_grr_of_tolerance, F-18287",
+Figure: %GRR of tolerance by gauge,6.0,"mart_charts_in_force.pct_grr_of_tolerance, F-18431",
+Figure: %GRR of tolerance by gauge,9.2,"mart_charts_in_force.pct_grr_of_tolerance, F-18473",
+Figure: %GRR of tolerance by gauge,5.5,"mart_charts_in_force.pct_grr_of_tolerance, F-18750",
+Figure: %GRR of tolerance by gauge,6.9,"mart_charts_in_force.pct_grr_of_tolerance, F-19113",
+Figure: %GRR of tolerance by gauge,6.8,"mart_charts_in_force.pct_grr_of_tolerance, F-19387",
+Figure: %GRR of tolerance by gauge,6.2,"mart_charts_in_force.pct_grr_of_tolerance, F-19408",
+Figure: %GRR of tolerance by gauge,5.5,"mart_charts_in_force.pct_grr_of_tolerance, F-19454",
+Figure: %GRR of tolerance by gauge,8.0,"mart_charts_in_force.pct_grr_of_tolerance, F-19593",
+Figure: %GRR of tolerance by gauge,13.3,"mart_charts_in_force.pct_grr_of_tolerance, F-19604",
+Figure: %GRR of tolerance by gauge,7.1,"mart_charts_in_force.pct_grr_of_tolerance, F-19700",
+Figure: %GRR of tolerance by gauge,6.1,"mart_charts_in_force.pct_grr_of_tolerance, F-20320",
+Figure: %GRR of tolerance by gauge,8.0,"mart_charts_in_force.pct_grr_of_tolerance, F-20396",
+Figure: %GRR of tolerance by gauge,7.2,"mart_charts_in_force.pct_grr_of_tolerance, F-20415",
+Figure: %GRR of tolerance by gauge,7.1,"mart_charts_in_force.pct_grr_of_tolerance, F-20417",
+Figure: %GRR of tolerance by gauge,7.1,"mart_charts_in_force.pct_grr_of_tolerance, F-20436",
+Figure: %GRR of tolerance by gauge,6.8,"mart_charts_in_force.pct_grr_of_tolerance, F-20696",
+Figure: %GRR of tolerance by gauge,6.9,"mart_charts_in_force.pct_grr_of_tolerance, F-20893",
+Figure: %GRR of tolerance by gauge,6.8,"mart_charts_in_force.pct_grr_of_tolerance, F-20983",
+Figure: %GRR of tolerance by gauge,6.0,"mart_charts_in_force.pct_grr_of_tolerance, F-22043",
+Figure: %GRR of tolerance by gauge,9.0,"mart_charts_in_force.pct_grr_of_tolerance, F-22071",
+Figure: %GRR of tolerance by gauge,7.7,"mart_charts_in_force.pct_grr_of_tolerance, F-22268",
+Figure: %GRR of tolerance by gauge,5.9,"mart_charts_in_force.pct_grr_of_tolerance, F-22345",
+Figure: %GRR of tolerance by gauge,6.4,"mart_charts_in_force.pct_grr_of_tolerance, F-22485",
+Figure: %GRR of tolerance by gauge,7.6,"mart_charts_in_force.pct_grr_of_tolerance, F-22488",
+Figure: %GRR of tolerance by gauge,6.3,"mart_charts_in_force.pct_grr_of_tolerance, F-22558",
+Figure: %GRR of tolerance by gauge,7.0,"mart_charts_in_force.pct_grr_of_tolerance, F-22617",
+Figure: %GRR of tolerance by gauge,7.8,"mart_charts_in_force.pct_grr_of_tolerance, F-22722",
+Figure: %GRR of tolerance by gauge,5.8,"mart_charts_in_force.pct_grr_of_tolerance, F-22788",
+Figure: %GRR of tolerance by gauge,5.4,"mart_charts_in_force.pct_grr_of_tolerance, F-23012",
+Figure: %GRR of tolerance by gauge,8.7,"mart_charts_in_force.pct_grr_of_tolerance, F-23068",
+Figure: %GRR of tolerance by gauge,6.2,"mart_charts_in_force.pct_grr_of_tolerance, F-23075",
+Figure: %GRR of tolerance by gauge,6.4,"mart_charts_in_force.pct_grr_of_tolerance, F-23078",
+Figure: %GRR of tolerance by gauge,7.1,"mart_charts_in_force.pct_grr_of_tolerance, F-23101",
+Figure: %GRR of tolerance by gauge,6.4,"mart_charts_in_force.pct_grr_of_tolerance, F-23130",
+Figure: %GRR of tolerance by gauge,6.8,"mart_charts_in_force.pct_grr_of_tolerance, F-23247",
+Figure: %GRR of tolerance by gauge,6.5,"mart_charts_in_force.pct_grr_of_tolerance, F-23264",
+Figure: %GRR of tolerance by gauge,7.5,"mart_charts_in_force.pct_grr_of_tolerance, F-23421",
+Figure: %GRR of tolerance by gauge,5.2,"mart_charts_in_force.pct_grr_of_tolerance, F-23506",
+Figure: %GRR of tolerance by gauge,5.0,"mart_charts_in_force.pct_grr_of_tolerance, F-23926",
+Figure: %GRR of tolerance by gauge,5.5,"mart_charts_in_force.pct_grr_of_tolerance, F-23929",
+Figure: %GRR of tolerance by gauge,5.5,"mart_charts_in_force.pct_grr_of_tolerance, F-23997",
+Figure: %GRR of tolerance by gauge,7.0,"mart_charts_in_force.pct_grr_of_tolerance, F-24560",
+Figure: %GRR of tolerance by gauge,8.2,"mart_charts_in_force.pct_grr_of_tolerance, F-24561",
+Figure: %GRR of tolerance by gauge,9.3,"mart_charts_in_force.pct_grr_of_tolerance, F-24604",
+Figure: %GRR of tolerance by gauge,10.9,"mart_charts_in_force.pct_grr_of_tolerance, F-24690",
+Figure: %GRR of tolerance by gauge,7.1,"mart_charts_in_force.pct_grr_of_tolerance, F-24764",
+Figure: %GRR of tolerance by gauge,6.2,"mart_charts_in_force.pct_grr_of_tolerance, F-24807",
+Figure: %GRR of tolerance by gauge,9.1,"mart_charts_in_force.pct_grr_of_tolerance, F-24884",
+Figure: %GRR of tolerance by gauge,6.0,"mart_charts_in_force.pct_grr_of_tolerance, F-25420",
+Figure: %GRR of tolerance by gauge,5.1,"mart_charts_in_force.pct_grr_of_tolerance, F-25815",
+Figure: %GRR of tolerance by gauge,7.5,"mart_charts_in_force.pct_grr_of_tolerance, F-25864",
+Figure: %GRR of tolerance by gauge,7.3,"mart_charts_in_force.pct_grr_of_tolerance, F-26000",
+Figure: %GRR of tolerance by gauge,6.4,"mart_charts_in_force.pct_grr_of_tolerance, F-26076",
+Figure: %GRR of tolerance by gauge,8.0,"mart_charts_in_force.pct_grr_of_tolerance, F-26081",
+Figure: %GRR of tolerance by gauge,6.7,"mart_charts_in_force.pct_grr_of_tolerance, F-26125",
+Figure: %GRR of tolerance by gauge,5.5,"mart_charts_in_force.pct_grr_of_tolerance, F-26340",
+Figure: %GRR of tolerance by gauge,7.1,"mart_charts_in_force.pct_grr_of_tolerance, F-26458",
+Figure: %GRR of tolerance by gauge,6.3,"mart_charts_in_force.pct_grr_of_tolerance, F-26504",
+Figure: %GRR of tolerance by gauge,4.8,"mart_charts_in_force.pct_grr_of_tolerance, F-26514",
+Figure: %GRR of tolerance by gauge,7.1,"mart_charts_in_force.pct_grr_of_tolerance, F-26652",
+Figure: %GRR of tolerance by gauge,5.1,"mart_charts_in_force.pct_grr_of_tolerance, F-26720",
+Figure: %GRR of tolerance by gauge,7.6,"mart_charts_in_force.pct_grr_of_tolerance, F-26775",
+Figure: %GRR of tolerance by gauge,18.1,"mart_charts_in_force.pct_grr_of_tolerance, F-26998",
+Figure: %GRR of tolerance by gauge,15.9,"mart_charts_in_force.pct_grr_of_tolerance, F-27163",
+Figure: %GRR of tolerance by gauge,7.7,"mart_charts_in_force.pct_grr_of_tolerance, F-27181",
+Figure: %GRR of tolerance by gauge,5.7,"mart_charts_in_force.pct_grr_of_tolerance, F-27389",
+Figure: %GRR of tolerance by gauge,6.8,"mart_charts_in_force.pct_grr_of_tolerance, F-27463",
+Figure: %GRR of tolerance by gauge,5.8,"mart_charts_in_force.pct_grr_of_tolerance, F-27723",
+Figure: %GRR of tolerance by gauge,6.2,"mart_charts_in_force.pct_grr_of_tolerance, F-27778",
+Figure: %GRR of tolerance by gauge,7.0,"mart_charts_in_force.pct_grr_of_tolerance, F-28071",
+Figure: %GRR of tolerance by gauge,12.4,"mart_charts_in_force.pct_grr_of_tolerance, F-28187",
+Figure: %GRR of tolerance by gauge,7.5,"mart_charts_in_force.pct_grr_of_tolerance, F-28553",
+Figure: %GRR of tolerance by gauge,9.0,"mart_charts_in_force.pct_grr_of_tolerance, F-28761",
+Figure: %GRR of tolerance by gauge,6.0,"mart_charts_in_force.pct_grr_of_tolerance, F-28862",
+Figure: %GRR of tolerance by gauge,7.4,"mart_charts_in_force.pct_grr_of_tolerance, F-28954",
+Figure: %GRR of tolerance by gauge,16.8,"mart_charts_in_force.pct_grr_of_tolerance, F-29216",
+Figure: %GRR of tolerance by gauge,7.3,"mart_charts_in_force.pct_grr_of_tolerance, F-29313",
+Figure: %GRR of tolerance by gauge,8.1,"mart_charts_in_force.pct_grr_of_tolerance, F-29540",
+Figure: %GRR of tolerance by gauge,6.1,"mart_charts_in_force.pct_grr_of_tolerance, F-29717",
+Figure: %GRR of tolerance by gauge,5.6,"mart_charts_in_force.pct_grr_of_tolerance, F-29835",
+Figure: %GRR of tolerance by gauge,15.9,"mart_charts_in_force.pct_grr_of_tolerance, F-30054",
+Figure: %GRR of tolerance by gauge,5.3,"mart_charts_in_force.pct_grr_of_tolerance, F-31056",
+Figure: %GRR of tolerance by gauge,8.0,"mart_charts_in_force.pct_grr_of_tolerance, F-31102",
+Figure: %GRR of tolerance by gauge,6.6,"mart_charts_in_force.pct_grr_of_tolerance, F-31103",
+Figure: %GRR of tolerance by gauge,6.4,"mart_charts_in_force.pct_grr_of_tolerance, F-31540",
+Figure: %GRR of tolerance by gauge,7.1,"mart_charts_in_force.pct_grr_of_tolerance, F-32296",
+Figure: %GRR of tolerance by gauge,6.1,"mart_charts_in_force.pct_grr_of_tolerance, F-32474",
+Figure: %GRR of tolerance by gauge,8.4,"mart_charts_in_force.pct_grr_of_tolerance, F-32591",
+Figure: %GRR of tolerance by gauge,6.0,"mart_charts_in_force.pct_grr_of_tolerance, F-32929",
+Figure: %GRR of tolerance by gauge,7.5,"mart_charts_in_force.pct_grr_of_tolerance, F-33084",
+Figure: %GRR of tolerance by gauge,6.7,"mart_charts_in_force.pct_grr_of_tolerance, F-33230",
+Figure: %GRR of tolerance by gauge,8.1,"mart_charts_in_force.pct_grr_of_tolerance, F-33411",
+Figure: %GRR of tolerance by gauge,5.8,"mart_charts_in_force.pct_grr_of_tolerance, F-34169",
+Figure: %GRR of tolerance by gauge,5.4,"mart_charts_in_force.pct_grr_of_tolerance, F-34479",
+Figure: %GRR of tolerance by gauge,5.0,"mart_charts_in_force.pct_grr_of_tolerance, F-34749",
+Figure: %GRR of tolerance by gauge,4.9,"mart_charts_in_force.pct_grr_of_tolerance, F-34769",
+Figure: %GRR of tolerance by gauge,7.1,"mart_charts_in_force.pct_grr_of_tolerance, F-34988",
+Figure: %GRR of tolerance by gauge,10.8,"mart_charts_in_force.pct_grr_of_tolerance, F-35186",
+Figure: %GRR of tolerance by gauge,7.3,"mart_charts_in_force.pct_grr_of_tolerance, F-35811",
+Figure: %GRR of tolerance by gauge,7.7,"mart_charts_in_force.pct_grr_of_tolerance, F-35884",
+Figure: %GRR of tolerance by gauge,7.8,"mart_charts_in_force.pct_grr_of_tolerance, F-35908",
+Figure: %GRR of tolerance by gauge,6.5,"mart_charts_in_force.pct_grr_of_tolerance, F-35914",
+Figure: %GRR of tolerance by gauge,6.7,"mart_charts_in_force.pct_grr_of_tolerance, F-35987",
+Figure: %GRR of tolerance by gauge,19.1,"mart_charts_in_force.pct_grr_of_tolerance, F-36044",
+Figure: %GRR of tolerance by gauge,5.4,"mart_charts_in_force.pct_grr_of_tolerance, F-36457",
+Figure: %GRR of tolerance by gauge,6.9,"mart_charts_in_force.pct_grr_of_tolerance, F-36526",
+Figure: %GRR of tolerance by gauge,7.1,"mart_charts_in_force.pct_grr_of_tolerance, F-36584",
+Figure: %GRR of tolerance by gauge,5.4,"mart_charts_in_force.pct_grr_of_tolerance, F-36648",
+Figure: %GRR of tolerance by gauge,7.6,"mart_charts_in_force.pct_grr_of_tolerance, F-36680",
+Figure: %GRR of tolerance by gauge,6.7,"mart_charts_in_force.pct_grr_of_tolerance, F-37007",
+Figure: %GRR of tolerance by gauge,6.3,"mart_charts_in_force.pct_grr_of_tolerance, F-37321",
+Figure: %GRR of tolerance by gauge,5.4,"mart_charts_in_force.pct_grr_of_tolerance, F-37329",
+Figure: %GRR of tolerance by gauge,6.6,"mart_charts_in_force.pct_grr_of_tolerance, F-37465",
+Figure: %GRR of tolerance by gauge,6.4,"mart_charts_in_force.pct_grr_of_tolerance, F-37771",
+Figure: %GRR of tolerance by gauge,7.5,"mart_charts_in_force.pct_grr_of_tolerance, F-37915",
+Figure: %GRR of tolerance by gauge,7.0,"mart_charts_in_force.pct_grr_of_tolerance, F-38248",
+Figure: %GRR of tolerance by gauge,6.2,"mart_charts_in_force.pct_grr_of_tolerance, F-38263",
+Figure: %GRR of tolerance by gauge,5.9,"mart_charts_in_force.pct_grr_of_tolerance, F-38468",
+Figure: %GRR of tolerance by gauge,8.4,"mart_charts_in_force.pct_grr_of_tolerance, F-38551",
+Figure: %GRR of tolerance by gauge,20.6,"mart_charts_in_force.pct_grr_of_tolerance, F-38578",
+Figure: %GRR of tolerance by gauge,6.5,"mart_charts_in_force.pct_grr_of_tolerance, F-38681",
+Figure: %GRR of tolerance by gauge,8.3,"mart_charts_in_force.pct_grr_of_tolerance, F-38884",
+Figure: %GRR of tolerance by gauge,7.8,"mart_charts_in_force.pct_grr_of_tolerance, F-39057",
+Figure: %GRR of tolerance by gauge,6.2,"mart_charts_in_force.pct_grr_of_tolerance, F-39101",
+Figure: %GRR of tolerance by gauge,6.8,"mart_charts_in_force.pct_grr_of_tolerance, F-39473",
+Figure: %GRR of tolerance by gauge,5.4,"mart_charts_in_force.pct_grr_of_tolerance, F-39564",
+Figure: %GRR of tolerance by gauge,5.1,"mart_charts_in_force.pct_grr_of_tolerance, F-39736",
+Figure: %GRR of tolerance by gauge,6.8,"mart_charts_in_force.pct_grr_of_tolerance, F-39809",
+Figure: %GRR of tolerance by gauge,8.4,"mart_charts_in_force.pct_grr_of_tolerance, G-0111",
+Figure: %GRR of tolerance by gauge,8.9,"mart_charts_in_force.pct_grr_of_tolerance, G-0114",
+Figure: %GRR of tolerance by gauge,8.9,"mart_charts_in_force.pct_grr_of_tolerance, G-0116",
+Figure: %GRR of tolerance by gauge,7.0,"mart_charts_in_force.pct_grr_of_tolerance, G-0132",
+Figure: %GRR of tolerance by gauge,7.0,"mart_charts_in_force.pct_grr_of_tolerance, G-0133",
+Figure: %GRR of tolerance by gauge,7.0,"mart_charts_in_force.pct_grr_of_tolerance, G-0134",
+Figure: %GRR of tolerance by gauge,7.4,"mart_charts_in_force.pct_grr_of_tolerance, G-0146",
+Figure: %GRR of tolerance by gauge,7.4,"mart_charts_in_force.pct_grr_of_tolerance, G-0147",
+Figure: %GRR of tolerance by gauge,7.7,"mart_charts_in_force.pct_grr_of_tolerance, G-0150",
+Figure: %GRR of tolerance by gauge,7.7,"mart_charts_in_force.pct_grr_of_tolerance, G-0151",
+Figure: %GRR of tolerance by gauge,7.7,"mart_charts_in_force.pct_grr_of_tolerance, G-0152",
+Figure: %GRR of tolerance by gauge,7.8,"mart_charts_in_force.pct_grr_of_tolerance, G-0167",
+Figure: %GRR of tolerance by gauge,8.0,"mart_charts_in_force.pct_grr_of_tolerance, G-0168",
+Figure: %GRR of tolerance by gauge,8.0,"mart_charts_in_force.pct_grr_of_tolerance, G-0169",
+Figure: %GRR of tolerance by gauge,8.0,"mart_charts_in_force.pct_grr_of_tolerance, G-0170",
+Figure: %GRR of tolerance by gauge,9.0,"mart_charts_in_force.pct_grr_of_tolerance, G-0183",
+Figure: %GRR of tolerance by gauge,9.6,"mart_charts_in_force.pct_grr_of_tolerance, G-0186",
+Figure: %GRR of tolerance by gauge,9.6,"mart_charts_in_force.pct_grr_of_tolerance, G-0187",
+Figure: %GRR of tolerance by gauge,9.6,"mart_charts_in_force.pct_grr_of_tolerance, G-0188",
+Figure: %GRR of tolerance by gauge,5.9,"mart_charts_in_force.pct_grr_of_tolerance, G-0200",
+Figure: %GRR of tolerance by gauge,5.7,"mart_charts_in_force.pct_grr_of_tolerance, G-0204",
+Figure: %GRR of tolerance by gauge,4.7,"mart_charts_in_force.pct_grr_of_tolerance, G-0221",
+Figure: %GRR of tolerance by gauge,6.9,"mart_charts_in_force.pct_grr_of_tolerance, G-0222",
+Figure: %GRR of tolerance by gauge,6.9,"mart_charts_in_force.pct_grr_of_tolerance, G-0223",
+Figure: %GRR of tolerance by gauge,6.9,"mart_charts_in_force.pct_grr_of_tolerance, G-0224",
+Figure: %GRR of tolerance by gauge,9.1,"mart_charts_in_force.pct_grr_of_tolerance, G-0240",
+Figure: %GRR of tolerance by gauge,9.1,"mart_charts_in_force.pct_grr_of_tolerance, G-0241",
+Figure: %GRR of tolerance by gauge,9.1,"mart_charts_in_force.pct_grr_of_tolerance, G-0242",
+Figure: %GRR of tolerance by gauge,4.5,"mart_charts_in_force.pct_grr_of_tolerance, G-0254",
+Figure: %GRR of tolerance by gauge,4.5,"mart_charts_in_force.pct_grr_of_tolerance, G-0255",
+Figure: %GRR of tolerance by gauge,4.4,"mart_charts_in_force.pct_grr_of_tolerance, G-0258",
+Figure: %GRR of tolerance by gauge,4.4,"mart_charts_in_force.pct_grr_of_tolerance, G-0260",
+Figure: %GRR of tolerance by gauge,7.6,"mart_charts_in_force.pct_grr_of_tolerance, G-0272",
+Figure: %GRR of tolerance by gauge,7.6,"mart_charts_in_force.pct_grr_of_tolerance, G-0273",
+Figure: %GRR of tolerance by gauge,9.3,"mart_charts_in_force.pct_grr_of_tolerance, G-0276",
+Figure: %GRR of tolerance by gauge,9.3,"mart_charts_in_force.pct_grr_of_tolerance, G-0277",
+Figure: %GRR of tolerance by gauge,9.3,"mart_charts_in_force.pct_grr_of_tolerance, G-0278",
+Figure: %GRR of tolerance by gauge,7.7,"mart_charts_in_force.pct_grr_of_tolerance, G-0290",
+Figure: %GRR of tolerance by gauge,6.2,"mart_charts_in_force.pct_grr_of_tolerance, G-0294",
+Figure: %GRR of tolerance by gauge,6.2,"mart_charts_in_force.pct_grr_of_tolerance, G-0295",
+Figure: %GRR of tolerance by gauge,6.2,"mart_charts_in_force.pct_grr_of_tolerance, G-0296",
+Figure: %GRR of tolerance by gauge,16.7,"mart_gauge_studies.pct_grr_of_tolerance, F-14026 restudy before the rebuild",
+3.2 Measurement systems,1.5%,"approximated from mart_charts_in_force.pct_grr_of_tolerance, tolerance and mart_variance_components.sigma_within: gauge share of within-subgroup variance, cut geometry, median",1.5%
+3.2 Measurement systems,1.2%,"approximated gauge share of within-subgroup variance, formed, median",1.2%
+3.2 Measurement systems,2.7%,"approximated gauge share of within-subgroup variance, hole diameter, median",2.7%
+3.2 Measurement systems,0.9%,"approximated gauge share of within-subgroup variance, flatness, median",0.9%
+Figure: Measurement's share of within-subgroup variance by class,1.5%,"approximated gauge share of within-subgroup variance, cut geometry, median",
+Figure: Measurement's share of within-subgroup variance by class,1.2%,"approximated gauge share of within-subgroup variance, formed, median",
+Figure: Measurement's share of within-subgroup variance by class,2.7%,"approximated gauge share of within-subgroup variance, hole diameter, median",
+Figure: Measurement's share of within-subgroup variance by class,0.9%,"approximated gauge share of within-subgroup variance, flatness, median",
+3.2 Measurement systems,24,mart_operator_kappa: operators,24
+3.2 Measurement systems,0.78,"mart_operator_kappa.kappa, latest, lowest",0.78
+3.2 Measurement systems,0.89,"mart_operator_kappa.kappa, latest, highest",0.89
+3.2 Measurement systems,0.66,"mart_operator_kappa.kappa, E-1006 below the line",0.66
+3.2 Measurement systems,14 April 2026,"mart_operator_kappa.study_date, E-1006 below the line",14 April 2026
+3.2 Measurement systems,0.83,"mart_operator_kappa.kappa, E-1006 requalified",0.83
+3.2 Measurement systems,28 April,"mart_operator_kappa.study_date, E-1006 requalified",28 April
+Figure: Burr-check operator kappa,0.82,"mart_operator_kappa.kappa, latest, E-1001",
+Figure: Burr-check operator kappa,0.83,"mart_operator_kappa.kappa, latest, E-1002",
+Figure: Burr-check operator kappa,0.88,"mart_operator_kappa.kappa, latest, E-1003",
+Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-1004",
+Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-1005",
+Figure: Burr-check operator kappa,0.83,"mart_operator_kappa.kappa, latest, E-1006",
+Figure: Burr-check operator kappa,0.86,"mart_operator_kappa.kappa, latest, E-1007",
+Figure: Burr-check operator kappa,0.89,"mart_operator_kappa.kappa, latest, E-1008",
+Figure: Burr-check operator kappa,0.86,"mart_operator_kappa.kappa, latest, E-1009",
+Figure: Burr-check operator kappa,0.83,"mart_operator_kappa.kappa, latest, E-1010",
+Figure: Burr-check operator kappa,0.85,"mart_operator_kappa.kappa, latest, E-1011",
+Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-1012",
+Figure: Burr-check operator kappa,0.85,"mart_operator_kappa.kappa, latest, E-1013",
+Figure: Burr-check operator kappa,0.84,"mart_operator_kappa.kappa, latest, E-1014",
+Figure: Burr-check operator kappa,0.78,"mart_operator_kappa.kappa, latest, E-1015",
+Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-1016",
+Figure: Burr-check operator kappa,0.79,"mart_operator_kappa.kappa, latest, E-1017",
+Figure: Burr-check operator kappa,0.79,"mart_operator_kappa.kappa, latest, E-1018",
+Figure: Burr-check operator kappa,0.85,"mart_operator_kappa.kappa, latest, E-1019",
+Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-1020",
+Figure: Burr-check operator kappa,0.85,"mart_operator_kappa.kappa, latest, E-1021",
+Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-1022",
+Figure: Burr-check operator kappa,0.79,"mart_operator_kappa.kappa, latest, E-1023",
+Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-1024",
+3.3 Design of SPC charts,474,mart_charts_in_force: X-bar and R,474
+3.3 Design of SPC charts,C-34479-05,mart_chart_changes: characteristic moved to three-way,C-34479-05
+3.3 Design of SPC charts,35.2%,mart_chart_changes.evidence_value,35.2%
+3.3 Design of SPC charts,9 March 2026,mart_chart_changes.changed_on,9 March 2026
+"Figure: Sample X-bar and R chart: C-15609-03, hole to hole C",64.020,"int_characteristic_history.ucl_mean, C-15609-03",
+"Figure: Sample X-bar and R chart: C-15609-03, hole to hole C",63.973,"int_characteristic_history.lcl_mean, C-15609-03",
+3.3 Design of SPC charts,10,"mart_charts_in_force.coil_change_subgroup_size, three-way charts",10
+3.3 Design of SPC charts,20,analytics.chart_performance.coil_change: window of coils,20
+3.3 Design of SPC charts,36.0%,"mart_variance_components: residual coil share of the variance of formed subgroup means, median",36.0%
+3.3 Design of SPC charts,1.36,"coil_block_rate, rule 1, moving-range limits",1.36
+3.3 Design of SPC charts,0.27,"coil_block_rate, rule 1, limits in force",0.27
+3.3 Design of SPC charts,399,"mart_charts_in_force: three-way, formed",399
+"Figure: Sample three-way chart: C-36680-06, bend angle F",60.305,"int_characteristic_history.ucl_mean, C-36680-06",
+"Figure: Sample three-way chart: C-36680-06, bend angle F",59.603,"int_characteristic_history.lcl_mean, C-36680-06",
+3.3 Design of SPC charts,23,mart_charts_in_force: tool-wear (regression) charts,23
+3.3 Design of SPC charts,0.0041,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, lowest",0.0041
+3.3 Design of SPC charts,0.0100,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, highest",0.0100
+3.3 Design of SPC charts,19,mart_wear_slopes: characteristics,19
+3.3 Design of SPC charts,six,mart_wear_slopes.qualifying_intervals equal to 1,six
 "Figure: Sample regression chart: C-12836-01, hole diameter A",2,"mart_limit_sets: re-fits taking effect in the sample, C-12836-01",
-2.2 Chart design,303,mart_charts_in_force: pin checks on hole diameters,303
-2.2 Chart design,5,"stg_spc__subgroups.pieces per check, burr and pin checks",5
-2.2 Chart design,0.12%,"stg_spc__subgroups: burr checks, fail rate",
-2.2 Chart design,0.09%,"stg_spc__subgroups: pin checks, fail rate",
-2.2 Chart design,5,"stg_spc__subgroups.pieces per check, burr and pin checks",5
-2.2 Chart design,4.8%,"p chart upper limit, burr checks",
-2.2 Chart design,4.0%,"p chart upper limit, pin checks",
-2.2 Chart design,0.6,"p chart: checks with at least one fail per 100, burr checks",
-2.2 Chart design,0.4,"p chart: checks with at least one fail per 100, pin checks",
-2.2 Chart design,180,stg_spc__characteristics: chart none,180
+3.3 Design of SPC charts,303,mart_charts_in_force: pin checks on hole diameters,303
+3.3 Design of SPC charts,5,"stg_spc__subgroups.pieces per check, burr and pin checks",5
+3.3 Design of SPC charts,0.12%,"stg_spc__subgroups: burr checks, fail rate",
+3.3 Design of SPC charts,0.09%,"stg_spc__subgroups: pin checks, fail rate",
+3.3 Design of SPC charts,5,"stg_spc__subgroups.pieces per check, burr and pin checks",5
+3.3 Design of SPC charts,4.8%,"p chart upper limit, burr checks",
+3.3 Design of SPC charts,4.0%,"p chart upper limit, pin checks",
+3.3 Design of SPC charts,0.6,"p chart: checks with at least one fail per 100, burr checks",
+3.3 Design of SPC charts,0.4,"p chart: checks with at least one fail per 100, pin checks",
+3.3 Design of SPC charts,180,stg_spc__characteristics: chart none,180
 "Figure: Sample p chart: C-10030-06, burr check",1,"stg_spc__subgroups.attribute_count, C-10030-06, the sample's checks",
-2.2 Chart design,0.02,mart_chart_design.ewma_lambda,0.02
-2.2 Chart design,5.5,mart_chart_design.ewma_L,5.5
-2.2 Chart design,0.60,"mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median",0.60
-2.2 Chart design,1.49%,"mart_per_stroke_run_tonnage: baseline sd over mean, median",1.49%
-2.2 Chart design,500,mart_chart_design.ewma_baseline_strokes,500
-2.2 Chart design,"2,219","mart_per_stroke_stop_rates.runs, the year","2,219"
-2.2 Chart design,77.8,"ewma_arl, L 5.5, known, millions",77.8
-2.2 Chart design,2.64,"ewma_arl averaged over the estimates, L 5.5, millions",2.64
-2.2 Chart design,4.9,mart_chart_design.ewma_L_considered,4.9
-2.2 Chart design,eight,strokes at L 4.9 over PR-03 strokes per worked shift in the quarter,eight
+3.3 Design of SPC charts,0.02,mart_chart_design.ewma_lambda,0.02
+3.3 Design of SPC charts,5.5,mart_chart_design.ewma_L,5.5
+3.3 Design of SPC charts,0.60,"mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median",0.60
+3.3 Design of SPC charts,1.49%,"mart_per_stroke_run_tonnage: baseline sd over mean, median",1.49%
+3.3 Design of SPC charts,500,mart_chart_design.ewma_baseline_strokes,500
+3.3 Design of SPC charts,"2,219","mart_per_stroke_stop_rates.runs, the year","2,219"
+3.3 Design of SPC charts,77.8,"ewma_arl, L 5.5, known, millions",77.8
+3.3 Design of SPC charts,2.64,"ewma_arl averaged over the estimates, L 5.5, millions",2.64
+3.3 Design of SPC charts,4.9,mart_chart_design.ewma_L_considered,4.9
+3.3 Design of SPC charts,eight,strokes at L 4.9 over PR-03 strokes per worked shift in the quarter,eight
 "Figure: Sample per-stroke tonnage charts: run R26-00555, PR-06",965.3,"mart_per_stroke_run_tonnage.baseline_total_kn_mean, R26-00555",
-2.2 Chart design,"1,380",mart_charts_in_force: charts,"1,380"
-2.2 Chart design,25,mart_chart_design.baseline_subgroups,25
-2.2 Chart design,94,"mart_phase1_baselines.screened_subgroups, total",94
-2.2 Chart design,64,mart_phase1_baselines: baselines with a subgroup screened,64
-2.2 Chart design,92.9%,"mart_phase1_baselines.normal_at_5pct, share",92.9%
-2.2 Chart design,25,mart_chart_design.verification_subgroups,25
-2.2 Chart design,15,int_run_shots: runs starting on the day their sharpening is logged,15
-2.2 Chart design,"1,399",int_run_shots: runs with a shot count,"1,399"
-2.2 Chart design,92,int_run_shots with int_sharpening_intervals: runs spanning a logged sharpening date,92
-2.2 Chart design,16,mart_charts_in_force.in_baseline,16
-2.2 Chart design,180,"mart_charts_in_force.gauge_id: check fixtures, distinct",180
-2.2 Chart design,29,"mart_charts_in_force.gauge_id: calipers, distinct",29
-2.2 Chart design,12,"mart_charts_in_force.gauge_id: indicators, distinct",12
-2.2 Chart design,825,mart_charts_in_force.study_basis: this gauge,825
-2.2 Chart design,72,mart_charts_in_force.study_basis: gauge type at the press,72
-2.2 Chart design,35,"mart_charts_in_force.gauge_id: pins, distinct",35
-2.2 Chart design,319,mart_limit_recalculations: limit sets in the year,319
-2.2 Chart design,897,mart_charts_in_force: variable charts,897
-2.2 Chart design,671,"mart_charts_in_force.limits_effective_from before 1 July 2025, variable charts",671
-2.2 Chart design,226,"mart_charts_in_force.limits_effective_from in the year, variable charts",226
-2.2 Chart design,146,mart_limit_recalculations: rebuild,146
-2.2 Chart design,74,mart_limit_recalculations: annual review,74
-2.2 Chart design,71,"mart_limit_recalculations: annual review, January to March",71
-2.2 Chart design,65,mart_limit_recalculations: tool-wear re-fit,65
-2.2 Chart design,34,mart_limit_recalculations: failed verification,34
-2.2 Chart design,30,mart_chart_changes.from_value,30
-2.2 Chart design,20,mart_chart_changes.to_value,20
-2.2 Chart design,8 December 2025,mart_chart_changes.changed_on,8 December 2025
-2.2 Chart design,408,mart_limit_verifications: sharpenings,408
-2.2 Chart design,33,mart_limit_verifications: sharpenings with a failure,33
-2.2 Chart design,8.1%,share of sharpenings failed,8.1%
-2.2 Chart design,34,mart_limit_verifications: X-bar and R failed,34
-2.2 Chart design,"1,100",mart_limit_verifications: X-bar and R after sharpening,"1,100"
-2.2 Chart design,3.1%,X-bar and R failure rate,3.1%
-2.2 Chart design,2,mart_limit_verifications: tool-wear failed,2
-2.2 Chart design,67,mart_limit_verifications: tool-wear,67
-2.2 Chart design,3.0%,tool-wear failure rate,3.0%
-2.2 Chart design,3,mart_limit_verifications: three-way failed,3
-2.2 Chart design,141,mart_limit_verifications: three-way after a rebuild,141
-2.2 Chart design,2.1%,three-way failure rate,2.1%
-2.2 Chart design,0.21,"mart_limit_verifications.mean_offset_sigma, passes, median absolute",0.21
-2.2 Chart design,0.001,"analytics.chart_performance: false-failure rate of the mean criterion, limits from 25 subgroups",0.001
-2.2 Chart design,23,mart_limit_sets: three-way annual-review sets below the minimum,23
-2.2 Chart design,45,mart_limit_sets: three-way annual-review sets,45
-2.2 Chart design,one,"mart_limit_sets.coil_changes_spanned, lowest",one
-2.2 Chart design,nine,"mart_limit_sets.coil_changes_spanned, highest",nine
-2.2 Chart design,50,"mart_limit_sets.subgroups_used, lowest",50
-2.2 Chart design,978,"mart_limit_sets.subgroups_used, highest",978
-2.3 Performance,93,"mart_capability: critical characteristics at or above 1.33, quarter",93
-2.3 Performance,100,"mart_capability: critical characteristics, quarter",100
-2.3 Performance,"12,156",mart_signals: routine signals in the year,"12,156"
-2.3 Performance,28,"mart_signals: coil-change chart, rule 1 signals in the year",28
-2.3 Performance,520,mart_per_stroke_stops: stops in the year,520
-2.3 Performance,145,"int_characteristic_history: routine readings outside tolerance, variable charts",
-2.3 Performance,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
-2.3 Performance,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",278
-2.3 Performance,489,"special-cause events: level-change runs, fixture-drift run, other-cause runs, soft coil, wrong count, tonnage stops with a finding",
+3.4 Setting and holding limits,"1,380",mart_charts_in_force: charts,"1,380"
+3.4 Setting and holding limits,25,mart_chart_design.baseline_subgroups,25
+3.4 Setting and holding limits,94,"mart_phase1_baselines.screened_subgroups, total",94
+3.4 Setting and holding limits,64,mart_phase1_baselines: baselines with a subgroup screened,64
+3.4 Setting and holding limits,92.9%,"mart_phase1_baselines.normal_at_5pct, share",92.9%
+3.4 Setting and holding limits,25,mart_chart_design.verification_subgroups,25
+3.4 Setting and holding limits,15,int_run_shots: runs starting on the day their sharpening is logged,15
+3.4 Setting and holding limits,"1,399",int_run_shots: runs with a shot count,"1,399"
+3.4 Setting and holding limits,92,int_run_shots with int_sharpening_intervals: runs spanning a logged sharpening date,92
+3.4 Setting and holding limits,16,mart_charts_in_force.in_baseline,16
+3.4 Setting and holding limits,11 May 2026,mart_phase1_baseline_subgroups: date of the baseline run,11 May 2026
+3.4 Setting and holding limits,9 May,int_die_event_timeline: rebuild of D-1333-C,9 May
+3.4 Setting and holding limits,25,mart_phase1_baseline_subgroups: subgroups,25
+3.4 Setting and holding limits,24.381,mart_phase1_baseline_subgroups.lcl_mean,24.381
+3.4 Setting and holding limits,24.435,mart_phase1_baseline_subgroups.ucl_mean,24.435
+3.4 Setting and holding limits,0.0988,mart_phase1_baseline_subgroups.ucl_range,0.0988
+3.4 Setting and holding limits,0.53,mart_phase1_baselines.anderson_darling,0.53
+3.4 Setting and holding limits,0.73,mart_phase1_baselines.anderson_darling_critical_5pct,0.73
+3.4 Setting and holding limits,18,mart_phase1_baseline_subgroups: screened subgroup,18
+3.4 Setting and holding limits,0.106,"mart_phase1_baseline_subgroups.subgroup_range, screened",0.106
+3.4 Setting and holding limits,0.002,mart_phase1_baseline_subgroups: largest move of the mean limits without the screened subgroup,0.002
+3.4 Setting and holding limits,319,mart_limit_recalculations: limit sets in the year,319
+3.4 Setting and holding limits,897,mart_charts_in_force: variable charts,897
+3.4 Setting and holding limits,671,"mart_charts_in_force.limits_effective_from before 1 July 2025, variable charts",671
+3.4 Setting and holding limits,226,"mart_charts_in_force.limits_effective_from in the year, variable charts",226
+3.4 Setting and holding limits,146,mart_limit_recalculations: rebuild,146
+3.4 Setting and holding limits,74,mart_limit_recalculations: annual review,74
+3.4 Setting and holding limits,71,"mart_limit_recalculations: annual review, January to March",71
+3.4 Setting and holding limits,65,mart_limit_recalculations: tool-wear re-fit,65
+3.4 Setting and holding limits,34,mart_limit_recalculations: failed verification,34
+3.4 Setting and holding limits,30,mart_chart_changes.from_value,30
+3.4 Setting and holding limits,20,mart_chart_changes.to_value,20
+3.4 Setting and holding limits,8 December 2025,mart_chart_changes.changed_on,8 December 2025
+3.4 Setting and holding limits,408,mart_limit_verifications: sharpenings,408
+3.4 Setting and holding limits,33,mart_limit_verifications: sharpenings with a failure,33
+3.4 Setting and holding limits,8.1%,share of sharpenings failed,8.1%
+3.4 Setting and holding limits,34,mart_limit_verifications: X-bar and R failed,34
+3.4 Setting and holding limits,"1,100",mart_limit_verifications: X-bar and R after sharpening,"1,100"
+3.4 Setting and holding limits,3.1%,X-bar and R failure rate,3.1%
+3.4 Setting and holding limits,2,mart_limit_verifications: tool-wear failed,2
+3.4 Setting and holding limits,67,mart_limit_verifications: tool-wear,67
+3.4 Setting and holding limits,3.0%,tool-wear failure rate,3.0%
+3.4 Setting and holding limits,3,mart_limit_verifications: three-way failed,3
+3.4 Setting and holding limits,141,mart_limit_verifications: three-way after a rebuild,141
+3.4 Setting and holding limits,2.1%,three-way failure rate,2.1%
+3.4 Setting and holding limits,0.21,"mart_limit_verifications.mean_offset_sigma, passes, median absolute",0.21
+3.4 Setting and holding limits,0.001,"analytics.chart_performance: false-failure rate of the mean criterion, limits from 25 subgroups",0.001
+3.4 Setting and holding limits,23,mart_limit_sets: three-way annual-review sets below the minimum,23
+3.4 Setting and holding limits,45,mart_limit_sets: three-way annual-review sets,45
+3.4 Setting and holding limits,one,"mart_limit_sets.coil_changes_spanned, lowest",one
+3.4 Setting and holding limits,nine,"mart_limit_sets.coil_changes_spanned, highest",nine
+3.4 Setting and holding limits,50,"mart_limit_sets.subgroups_used, lowest",50
+3.4 Setting and holding limits,978,"mart_limit_sets.subgroups_used, highest",978
+4. Chart Performance,93,"mart_capability: critical characteristics at or above 1.33, quarter",93
+4. Chart Performance,100,"mart_capability: critical characteristics, quarter",100
+4.1 What the charts flagged,"12,156",mart_signals: routine signals in the year,"12,156"
+4.1 What the charts flagged,28,"mart_signals: coil-change chart, rule 1 signals in the year",28
+4.1 What the charts flagged,520,mart_per_stroke_stops: stops in the year,520
+4.1 What the charts flagged,145,"int_characteristic_history: routine readings outside tolerance, variable charts",
+4.1 What the charts flagged,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
+4.1 What the charts flagged,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",278
+4.1 What the charts flagged,489,"special-cause events: level-change runs, fixture-drift run, other-cause runs, soft coil, wrong count, tonnage stops with a finding",
 Figure: What the charts flagged in the year,"1,657","what the charts flagged: Routine characteristic charts, special cause",
 Figure: What the charts flagged in the year,"10,499","what the charts flagged: Routine characteristic charts, no assignable cause",
 Figure: What the charts flagged in the year,1,"what the charts flagged: Coil-change chart, special cause",
@@ -230,46 +554,46 @@ Figure: What the charts flagged in the year,49,"what the charts flagged: Measure
 Figure: What the charts flagged in the year,96,"what the charts flagged: Measured pieces outside tolerance, no assignable cause",
 Figure: What the charts flagged in the year,112,"what the charts flagged: Attribute fails, special cause",
 Figure: What the charts flagged in the year,434,"what the charts flagged: Attribute fails, no assignable cause",
-2.3 Performance,489,"special-cause events: level-change runs, fixture-drift run, other-cause runs, soft coil, wrong count, tonnage stops with a finding",
-2.3 Performance,53,mart_signals: runs with a level-change alarm,53
-2.3 Performance,one,"mart_signals: runs, fixture drift",one
-2.3 Performance,6,"mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant",6
-2.3 Performance,427,"mart_per_stroke_stops: stops on slug pulling, worn and chipped punches",427
-2.3 Performance,161,mart_nonconformances: nonconformances in the year,
-2.3 Performance,62,mart_nonconformances: nonconformances on runs with no special cause,
-2.3 Performance,54,mart_nonconformances: first-piece holds on runs with no special cause,
-2.3 Performance,8,mart_nonconformances: mixed parts and packaging on runs with no special cause,
-2.3 Performance,"X-bar and R, three-way, regression, with verification","mart_signals.chart_type, level-change alarms","X-bar and R, three-way, regression, with verification"
-2.3 Performance,53,"mart_signals: runs, level change",53
-2.3 Performance,"1,620","mart_signals: alarms, level change","1,620"
-2.3 Performance,F-14026,"mart_charts_in_force.gauge_id, fixture drift alarms",F-14026
-2.3 Performance,"X-bar and R, three-way","mart_signals.chart_type, fixture drift","X-bar and R, three-way"
-2.3 Performance,1,"mart_signals: runs, fixture drift",1
-2.3 Performance,30,"mart_signals: alarms, fixture drift",30
-2.3 Performance,"X-bar and R, three-way","mart_signals.chart_type, other causes","X-bar and R, three-way"
-2.3 Performance,6,"mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant",6
-2.3 Performance,7,"mart_signals: alarms, other causes",7
-2.3 Performance,regression,"mart_signals.chart_type, sharpening logged at the wrong count",regression
-2.3 Performance,1,"mart_signals: runs, wrong count",1
-2.3 Performance,1,"mart_signals: alarms, wrong count",1
-2.3 Performance,C-15731-07,"mart_signals.characteristic_id, soft coil",C-15731-07
-2.3 Performance,1,"mart_signals: coils, soft coil",1
-2.3 Performance,1,"mart_signals: alarms, soft coil",1
-2.3 Performance,427,"mart_per_stroke_stops: stops on slug pulling, worn and chipped punches",427
-2.3 Performance,427,"mart_per_stroke_stops: stops, as alarms",427
-2.3 Performance,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
-2.3 Performance,27,mart_signals: coil-change signals closed as no cause found,27
-2.3 Performance,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
-2.3 Performance,27,mart_signals: coil-change signals closed as no cause found,27
-2.3 Performance,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
-2.3 Performance,27,mart_signals: coil-change signals closed as no cause found,27
-2.3 Performance,93,mart_per_stroke_stops: nothing found,93
-2.3 Performance,370,"analytics.chart_performance.arl_rules, rule 1, known",370
-2.3 Performance,133,"signals with no assignable cause expected a week by design, plant",133
-2.3 Performance,3.1,"signals expected per 100 routine subgroups, plant",3.1
-2.3 Performance,23.7,"signals expected per week by design, PR-03",23.7
-2.3 Performance,750,"routine subgroups per week, PR-03",750
-2.3 Performance,12.9,"signals expected per week by design, median press",12.9
+4.2 Signals with a special cause,489,"special-cause events: level-change runs, fixture-drift run, other-cause runs, soft coil, wrong count, tonnage stops with a finding",
+4.2 Signals with a special cause,53,mart_signals: runs with a level-change alarm,53
+4.2 Signals with a special cause,one,"mart_signals: runs, fixture drift",one
+4.2 Signals with a special cause,6,"mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant",6
+4.2 Signals with a special cause,427,"mart_per_stroke_stops: stops on slug pulling, worn and chipped punches",427
+4.2 Signals with a special cause,161,mart_nonconformances: nonconformances in the year,
+4.2 Signals with a special cause,62,mart_nonconformances: nonconformances on runs with no special cause,
+4.2 Signals with a special cause,54,mart_nonconformances: first-piece holds on runs with no special cause,
+4.2 Signals with a special cause,8,mart_nonconformances: mixed parts and packaging on runs with no special cause,
+4.2 Signals with a special cause,"X-bar and R, three-way, regression, with verification","mart_signals.chart_type, level-change alarms","X-bar and R, three-way, regression, with verification"
+4.2 Signals with a special cause,53,"mart_signals: runs, level change",53
+4.2 Signals with a special cause,"1,620","mart_signals: alarms, level change","1,620"
+4.2 Signals with a special cause,F-14026,"mart_charts_in_force.gauge_id, fixture drift alarms",F-14026
+4.2 Signals with a special cause,"X-bar and R, three-way","mart_signals.chart_type, fixture drift","X-bar and R, three-way"
+4.2 Signals with a special cause,1,"mart_signals: runs, fixture drift",1
+4.2 Signals with a special cause,30,"mart_signals: alarms, fixture drift",30
+4.2 Signals with a special cause,"X-bar and R, three-way","mart_signals.chart_type, other causes","X-bar and R, three-way"
+4.2 Signals with a special cause,6,"mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant",6
+4.2 Signals with a special cause,7,"mart_signals: alarms, other causes",7
+4.2 Signals with a special cause,regression,"mart_signals.chart_type, sharpening logged at the wrong count",regression
+4.2 Signals with a special cause,1,"mart_signals: runs, wrong count",1
+4.2 Signals with a special cause,1,"mart_signals: alarms, wrong count",1
+4.2 Signals with a special cause,C-15731-07,"mart_signals.characteristic_id, soft coil",C-15731-07
+4.2 Signals with a special cause,1,"mart_signals: coils, soft coil",1
+4.2 Signals with a special cause,1,"mart_signals: alarms, soft coil",1
+4.2 Signals with a special cause,427,"mart_per_stroke_stops: stops on slug pulling, worn and chipped punches",427
+4.2 Signals with a special cause,427,"mart_per_stroke_stops: stops, as alarms",427
+4.2 Signals with a special cause,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
+4.2 Signals with a special cause,27,mart_signals: coil-change signals closed as no cause found,27
+4.3 Signals with no assignable cause,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
+4.3 Signals with no assignable cause,27,mart_signals: coil-change signals closed as no cause found,27
+4.3 Signals with no assignable cause,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
+4.3 Signals with no assignable cause,27,mart_signals: coil-change signals closed as no cause found,27
+4.3 Signals with no assignable cause,93,mart_per_stroke_stops: nothing found,93
+4.3 Signals with no assignable cause,370,"analytics.chart_performance.arl_rules, rule 1, known",370
+4.3 Signals with no assignable cause,133,"signals with no assignable cause expected a week by design, plant",133
+4.3 Signals with no assignable cause,3.1,"signals expected per 100 routine subgroups, plant",3.1
+4.3 Signals with no assignable cause,23.7,"signals expected per week by design, PR-03",23.7
+4.3 Signals with no assignable cause,750,"routine subgroups per week, PR-03",750
+4.3 Signals with no assignable cause,12.9,"signals expected per week by design, median press",12.9
 "Figure: Signals with no assignable cause expected by design, per press per week",16.0,"expected false alarms per week, PR-01",
 "Figure: Signals with no assignable cause expected by design, per press per week",15.3,"expected false alarms per week, PR-02",
 "Figure: Signals with no assignable cause expected by design, per press per week",23.7,"expected false alarms per week, PR-03",
@@ -282,24 +606,24 @@ Figure: What the charts flagged in the year,434,"what the charts flagged: Attrib
 "Figure: Signals with no assignable cause expected by design, per press per week",7.0,"expected false alarms per week, PR-10",
 "Figure: Signals with no assignable cause expected by design, per press per week",7.0,"expected false alarms per week, PR-11",
 "Figure: Signals with no assignable cause expected by design, per press per week",750 subgroups a week,"routine subgroups per week, PR-03",
-2.3 Performance,370,"analytics.chart_performance.arl_rules, rule 1, known",370
-2.3 Performance,44,"arl_rules, rule 1 at 1 sigma",44
-2.3 Performance,92,"arl_rules, rules 1 to 4, known",92
-2.3 Performance,9,"arl_rules, rules 1 to 4 at 1 sigma",9
-2.3 Performance,407,"expected_arl_xbar, rule 1, baseline 25",407
-2.3 Performance,74,"expected_arl_xbar, rules 1 to 4, baseline 25",74
-2.3 Performance,1.32,"observed over expected, cut geometry (X-bar and R)",1.32
-2.3 Performance,0.88,"observed over expected, flatness",0.88
-2.3 Performance,"5,738","mart_signal_rates.subgroups_in_scope, flatness","5,738"
-2.3 Performance,0.75,"Poisson interval on flatness signals over expectation, low",0.75
-2.3 Performance,1.02,"Poisson interval on flatness signals over expectation, high",1.02
-2.3 Performance,1.79,"observed over expected, hole diameter (regression)",1.79
-2.3 Performance,0.83,"observed over expected, formed (three-way)",0.83
-2.3 Performance,483,mart_charts_in_force: p charts,483
-2.3 Performance,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
-2.3 Performance,"219,535","stg_spc__subgroups.pieces, burr checks, in the year","219,535"
-2.3 Performance,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",278
-2.3 Performance,"324,225","stg_spc__subgroups.pieces, pin checks, in the year","324,225"
+4.3 Signals with no assignable cause,370,"analytics.chart_performance.arl_rules, rule 1, known",370
+4.3 Signals with no assignable cause,44,"arl_rules, rule 1 at 1 sigma",44
+4.3 Signals with no assignable cause,92,"arl_rules, rules 1 to 4, known",92
+4.3 Signals with no assignable cause,9,"arl_rules, rules 1 to 4 at 1 sigma",9
+4.3 Signals with no assignable cause,407,"expected_arl_xbar, rule 1, baseline 25",407
+4.3 Signals with no assignable cause,74,"expected_arl_xbar, rules 1 to 4, baseline 25",74
+4.3 Signals with no assignable cause,1.32,"observed over expected, cut geometry (X-bar and R)",1.32
+4.3 Signals with no assignable cause,0.88,"observed over expected, flatness",0.88
+4.3 Signals with no assignable cause,"5,738","mart_signal_rates.subgroups_in_scope, flatness","5,738"
+4.3 Signals with no assignable cause,0.75,"Poisson interval on flatness signals over expectation, low",0.75
+4.3 Signals with no assignable cause,1.02,"Poisson interval on flatness signals over expectation, high",1.02
+4.3 Signals with no assignable cause,1.79,"observed over expected, hole diameter (regression)",1.79
+4.3 Signals with no assignable cause,0.83,"observed over expected, formed (three-way)",0.83
+4.3 Signals with no assignable cause,483,mart_charts_in_force: p charts,483
+4.3 Signals with no assignable cause,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
+4.3 Signals with no assignable cause,"219,535","stg_spc__subgroups.pieces, burr checks, in the year","219,535"
+4.3 Signals with no assignable cause,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",278
+4.3 Signals with no assignable cause,"324,225","stg_spc__subgroups.pieces, pin checks, in the year","324,225"
 Figure: Signals against expectation by characteristic class,2.36,"observed per 100, formed",
 Figure: Signals against expectation by characteristic class,2.86,"expected per 100, formed",
 Figure: Signals against expectation by characteristic class,0.83,"observed over expected, formed",
@@ -312,14 +636,14 @@ Figure: Signals against expectation by characteristic class,1.79,"observed over 
 Figure: Signals against expectation by characteristic class,3.05,"observed per 100, flatness",
 Figure: Signals against expectation by characteristic class,3.47,"expected per 100, flatness",
 Figure: Signals against expectation by characteristic class,0.88,"observed over expected, flatness",
-2.3 Performance,1.39,"mart_signal_rates.signals_rule_3, X-bar and R, per 100",1.39
-2.3 Performance,2.09,"mart_signal_rates.signals_rule_4, X-bar and R, per 100",2.09
-2.3 Performance,0.45,"flag_rate_rules, rule 3, known",0.45
-2.3 Performance,0.78,"flag_rate_rules, rule 4, known",0.78
-2.3 Performance,1.20,"mart_signal_rates.signals_rule_3, tool-wear, per 100",1.20
-2.3 Performance,2.37,"mart_signal_rates.signals_rule_4, tool-wear, per 100",2.37
-2.3 Performance,14,mart_limit_verifications: X-bar and R and tool-wear passes at 1.0 to 1.5 sigma,14
-2.3 Performance,"1,131",mart_limit_verifications: X-bar and R and tool-wear passes,"1,131"
+4.3 Signals with no assignable cause,1.39,"mart_signal_rates.signals_rule_3, X-bar and R, per 100",1.39
+4.3 Signals with no assignable cause,2.09,"mart_signal_rates.signals_rule_4, X-bar and R, per 100",2.09
+4.3 Signals with no assignable cause,0.45,"flag_rate_rules, rule 3, known",0.45
+4.3 Signals with no assignable cause,0.78,"flag_rate_rules, rule 4, known",0.78
+4.3 Signals with no assignable cause,1.20,"mart_signal_rates.signals_rule_3, tool-wear, per 100",1.20
+4.3 Signals with no assignable cause,2.37,"mart_signal_rates.signals_rule_4, tool-wear, per 100",2.37
+4.3 Signals with no assignable cause,14,mart_limit_verifications: X-bar and R and tool-wear passes at 1.0 to 1.5 sigma,14
+4.3 Signals with no assignable cause,"1,131",mart_limit_verifications: X-bar and R and tool-wear passes,"1,131"
 "Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.52,"mart_signal_rates.signals_rule_1, X-bar and R, per 100",
 "Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.27,"flag_rate_rules, rule 1, known",
 "Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.57,"mart_signal_rates.signals_rule_2, X-bar and R, per 100",
@@ -336,72 +660,72 @@ Figure: Signals against expectation by characteristic class,0.88,"observed over 
 "Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.45,"flag_rate_rules, rule 3, known",
 "Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",2.37,"mart_signal_rates.signals_rule_4, regression, per 100",
 "Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.78,"flag_rate_rules, rule 4, known",
-2.3 Performance,PR-01,"mart_signal_rates: press furthest above expectation, by difference",PR-01
-2.3 Performance,PR-09,"mart_signal_rates: press furthest above expectation, by ratio",PR-09
-2.3 Performance,3.91,"observed per 100, PR-01",3.91
-2.3 Performance,3.18,"expected per 100, PR-01",3.18
-2.3 Performance,3.46,"observed per 100, PR-09",3.46
-2.3 Performance,2.81,"expected per 100, PR-09",2.81
-2.3 Performance,PR-10,mart_signal_rates: press furthest below expectation,PR-10
-2.3 Performance,2.60,"observed per 100, that press",2.60
-2.3 Performance,3.26,"expected per 100, that press",3.26
-2.3 Performance,0.7,"bound on the gap between observed and expected per 100, the other eight presses (largest 0.61)",0.7
-2.3 Performance,-0.07,"mart_variance_components.lag_1_autocorrelation_within_coil, median",-0.07
-2.3 Performance,-0.19,"lag-1, 10th percentile",-0.19
-2.3 Performance,0.02,"lag-1, 90th percentile",0.02
-2.3 Performance,142,arl_ar1_rules at the 10th percentile,142
-2.3 Performance,87,arl_ar1_rules at the 90th percentile,87
-2.3 Performance,109,arl_ar1_rules at the measured median,109
-2.3 Performance,92,"arl_rules, rules 1 to 4, independent",92
-2.3 Performance,28,"mart_signals: coil-change chart, rule 1 signals in the year",28
-2.3 Performance,27,"mart_signals: coil-change chart, no cause found",27
-2.3 Performance,one,"mart_signals: coil-change chart, assignable cause",one
-2.3 Performance,C-15731-07,"mart_signals.characteristic_id, soft coil",C-15731-07
-2.3 Performance,27 May 2026,"mart_signals.raised_at, soft coil",27 May 2026
-2.3 Performance,"2,292",mart_coil_change_points: points with six or more coils on record,"2,292"
-2.3 Performance,18,mart_coil_change_points: rule 1 signals on points with six or more coils,18
-2.3 Performance,12.1,"analytics.chart_performance.coil_change: expected signals, Monte Carlo",12.1
-2.3 Performance,1.49,"observed over expected, coil-change chart",1.49
-2.3 Performance,0.88,"Poisson interval, low",0.88
-2.3 Performance,2.35,"Poisson interval, high",2.35
-2.3 Performance,one,stg_erp__coils: fewest coils in a lot,one
-2.3 Performance,four,stg_erp__coils: most coils in a lot,four
-2.3 Performance,76%,analytics.chart_performance.coil_change: lot share of coil variance,76%
-2.3 Performance,ten,mart_signals less mart_coil_change_points: signals on points with fewer than six coils on record,ten
-2.3 Performance,145,"int_characteristic_history: routine readings outside tolerance, variable charts",
-2.3 Performance,131,readings outside tolerance per million measured,
-2.3 Performance,49,readings outside tolerance on runs with a special cause,
-2.3 Performance,96,readings outside tolerance on runs without a special cause,
-2.3 Performance,176,"readings outside tolerance per million, formed",
-2.3 Performance,104,"readings outside tolerance per million, cut geometry",
-2.3 Performance,57,int_characteristic_history: subgroups with a reading outside tolerance that raised a signal,
-2.3 Performance,142,int_characteristic_history: subgroups with a reading outside tolerance,
-2.3 Performance,19,mart_nonconformances: runs with a reading outside tolerance that carry a nonconformance,
-2.3 Performance,119,int_characteristic_history: runs with a reading outside tolerance,
-2.3 Performance,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
-2.3 Performance,"219,535","stg_spc__subgroups.pieces, burr checks, in the year","219,535"
-2.3 Performance,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",278
-2.3 Performance,"324,225","stg_spc__subgroups.pieces, pin checks, in the year","324,225"
-2.3 Performance,112,attribute fails on runs with a special cause,
+4.3 Signals with no assignable cause,PR-01,"mart_signal_rates: press furthest above expectation, by difference",PR-01
+4.3 Signals with no assignable cause,PR-09,"mart_signal_rates: press furthest above expectation, by ratio",PR-09
+4.3 Signals with no assignable cause,3.91,"observed per 100, PR-01",3.91
+4.3 Signals with no assignable cause,3.18,"expected per 100, PR-01",3.18
+4.3 Signals with no assignable cause,3.46,"observed per 100, PR-09",3.46
+4.3 Signals with no assignable cause,2.81,"expected per 100, PR-09",2.81
+4.3 Signals with no assignable cause,PR-10,mart_signal_rates: press furthest below expectation,PR-10
+4.3 Signals with no assignable cause,2.60,"observed per 100, that press",2.60
+4.3 Signals with no assignable cause,3.26,"expected per 100, that press",3.26
+4.3 Signals with no assignable cause,0.7,"bound on the gap between observed and expected per 100, the other eight presses (largest 0.61)",0.7
+4.3 Signals with no assignable cause,-0.07,"mart_variance_components.lag_1_autocorrelation_within_coil, median",-0.07
+4.3 Signals with no assignable cause,-0.19,"lag-1, 10th percentile",-0.19
+4.3 Signals with no assignable cause,0.02,"lag-1, 90th percentile",0.02
+4.3 Signals with no assignable cause,142,arl_ar1_rules at the 10th percentile,142
+4.3 Signals with no assignable cause,87,arl_ar1_rules at the 90th percentile,87
+4.3 Signals with no assignable cause,109,arl_ar1_rules at the measured median,109
+4.3 Signals with no assignable cause,92,"arl_rules, rules 1 to 4, independent",92
+4.3 Signals with no assignable cause,28,"mart_signals: coil-change chart, rule 1 signals in the year",28
+4.3 Signals with no assignable cause,27,"mart_signals: coil-change chart, no cause found",27
+4.3 Signals with no assignable cause,one,"mart_signals: coil-change chart, assignable cause",one
+4.3 Signals with no assignable cause,C-15731-07,"mart_signals.characteristic_id, soft coil",C-15731-07
+4.3 Signals with no assignable cause,27 May 2026,"mart_signals.raised_at, soft coil",27 May 2026
+4.3 Signals with no assignable cause,"2,292",mart_coil_change_points: points with six or more coils on record,"2,292"
+4.3 Signals with no assignable cause,18,mart_coil_change_points: rule 1 signals on points with six or more coils,18
+4.3 Signals with no assignable cause,12.1,"analytics.chart_performance.coil_change: expected signals, Monte Carlo",12.1
+4.3 Signals with no assignable cause,1.49,"observed over expected, coil-change chart",1.49
+4.3 Signals with no assignable cause,0.88,"Poisson interval, low",0.88
+4.3 Signals with no assignable cause,2.35,"Poisson interval, high",2.35
+4.3 Signals with no assignable cause,one,stg_erp__coils: fewest coils in a lot,one
+4.3 Signals with no assignable cause,four,stg_erp__coils: most coils in a lot,four
+4.3 Signals with no assignable cause,76%,analytics.chart_performance.coil_change: lot share of coil variance,76%
+4.3 Signals with no assignable cause,ten,mart_signals less mart_coil_change_points: signals on points with fewer than six coils on record,ten
+4.4 Out-of-tolerance pieces,145,"int_characteristic_history: routine readings outside tolerance, variable charts",
+4.4 Out-of-tolerance pieces,131,readings outside tolerance per million measured,
+4.4 Out-of-tolerance pieces,49,readings outside tolerance on runs with a special cause,
+4.4 Out-of-tolerance pieces,96,readings outside tolerance on runs without a special cause,
+4.4 Out-of-tolerance pieces,176,"readings outside tolerance per million, formed",
+4.4 Out-of-tolerance pieces,104,"readings outside tolerance per million, cut geometry",
+4.4 Out-of-tolerance pieces,57,int_characteristic_history: subgroups with a reading outside tolerance that raised a signal,
+4.4 Out-of-tolerance pieces,142,int_characteristic_history: subgroups with a reading outside tolerance,
+4.4 Out-of-tolerance pieces,19,mart_nonconformances: runs with a reading outside tolerance that carry a nonconformance,
+4.4 Out-of-tolerance pieces,119,int_characteristic_history: runs with a reading outside tolerance,
+4.4 Out-of-tolerance pieces,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
+4.4 Out-of-tolerance pieces,"219,535","stg_spc__subgroups.pieces, burr checks, in the year","219,535"
+4.4 Out-of-tolerance pieces,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",278
+4.4 Out-of-tolerance pieces,"324,225","stg_spc__subgroups.pieces, pin checks, in the year","324,225"
+4.4 Out-of-tolerance pieces,112,attribute fails on runs with a special cause,
 Figure: Out-of-tolerance pieces per million by class,104,"out-of-tolerance or failed pieces per million, Cut geometry",
 Figure: Out-of-tolerance pieces per million by class,176,"out-of-tolerance or failed pieces per million, Formed characteristics",
 Figure: Out-of-tolerance pieces per million by class,0,"out-of-tolerance or failed pieces per million, Hole diameter",
 Figure: Out-of-tolerance pieces per million by class,0,"out-of-tolerance or failed pieces per million, Flatness",
 Figure: Out-of-tolerance pieces per million by class,1221,"out-of-tolerance or failed pieces per million, Burr checks",
 Figure: Out-of-tolerance pieces per million by class,857,"out-of-tolerance or failed pieces per million, Pin checks",
-2.3 Performance,3.06%,"mart_parts_exposed.total_shift_at_onset, median",3.06%
-2.3 Performance,1.32,"mart_parts_exposed.largest_channel_share_shift_points, median",1.32
-2.3 Performance,38,ewma_arl at the median chipped-punch shift,38
-2.3 Performance,76,"ewma_arl, lambda 0.02, 2% step",76
-2.3 Performance,117,"ewma_arl, lambda 0.05, 2% step",117
-2.3 Performance,425,"ewma_arl, lambda 0.10, 2% step",425
-2.3 Performance,204,mart_per_stroke_stops.strokes_kept,204
-2.3 Performance,0,"mart_parts_exposed.strokes_exposed_per_stroke_charts, median",0
-2.3 Performance,20,"mart_parts_exposed.strokes_exposed_per_stroke_charts, 90th percentile",20
-2.3 Performance,8,mart_per_stroke_stops: chipped punches stopped by the EWMA,8
-2.3 Performance,63,mart_per_stroke_stops: chipped punches stopped by the channel-share chart,63
-2.3 Performance,"6,499","mart_parts_exposed.parts_exposed_hourly_check_up_to, median","6,499"
-2.3 Performance,"11,773","mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03","11,773"
+4.5 Per-stroke charts: speed of detection,3.06%,"mart_parts_exposed.total_shift_at_onset, median",3.06%
+4.5 Per-stroke charts: speed of detection,1.32,"mart_parts_exposed.largest_channel_share_shift_points, median",1.32
+4.5 Per-stroke charts: speed of detection,38,ewma_arl at the median chipped-punch shift,38
+4.5 Per-stroke charts: speed of detection,76,"ewma_arl, lambda 0.02, 2% step",76
+4.5 Per-stroke charts: speed of detection,117,"ewma_arl, lambda 0.05, 2% step",117
+4.5 Per-stroke charts: speed of detection,425,"ewma_arl, lambda 0.10, 2% step",425
+4.5 Per-stroke charts: speed of detection,204,mart_per_stroke_stops.strokes_kept,204
+4.5 Per-stroke charts: speed of detection,0,"mart_parts_exposed.strokes_exposed_per_stroke_charts, median",0
+4.5 Per-stroke charts: speed of detection,20,"mart_parts_exposed.strokes_exposed_per_stroke_charts, 90th percentile",20
+4.5 Per-stroke charts: speed of detection,8,mart_per_stroke_stops: chipped punches stopped by the EWMA,8
+4.5 Per-stroke charts: speed of detection,63,mart_per_stroke_stops: chipped punches stopped by the channel-share chart,63
+4.5 Per-stroke charts: speed of detection,"6,499","mart_parts_exposed.parts_exposed_hourly_check_up_to, median","6,499"
+4.5 Per-stroke charts: speed of detection,"11,773","mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03","11,773"
 "Figure: Stops by the per-stroke charts, by finding and chart",8,"mart_per_stroke_stops: chipped punch, EWMA on the total",
 "Figure: Stops by the per-stroke charts, by finding and chart",63,"mart_per_stroke_stops: chipped punch, channel share",
 "Figure: Stops by the per-stroke charts, by finding and chart",82,"mart_per_stroke_stops: nothing found, EWMA on the total",
@@ -410,217 +734,15 @@ Figure: Out-of-tolerance pieces per million by class,857,"out-of-tolerance or fa
 "Figure: Stops by the per-stroke charts, by finding and chart",71,"mart_per_stroke_stops: worn punch, EWMA on the total",
 "Figure: Stops by the per-stroke charts, by finding and chart",1,"mart_per_stroke_stops: worn punch, both",
 "Figure: Stops by the per-stroke charts, by finding and chart",10,"mart_per_stroke_stops: worn punch, channel share",
-2.3 Performance,23,mart_limit_sets: three-way annual-review sets below the coil-change minimum,23
-2.3 Performance,45,mart_limit_sets: three-way sets at the annual review,45
-3.1 Overview,27,mart_charts_in_force: family charts,27
-3.1 Overview,"1,380",mart_charts_in_force: charts,"1,380"
-3.1 Overview,12,"mart_charts_in_force: family formed, three-way",12
-3.1 Overview,7,"mart_charts_in_force: family cut geometry, X-bar and R",7
-3.1 Overview,5,mart_charts_in_force: family hole diameter charts,5
-3.1 Overview,four,mart_charts_in_force: family pin checks,four
-3.1 Overview,3,mart_charts_in_force: family burr checks,3
-3.1 Overview,3,"stg_erp__presses: per-stroke charts, PR-03",3
-3.1 Overview,2,"stg_erp__presses.load_cell_channels, PR-03",2
-3.2 Chart design,twenty,mart_charts_in_force: family measured charts (20),twenty
-3.2 Chart design,7,"mart_variance_components.share_between_coils, family formed, lowest",7
-3.2 Chart design,31,"mart_variance_components.share_between_coils, family formed, highest",31
-3.2 Chart design,22,"mart_variance_components.incoming_coil_share, family, lowest",22
-3.2 Chart design,52,"mart_variance_components.incoming_coil_share, family, highest",52
-3.2 Chart design,0,"mart_variance_components.share_between_coils, family hole position and width, lowest",0
-3.2 Chart design,6,"mart_variance_components.share_between_coils, family hole position and width, highest",6
-3.2 Chart design,C-15731-02,mart_variance_components: family hole diameter,C-15731-02
-3.2 Chart design,23.5%,"mart_variance_components.trend_share, C-15731-02",23.5%
-3.2 Chart design,12,"mart_charts_in_force: family formed, three-way",12
-3.2 Chart design,7,"mart_charts_in_force: family cut geometry, X-bar and R",7
-3.2 Chart design,1,mart_charts_in_force: family regression charts,1
-3.2 Chart design,4,mart_charts_in_force: family pin checks,4
-3.2 Chart design,3,mart_charts_in_force: family burr checks,3
-Figure: Between-coil share of variance by family characteristic,0.8%,"mart_variance_components.share_between_coils, C-11333-02",
-Figure: Between-coil share of variance by family characteristic,0.8%,"mart_variance_components.share_between_coils, C-11333-03",
-Figure: Between-coil share of variance by family characteristic,10.5%,"mart_variance_components.share_between_coils, C-11333-04",
-Figure: Between-coil share of variance by family characteristic,8.4%,"mart_variance_components.share_between_coils, C-11333-05",
-Figure: Between-coil share of variance by family characteristic,26.2%,"mart_variance_components.share_between_coils, C-11333-06",
-Figure: Between-coil share of variance by family characteristic,5.5%,"mart_variance_components.share_between_coils, C-14026-03",
-Figure: Between-coil share of variance by family characteristic,4.1%,"mart_variance_components.share_between_coils, C-14026-04",
-Figure: Between-coil share of variance by family characteristic,14.0%,"mart_variance_components.share_between_coils, C-14026-05",
-Figure: Between-coil share of variance by family characteristic,8.9%,"mart_variance_components.share_between_coils, C-14026-06",
-Figure: Between-coil share of variance by family characteristic,7.8%,"mart_variance_components.share_between_coils, C-14026-07",
-Figure: Between-coil share of variance by family characteristic,12.7%,"mart_variance_components.share_between_coils, C-14026-08",
-Figure: Between-coil share of variance by family characteristic,5.0%,"mart_variance_components.share_between_coils, C-14026-09",
-Figure: Between-coil share of variance by family characteristic,23.5%,"mart_variance_components.trend_share, C-15731-02",
-Figure: Between-coil share of variance by family characteristic,0.0%,"mart_variance_components.share_between_coils, C-15731-03",
-Figure: Between-coil share of variance by family characteristic,3.9%,"mart_variance_components.share_between_coils, C-15731-04",
-Figure: Between-coil share of variance by family characteristic,7.3%,"mart_variance_components.share_between_coils, C-15731-05",
-Figure: Between-coil share of variance by family characteristic,31.3%,"mart_variance_components.share_between_coils, C-15731-06",
-Figure: Between-coil share of variance by family characteristic,14.5%,"mart_variance_components.share_between_coils, C-15731-07",
-Figure: Between-coil share of variance by family characteristic,26.6%,"mart_variance_components.share_between_coils, C-15731-08",
-Figure: Between-coil share of variance by family characteristic,19.3%,"mart_variance_components.share_between_coils, C-15731-09",
-3.2 Chart design,7,mart_coil_fit: family formed characteristics with a fit,7
-3.2 Chart design,12,mart_charts_in_force: family formed characteristics,12
-3.2 Chart design,five,mart_charts_in_force: family formed characteristics without a fit,five
-3.2 Chart design,P-15731,"mart_coil_change_points.part_id, formed characteristics without a fit",P-15731
-3.2 Chart design,13,"mart_coil_change_points: coil-change subgroups with a certificate, each formed characteristic without a fit",13
-3.2 Chart design,C-11333-05,mart_coil_fit: family characteristic with R squared nearest the plant median,C-11333-05
-3.2 Chart design,2.73,mart_coil_fit.per_mm_thickness,2.73
-3.2 Chart design,-0.0094,mart_coil_fit.per_hrb,-0.0094
-3.2 Chart design,0.814,mart_coil_fit.r_squared,0.814
-3.2 Chart design,20,mart_coil_fit.coil_change_subgroups,20
-3.2 Chart design,9,mart_coil_fit.coils,9
-3.2 Chart design,3.2%,"mart_coil_fit.residual_sigma_share_of_tolerance, C-11333-05",3.2%
-3.2 Chart design,9.3%,"mart_coil_fit.coil_means_sigma_share_of_tolerance, C-11333-05",9.3%
-3.2 Chart design,11 May 2026,mart_phase1_baseline_subgroups: date of the baseline run,11 May 2026
-3.2 Chart design,9 May,int_die_event_timeline: rebuild of D-1333-C,9 May
-3.2 Chart design,25,mart_phase1_baseline_subgroups: subgroups,25
-3.2 Chart design,24.381,mart_phase1_baseline_subgroups.lcl_mean,24.381
-3.2 Chart design,24.435,mart_phase1_baseline_subgroups.ucl_mean,24.435
-3.2 Chart design,0.0988,mart_phase1_baseline_subgroups.ucl_range,0.0988
-3.2 Chart design,0.53,mart_phase1_baselines.anderson_darling,0.53
-3.2 Chart design,0.73,mart_phase1_baselines.anderson_darling_critical_5pct,0.73
-3.2 Chart design,18,mart_phase1_baseline_subgroups: screened subgroup,18
-3.2 Chart design,0.106,"mart_phase1_baseline_subgroups.subgroup_range, screened",0.106
-3.2 Chart design,0.002,mart_phase1_baseline_subgroups: largest move of the mean limits without the screened subgroup,0.002
-3.2 Chart design,27 May 2026,"mart_limit_sets.effective_from, C-15731-02 in force",27 May 2026
-3.2 Chart design,0.0058,mart_limit_sets.slope_per_100k_shots,0.0058
-3.2 Chart design,9.4555,mart_limit_sets.centre_line,9.4555
-3.2 Chart design,0.0060,mart_limit_sets.sigma_of_means times 3,0.0060
-3.2 Chart design,ten,mart_limit_sets: C-15731-02 sets in force in the year,ten
-3.2 Chart design,1 May 2026,mart_wear_points.sharpening_date,1 May 2026
-3.2 Chart design,20,mart_limit_sets: family sets issued in the year,20
-3.2 Chart design,9,"mart_limit_sets: family, rebuild",9
-3.2 Chart design,7,"mart_limit_sets: family, tool-wear re-fit",7
-3.2 Chart design,3,"mart_limit_sets: family, annual review",3
-3.2 Chart design,1,"mart_limit_sets: family, failed verification",1
-3.2 Chart design,51,mart_limit_verifications: family X-bar and R after sharpening,51
-3.2 Chart design,8,mart_limit_verifications: family tool-wear,8
-3.2 Chart design,1,mart_limit_verifications: family tool-wear failed,1
-3.2 Chart design,D-5731-A,"mart_limit_verifications.die_id, tool-wear failed",D-5731-A
-3.2 Chart design,16,mart_limit_verifications: family three-way after rebuild,16
-3.2 Chart design,3,mart_limit_verifications: family three-way failed,3
-3.2 Chart design,D-4026-A,"mart_limit_verifications.die_id, three-way failed",D-4026-A
-3.2 Chart design,1,mart_limit_verifications: family sharpenings failed,1
-3.2 Chart design,23,mart_limit_verifications: family sharpenings,23
-3.2 Chart design,151,"mart_per_stroke_stop_rates.runs, PR-03, the year",151
-3.2 Chart design,0.59,"mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, PR-03, median",0.59
-3.2 Chart design,1.49%,"mart_per_stroke_run_tonnage: baseline sd over mean, PR-03, median",1.49%
-3.2 Chart design,0.60,"mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median",0.60
-3.2 Chart design,1.49%,"mart_per_stroke_run_tonnage: baseline sd over mean, median",1.49%
-3.2 Chart design,18,mart_charts_in_force: family measured charts on the part own check fixture,18
-3.2 Chart design,20,mart_charts_in_force: family measured charts,20
-3.2 Chart design,two,mart_charts_in_force: family measured charts on another gauge,two
-3.2 Chart design,a caliper and an indicator,"mart_charts_in_force.gauge_type, family measured charts not on a fixture",a caliper and an indicator
-3.2 Chart design,6.0,"mart_charts_in_force.pct_grr_of_tolerance, F-15731",6.0
-3.2 Chart design,2 April 2026,"mart_charts_in_force.study_date, F-15731",2 April 2026
-3.2 Chart design,5.3,"mart_charts_in_force.pct_grr_of_tolerance, F-14026",5.3
-3.2 Chart design,17 June,"mart_charts_in_force.study_date, F-14026",17 June
-3.2 Chart design,3 June,"mart_gauge_studies.study_date, F-14026 restudy after failed verification",3 June
-3.2 Chart design,16.7,"mart_gauge_studies.pct_grr_of_tolerance, F-14026 restudy",16.7
-3.2 Chart design,16.3,"mart_charts_in_force.pct_grr_of_tolerance, F-11333",16.3
-3.2 Chart design,5 May,"mart_charts_in_force.study_date, F-11333",5 May
-3.2 Chart design,17 August,"mart_charts_in_force.restudy_due, F-11333",17 August
-Figure: Gauge R&amp;R of the family's fixtures against the 10% and 30% lines,restudy 17 August 2026,"mart_charts_in_force.restudy_due, F-11333",
-Figure: Gauge R&amp;R of the family's fixtures against the 10% and 30% lines,"after rebuild, 17 June 2026","mart_charts_in_force.study_date, F-14026",
-3.3 Performance,764,mart_signals: family routine signals in the year,764
-3.3 Performance,one,mart_signals: family coil-change signals,one
-3.3 Performance,97,mart_per_stroke_stops: PR-03 stops,97
-3.3 Performance,1,int_characteristic_history: family routine readings outside tolerance,
-3.3 Performance,14,"stg_spc__subgroups.attribute_count, family, in the year",
-Figure: What the family's charts flagged in the year,107,"family flagged: Routine characteristic charts, special cause",
-Figure: What the family's charts flagged in the year,657,"family flagged: Routine characteristic charts, no assignable cause",
-Figure: What the family's charts flagged in the year,1,"family flagged: Coil-change chart, special cause",
-Figure: What the family's charts flagged in the year,0,"family flagged: Coil-change chart, no assignable cause",
-Figure: What the family's charts flagged in the year,55,"family flagged: PR-03 tonnage stops, special cause",
-Figure: What the family's charts flagged in the year,42,"family flagged: PR-03 tonnage stops, no assignable cause",
-Figure: What the family's charts flagged in the year,1,"family flagged: Measured pieces outside tolerance, special cause",
-Figure: What the family's charts flagged in the year,0,"family flagged: Measured pieces outside tolerance, no assignable cause",
-Figure: What the family's charts flagged in the year,6,"family flagged: Attribute fails, special cause",
-Figure: What the family's charts flagged in the year,8,"family flagged: Attribute fails, no assignable cause",
-3.3 Performance,4,"family special-cause events: runs with an assignable cause on the routine charts, and the soft coil",4
-3.3 Performance,107,mart_signals: family routine alarms with an assignable cause,107
-3.3 Performance,3,mart_signals: family runs with an assignable cause,3
-3.3 Performance,54,"mart_signals: family, level after sharpening",54
-3.3 Performance,one,"mart_signals: family runs, level after sharpening",one
-3.3 Performance,D-5731-A,"mart_signals.die_id, level after sharpening",D-5731-A
-3.3 Performance,30,"mart_signals: family, fixture drift",30
-3.3 Performance,one,"mart_signals: family runs, fixture drift",one
-3.3 Performance,P-14026,"mart_signals.part_id, fixture drift",P-14026
-3.3 Performance,23,"mart_signals: family, level after the rebuild",23
-3.3 Performance,two,"mart_signals: family runs, level after the rebuild",two
-3.3 Performance,P-14026,"mart_signals.part_id, level after the rebuild",P-14026
-3.3 Performance,three,mart_limit_verifications: three-way failed after the D-4026-A rebuild,three
-3.3 Performance,four,mart_charts_in_force: three-way charts on D-4026-A,four
-3.3 Performance,C-15731-07,"mart_signals.characteristic_id, soft coil",C-15731-07
-3.3 Performance,27 May,"mart_signals.raised_at, soft coil",27 May
-3.3 Performance,"regression, with verification","mart_signals.chart_type, family level after sharpening","regression, with verification"
-3.3 Performance,1,"mart_signals: runs, family level after sharpening",1
-3.3 Performance,54,"mart_signals: alarms, family level after sharpening",54
-3.3 Performance,"X-bar and R, three-way","mart_signals.chart_type, family fixture drift","X-bar and R, three-way"
-3.3 Performance,1,"mart_signals: runs, family fixture drift",1
-3.3 Performance,30,"mart_signals: alarms, family fixture drift",30
-3.3 Performance,"three-way, with verification","mart_signals.chart_type, family level after the rebuild","three-way, with verification"
-3.3 Performance,2,"mart_signals: runs, family level after the rebuild",2
-3.3 Performance,23,"mart_signals: alarms, family level after the rebuild",23
-3.3 Performance,1,"mart_signals: coils, family soft coil",1
-3.3 Performance,1,"mart_signals: alarms, family soft coil",1
-3.3 Performance,657,mart_signals: family routine alarms closed as no cause found,657
-3.3 Performance,657,mart_signals: family routine alarms closed as no cause found,657
-3.3 Performance,42,mart_per_stroke_stops: PR-03 nothing found,42
-3.3 Performance,1.13,"family: observed over expected, total",1.13
-3.3 Performance,"10,369",family: routine subgroups in scope,"10,369"
-3.3 Performance,368,family: signals,368
-3.3 Performance,327,family: expected signals,327
-3.3 Performance,1.13,family: observed over expected,1.13
-3.3 Performance,1.01,family: interval low,1.01
-3.3 Performance,1.25,family: interval high,1.25
-3.3 Performance,0.80,family formed: observed over expected,0.80
-3.3 Performance,0.40,family hole diameter: observed over expected,0.40
-3.3 Performance,296,family hole diameter: subgroups,296
-3.3 Performance,1.64,family cut geometry: observed over expected,1.64
-3.3 Performance,1.43,family cut geometry: interval low,1.43
-3.3 Performance,1.88,family cut geometry: interval high,1.88
-Figure: The family's signals against expectation by class,2.39,"family observed per 100, formed",
-Figure: The family's signals against expectation by class,2.99,"family expected per 100, formed",
-Figure: The family's signals against expectation by class,0.80,"family observed over expected, formed",
-Figure: The family's signals against expectation by class,0.68,"family interval low, formed",
-Figure: The family's signals against expectation by class,0.94,"family interval high, formed",
-Figure: The family's signals against expectation by class,5.69,"family observed per 100, cut geometry",
-Figure: The family's signals against expectation by class,3.47,"family expected per 100, cut geometry",
-Figure: The family's signals against expectation by class,1.64,"family observed over expected, cut geometry",
-Figure: The family's signals against expectation by class,1.43,"family interval low, cut geometry",
-Figure: The family's signals against expectation by class,1.88,"family interval high, cut geometry",
-Figure: The family's signals against expectation by class,1.01,"family observed per 100, hole diameter",
-Figure: The family's signals against expectation by class,2.55,"family expected per 100, hole diameter",
-Figure: The family's signals against expectation by class,0.40,"family observed over expected, hole diameter",
-Figure: The family's signals against expectation by class,0.08,"family interval low, hole diameter",
-Figure: The family's signals against expectation by class,1.16,"family interval high, hole diameter",
-Figure: The family's signals against expectation by class,3.55,"family observed per 100, total",
-Figure: The family's signals against expectation by class,3.15,"family expected per 100, total",
-Figure: The family's signals against expectation by class,1.13,"family observed over expected, total",
-Figure: The family's signals against expectation by class,1.01,"family interval low, total",
-Figure: The family's signals against expectation by class,1.25,"family interval high, total",
-3.3 Performance,one,int_characteristic_history: family routine readings outside tolerance,
-3.3 Performance,18,family readings outside tolerance per million measured,
-3.3 Performance,one,family readings outside tolerance on runs with a special cause,
-3.3 Performance,Cut geometry,int_characteristic_history: family class with the reading outside tolerance,
-3.3 Performance,3,"stg_spc__subgroups.attribute_count, family burr checks",
-3.3 Performance,"9,210","stg_spc__subgroups.pieces, family burr checks",
-3.3 Performance,11,"stg_spc__subgroups.attribute_count, family pin checks",
-3.3 Performance,"11,835","stg_spc__subgroups.pieces, family pin checks",
-3.3 Performance,6,family attribute fails on runs with a special cause,
-3.3 Performance,97,mart_per_stroke_stops: PR-03 stops,97
-3.3 Performance,34,mart_per_stroke_stops: PR-03 slug pulling,34
-3.3 Performance,10,mart_per_stroke_stops: PR-03 worn punch,10
-3.3 Performance,11,mart_per_stroke_stops: PR-03 chipped punch,11
-3.3 Performance,42,mart_per_stroke_stops: PR-03 nothing found,42
-3.3 Performance,Ten,mart_parts_exposed: PR-03 chipped punches stopped by the channel-share chart,Ten
-3.3 Performance,0,"mart_parts_exposed: PR-03 channel-share chipped punches, strokes from onset (largest)",0
-3.3 Performance,34,"mart_parts_exposed.strokes_exposed_per_stroke_charts, the 13 May stop",34
-3.3 Performance,"239,498",mart_per_stroke_stops.stop_stroke_no,"239,498"
-3.3 Performance,11:55,mart_per_stroke_stops.cleared_at,11:55
-3.3 Performance,2.21,mart_per_stroke_stop_rates: PR-03 nothing found per million strokes,2.21
-3.3 Performance,1.02,mart_per_stroke_stop_rates: nothing found per million strokes,1.02
-Figure: Stops on PR-03 by finding and chart,1,"mart_per_stroke_stops: PR-03, chipped punch, EWMA on the total",
-Figure: Stops on PR-03 by finding and chart,10,"mart_per_stroke_stops: PR-03, chipped punch, channel share",
-Figure: Stops on PR-03 by finding and chart,41,"mart_per_stroke_stops: PR-03, nothing found, EWMA on the total",
-Figure: Stops on PR-03 by finding and chart,1,"mart_per_stroke_stops: PR-03, nothing found, channel share",
-Figure: Stops on PR-03 by finding and chart,34,"mart_per_stroke_stops: PR-03, slug pulling, channel share",
-Figure: Stops on PR-03 by finding and chart,10,"mart_per_stroke_stops: PR-03, worn punch, EWMA on the total",
+4.5 Per-stroke charts: speed of detection,13 May 2026,"mart_per_stroke_stops.stopped_at, the 13 May stop",13 May 2026
+4.5 Per-stroke charts: speed of detection,R26-00820,mart_per_stroke_stops.run_id,R26-00820
+4.5 Per-stroke charts: speed of detection,"239,498",mart_per_stroke_stops.stop_stroke_no,"239,498"
+4.5 Per-stroke charts: speed of detection,34,"mart_parts_exposed.strokes_exposed_per_stroke_charts, the 13 May stop",34
+4.5 Per-stroke charts: speed of detection,11:55,mart_per_stroke_stops.cleared_at,11:55
+4.5 Per-stroke charts: speed of detection,23,mart_limit_sets: three-way annual-review sets below the coil-change minimum,23
+4.5 Per-stroke charts: speed of detection,45,mart_limit_sets: three-way sets at the annual review,45
+A3. Formulas,14,mart_variance_components: characteristics with no wear fit,14
+A3. Formulas,4,"mart_variance_components: characteristics with no wear fit, cut geometry",
+A3. Formulas,6,"mart_variance_components: characteristics with no wear fit, formed",
+A3. Formulas,4,"mart_variance_components: characteristics with no wear fit, flatness",
+A3. Formulas,704,mart_tonnage_components: runs,704
