@@ -25,65 +25,65 @@ Figure: Signals against expectation by characteristic class,1.02,"observed over 
 1. Executive Summary,408,mart_limit_verifications: sharpenings,408
 1. Executive Summary,8.1%,share of sharpenings failed,8.1%
 1. Executive Summary,23,mart_limit_sets: three-way annual-review sets below the coil-change minimum,23
-2. SPC Chart Overview,"1,427",mart_charts_in_force with stg_erp__presses: active charts,"1,427"
-2. SPC Chart Overview,11,mart_charts_in_force: presses,11
-2. SPC Chart Overview,"1,380",mart_charts_in_force: charts,"1,380"
-2. SPC Chart Overview,five,"mart_charts_in_force: characteristic classes, by characteristic type",five
-2. SPC Chart Overview,897,mart_charts_in_force: variable charts,897
-2. SPC Chart Overview,65%,mart_charts_in_force: variable share of charts,65%
-2. SPC Chart Overview,483,mart_charts_in_force: attribute charts,483
-2. SPC Chart Overview,35%,mart_charts_in_force: attribute share of charts,35%
-2. SPC Chart Overview,47,stg_erp__presses: per-stroke charts at 30 June 2026,47
-Figure: Active SPC charts by control target,443,"active charts, cut geometry",
-Figure: Active SPC charts by control target,443,"variable charts, cut geometry",
-Figure: Active SPC charts by control target,399,"active charts, formed",
-Figure: Active SPC charts by control target,399,"variable charts, formed",
-Figure: Active SPC charts by control target,326,"active charts, hole diameter",
-Figure: Active SPC charts by control target,23,"variable charts, hole diameter",
-Figure: Active SPC charts by control target,180,"active charts, sheared edges",
-Figure: Active SPC charts by control target,0,"variable charts, sheared edges",
-Figure: Active SPC charts by control target,32,"active charts, flatness",
-Figure: Active SPC charts by control target,32,"variable charts, flatness",
-Figure: Active SPC charts by control target,47,"active charts, press tonnage",
-Figure: Active SPC charts by control target,47,"variable charts, press tonnage",
-2. SPC Chart Overview,8,mart_charts_in_force: charts per active part,8
-2. SPC Chart Overview,six,stg_erp__parts: programs,six
-2. SPC Chart Overview,48,"stg_erp__parts: active parts, automotive",48
-2. SPC Chart Overview,373,"mart_charts_in_force: charts, automotive",373
-2. SPC Chart Overview,12,"stg_erp__parts: active parts, HVAC",12
-2. SPC Chart Overview,90,"mart_charts_in_force: charts, HVAC",90
-Figure: Active SPC charts by program and control target,373,"mart_charts_in_force: charts, automotive",
-Figure: Active SPC charts by program and control target,48,"stg_erp__parts: active parts, automotive",
-Figure: Active SPC charts by program and control target,314,"mart_charts_in_force: charts, industrial",
-Figure: Active SPC charts by program and control target,42,"stg_erp__parts: active parts, industrial",
-Figure: Active SPC charts by program and control target,258,"mart_charts_in_force: charts, appliance",
-Figure: Active SPC charts by program and control target,32,"stg_erp__parts: active parts, appliance",
-Figure: Active SPC charts by program and control target,231,"mart_charts_in_force: charts, electrical",
-Figure: Active SPC charts by program and control target,29,"stg_erp__parts: active parts, electrical",
-Figure: Active SPC charts by program and control target,114,"mart_charts_in_force: charts, consumer",
-Figure: Active SPC charts by program and control target,17,"stg_erp__parts: active parts, consumer",
-Figure: Active SPC charts by program and control target,90,"mart_charts_in_force: charts, HVAC",
-Figure: Active SPC charts by program and control target,12,"stg_erp__parts: active parts, HVAC",
-2. SPC Chart Overview,20,stg_erp__parts: most active parts on a press,20
-2. SPC Chart Overview,ten,"stg_erp__parts: active parts, PR-03, PR-06 and PR-09",ten
-2. SPC Chart Overview,three,stg_erp__presses: fewest per-stroke charts on a press,three
-2. SPC Chart Overview,five,stg_erp__presses: most per-stroke charts on a press,five
-Figure: Active SPC charts by press and control target,141,"mart_charts_in_force with stg_erp__presses: charts, PR-01",
-Figure: Active SPC charts by press and control target,130,"mart_charts_in_force with stg_erp__presses: charts, PR-02",
-Figure: Active SPC charts by press and control target,83,"mart_charts_in_force with stg_erp__presses: charts, PR-03",
-Figure: Active SPC charts by press and control target,142,"mart_charts_in_force with stg_erp__presses: charts, PR-04",
-Figure: Active SPC charts by press and control target,153,"mart_charts_in_force with stg_erp__presses: charts, PR-05",
-Figure: Active SPC charts by press and control target,88,"mart_charts_in_force with stg_erp__presses: charts, PR-06",
-Figure: Active SPC charts by press and control target,144,"mart_charts_in_force with stg_erp__presses: charts, PR-07",
-Figure: Active SPC charts by press and control target,156,"mart_charts_in_force with stg_erp__presses: charts, PR-08",
-Figure: Active SPC charts by press and control target,88,"mart_charts_in_force with stg_erp__presses: charts, PR-09",
-Figure: Active SPC charts by press and control target,151,"mart_charts_in_force with stg_erp__presses: charts, PR-10",
-Figure: Active SPC charts by press and control target,151,"mart_charts_in_force with stg_erp__presses: charts, PR-11",
-2. SPC Chart Overview,30,"mart_charts_in_force.frequency_minutes, high-speed presses",30
-2. SPC Chart Overview,60,"mart_charts_in_force.frequency_minutes, medium presses",60
-2. SPC Chart Overview,750,"routine subgroups per week, PR-03",750
-2. SPC Chart Overview,18%,"routine subgroups per week, PR-03 share of the plant",18%
-2. SPC Chart Overview,16%,"int_run_shots: PR-03 running hours over the mean of the other high-speed presses, less one",
+2. Active SPC Charts,"1,427",mart_charts_in_force with stg_erp__presses: active charts,"1,427"
+2. Active SPC Charts,11,mart_charts_in_force: presses,11
+2. Active SPC Charts,"1,380",mart_charts_in_force: charts,"1,380"
+2. Active SPC Charts,five,"mart_charts_in_force: characteristic classes, by characteristic type",five
+2. Active SPC Charts,897,mart_charts_in_force: variable charts,897
+2. Active SPC Charts,65%,mart_charts_in_force: variable share of charts,65%
+2. Active SPC Charts,483,mart_charts_in_force: attribute charts,483
+2. Active SPC Charts,35%,mart_charts_in_force: attribute share of charts,35%
+2. Active SPC Charts,47,stg_erp__presses: per-stroke charts at 30 June 2026,47
+Figure: Active SPC charts,443,"active charts, cut geometry",
+Figure: Active SPC charts,443,"variable charts, cut geometry",
+Figure: Active SPC charts,399,"active charts, formed",
+Figure: Active SPC charts,399,"variable charts, formed",
+Figure: Active SPC charts,326,"active charts, hole diameter",
+Figure: Active SPC charts,23,"variable charts, hole diameter",
+Figure: Active SPC charts,180,"active charts, sheared edges",
+Figure: Active SPC charts,0,"variable charts, sheared edges",
+Figure: Active SPC charts,32,"active charts, flatness",
+Figure: Active SPC charts,32,"variable charts, flatness",
+Figure: Active SPC charts,47,"active charts, press tonnage",
+Figure: Active SPC charts,47,"variable charts, press tonnage",
+2. Active SPC Charts,8,mart_charts_in_force: charts per active part,8
+2. Active SPC Charts,six,stg_erp__parts: programs,six
+2. Active SPC Charts,48,"stg_erp__parts: active parts, automotive",48
+2. Active SPC Charts,373,"mart_charts_in_force: charts, automotive",373
+2. Active SPC Charts,12,"stg_erp__parts: active parts, HVAC",12
+2. Active SPC Charts,90,"mart_charts_in_force: charts, HVAC",90
+Figure: Active SPC charts by program,373,"mart_charts_in_force: charts, automotive",
+Figure: Active SPC charts by program,48,"stg_erp__parts: active parts, automotive",
+Figure: Active SPC charts by program,314,"mart_charts_in_force: charts, industrial",
+Figure: Active SPC charts by program,42,"stg_erp__parts: active parts, industrial",
+Figure: Active SPC charts by program,258,"mart_charts_in_force: charts, appliance",
+Figure: Active SPC charts by program,32,"stg_erp__parts: active parts, appliance",
+Figure: Active SPC charts by program,231,"mart_charts_in_force: charts, electrical",
+Figure: Active SPC charts by program,29,"stg_erp__parts: active parts, electrical",
+Figure: Active SPC charts by program,114,"mart_charts_in_force: charts, consumer",
+Figure: Active SPC charts by program,17,"stg_erp__parts: active parts, consumer",
+Figure: Active SPC charts by program,90,"mart_charts_in_force: charts, HVAC",
+Figure: Active SPC charts by program,12,"stg_erp__parts: active parts, HVAC",
+2. Active SPC Charts,20,stg_erp__parts: most active parts on a press,20
+2. Active SPC Charts,ten,"stg_erp__parts: active parts, PR-03, PR-06 and PR-09",ten
+2. Active SPC Charts,three,stg_erp__presses: fewest per-stroke charts on a press,three
+2. Active SPC Charts,five,stg_erp__presses: most per-stroke charts on a press,five
+Figure: Active SPC charts by press,141,"mart_charts_in_force with stg_erp__presses: charts, PR-01",
+Figure: Active SPC charts by press,130,"mart_charts_in_force with stg_erp__presses: charts, PR-02",
+Figure: Active SPC charts by press,83,"mart_charts_in_force with stg_erp__presses: charts, PR-03",
+Figure: Active SPC charts by press,142,"mart_charts_in_force with stg_erp__presses: charts, PR-04",
+Figure: Active SPC charts by press,153,"mart_charts_in_force with stg_erp__presses: charts, PR-05",
+Figure: Active SPC charts by press,88,"mart_charts_in_force with stg_erp__presses: charts, PR-06",
+Figure: Active SPC charts by press,144,"mart_charts_in_force with stg_erp__presses: charts, PR-07",
+Figure: Active SPC charts by press,156,"mart_charts_in_force with stg_erp__presses: charts, PR-08",
+Figure: Active SPC charts by press,88,"mart_charts_in_force with stg_erp__presses: charts, PR-09",
+Figure: Active SPC charts by press,151,"mart_charts_in_force with stg_erp__presses: charts, PR-10",
+Figure: Active SPC charts by press,151,"mart_charts_in_force with stg_erp__presses: charts, PR-11",
+2. Active SPC Charts,30,"mart_charts_in_force.frequency_minutes, high-speed presses",30
+2. Active SPC Charts,60,"mart_charts_in_force.frequency_minutes, medium presses",60
+2. Active SPC Charts,750,"routine subgroups per week, PR-03",750
+2. Active SPC Charts,18%,"routine subgroups per week, PR-03 share of the plant",18%
+2. Active SPC Charts,16%,"int_run_shots: PR-03 running hours over the mean of the other high-speed presses, less one",
 Figure: Subgroup Measurements per week by press,501,"routine subgroups per week, PR-01",
 Figure: Subgroup Measurements per week by press,478,"routine subgroups per week, PR-02",
 Figure: Subgroup Measurements per week by press,750,"routine subgroups per week, PR-03",
@@ -95,58 +95,59 @@ Figure: Subgroup Measurements per week by press,226,"routine subgroups per week,
 Figure: Subgroup Measurements per week by press,455,"routine subgroups per week, PR-09",
 Figure: Subgroup Measurements per week by press,215,"routine subgroups per week, PR-10",
 Figure: Subgroup Measurements per week by press,221,"routine subgroups per week, PR-11",
-3.1 Variance components,45.3%,mart_tonnage_components: between runs,45.3%
-3.1 Variance components,54.7%,mart_tonnage_components: stroke to stroke within a run,54.7%
-3.1 Variance components,0.01%,mart_tonnage_components: wear within a run,0.01%
-3.1 Variance components,97.5%,"mart_variance_components.within_share_wear_first, cut geometry, median",97.5%
-3.1 Variance components,98.4%,"mart_variance_components.within_share_wear_first, flatness, median",98.4%
-3.1 Variance components,12.3%,"mart_variance_components.between_coils_share_wear_first, formed, median",12.3%
-3.1 Variance components,49.7%,"mart_variance_components.incoming_coil_share, formed, median",49.7%
-3.1 Variance components,36.1%,"mart_variance_components.wear_share, hole diameter, median",36.1%
-3.1 Variance components,1.5%,"mart_variance_components.between_coils_share_wear_first, hole diameter, median",1.5%
-Figure: Variance components by class,97.5%,"mart_variance_components.within_share_wear_first, cut geometry, median",
-Figure: Variance components by class,0.2%,"mart_variance_components.between_subgroups_share_wear_first, cut geometry, median",
-Figure: Variance components by class,0.6%,"mart_variance_components.between_coils_share_wear_first, cut geometry, median",
-Figure: Variance components by class,0.0%,"mart_variance_components.wear_share, cut geometry, median",
-Figure: Variance components by class,80.0%,"mart_variance_components.within_share_wear_first, formed, median",
-Figure: Variance components by class,5.5%,"mart_variance_components.between_subgroups_share_wear_first, formed, median",
-Figure: Variance components by class,12.3%,"mart_variance_components.between_coils_share_wear_first, formed, median",
-Figure: Variance components by class,0.2%,"mart_variance_components.wear_share, formed, median",
-Figure: Variance components by class,55.8%,"mart_variance_components.within_share_wear_first, hole diameter, median",
-Figure: Variance components by class,6.9%,"mart_variance_components.between_subgroups_share_wear_first, hole diameter, median",
-Figure: Variance components by class,1.5%,"mart_variance_components.between_coils_share_wear_first, hole diameter, median",
-Figure: Variance components by class,36.1%,"mart_variance_components.wear_share, hole diameter, median",
-Figure: Variance components by class,98.4%,"mart_variance_components.within_share_wear_first, flatness, median",
-Figure: Variance components by class,0.5%,"mart_variance_components.between_subgroups_share_wear_first, flatness, median",
-Figure: Variance components by class,0.0%,"mart_variance_components.between_coils_share_wear_first, flatness, median",
-Figure: Variance components by class,0.1%,"mart_variance_components.wear_share, flatness, median",
-Figure: Variance components by class,49.7%,"mart_variance_components.incoming_coil_share, formed, median (marker)",
-Figure: Variance components by class,45.26%,"mart_tonnage_components: share of the per-stroke total's sum of squares, between_runs",
-Figure: Variance components by class,0.01%,"mart_tonnage_components: share of the per-stroke total's sum of squares, wear_within_run",
-Figure: Variance components by class,54.73%,"mart_tonnage_components: share of the per-stroke total's sum of squares, stroke_to_stroke",
-3.1 Variance components,0.82,"mart_coil_fit.r_squared, median",0.82
-3.1 Variance components,242,mart_coil_fit: characteristics,242
-3.1 Variance components,C-11333-05,"mart_coil_fit: characteristic with R squared nearest the plant median, 20 coil-change subgroups or more",C-11333-05
-3.1 Variance components,2.73,"mart_coil_fit.per_mm_thickness, C-11333-05",2.73
-3.1 Variance components,-0.0094,"mart_coil_fit.per_hrb, C-11333-05",-0.0094
-3.1 Variance components,0.814,"mart_coil_fit.r_squared, C-11333-05",0.814
-3.1 Variance components,20,"mart_coil_fit.coil_change_subgroups, C-11333-05",20
-3.1 Variance components,9,"mart_coil_fit.coils, C-11333-05",9
-3.1 Variance components,0.02,"mart_attribute_fails_by_interval: burr fails per thousand pieces, first fifth",0.02
-3.1 Variance components,6.73,"mart_attribute_fails_by_interval: burr fails per thousand pieces, last fifth",6.73
-3.1 Variance components,0.73,"mart_attribute_fails_by_interval: pin fails per thousand pieces, lowest fifth",0.73
-3.1 Variance components,1.07,"mart_attribute_fails_by_interval: pin fails per thousand pieces, highest fifth",1.07
-3.1 Variance components,23%,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots x stg_erp__dies.sharpening_due_count / tolerance width, hole diameters, median",23%
-Figure: Burr and pin fails across the sharpening interval,0.02,"mart_attribute_fails_by_interval: burr fails per thousand, fifth 1 (1 of 44,820)",
-Figure: Burr and pin fails across the sharpening interval,0.00,"mart_attribute_fails_by_interval: burr fails per thousand, fifth 2 (0 of 38,755)",
-Figure: Burr and pin fails across the sharpening interval,0.21,"mart_attribute_fails_by_interval: burr fails per thousand, fifth 3 (7 of 33,160)",
-Figure: Burr and pin fails across the sharpening interval,0.66,"mart_attribute_fails_by_interval: burr fails per thousand, fifth 4 (16 of 24,180)",
-Figure: Burr and pin fails across the sharpening interval,6.73,"mart_attribute_fails_by_interval: burr fails per thousand, fifth 5 (88 of 13,085)",
-Figure: Burr and pin fails across the sharpening interval,0.96,"mart_attribute_fails_by_interval: pin fails per thousand, fifth 1 (64 of 66,345)",
-Figure: Burr and pin fails across the sharpening interval,0.76,"mart_attribute_fails_by_interval: pin fails per thousand, fifth 2 (43 of 56,445)",
-Figure: Burr and pin fails across the sharpening interval,0.93,"mart_attribute_fails_by_interval: pin fails per thousand, fifth 3 (43 of 46,410)",
-Figure: Burr and pin fails across the sharpening interval,0.73,"mart_attribute_fails_by_interval: pin fails per thousand, fifth 4 (26 of 35,630)",
-Figure: Burr and pin fails across the sharpening interval,1.07,"mart_attribute_fails_by_interval: pin fails per thousand, fifth 5 (20 of 18,770)",
+3.1 Chart Types,Six,"mart_charts_in_force chart types (X-bar and R, three-way, regression, p) and the two per-stroke charts (EWMA, channel share)",Six
+3.1 Chart Types,474,mart_charts_in_force: X-bar and R,474
+3.1 Chart Types,97.5%,"mart_variance_components.within_share_wear_first, cut geometry, median",97.5%
+3.1 Chart Types,98.4%,"mart_variance_components.within_share_wear_first, flatness, median",98.4%
+Figure: Variance components by class: cut geometry and flatness,97.5%,"variance share, Cut geometry, Within subgroup",
+Figure: Variance components by class: cut geometry and flatness,0.2%,"variance share, Cut geometry, Between subgroups",
+Figure: Variance components by class: cut geometry and flatness,0.6%,"variance share, Cut geometry, Between coils",
+Figure: Variance components by class: cut geometry and flatness,0.0%,"variance share, Cut geometry, Tool wear",
+Figure: Variance components by class: cut geometry and flatness,98.4%,"variance share, Flatness, Within subgroup",
+Figure: Variance components by class: cut geometry and flatness,0.5%,"variance share, Flatness, Between subgroups",
+Figure: Variance components by class: cut geometry and flatness,0.0%,"variance share, Flatness, Between coils",
+Figure: Variance components by class: cut geometry and flatness,0.1%,"variance share, Flatness, Tool wear",
+3.1 Chart Types,25,mart_chart_design.baseline_subgroups,25
+3.1 Chart Types,hole to hole C,"stg_spc__characteristics.name, C-15609-03",hole to hole C
+3.1 Chart Types,P-15609,"stg_spc__characteristics.part_id, C-15609-03",P-15609
+3.1 Chart Types,63.997,"int_characteristic_history.centre_line, C-15609-03",63.997
+3.1 Chart Types,63.973,"int_characteristic_history.lcl_mean, C-15609-03",63.973
+3.1 Chart Types,64.020,"int_characteristic_history.ucl_mean, C-15609-03",64.020
+3.1 Chart Types,0.087,"int_characteristic_history.ucl_range, C-15609-03",0.087
+"Figure: Sample X-bar and R chart: C-15609-03, hole to hole C",64.020,"int_characteristic_history.ucl_mean, C-15609-03",
+"Figure: Sample X-bar and R chart: C-15609-03, hole to hole C",63.973,"int_characteristic_history.lcl_mean, C-15609-03",
+3.1 Chart Types,399,"mart_charts_in_force: three-way, formed",399
+3.1 Chart Types,49.7%,"mart_variance_components.incoming_coil_share, formed, median",49.7%
+3.1 Chart Types,12.3%,"mart_variance_components.between_coils_share_wear_first, formed, median",12.3%
+Figure: Variance components by class: formed characteristics before and after centring,50.3%,"variance share, Formed characteristics (before centring), Within subgroup",
+Figure: Variance components by class: formed characteristics before and after centring,49.7%,"variance share, Formed characteristics (before centring), Between coils",
+Figure: Variance components by class: formed characteristics before and after centring,80.0%,"variance share, Formed characteristics (after centring), Within subgroup",
+Figure: Variance components by class: formed characteristics before and after centring,5.5%,"variance share, Formed characteristics (after centring), Between subgroups",
+Figure: Variance components by class: formed characteristics before and after centring,12.3%,"variance share, Formed characteristics (after centring), Between coils",
+Figure: Variance components by class: formed characteristics before and after centring,0.2%,"variance share, Formed characteristics (after centring), Tool wear",
+3.1 Chart Types,25,mart_chart_design.baseline_subgroups,25
+3.1 Chart Types,ten,mart_chart_design.three_way_baseline_coil_changes,ten
+"Figure: Sample three-way chart: C-36680-06, bend angle F",60.305,"int_characteristic_history.ucl_mean, C-36680-06",
+"Figure: Sample three-way chart: C-36680-06, bend angle F",59.603,"int_characteristic_history.lcl_mean, C-36680-06",
+3.1 Chart Types,23,mart_charts_in_force: tool-wear (regression) charts,23
+3.1 Chart Types,36.1%,"mart_variance_components.wear_share, hole diameter, median",36.1%
+Figure: Variance components by class: hole diameter,55.8%,"variance share, Hole diameter, Within subgroup",
+Figure: Variance components by class: hole diameter,6.9%,"variance share, Hole diameter, Between subgroups",
+Figure: Variance components by class: hole diameter,1.5%,"variance share, Hole diameter, Between coils",
+Figure: Variance components by class: hole diameter,36.1%,"variance share, Hole diameter, Tool wear",
+3.1 Chart Types,25,mart_chart_design.verification_subgroups,25
+"Figure: Sample regression chart: C-12836-01, hole diameter A",2,"mart_limit_sets: re-fits taking effect in the sample, C-12836-01",
+3.1 Chart Types,483,mart_charts_in_force: p charts,483
+3.1 Chart Types,5,"stg_spc__subgroups.pieces per check, burr and pin checks",5
+3.1 Chart Types,5,"stg_spc__subgroups.pieces per check, burr and pin checks",5
+3.1 Chart Types,20%,one piece in a check of 5,20%
+"Figure: Sample p chart: C-10030-06, burr check",1,"stg_spc__subgroups.attribute_count, C-10030-06, the sample's checks",
+3.1 Chart Types,47,stg_erp__presses: per-stroke charts at 30 June 2026,47
+3.1 Chart Types,0.60,"mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median",0.60
+3.1 Chart Types,1.49%,"mart_per_stroke_run_tonnage: baseline sd over mean, median",1.49%
+3.1 Chart Types,500,mart_chart_design.ewma_baseline_strokes,500
+3.1 Chart Types,"2,219","mart_per_stroke_stop_rates.runs, the year","2,219"
+"Figure: Sample per-stroke tonnage charts: run R26-00555, PR-06",965.3,"mart_per_stroke_run_tonnage.baseline_total_kn_mean, R26-00555",
 3.2 Measurement systems,180,mart_charts_in_force with stg_calibration__gauges: check fixtures on variable charts,180
 3.2 Measurement systems,800,mart_charts_in_force: charts on a check fixture,800
 3.2 Measurement systems,369,mart_charts_in_force: cut geometry charts on a check fixture,369
@@ -440,160 +441,167 @@ Figure: Burr-check operator kappa,0.85,"mart_operator_kappa.kappa, latest, E-102
 Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-1022",
 Figure: Burr-check operator kappa,0.79,"mart_operator_kappa.kappa, latest, E-1023",
 Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-1024",
-3.3 Design of SPC charts,474,mart_charts_in_force: X-bar and R,474
-3.3 Design of SPC charts,C-34479-05,mart_chart_changes: characteristic moved to three-way,C-34479-05
-3.3 Design of SPC charts,35.2%,mart_chart_changes.evidence_value,35.2%
-3.3 Design of SPC charts,9 March 2026,mart_chart_changes.changed_on,9 March 2026
-"Figure: Sample X-bar and R chart: C-15609-03, hole to hole C",64.020,"int_characteristic_history.ucl_mean, C-15609-03",
-"Figure: Sample X-bar and R chart: C-15609-03, hole to hole C",63.973,"int_characteristic_history.lcl_mean, C-15609-03",
-3.3 Design of SPC charts,10,"mart_charts_in_force.coil_change_subgroup_size, three-way charts",10
-3.3 Design of SPC charts,20,analytics.chart_performance.coil_change: window of coils,20
-3.3 Design of SPC charts,36.0%,"mart_variance_components: residual coil share of the variance of formed subgroup means, median",36.0%
-3.3 Design of SPC charts,1.36,"coil_block_rate, rule 1, moving-range limits",1.36
-3.3 Design of SPC charts,0.27,"coil_block_rate, rule 1, limits in force",0.27
-3.3 Design of SPC charts,399,"mart_charts_in_force: three-way, formed",399
-"Figure: Sample three-way chart: C-36680-06, bend angle F",60.305,"int_characteristic_history.ucl_mean, C-36680-06",
-"Figure: Sample three-way chart: C-36680-06, bend angle F",59.603,"int_characteristic_history.lcl_mean, C-36680-06",
-3.3 Design of SPC charts,23,mart_charts_in_force: tool-wear (regression) charts,23
-3.3 Design of SPC charts,0.0041,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, lowest",0.0041
-3.3 Design of SPC charts,0.0100,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, highest",0.0100
-3.3 Design of SPC charts,19,mart_wear_slopes: characteristics,19
-3.3 Design of SPC charts,six,mart_wear_slopes.qualifying_intervals equal to 1,six
-"Figure: Sample regression chart: C-12836-01, hole diameter A",2,"mart_limit_sets: re-fits taking effect in the sample, C-12836-01",
-3.3 Design of SPC charts,303,mart_charts_in_force: pin checks on hole diameters,303
-3.3 Design of SPC charts,5,"stg_spc__subgroups.pieces per check, burr and pin checks",5
-3.3 Design of SPC charts,0.12%,"stg_spc__subgroups: burr checks, fail rate",
-3.3 Design of SPC charts,0.09%,"stg_spc__subgroups: pin checks, fail rate",
-3.3 Design of SPC charts,5,"stg_spc__subgroups.pieces per check, burr and pin checks",5
-3.3 Design of SPC charts,4.8%,"p chart upper limit, burr checks",
-3.3 Design of SPC charts,4.0%,"p chart upper limit, pin checks",
-3.3 Design of SPC charts,0.6,"p chart: checks with at least one fail per 100, burr checks",
-3.3 Design of SPC charts,0.4,"p chart: checks with at least one fail per 100, pin checks",
-3.3 Design of SPC charts,180,stg_spc__characteristics: chart none,180
-"Figure: Sample p chart: C-10030-06, burr check",1,"stg_spc__subgroups.attribute_count, C-10030-06, the sample's checks",
-3.3 Design of SPC charts,0.02,mart_chart_design.ewma_lambda,0.02
-3.3 Design of SPC charts,5.5,mart_chart_design.ewma_L,5.5
-3.3 Design of SPC charts,0.60,"mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median",0.60
-3.3 Design of SPC charts,1.49%,"mart_per_stroke_run_tonnage: baseline sd over mean, median",1.49%
-3.3 Design of SPC charts,500,mart_chart_design.ewma_baseline_strokes,500
-3.3 Design of SPC charts,"2,219","mart_per_stroke_stop_rates.runs, the year","2,219"
-3.3 Design of SPC charts,77.8,"ewma_arl, L 5.5, known, millions",77.8
-3.3 Design of SPC charts,2.64,"ewma_arl averaged over the estimates, L 5.5, millions",2.64
-3.3 Design of SPC charts,4.9,mart_chart_design.ewma_L_considered,4.9
-3.3 Design of SPC charts,eight,strokes at L 4.9 over PR-03 strokes per worked shift in the quarter,eight
-"Figure: Sample per-stroke tonnage charts: run R26-00555, PR-06",965.3,"mart_per_stroke_run_tonnage.baseline_total_kn_mean, R26-00555",
-3.4 Setting and holding limits,"1,380",mart_charts_in_force: charts,"1,380"
-3.4 Setting and holding limits,25,mart_chart_design.baseline_subgroups,25
-3.4 Setting and holding limits,94,"mart_phase1_baselines.screened_subgroups, total",94
-3.4 Setting and holding limits,64,mart_phase1_baselines: baselines with a subgroup screened,64
-3.4 Setting and holding limits,92.9%,"mart_phase1_baselines.normal_at_5pct, share",92.9%
-3.4 Setting and holding limits,25,mart_chart_design.verification_subgroups,25
-3.4 Setting and holding limits,15,int_run_shots: runs starting on the day their sharpening is logged,15
-3.4 Setting and holding limits,"1,399",int_run_shots: runs with a shot count,"1,399"
-3.4 Setting and holding limits,92,int_run_shots with int_sharpening_intervals: runs spanning a logged sharpening date,92
-3.4 Setting and holding limits,16,mart_charts_in_force.in_baseline,16
-3.4 Setting and holding limits,11 May 2026,mart_phase1_baseline_subgroups: date of the baseline run,11 May 2026
-3.4 Setting and holding limits,9 May,int_die_event_timeline: rebuild of D-1333-C,9 May
-3.4 Setting and holding limits,25,mart_phase1_baseline_subgroups: subgroups,25
-3.4 Setting and holding limits,24.381,mart_phase1_baseline_subgroups.lcl_mean,24.381
-3.4 Setting and holding limits,24.435,mart_phase1_baseline_subgroups.ucl_mean,24.435
-3.4 Setting and holding limits,0.0988,mart_phase1_baseline_subgroups.ucl_range,0.0988
-3.4 Setting and holding limits,0.53,mart_phase1_baselines.anderson_darling,0.53
-3.4 Setting and holding limits,0.73,mart_phase1_baselines.anderson_darling_critical_5pct,0.73
-3.4 Setting and holding limits,18,mart_phase1_baseline_subgroups: screened subgroup,18
-3.4 Setting and holding limits,0.106,"mart_phase1_baseline_subgroups.subgroup_range, screened",0.106
-3.4 Setting and holding limits,0.002,mart_phase1_baseline_subgroups: largest move of the mean limits without the screened subgroup,0.002
-3.4 Setting and holding limits,319,mart_limit_recalculations: limit sets in the year,319
-3.4 Setting and holding limits,897,mart_charts_in_force: variable charts,897
-3.4 Setting and holding limits,671,"mart_charts_in_force.limits_effective_from before 1 July 2025, variable charts",671
-3.4 Setting and holding limits,226,"mart_charts_in_force.limits_effective_from in the year, variable charts",226
-3.4 Setting and holding limits,146,mart_limit_recalculations: rebuild,146
-3.4 Setting and holding limits,74,mart_limit_recalculations: annual review,74
-3.4 Setting and holding limits,71,"mart_limit_recalculations: annual review, January to March",71
-3.4 Setting and holding limits,65,mart_limit_recalculations: tool-wear re-fit,65
-3.4 Setting and holding limits,34,mart_limit_recalculations: failed verification,34
-3.4 Setting and holding limits,30,mart_chart_changes.from_value,30
-3.4 Setting and holding limits,20,mart_chart_changes.to_value,20
-3.4 Setting and holding limits,8 December 2025,mart_chart_changes.changed_on,8 December 2025
-3.4 Setting and holding limits,408,mart_limit_verifications: sharpenings,408
-3.4 Setting and holding limits,33,mart_limit_verifications: sharpenings with a failure,33
-3.4 Setting and holding limits,8.1%,share of sharpenings failed,8.1%
-3.4 Setting and holding limits,34,mart_limit_verifications: X-bar and R failed,34
-3.4 Setting and holding limits,"1,100",mart_limit_verifications: X-bar and R after sharpening,"1,100"
-3.4 Setting and holding limits,3.1%,X-bar and R failure rate,3.1%
-3.4 Setting and holding limits,2,mart_limit_verifications: tool-wear failed,2
-3.4 Setting and holding limits,67,mart_limit_verifications: tool-wear,67
-3.4 Setting and holding limits,3.0%,tool-wear failure rate,3.0%
-3.4 Setting and holding limits,3,mart_limit_verifications: three-way failed,3
-3.4 Setting and holding limits,141,mart_limit_verifications: three-way after a rebuild,141
-3.4 Setting and holding limits,2.1%,three-way failure rate,2.1%
-3.4 Setting and holding limits,0.21,"mart_limit_verifications.mean_offset_sigma, passes, median absolute",0.21
-3.4 Setting and holding limits,0.001,"analytics.chart_performance: false-failure rate of the mean criterion, limits from 25 subgroups",0.001
-3.4 Setting and holding limits,23,mart_limit_sets: three-way annual-review sets below the minimum,23
-3.4 Setting and holding limits,45,mart_limit_sets: three-way annual-review sets,45
-3.4 Setting and holding limits,one,"mart_limit_sets.coil_changes_spanned, lowest",one
-3.4 Setting and holding limits,nine,"mart_limit_sets.coil_changes_spanned, highest",nine
-3.4 Setting and holding limits,50,"mart_limit_sets.subgroups_used, lowest",50
-3.4 Setting and holding limits,978,"mart_limit_sets.subgroups_used, highest",978
+3.3 Setting and holding limits,"1,380",mart_charts_in_force: charts,"1,380"
+3.3 Setting and holding limits,25,mart_chart_design.baseline_subgroups,25
+3.3 Setting and holding limits,94,"mart_phase1_baselines.screened_subgroups, total",94
+3.3 Setting and holding limits,64,mart_phase1_baselines: baselines with a subgroup screened,64
+3.3 Setting and holding limits,92.9%,"mart_phase1_baselines.normal_at_5pct, share",92.9%
+3.3 Setting and holding limits,25,mart_chart_design.verification_subgroups,25
+3.3 Setting and holding limits,15,int_run_shots: runs starting on the day their sharpening is logged,15
+3.3 Setting and holding limits,"1,399",int_run_shots: runs with a shot count,"1,399"
+3.3 Setting and holding limits,92,int_run_shots with int_sharpening_intervals: runs spanning a logged sharpening date,92
+3.3 Setting and holding limits,16,mart_charts_in_force.in_baseline,16
+3.3 Setting and holding limits,11 May 2026,mart_phase1_baseline_subgroups: date of the baseline run,11 May 2026
+3.3 Setting and holding limits,9 May,int_die_event_timeline: rebuild of D-1333-C,9 May
+3.3 Setting and holding limits,25,mart_phase1_baseline_subgroups: subgroups,25
+3.3 Setting and holding limits,24.381,mart_phase1_baseline_subgroups.lcl_mean,24.381
+3.3 Setting and holding limits,24.435,mart_phase1_baseline_subgroups.ucl_mean,24.435
+3.3 Setting and holding limits,0.0988,mart_phase1_baseline_subgroups.ucl_range,0.0988
+3.3 Setting and holding limits,0.53,mart_phase1_baselines.anderson_darling,0.53
+3.3 Setting and holding limits,0.73,mart_phase1_baselines.anderson_darling_critical_5pct,0.73
+3.3 Setting and holding limits,18,mart_phase1_baseline_subgroups: screened subgroup,18
+3.3 Setting and holding limits,0.106,"mart_phase1_baseline_subgroups.subgroup_range, screened",0.106
+3.3 Setting and holding limits,0.002,mart_phase1_baseline_subgroups: largest move of the mean limits without the screened subgroup,0.002
+3.3 Setting and holding limits,319,mart_limit_recalculations: limit sets in the year,319
+3.3 Setting and holding limits,897,mart_charts_in_force: variable charts,897
+3.3 Setting and holding limits,671,"mart_charts_in_force.limits_effective_from before 1 July 2025, variable charts",671
+3.3 Setting and holding limits,226,"mart_charts_in_force.limits_effective_from in the year, variable charts",226
+3.3 Setting and holding limits,146,mart_limit_recalculations: rebuild,146
+3.3 Setting and holding limits,74,mart_limit_recalculations: annual review,74
+3.3 Setting and holding limits,71,"mart_limit_recalculations: annual review, January to March",71
+3.3 Setting and holding limits,65,mart_limit_recalculations: tool-wear re-fit,65
+3.3 Setting and holding limits,34,mart_limit_recalculations: failed verification,34
+3.3 Setting and holding limits,30,mart_chart_changes.from_value,30
+3.3 Setting and holding limits,20,mart_chart_changes.to_value,20
+3.3 Setting and holding limits,8 December 2025,mart_chart_changes.changed_on,8 December 2025
+3.3 Setting and holding limits,408,mart_limit_verifications: sharpenings,408
+3.3 Setting and holding limits,33,mart_limit_verifications: sharpenings with a failure,33
+3.3 Setting and holding limits,8.1%,share of sharpenings failed,8.1%
+3.3 Setting and holding limits,34,mart_limit_verifications: X-bar and R failed,34
+3.3 Setting and holding limits,"1,100",mart_limit_verifications: X-bar and R after sharpening,"1,100"
+3.3 Setting and holding limits,3.1%,X-bar and R failure rate,3.1%
+3.3 Setting and holding limits,2,mart_limit_verifications: tool-wear failed,2
+3.3 Setting and holding limits,67,mart_limit_verifications: tool-wear,67
+3.3 Setting and holding limits,3.0%,tool-wear failure rate,3.0%
+3.3 Setting and holding limits,3,mart_limit_verifications: three-way failed,3
+3.3 Setting and holding limits,141,mart_limit_verifications: three-way after a rebuild,141
+3.3 Setting and holding limits,2.1%,three-way failure rate,2.1%
+3.3 Setting and holding limits,0.21,"mart_limit_verifications.mean_offset_sigma, passes, median absolute",0.21
+3.3 Setting and holding limits,0.001,"analytics.chart_performance: false-failure rate of the mean criterion, limits from 25 subgroups",0.001
+3.3 Setting and holding limits,23,mart_limit_sets: three-way annual-review sets below the minimum,23
+3.3 Setting and holding limits,45,mart_limit_sets: three-way annual-review sets,45
+3.3 Setting and holding limits,one,"mart_limit_sets.coil_changes_spanned, lowest",one
+3.3 Setting and holding limits,nine,"mart_limit_sets.coil_changes_spanned, highest",nine
+3.3 Setting and holding limits,50,"mart_limit_sets.subgroups_used, lowest",50
+3.3 Setting and holding limits,978,"mart_limit_sets.subgroups_used, highest",978
 4. Chart Performance,93,"mart_capability: critical characteristics at or above 1.33, quarter",93
 4. Chart Performance,100,"mart_capability: critical characteristics, quarter",100
-4.1 What the charts flagged,"12,156",mart_signals: routine signals in the year,"12,156"
-4.1 What the charts flagged,28,"mart_signals: coil-change chart, rule 1 signals in the year",28
-4.1 What the charts flagged,520,mart_per_stroke_stops: stops in the year,520
-4.1 What the charts flagged,145,"int_characteristic_history: routine readings outside tolerance, variable charts",
-4.1 What the charts flagged,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
-4.1 What the charts flagged,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",278
-4.1 What the charts flagged,489,"special-cause events: level-change runs, fixture-drift run, other-cause runs, soft coil, wrong count, tonnage stops with a finding",
-Figure: What the charts flagged in the year,"1,657","what the charts flagged: Routine characteristic charts, special cause",
+4.1 Signals and causes,"12,156",mart_signals: routine signals in the year,"12,156"
+4.1 Signals and causes,40,"mart_signals: special-cause events on the routine charts (die events for level changes, runs otherwise)",40
+4.1 Signals and causes,"1,617",mart_signals: follow-on signals of a special-cause event,"1,617"
+4.1 Signals and causes,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
+4.1 Signals and causes,28,"mart_signals: coil-change chart, rule 1 signals in the year",28
+4.1 Signals and causes,one,"mart_signals: coil-change chart, assignable cause",one
+4.1 Signals and causes,520,mart_per_stroke_stops: stops in the year,520
+4.1 Signals and causes,427,mart_per_stroke_stops: stops with a finding,427
+4.1 Signals and causes,93,mart_per_stroke_stops: nothing found,93
+Figure: What the charts flagged in the year,40,"what the charts flagged: Routine characteristic charts, first signal of a special cause",
 Figure: What the charts flagged in the year,"10,499","what the charts flagged: Routine characteristic charts, no assignable cause",
-Figure: What the charts flagged in the year,1,"what the charts flagged: Coil-change chart, special cause",
+Figure: What the charts flagged in the year,"1,617","what the charts flagged: Routine characteristic charts, follow-on signal",
+Figure: What the charts flagged in the year,1,"what the charts flagged: Coil-change chart, first signal of a special cause",
 Figure: What the charts flagged in the year,27,"what the charts flagged: Coil-change chart, no assignable cause",
-Figure: What the charts flagged in the year,427,"what the charts flagged: Tonnage charts, special cause",
+Figure: What the charts flagged in the year,427,"what the charts flagged: Tonnage charts, first signal of a special cause",
 Figure: What the charts flagged in the year,93,"what the charts flagged: Tonnage charts, no assignable cause",
-Figure: What the charts flagged in the year,49,"what the charts flagged: Measured pieces outside tolerance, special cause",
-Figure: What the charts flagged in the year,96,"what the charts flagged: Measured pieces outside tolerance, no assignable cause",
-Figure: What the charts flagged in the year,112,"what the charts flagged: Attribute fails, special cause",
-Figure: What the charts flagged in the year,434,"what the charts flagged: Attribute fails, no assignable cause",
-4.2 Signals with a special cause,489,"special-cause events: level-change runs, fixture-drift run, other-cause runs, soft coil, wrong count, tonnage stops with a finding",
-4.2 Signals with a special cause,53,mart_signals: runs with a level-change alarm,53
-4.2 Signals with a special cause,one,"mart_signals: runs, fixture drift",one
-4.2 Signals with a special cause,6,"mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant",6
-4.2 Signals with a special cause,427,"mart_per_stroke_stops: stops on slug pulling, worn and chipped punches",427
-4.2 Signals with a special cause,161,mart_nonconformances: nonconformances in the year,
-4.2 Signals with a special cause,62,mart_nonconformances: nonconformances on runs with no special cause,
-4.2 Signals with a special cause,54,mart_nonconformances: first-piece holds on runs with no special cause,
-4.2 Signals with a special cause,8,mart_nonconformances: mixed parts and packaging on runs with no special cause,
-4.2 Signals with a special cause,"X-bar and R, three-way, regression, with verification","mart_signals.chart_type, level-change alarms","X-bar and R, three-way, regression, with verification"
-4.2 Signals with a special cause,53,"mart_signals: runs, level change",53
-4.2 Signals with a special cause,"1,620","mart_signals: alarms, level change","1,620"
-4.2 Signals with a special cause,F-14026,"mart_charts_in_force.gauge_id, fixture drift alarms",F-14026
-4.2 Signals with a special cause,"X-bar and R, three-way","mart_signals.chart_type, fixture drift","X-bar and R, three-way"
-4.2 Signals with a special cause,1,"mart_signals: runs, fixture drift",1
-4.2 Signals with a special cause,30,"mart_signals: alarms, fixture drift",30
-4.2 Signals with a special cause,"X-bar and R, three-way","mart_signals.chart_type, other causes","X-bar and R, three-way"
-4.2 Signals with a special cause,6,"mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant",6
-4.2 Signals with a special cause,7,"mart_signals: alarms, other causes",7
-4.2 Signals with a special cause,regression,"mart_signals.chart_type, sharpening logged at the wrong count",regression
-4.2 Signals with a special cause,1,"mart_signals: runs, wrong count",1
-4.2 Signals with a special cause,1,"mart_signals: alarms, wrong count",1
-4.2 Signals with a special cause,C-15731-07,"mart_signals.characteristic_id, soft coil",C-15731-07
-4.2 Signals with a special cause,1,"mart_signals: coils, soft coil",1
-4.2 Signals with a special cause,1,"mart_signals: alarms, soft coil",1
-4.2 Signals with a special cause,427,"mart_per_stroke_stops: stops on slug pulling, worn and chipped punches",427
-4.2 Signals with a special cause,427,"mart_per_stroke_stops: stops, as alarms",427
-4.2 Signals with a special cause,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
-4.2 Signals with a special cause,27,mart_signals: coil-change signals closed as no cause found,27
-4.3 Signals with no assignable cause,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
-4.3 Signals with no assignable cause,27,mart_signals: coil-change signals closed as no cause found,27
-4.3 Signals with no assignable cause,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
-4.3 Signals with no assignable cause,27,mart_signals: coil-change signals closed as no cause found,27
-4.3 Signals with no assignable cause,93,mart_per_stroke_stops: nothing found,93
-4.3 Signals with no assignable cause,370,"analytics.chart_performance.arl_rules, rule 1, known",370
-4.3 Signals with no assignable cause,133,"signals with no assignable cause expected a week by design, plant",133
-4.3 Signals with no assignable cause,3.1,"signals expected per 100 routine subgroups, plant",3.1
-4.3 Signals with no assignable cause,23.7,"signals expected per week by design, PR-03",23.7
-4.3 Signals with no assignable cause,750,"routine subgroups per week, PR-03",750
-4.3 Signals with no assignable cause,12.9,"signals expected per week by design, median press",12.9
+4.1 Signals and causes,469,"special-cause events: level-change die returns, fixture-drift run, other-cause runs, soft coil, wrong count, tonnage stops with a finding",469
+4.1 Signals and causes,33,mart_signals: level-change die returns (die and sharpening interval),33
+4.1 Signals and causes,one,"mart_signals: runs, fixture drift",one
+4.1 Signals and causes,6,"mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant",6
+4.1 Signals and causes,427,"mart_per_stroke_stops: stops on slug pulling, worn and chipped punches",427
+4.1 Signals and causes,161,mart_nonconformances: nonconformances in the year,
+4.1 Signals and causes,62,mart_nonconformances: nonconformances on runs with no special cause,
+4.1 Signals and causes,54,mart_nonconformances: first-piece holds on runs with no special cause,
+4.1 Signals and causes,8,mart_nonconformances: mixed parts and packaging on runs with no special cause,
+4.1 Signals and causes,"X-bar and R, three-way, regression, with verification","mart_signals.chart_type, level-change alarms","X-bar and R, three-way, regression, with verification"
+4.1 Signals and causes,53,"mart_signals: runs, level change",53
+4.1 Signals and causes,"1,620","mart_signals: alarms, level change","1,620"
+4.1 Signals and causes,F-14026,"mart_charts_in_force.gauge_id, fixture drift alarms",F-14026
+4.1 Signals and causes,"X-bar and R, three-way","mart_signals.chart_type, fixture drift","X-bar and R, three-way"
+4.1 Signals and causes,1,"mart_signals: runs, fixture drift",1
+4.1 Signals and causes,30,"mart_signals: alarms, fixture drift",30
+4.1 Signals and causes,"X-bar and R, three-way","mart_signals.chart_type, other causes","X-bar and R, three-way"
+4.1 Signals and causes,6,"mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant",6
+4.1 Signals and causes,7,"mart_signals: alarms, other causes",7
+4.1 Signals and causes,regression,"mart_signals.chart_type, sharpening logged at the wrong count",regression
+4.1 Signals and causes,1,"mart_signals: runs, wrong count",1
+4.1 Signals and causes,1,"mart_signals: alarms, wrong count",1
+4.1 Signals and causes,C-15731-07,"mart_signals.characteristic_id, soft coil",C-15731-07
+4.1 Signals and causes,1,"mart_signals: coils, soft coil",1
+4.1 Signals and causes,1,"mart_signals: alarms, soft coil",1
+4.1 Signals and causes,427,"mart_per_stroke_stops: stops on slug pulling, worn and chipped punches",427
+4.1 Signals and causes,427,"mart_per_stroke_stops: stops, as alarms",427
+4.1 Signals and causes,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
+4.1 Signals and causes,27,mart_signals: coil-change signals closed as no cause found,27
+4.1 Signals and causes,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
+4.1 Signals and causes,27,mart_signals: coil-change signals closed as no cause found,27
+4.1 Signals and causes,427,mart_per_stroke_stops: stops with a finding,427
+4.1 Signals and causes,274,mart_per_stroke_stops: slug pulling,274
+4.1 Signals and causes,82,mart_per_stroke_stops: worn punch,82
+4.1 Signals and causes,71,mart_per_stroke_stops: chipped punch,71
+"Figure: Stops by the per-stroke charts, by finding and chart",8,"mart_per_stroke_stops: chipped punch, EWMA on the total",
+"Figure: Stops by the per-stroke charts, by finding and chart",63,"mart_per_stroke_stops: chipped punch, channel share",
+"Figure: Stops by the per-stroke charts, by finding and chart",82,"mart_per_stroke_stops: nothing found, EWMA on the total",
+"Figure: Stops by the per-stroke charts, by finding and chart",11,"mart_per_stroke_stops: nothing found, channel share",
+"Figure: Stops by the per-stroke charts, by finding and chart",274,"mart_per_stroke_stops: slug pulling, channel share",
+"Figure: Stops by the per-stroke charts, by finding and chart",71,"mart_per_stroke_stops: worn punch, EWMA on the total",
+"Figure: Stops by the per-stroke charts, by finding and chart",1,"mart_per_stroke_stops: worn punch, both",
+"Figure: Stops by the per-stroke charts, by finding and chart",10,"mart_per_stroke_stops: worn punch, channel share",
+4.1 Signals and causes,13 May 2026,"mart_per_stroke_stops.stopped_at, the 13 May stop",13 May 2026
+4.1 Signals and causes,R26-00820,mart_per_stroke_stops.run_id,R26-00820
+4.1 Signals and causes,"239,498",mart_per_stroke_stops.stop_stroke_no,"239,498"
+4.1 Signals and causes,34,"mart_parts_exposed.strokes_exposed_per_stroke_charts, the 13 May stop",34
+4.1 Signals and causes,11:55,mart_per_stroke_stops.cleared_at,11:55
+4.1 Signals and causes,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
+4.1 Signals and causes,27,mart_signals: coil-change signals closed as no cause found,27
+4.1 Signals and causes,93,mart_per_stroke_stops: nothing found,93
+4.1 Signals and causes,370,"analytics.chart_performance.arl_rules, rule 1, known",370
+4.1 Signals and causes,93,mart_per_stroke_stops: nothing found,93
+4.1 Signals and causes,1.02,mart_per_stroke_stop_rates: nothing found per million strokes,1.02
+4.1 Signals and causes,82,mart_per_stroke_stops: nothing found on the EWMA,82
+4.1 Signals and causes,10%,"mart_signals: X-bar and regression means, rule 1 share of rule trips",10%
+4.1 Signals and causes,15%,"mart_signals: X-bar and regression means, rule 2 share of signals",15%
+4.1 Signals and causes,32%,"mart_signals: X-bar and regression means, rule 3 share of signals",32%
+4.1 Signals and causes,43%,"mart_signals: X-bar and regression means, rule 4 share of signals",43%
+4.1 Signals and causes,2.0%,"mart_signals: rule 1 and rule 2 yield, first signals of an event over trips less follow-ons (each)",2.0%
+4.1 Signals and causes,0.7%,mart_signals: rule 3 yield,0.7%
+4.1 Signals and causes,0.2%,mart_signals: rule 4 yield,0.2%
+4.1 Signals and causes,36,mart_signals: special-cause events first signalled on X-bar and regression charts,36
+4.1 Signals and causes,56%,mart_signals: events first signalled by rule 2,56%
+4.1 Signals and causes,42%,"mart_signals: events first signalled by rules 1 and 3, each",42%
+4.1 Signals and causes,14%,mart_signals: events first signalled by rule 4,14%
+4.1 Signals and causes,74%,mart_signals: rules 3 and 4 share of rule trips,74%
+4.1 Signals and causes,8,mart_signals: events first signalled by rule 3 or 4 and not by rule 1 or 2,8
+4.1 Signals and causes,36,mart_signals: special-cause events first signalled on X-bar and regression charts,36
+4.1 Signals and causes,2,"int_characteristic_history: routine subgroups from the first rule 3 or 4 signal to the first rule 1 or 2 signal on the same chart, median",2
+4.1 Signals and causes,28,mart_signals: events first signalled by rule 1 or 2,28
+4.1 Signals and causes,0.5%,mart_signals: three-way individuals yield,0.5%
+4.1 Signals and causes,0.2%,mart_signals: three-way moving range yield,0.2%
+4.1 Signals and causes,63,mart_per_stroke_stops: chipped punches stopped by the channel-share chart,63
+4.1 Signals and causes,8,mart_per_stroke_stops: chipped punches stopped by the EWMA,8
+Figure: Which rules found the causes,2.0%,"mart_signals: yield, Rule 1 (15 of 769)",
+Figure: Which rules found the causes,2.0%,"mart_signals: yield, Rule 2 (20 of 1010)",
+Figure: Which rules found the causes,0.7%,"mart_signals: yield, Rule 3 (15 of 2239)",
+Figure: Which rules found the causes,0.2%,"mart_signals: yield, Rule 4 (5 of 3182)",
+Figure: Which rules found the causes,0.5%,"mart_signals: yield, Rule 1, three-way individuals (3 of 611)",
+Figure: Which rules found the causes,0.2%,"mart_signals: yield, Rule 1, moving range (3 of 1368)",
+Figure: Which rules found the causes,42%,"mart_signals: first detection, Rule 1 (15 of 36)",
+Figure: Which rules found the causes,56%,"mart_signals: first detection, Rule 2 (20 of 36)",
+Figure: Which rules found the causes,42%,"mart_signals: first detection, Rule 3 (15 of 36)",
+Figure: Which rules found the causes,14%,"mart_signals: first detection, Rule 4 (5 of 36)",
+4.2 Observed against expected,133,"signals with no assignable cause expected a week by design, plant",133
+4.2 Observed against expected,3.1,"signals expected per 100 routine subgroups, plant",3.1
+4.2 Observed against expected,23.7,"signals expected per week by design, PR-03",23.7
+4.2 Observed against expected,750,"routine subgroups per week, PR-03",750
+4.2 Observed against expected,12.9,"signals expected per week by design, median press",12.9
 "Figure: Signals with no assignable cause expected by design, per press per week",16.0,"expected false alarms per week, PR-01",
 "Figure: Signals with no assignable cause expected by design, per press per week",15.3,"expected false alarms per week, PR-02",
 "Figure: Signals with no assignable cause expected by design, per press per week",23.7,"expected false alarms per week, PR-03",
@@ -606,24 +614,18 @@ Figure: What the charts flagged in the year,434,"what the charts flagged: Attrib
 "Figure: Signals with no assignable cause expected by design, per press per week",7.0,"expected false alarms per week, PR-10",
 "Figure: Signals with no assignable cause expected by design, per press per week",7.0,"expected false alarms per week, PR-11",
 "Figure: Signals with no assignable cause expected by design, per press per week",750 subgroups a week,"routine subgroups per week, PR-03",
-4.3 Signals with no assignable cause,370,"analytics.chart_performance.arl_rules, rule 1, known",370
-4.3 Signals with no assignable cause,44,"arl_rules, rule 1 at 1 sigma",44
-4.3 Signals with no assignable cause,92,"arl_rules, rules 1 to 4, known",92
-4.3 Signals with no assignable cause,9,"arl_rules, rules 1 to 4 at 1 sigma",9
-4.3 Signals with no assignable cause,407,"expected_arl_xbar, rule 1, baseline 25",407
-4.3 Signals with no assignable cause,74,"expected_arl_xbar, rules 1 to 4, baseline 25",74
-4.3 Signals with no assignable cause,1.32,"observed over expected, cut geometry (X-bar and R)",1.32
-4.3 Signals with no assignable cause,0.88,"observed over expected, flatness",0.88
-4.3 Signals with no assignable cause,"5,738","mart_signal_rates.subgroups_in_scope, flatness","5,738"
-4.3 Signals with no assignable cause,0.75,"Poisson interval on flatness signals over expectation, low",0.75
-4.3 Signals with no assignable cause,1.02,"Poisson interval on flatness signals over expectation, high",1.02
-4.3 Signals with no assignable cause,1.79,"observed over expected, hole diameter (regression)",1.79
-4.3 Signals with no assignable cause,0.83,"observed over expected, formed (three-way)",0.83
-4.3 Signals with no assignable cause,483,mart_charts_in_force: p charts,483
-4.3 Signals with no assignable cause,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
-4.3 Signals with no assignable cause,"219,535","stg_spc__subgroups.pieces, burr checks, in the year","219,535"
-4.3 Signals with no assignable cause,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",278
-4.3 Signals with no assignable cause,"324,225","stg_spc__subgroups.pieces, pin checks, in the year","324,225"
+4.2 Observed against expected,1.32,"observed over expected, cut geometry (X-bar and R)",1.32
+4.2 Observed against expected,0.88,"observed over expected, flatness",0.88
+4.2 Observed against expected,"5,738","mart_signal_rates.subgroups_in_scope, flatness","5,738"
+4.2 Observed against expected,0.75,"Poisson interval on flatness signals over expectation, low",0.75
+4.2 Observed against expected,1.02,"Poisson interval on flatness signals over expectation, high",1.02
+4.2 Observed against expected,1.79,"observed over expected, hole diameter (regression)",1.79
+4.2 Observed against expected,0.83,"observed over expected, formed (three-way)",0.83
+4.2 Observed against expected,483,mart_charts_in_force: p charts,483
+4.2 Observed against expected,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
+4.2 Observed against expected,"219,535","stg_spc__subgroups.pieces, burr checks, in the year","219,535"
+4.2 Observed against expected,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",278
+4.2 Observed against expected,"324,225","stg_spc__subgroups.pieces, pin checks, in the year","324,225"
 Figure: Signals against expectation by characteristic class,2.36,"observed per 100, formed",
 Figure: Signals against expectation by characteristic class,2.86,"expected per 100, formed",
 Figure: Signals against expectation by characteristic class,0.83,"observed over expected, formed",
@@ -636,14 +638,14 @@ Figure: Signals against expectation by characteristic class,1.79,"observed over 
 Figure: Signals against expectation by characteristic class,3.05,"observed per 100, flatness",
 Figure: Signals against expectation by characteristic class,3.47,"expected per 100, flatness",
 Figure: Signals against expectation by characteristic class,0.88,"observed over expected, flatness",
-4.3 Signals with no assignable cause,1.39,"mart_signal_rates.signals_rule_3, X-bar and R, per 100",1.39
-4.3 Signals with no assignable cause,2.09,"mart_signal_rates.signals_rule_4, X-bar and R, per 100",2.09
-4.3 Signals with no assignable cause,0.45,"flag_rate_rules, rule 3, known",0.45
-4.3 Signals with no assignable cause,0.78,"flag_rate_rules, rule 4, known",0.78
-4.3 Signals with no assignable cause,1.20,"mart_signal_rates.signals_rule_3, tool-wear, per 100",1.20
-4.3 Signals with no assignable cause,2.37,"mart_signal_rates.signals_rule_4, tool-wear, per 100",2.37
-4.3 Signals with no assignable cause,14,mart_limit_verifications: X-bar and R and tool-wear passes at 1.0 to 1.5 sigma,14
-4.3 Signals with no assignable cause,"1,131",mart_limit_verifications: X-bar and R and tool-wear passes,"1,131"
+4.2 Observed against expected,1.39,"mart_signal_rates.signals_rule_3, X-bar and R, per 100",1.39
+4.2 Observed against expected,2.09,"mart_signal_rates.signals_rule_4, X-bar and R, per 100",2.09
+4.2 Observed against expected,0.45,"flag_rate_rules, rule 3, known",0.45
+4.2 Observed against expected,0.78,"flag_rate_rules, rule 4, known",0.78
+4.2 Observed against expected,1.20,"mart_signal_rates.signals_rule_3, tool-wear, per 100",1.20
+4.2 Observed against expected,2.37,"mart_signal_rates.signals_rule_4, tool-wear, per 100",2.37
+4.2 Observed against expected,14,mart_limit_verifications: X-bar and R and tool-wear passes at 1.0 to 1.5 sigma,14
+4.2 Observed against expected,"1,131",mart_limit_verifications: X-bar and R and tool-wear passes,"1,131"
 "Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.52,"mart_signal_rates.signals_rule_1, X-bar and R, per 100",
 "Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.27,"flag_rate_rules, rule 1, known",
 "Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.57,"mart_signal_rates.signals_rule_2, X-bar and R, per 100",
@@ -660,87 +662,134 @@ Figure: Signals against expectation by characteristic class,0.88,"observed over 
 "Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.45,"flag_rate_rules, rule 3, known",
 "Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",2.37,"mart_signal_rates.signals_rule_4, regression, per 100",
 "Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.78,"flag_rate_rules, rule 4, known",
-4.3 Signals with no assignable cause,PR-01,"mart_signal_rates: press furthest above expectation, by difference",PR-01
-4.3 Signals with no assignable cause,PR-09,"mart_signal_rates: press furthest above expectation, by ratio",PR-09
-4.3 Signals with no assignable cause,3.91,"observed per 100, PR-01",3.91
-4.3 Signals with no assignable cause,3.18,"expected per 100, PR-01",3.18
-4.3 Signals with no assignable cause,3.46,"observed per 100, PR-09",3.46
-4.3 Signals with no assignable cause,2.81,"expected per 100, PR-09",2.81
-4.3 Signals with no assignable cause,PR-10,mart_signal_rates: press furthest below expectation,PR-10
-4.3 Signals with no assignable cause,2.60,"observed per 100, that press",2.60
-4.3 Signals with no assignable cause,3.26,"expected per 100, that press",3.26
-4.3 Signals with no assignable cause,0.7,"bound on the gap between observed and expected per 100, the other eight presses (largest 0.61)",0.7
-4.3 Signals with no assignable cause,-0.07,"mart_variance_components.lag_1_autocorrelation_within_coil, median",-0.07
-4.3 Signals with no assignable cause,-0.19,"lag-1, 10th percentile",-0.19
-4.3 Signals with no assignable cause,0.02,"lag-1, 90th percentile",0.02
-4.3 Signals with no assignable cause,142,arl_ar1_rules at the 10th percentile,142
-4.3 Signals with no assignable cause,87,arl_ar1_rules at the 90th percentile,87
-4.3 Signals with no assignable cause,109,arl_ar1_rules at the measured median,109
-4.3 Signals with no assignable cause,92,"arl_rules, rules 1 to 4, independent",92
-4.3 Signals with no assignable cause,28,"mart_signals: coil-change chart, rule 1 signals in the year",28
-4.3 Signals with no assignable cause,27,"mart_signals: coil-change chart, no cause found",27
-4.3 Signals with no assignable cause,one,"mart_signals: coil-change chart, assignable cause",one
-4.3 Signals with no assignable cause,C-15731-07,"mart_signals.characteristic_id, soft coil",C-15731-07
-4.3 Signals with no assignable cause,27 May 2026,"mart_signals.raised_at, soft coil",27 May 2026
-4.3 Signals with no assignable cause,"2,292",mart_coil_change_points: points with six or more coils on record,"2,292"
-4.3 Signals with no assignable cause,18,mart_coil_change_points: rule 1 signals on points with six or more coils,18
-4.3 Signals with no assignable cause,12.1,"analytics.chart_performance.coil_change: expected signals, Monte Carlo",12.1
-4.3 Signals with no assignable cause,1.49,"observed over expected, coil-change chart",1.49
-4.3 Signals with no assignable cause,0.88,"Poisson interval, low",0.88
-4.3 Signals with no assignable cause,2.35,"Poisson interval, high",2.35
-4.3 Signals with no assignable cause,one,stg_erp__coils: fewest coils in a lot,one
-4.3 Signals with no assignable cause,four,stg_erp__coils: most coils in a lot,four
-4.3 Signals with no assignable cause,76%,analytics.chart_performance.coil_change: lot share of coil variance,76%
-4.3 Signals with no assignable cause,ten,mart_signals less mart_coil_change_points: signals on points with fewer than six coils on record,ten
-4.4 Out-of-tolerance pieces,145,"int_characteristic_history: routine readings outside tolerance, variable charts",
-4.4 Out-of-tolerance pieces,131,readings outside tolerance per million measured,
-4.4 Out-of-tolerance pieces,49,readings outside tolerance on runs with a special cause,
-4.4 Out-of-tolerance pieces,96,readings outside tolerance on runs without a special cause,
-4.4 Out-of-tolerance pieces,176,"readings outside tolerance per million, formed",
-4.4 Out-of-tolerance pieces,104,"readings outside tolerance per million, cut geometry",
-4.4 Out-of-tolerance pieces,57,int_characteristic_history: subgroups with a reading outside tolerance that raised a signal,
-4.4 Out-of-tolerance pieces,142,int_characteristic_history: subgroups with a reading outside tolerance,
-4.4 Out-of-tolerance pieces,19,mart_nonconformances: runs with a reading outside tolerance that carry a nonconformance,
-4.4 Out-of-tolerance pieces,119,int_characteristic_history: runs with a reading outside tolerance,
-4.4 Out-of-tolerance pieces,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
-4.4 Out-of-tolerance pieces,"219,535","stg_spc__subgroups.pieces, burr checks, in the year","219,535"
-4.4 Out-of-tolerance pieces,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",278
-4.4 Out-of-tolerance pieces,"324,225","stg_spc__subgroups.pieces, pin checks, in the year","324,225"
-4.4 Out-of-tolerance pieces,112,attribute fails on runs with a special cause,
-Figure: Out-of-tolerance pieces per million by class,104,"out-of-tolerance or failed pieces per million, Cut geometry",
-Figure: Out-of-tolerance pieces per million by class,176,"out-of-tolerance or failed pieces per million, Formed characteristics",
-Figure: Out-of-tolerance pieces per million by class,0,"out-of-tolerance or failed pieces per million, Hole diameter",
-Figure: Out-of-tolerance pieces per million by class,0,"out-of-tolerance or failed pieces per million, Flatness",
-Figure: Out-of-tolerance pieces per million by class,1221,"out-of-tolerance or failed pieces per million, Burr checks",
-Figure: Out-of-tolerance pieces per million by class,857,"out-of-tolerance or failed pieces per million, Pin checks",
-4.5 Per-stroke charts: speed of detection,3.06%,"mart_parts_exposed.total_shift_at_onset, median",3.06%
-4.5 Per-stroke charts: speed of detection,1.32,"mart_parts_exposed.largest_channel_share_shift_points, median",1.32
-4.5 Per-stroke charts: speed of detection,38,ewma_arl at the median chipped-punch shift,38
-4.5 Per-stroke charts: speed of detection,76,"ewma_arl, lambda 0.02, 2% step",76
-4.5 Per-stroke charts: speed of detection,117,"ewma_arl, lambda 0.05, 2% step",117
-4.5 Per-stroke charts: speed of detection,425,"ewma_arl, lambda 0.10, 2% step",425
-4.5 Per-stroke charts: speed of detection,204,mart_per_stroke_stops.strokes_kept,204
-4.5 Per-stroke charts: speed of detection,0,"mart_parts_exposed.strokes_exposed_per_stroke_charts, median",0
-4.5 Per-stroke charts: speed of detection,20,"mart_parts_exposed.strokes_exposed_per_stroke_charts, 90th percentile",20
-4.5 Per-stroke charts: speed of detection,8,mart_per_stroke_stops: chipped punches stopped by the EWMA,8
-4.5 Per-stroke charts: speed of detection,63,mart_per_stroke_stops: chipped punches stopped by the channel-share chart,63
-4.5 Per-stroke charts: speed of detection,"6,499","mart_parts_exposed.parts_exposed_hourly_check_up_to, median","6,499"
-4.5 Per-stroke charts: speed of detection,"11,773","mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03","11,773"
-"Figure: Stops by the per-stroke charts, by finding and chart",8,"mart_per_stroke_stops: chipped punch, EWMA on the total",
-"Figure: Stops by the per-stroke charts, by finding and chart",63,"mart_per_stroke_stops: chipped punch, channel share",
-"Figure: Stops by the per-stroke charts, by finding and chart",82,"mart_per_stroke_stops: nothing found, EWMA on the total",
-"Figure: Stops by the per-stroke charts, by finding and chart",11,"mart_per_stroke_stops: nothing found, channel share",
-"Figure: Stops by the per-stroke charts, by finding and chart",274,"mart_per_stroke_stops: slug pulling, channel share",
-"Figure: Stops by the per-stroke charts, by finding and chart",71,"mart_per_stroke_stops: worn punch, EWMA on the total",
-"Figure: Stops by the per-stroke charts, by finding and chart",1,"mart_per_stroke_stops: worn punch, both",
-"Figure: Stops by the per-stroke charts, by finding and chart",10,"mart_per_stroke_stops: worn punch, channel share",
-4.5 Per-stroke charts: speed of detection,13 May 2026,"mart_per_stroke_stops.stopped_at, the 13 May stop",13 May 2026
-4.5 Per-stroke charts: speed of detection,R26-00820,mart_per_stroke_stops.run_id,R26-00820
-4.5 Per-stroke charts: speed of detection,"239,498",mart_per_stroke_stops.stop_stroke_no,"239,498"
-4.5 Per-stroke charts: speed of detection,34,"mart_parts_exposed.strokes_exposed_per_stroke_charts, the 13 May stop",34
-4.5 Per-stroke charts: speed of detection,11:55,mart_per_stroke_stops.cleared_at,11:55
-4.5 Per-stroke charts: speed of detection,23,mart_limit_sets: three-way annual-review sets below the coil-change minimum,23
-4.5 Per-stroke charts: speed of detection,45,mart_limit_sets: three-way sets at the annual review,45
+4.2 Observed against expected,PR-01,"mart_signal_rates: press furthest above expectation, by difference",PR-01
+4.2 Observed against expected,PR-09,"mart_signal_rates: press furthest above expectation, by ratio",PR-09
+4.2 Observed against expected,3.91,"observed per 100, PR-01",3.91
+4.2 Observed against expected,3.18,"expected per 100, PR-01",3.18
+4.2 Observed against expected,3.46,"observed per 100, PR-09",3.46
+4.2 Observed against expected,2.81,"expected per 100, PR-09",2.81
+4.2 Observed against expected,PR-10,mart_signal_rates: press furthest below expectation,PR-10
+4.2 Observed against expected,2.60,"observed per 100, that press",2.60
+4.2 Observed against expected,3.26,"expected per 100, that press",3.26
+4.2 Observed against expected,0.7,"bound on the gap between observed and expected per 100, the other eight presses (largest 0.61)",0.7
+4.2 Observed against expected,-0.07,"mart_variance_components.lag_1_autocorrelation_within_coil, median",-0.07
+4.2 Observed against expected,-0.19,"lag-1, 10th percentile",-0.19
+4.2 Observed against expected,0.02,"lag-1, 90th percentile",0.02
+4.2 Observed against expected,142,arl_ar1_rules at the 10th percentile,142
+4.2 Observed against expected,87,arl_ar1_rules at the 90th percentile,87
+4.2 Observed against expected,109,arl_ar1_rules at the measured median,109
+4.2 Observed against expected,92,"arl_rules, rules 1 to 4, independent",92
+4.2 Observed against expected,28,"mart_signals: coil-change chart, rule 1 signals in the year",28
+4.2 Observed against expected,27,"mart_signals: coil-change chart, no cause found",27
+4.2 Observed against expected,one,"mart_signals: coil-change chart, assignable cause",one
+4.2 Observed against expected,C-15731-07,"mart_signals.characteristic_id, soft coil",C-15731-07
+4.2 Observed against expected,27 May 2026,"mart_signals.raised_at, soft coil",27 May 2026
+4.2 Observed against expected,"2,292",mart_coil_change_points: points with six or more coils on record,"2,292"
+4.2 Observed against expected,18,mart_coil_change_points: rule 1 signals on points with six or more coils,18
+4.2 Observed against expected,12.1,"analytics.chart_performance.coil_change: expected signals, Monte Carlo",12.1
+4.2 Observed against expected,1.49,"observed over expected, coil-change chart",1.49
+4.2 Observed against expected,0.88,"Poisson interval, low",0.88
+4.2 Observed against expected,2.35,"Poisson interval, high",2.35
+4.2 Observed against expected,one,stg_erp__coils: fewest coils in a lot,one
+4.2 Observed against expected,four,stg_erp__coils: most coils in a lot,four
+4.2 Observed against expected,76%,analytics.chart_performance.coil_change: lot share of coil variance,76%
+4.2 Observed against expected,ten,mart_signals less mart_coil_change_points: signals on points with fewer than six coils on record,ten
+4.2 Observed against expected,1.02,mart_per_stroke_stop_rates: nothing found per million strokes,1.02
+4.2 Observed against expected,0.91,"design rate of stops with nothing found per million strokes: EWMA in-control ARL with estimated parameters and channel-share rate at L 5.5, summed per press",0.91
+4.2 Observed against expected,82,mart_per_stroke_stops: nothing found on the EWMA,82
+4.2 Observed against expected,34,"design stops with nothing found on the EWMA: strokes over the in-control ARL with estimated parameters, summed per press",34
+4.2 Observed against expected,41,"mart_per_stroke_stops: nothing found on the EWMA, PR-03",41
+4.2 Observed against expected,11,mart_per_stroke_stops: nothing found on the channel-share charts,11
+4.2 Observed against expected,48,"design stops with nothing found on the channel-share charts, summed per press over its charts",48
+4.2 Observed against expected,9,"arl_rules, rules 1 to 4 at 1 sigma",9
+4.2 Observed against expected,44,"arl_rules, rule 1 at 1 sigma",44
+4.2 Observed against expected,four,"arl_rules: in-control ARL, rule 1 over rules 1 to 4 (370 over 92)",four
+4.2 Observed against expected,32,"three_way_arl, all three charts, 1 sigma",32
+4.2 Observed against expected,33,mart_signals: level-change die events on the routine charts,33
+4.2 Observed against expected,31,level-change die events with a failed verification on the first-signal chart,31
+4.2 Observed against expected,2.1,"mart_limit_verifications.mean_offset_sigma, failed, first-signal chart, median absolute",2.1
+4.2 Observed against expected,2,"int_characteristic_history: routine subgroups from the die event to the first signal, median",2
+4.2 Observed against expected,2.9,"arl_rules, rules 1 to 4 at the median estimated shift",2.9
+4.2 Observed against expected,31,level-change events within the 5th to 95th percentile of the run length at their shift,31
+"Figure: Run length against shift, with the year's level changes","2.11, 3.0","level change D-0823-C|3|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
+"Figure: Run length against shift, with the year's level changes","2.15, 2.0","level change D-0823-C|4|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
+"Figure: Run length against shift, with the year's level changes","2.15, 3.0","level change D-0823-C|6|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
+"Figure: Run length against shift, with the year's level changes","1.67, 2.0","level change D-0893-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
+"Figure: Run length against shift, with the year's level changes","1.89, 2.0","level change D-1181-A|2|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
+"Figure: Run length against shift, with the year's level changes","1.99, 4.0","level change D-1181-A|3|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
+"Figure: Run length against shift, with the year's level changes","2.26, 2.0","level change D-1209-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
+"Figure: Run length against shift, with the year's level changes","1.51, 3.0","level change D-1209-A|7|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
+"Figure: Run length against shift, with the year's level changes","2.11, 1.0","level change D-1687-A|6|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
+"Figure: Run length against shift, with the year's level changes","2.42, 1.0","level change D-2488-B|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
+"Figure: Run length against shift, with the year's level changes","1.78, 2.0","level change D-2587-A|3|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
+"Figure: Run length against shift, with the year's level changes","2.03, 2.0","level change D-2617-A|2|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
+"Figure: Run length against shift, with the year's level changes","2.18, 2.0","level change D-2617-A|3|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
+"Figure: Run length against shift, with the year's level changes","1.94, 3.0","level change D-3264-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
+"Figure: Run length against shift, with the year's level changes","2.23, 1.0","level change D-4813-C|7|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
+"Figure: Run length against shift, with the year's level changes","1.95, 1.0","level change D-4813-C|8|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
+"Figure: Run length against shift, with the year's level changes","1.93, 1.0","level change D-4849-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
+"Figure: Run length against shift, with the year's level changes","2.01, 2.0","level change D-5731-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
+"Figure: Run length against shift, with the year's level changes","2.35, 2.0","level change D-6291-A|3|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
+"Figure: Run length against shift, with the year's level changes","2.14, 3.0","level change D-6291-A|4|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
+"Figure: Run length against shift, with the year's level changes","1.98, 7.0","level change D-6315-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
+"Figure: Run length against shift, with the year's level changes","2.26, 3.0","level change D-6526-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
+"Figure: Run length against shift, with the year's level changes","1.87, 1.0","level change D-6526-A|2|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
+"Figure: Run length against shift, with the year's level changes","2.19, 4.0","level change D-6526-A|3|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
+"Figure: Run length against shift, with the year's level changes","2.44, 1.0","level change D-6526-A|4|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
+"Figure: Run length against shift, with the year's level changes","1.89, 5.0","level change D-6559-B|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
+"Figure: Run length against shift, with the year's level changes","1.51, 5.0","level change D-6998-B|2|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
+"Figure: Run length against shift, with the year's level changes","2.40, 1.0","level change D-7180-A|8|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
+"Figure: Run length against shift, with the year's level changes","2.81, 2.0","level change D-7778-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
+"Figure: Run length against shift, with the year's level changes","1.51, 1.0","level change D-7862-C|5|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
+"Figure: Run length against shift, with the year's level changes","2.16, 2.0","level change D-9604-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
+"Figure: Run length against shift, with the year's level changes",370,"X-bar rule 1, ARL at 0 sigma",
+"Figure: Run length against shift, with the year's level changes",44,"X-bar rule 1, ARL at 1 sigma",
+"Figure: Run length against shift, with the year's level changes",92,"X-bar rules 1 to 4, ARL at 0 sigma",
+"Figure: Run length against shift, with the year's level changes",9,"X-bar rules 1 to 4, ARL at 1 sigma",
+"Figure: Run length against shift, with the year's level changes",72,"three-way all three charts, ARL at 0 sigma",
+"Figure: Run length against shift, with the year's level changes",32,"three-way all three charts, ARL at 1 sigma",
+4.2 Observed against expected,3.06%,"mart_parts_exposed.total_shift_at_onset, median",3.06%
+4.2 Observed against expected,1.32,"mart_parts_exposed.largest_channel_share_shift_points, median",1.32
+4.2 Observed against expected,38,ewma_arl at the median chipped-punch shift,38
+4.2 Observed against expected,76,"ewma_arl, lambda 0.02, 2% step",76
+4.2 Observed against expected,117,"ewma_arl, lambda 0.05, 2% step",117
+4.2 Observed against expected,425,"ewma_arl, lambda 0.10, 2% step",425
+4.2 Observed against expected,204,mart_per_stroke_stops.strokes_kept,204
+4.2 Observed against expected,0,"mart_parts_exposed.strokes_exposed_per_stroke_charts, median",0
+4.2 Observed against expected,20,"mart_parts_exposed.strokes_exposed_per_stroke_charts, 90th percentile",20
+"Figure: EWMA ARL1 against shift size, three lambda values","3.62%, 0","mart_parts_exposed: FE-002072, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","3.88%, 0","mart_parts_exposed: FE-002300, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","1.48%, 0","mart_parts_exposed: FE-003327, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","3.70%, 0","mart_parts_exposed: FE-003902, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","0.20%, 0","mart_parts_exposed: FE-003987, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","4.10%, 0","mart_parts_exposed: FE-004243, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","1.84%, 0","mart_parts_exposed: FE-004528, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","2.99%, 0","mart_parts_exposed: FE-004549, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","2.06%, 0","mart_parts_exposed: FE-004686, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","5.23%, 0","mart_parts_exposed: FE-004714, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","3.93%, 0","mart_parts_exposed: FE-004751, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","4.23%, 0","mart_parts_exposed: FE-004755, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","4.64%, 0","mart_parts_exposed: FE-004858, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","3.90%, 0","mart_parts_exposed: FE-004916, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","0.77%, 1","mart_parts_exposed: FE-004963, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","6.05%, 0","mart_parts_exposed: FE-005158, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","4.80%, 0","mart_parts_exposed: FE-005266, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","2.97%, 0","mart_parts_exposed: FE-005355, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","3.08%, 0","mart_parts_exposed: FE-005376, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","2.53%, 43","mart_parts_exposed: FE-005426, shift at onset and strokes to the stop (EWMA on the total)",
+"Figure: EWMA ARL1 against shift size, three lambda values","2.36%, 0","mart_parts_exposed: FE-005443, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","1.07%, 103","mart_parts_exposed: FE-005448, shift at onset and strokes to the stop (EWMA on the total)",
+"Figure: EWMA ARL1 against shift size, three lambda values","5.45%, 0","mart_parts_exposed: FE-005450, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","4.62%, 34","mart_parts_exposed: FE-005463, shift at onset and strokes to the stop (EWMA on the total)",
+"Figure: EWMA ARL1 against shift size, three lambda values","4.97%, 0","mart_parts_exposed: FE-005568, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","2.97%, 0","mart_parts_exposed: FE-005631, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","3.06%, 20","mart_parts_exposed: FE-005738, shift at onset and strokes to the stop (EWMA on the total)",
+"Figure: EWMA ARL1 against shift size, three lambda values","1.69%, 0","mart_parts_exposed: FE-005809, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","1.90%, 0","mart_parts_exposed: FE-006026, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","2.58%, 0","mart_parts_exposed: FE-006076, shift at onset and strokes to the stop (channel share)",
+"Figure: EWMA ARL1 against shift size, three lambda values","1.82%, 0","mart_parts_exposed: FE-006317, shift at onset and strokes to the stop (channel share)",
+4.2 Observed against expected,"6,499","mart_parts_exposed.parts_exposed_hourly_check_up_to, median","6,499"
+4.2 Observed against expected,"11,773","mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03","11,773"
 A3. Formulas,14,mart_variance_components: characteristics with no wear fit,14
 A3. Formulas,4,"mart_variance_components: characteristics with no wear fit, cut geometry",
 A3. Formulas,6,"mart_variance_components: characteristics with no wear fit, formed",

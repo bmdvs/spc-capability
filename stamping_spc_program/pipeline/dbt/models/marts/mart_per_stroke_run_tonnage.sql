@@ -1,7 +1,8 @@
 -- Per-stroke tonnage by run, on the runs whose strokes the historian keeps. Grain: one row per run. Production strokes
 -- are those from the monitor's run start; strokes before it are setup and try-out. The lag-1 autocorrelation is of the
 -- total peak force on consecutive production strokes; the first {{ var('tonnage_baseline_strokes') }} production strokes are the baseline the per-stroke
--- charts are set on; the largest standard deviation of a channel's share of the total over the baseline is given beside it.
+-- charts are set on; the largest standard deviation of a channel's share of the total over the baseline is given beside it,
+-- and the lag-1 autocorrelation of the channel shares over the baseline, averaged over the press's channels.
 
 with s as (
 
@@ -16,7 +17,11 @@ p as (
 
     select run_id, press_id, stroke_no, total_kn, share_ch1, share_ch2, share_ch3, share_ch4,
            row_number() over (partition by run_id order by stroke_no) as production_stroke_no,
-           lag(total_kn) over (partition by run_id order by stroke_no) as previous_total_kn
+           lag(total_kn) over (partition by run_id order by stroke_no) as previous_total_kn,
+           lag(share_ch1) over (partition by run_id order by stroke_no) as previous_share_ch1,
+           lag(share_ch2) over (partition by run_id order by stroke_no) as previous_share_ch2,
+           lag(share_ch3) over (partition by run_id order by stroke_no) as previous_share_ch3,
+           lag(share_ch4) over (partition by run_id order by stroke_no) as previous_share_ch4
     from s
     where production_stroke
 
@@ -33,7 +38,15 @@ a as (
            greatest(stddev_samp(share_ch1) filter (where production_stroke_no <= {{ var('tonnage_baseline_strokes') }}),
                     coalesce(stddev_samp(share_ch2) filter (where production_stroke_no <= {{ var('tonnage_baseline_strokes') }}), 0),
                     coalesce(stddev_samp(share_ch3) filter (where production_stroke_no <= {{ var('tonnage_baseline_strokes') }}), 0),
-                    coalesce(stddev_samp(share_ch4) filter (where production_stroke_no <= {{ var('tonnage_baseline_strokes') }}), 0)) as baseline_largest_channel_share_sd
+                    coalesce(stddev_samp(share_ch4) filter (where production_stroke_no <= {{ var('tonnage_baseline_strokes') }}), 0)) as baseline_largest_channel_share_sd,
+           (coalesce(corr(share_ch1, previous_share_ch1) filter (where production_stroke_no between 2 and {{ var('tonnage_baseline_strokes') }}), 0)
+            + coalesce(corr(share_ch2, previous_share_ch2) filter (where production_stroke_no between 2 and {{ var('tonnage_baseline_strokes') }}), 0)
+            + coalesce(corr(share_ch3, previous_share_ch3) filter (where production_stroke_no between 2 and {{ var('tonnage_baseline_strokes') }}), 0)
+            + coalesce(corr(share_ch4, previous_share_ch4) filter (where production_stroke_no between 2 and {{ var('tonnage_baseline_strokes') }}), 0))
+           / nullif((corr(share_ch1, previous_share_ch1) filter (where production_stroke_no between 2 and {{ var('tonnage_baseline_strokes') }}) is not null)::int
+            + (corr(share_ch2, previous_share_ch2) filter (where production_stroke_no between 2 and {{ var('tonnage_baseline_strokes') }}) is not null)::int
+            + (corr(share_ch3, previous_share_ch3) filter (where production_stroke_no between 2 and {{ var('tonnage_baseline_strokes') }}) is not null)::int
+            + (corr(share_ch4, previous_share_ch4) filter (where production_stroke_no between 2 and {{ var('tonnage_baseline_strokes') }}) is not null)::int, 0) as baseline_channel_share_lag_1_autocorrelation
     from p
     group by 1
 
