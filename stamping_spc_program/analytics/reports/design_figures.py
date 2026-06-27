@@ -85,17 +85,21 @@ def phase1_baseline(b, centre, ucl, lcl, ucl_r):
     return S.save(f, "d1_phase1_baseline_c11333_02", "Phase I baseline after a rebuild, C-11333-02")
 
 
-TRIGGER_COLOURS = {"rebuild": S.BRAND_BLUE, "annual review": S.AMBER, "regression re-fit": S.ACCENT, "failed verification": S.RED, "repair": S.GREY, "chart change": S.GREEN}
+TRIGGER_COLOURS = {"rebuild": S.BRAND_BLUE, "annual review": S.AMBER, "tool-wear re-fit": S.ACCENT, "regression re-fit": S.ACCENT, "failed verification": S.RED, "repair": S.GREY, "chart change": S.GREEN}
 
 
-def recalculations(by_month):
+def recalculations(by_month, labels=False):
     f, ax = S.fig(h=3.8)
     months = list(by_month["issued_month"]); bottom = np.zeros(len(months))
     for t in [c for c in TRIGGER_COLOURS if c in by_month.columns]:
-        v = by_month[t].values.astype(float); ax.bar(range(len(months)), v, bottom=bottom, color=TRIGGER_COLOURS[t], label=f"{t} ({int(v.sum())})", width=0.7); bottom += v
+        v = by_month[t].values.astype(float); ax.bar(range(len(months)), v, bottom=bottom, color=TRIGGER_COLOURS[t], label=f"{t.replace('tool-wear re-fit', 'regression re-fit')} ({int(v.sum())})", width=0.7); bottom += v
     ax.set_xticks(range(len(months))); ax.set_xticklabels([pd.Timestamp(m + "-01").strftime("%b %Y") for m in months], rotation=45, ha="right")
-    ax.set_ylabel("New limit sets"); ax.legend(frameon=False, ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.14))
-    return S.save(f, "d1_recalculations_by_month_and_trigger", "Recalculations by month and trigger")
+    if labels:
+        for i, t in enumerate(bottom):
+            ax.text(i, t + max(bottom) * 0.015, f"{int(t)}", ha="center", va="bottom", fontsize=8.5)
+        ax.set_ylim(0, max(bottom) * 1.12)
+    ax.set_ylabel("New control limits set" if labels else "New limit sets"); ax.legend(frameon=False, ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.14))
+    return S.save(f, "d1_recalculations_by_month_and_trigger", "New control limits set by trigger, last 12 months" if labels else "Recalculations by month and trigger")
 
 
 def tool_wear_chart(g, centre, slope_per_100k, half_width, usl, lsl):
@@ -490,7 +494,7 @@ GAUGE_ORDER = [("check fixture", "Check fixtures"), ("caliper", "Calipers"), ("i
 def grr_by_gauge(gg, f14_before, f14_after):
     """gg: gauge_id, gauge_type, pct (the %GRR of tolerance of the study each variable-chart gauge runs on). One point per
     gauge in a strip by gauge type, with lines at 10% and 30%; F-14026 drawn at its restudy before the rebuild and its study
-    after it, joined by an arrow; F-11333 labelled."""
+    after it, joined by an arrow."""
     f, ax = S.fig(h=3.4, grid="x")
     rng = np.random.default_rng(7); ypos = {}
     for i, (t, lab) in enumerate(GAUGE_ORDER):
@@ -504,8 +508,6 @@ def grr_by_gauge(gg, f14_before, f14_after):
     ax.scatter([f14_after], [-0.32], s=30, color=S.AMBER, zorder=4)
     ax.annotate("", xy=(f14_after + 0.4, -0.32), xytext=(f14_before - 0.4, -0.32), arrowprops=dict(arrowstyle="->", color=S.TEXT, linewidth=1))
     ax.text((f14_before + f14_after) / 2, -0.5, "F-14026, before and after the rebuild", fontsize=8.5, ha="center", va="top", color=S.TEXT)
-    v11 = float(gg.set_index("gauge_id").at["F-11333", "pct"])
-    ax.annotate("F-11333", xy=(v11, ypos["F-11333"]), xytext=(v11 + 2.5, 0.55), fontsize=8.5, arrowprops=dict(arrowstyle="-", color=S.DARK_GREY, linewidth=0.8))
     ax.set_yticks(range(len(GAUGE_ORDER))); ax.set_yticklabels([lab for _, lab in GAUGE_ORDER]); ax.set_ylim(2.6, -0.85)
     ax.set_xlim(0, 32); ax.set_xlabel("%GRR of tolerance, latest study")
     return S.save(f, "d1_grr_by_gauge", "%GRR of tolerance by gauge")
@@ -523,13 +525,17 @@ def measurement_share(msc):
     return S.save(f, "d1_measurement_share_by_class", "Measurement's share of within-subgroup variance by class")
 
 
-def kappa_latest(lq):
-    """lq: operator_id, kappa (each operator's latest qualification). One point per operator, sorted."""
+def kappa_latest(lq, line=None):
+    """lq: operator_id, kappa (each operator's latest qualification). One point per operator, sorted; a dashed line at
+    the qualification threshold when given."""
     d = lq.sort_values(["kappa", "operator_id"]).reset_index(drop=True)
     f, ax = S.fig(h=3.2)
     ax.scatter(range(len(d)), S.sig(d["kappa"]), s=26, color=S.GREEN, zorder=3)
     ax.set_xticks(range(len(d))); ax.set_xticklabels(d["operator_id"], rotation=90, fontsize=7.5)
     ax.set_ylim(0.6, 1.0); ax.set_ylabel("Kappa, latest qualification")
+    if line is not None:
+        ax.axhline(line, color=S.RED, linestyle="--", linewidth=1.1, zorder=2)
+        ax.text(len(d) - 1.6, line + 0.012, "Threshold", fontsize=8.5, color=S.TEXT, va="bottom", ha="right", bbox=dict(boxstyle="round,pad=0.25", facecolor="white", edgecolor=S.GREY, linewidth=0.6))
     return S.save(f, "d1_burr_check_kappa", "Burr-check operator kappa")
 
 

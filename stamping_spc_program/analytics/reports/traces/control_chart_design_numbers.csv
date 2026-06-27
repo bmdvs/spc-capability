@@ -171,15 +171,14 @@ Figure: Variance components by class: hole diameter,36.1%,"variance share, Hole 
 3.2 Measurement systems,16,mart_charts_in_force.pct_grr_of_tolerance: variable-chart gauges at 10% to 30%,16
 3.2 Measurement systems,205,mart_charts_in_force.pct_grr_of_tolerance: variable-chart gauges under 10%,205
 3.2 Measurement systems,221,mart_charts_in_force: variable-chart gauges,221
+3.2 Measurement systems,93%,"variable-chart gauges under 10%, share",93%
 3.2 Measurement systems,16,mart_charts_in_force.pct_grr_of_tolerance: variable-chart gauges at 10% to 30%,16
-3.2 Measurement systems,2 June 2026,"mart_fixture_verifications.verification_date, F-14026 fail",2 June 2026
-3.2 Measurement systems,3 June,"mart_gauge_studies.study_date, F-14026 restudy",3 June
+3.2 Measurement systems,7%,"variable-chart gauges at 10% to 30%, share",7%
+3.2 Measurement systems,One,stg_calibration__calibrations: check fixtures rebuilt in the year (1),One
+3.2 Measurement systems,F-14026,"stg_calibration__calibrations.gauge_id, rebuilt",F-14026
 3.2 Measurement systems,16.7,"mart_gauge_studies.pct_grr_of_tolerance, F-14026 restudy",16.7
 3.2 Measurement systems,5.3,"mart_gauge_studies.pct_grr_of_tolerance, F-14026 after rebuild",5.3
-3.2 Measurement systems,17 June,"mart_gauge_studies.study_date, F-14026 after rebuild",17 June
-3.2 Measurement systems,16.3,"mart_gauge_studies.pct_grr_of_tolerance, F-11333",16.3
-3.2 Measurement systems,5 May,"mart_gauge_studies.study_date, F-11333",5 May
-3.2 Measurement systems,17 August,"mart_gauge_studies.restudy_due, F-11333",17 August
+3.2 Measurement systems,two weeks,mart_gauge_studies: days from the F-14026 restudy to the study after the rebuild (14),two weeks
 Figure: %GRR of tolerance by gauge,7.4,"mart_charts_in_force.pct_grr_of_tolerance, F-10030",
 Figure: %GRR of tolerance by gauge,7.5,"mart_charts_in_force.pct_grr_of_tolerance, F-10090",
 Figure: %GRR of tolerance by gauge,6.1,"mart_charts_in_force.pct_grr_of_tolerance, F-10372",
@@ -413,6 +412,7 @@ Figure: Measurement's share of within-subgroup variance by class,0.9%,"approxima
 3.2 Measurement systems,24,mart_operator_kappa: operators,24
 3.2 Measurement systems,0.78,"mart_operator_kappa.kappa, latest, lowest",0.78
 3.2 Measurement systems,0.89,"mart_operator_kappa.kappa, latest, highest",0.89
+3.2 Measurement systems,0.75,"qualification threshold given for D1 (the record states results against the requalification line, not its value)",0.75
 3.2 Measurement systems,0.66,"mart_operator_kappa.kappa, E-1006 below the line",0.66
 3.2 Measurement systems,14 April 2026,"mart_operator_kappa.study_date, E-1006 below the line",14 April 2026
 3.2 Measurement systems,0.83,"mart_operator_kappa.kappa, E-1006 requalified",0.83
@@ -441,59 +441,24 @@ Figure: Burr-check operator kappa,0.85,"mart_operator_kappa.kappa, latest, E-102
 Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-1022",
 Figure: Burr-check operator kappa,0.79,"mart_operator_kappa.kappa, latest, E-1023",
 Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-1024",
-3.3 Setting and holding limits,"1,380",mart_charts_in_force: charts,"1,380"
-3.3 Setting and holding limits,25,mart_chart_design.baseline_subgroups,25
-3.3 Setting and holding limits,94,"mart_phase1_baselines.screened_subgroups, total",94
-3.3 Setting and holding limits,64,mart_phase1_baselines: baselines with a subgroup screened,64
-3.3 Setting and holding limits,92.9%,"mart_phase1_baselines.normal_at_5pct, share",92.9%
-3.3 Setting and holding limits,25,mart_chart_design.verification_subgroups,25
-3.3 Setting and holding limits,15,int_run_shots: runs starting on the day their sharpening is logged,15
-3.3 Setting and holding limits,"1,399",int_run_shots: runs with a shot count,"1,399"
-3.3 Setting and holding limits,92,int_run_shots with int_sharpening_intervals: runs spanning a logged sharpening date,92
-3.3 Setting and holding limits,16,mart_charts_in_force.in_baseline,16
-3.3 Setting and holding limits,11 May 2026,mart_phase1_baseline_subgroups: date of the baseline run,11 May 2026
-3.3 Setting and holding limits,9 May,int_die_event_timeline: rebuild of D-1333-C,9 May
-3.3 Setting and holding limits,25,mart_phase1_baseline_subgroups: subgroups,25
-3.3 Setting and holding limits,24.381,mart_phase1_baseline_subgroups.lcl_mean,24.381
-3.3 Setting and holding limits,24.435,mart_phase1_baseline_subgroups.ucl_mean,24.435
-3.3 Setting and holding limits,0.0988,mart_phase1_baseline_subgroups.ucl_range,0.0988
-3.3 Setting and holding limits,0.53,mart_phase1_baselines.anderson_darling,0.53
-3.3 Setting and holding limits,0.73,mart_phase1_baselines.anderson_darling_critical_5pct,0.73
-3.3 Setting and holding limits,18,mart_phase1_baseline_subgroups: screened subgroup,18
-3.3 Setting and holding limits,0.106,"mart_phase1_baseline_subgroups.subgroup_range, screened",0.106
-3.3 Setting and holding limits,0.002,mart_phase1_baseline_subgroups: largest move of the mean limits without the screened subgroup,0.002
-3.3 Setting and holding limits,319,mart_limit_recalculations: limit sets in the year,319
-3.3 Setting and holding limits,897,mart_charts_in_force: variable charts,897
-3.3 Setting and holding limits,671,"mart_charts_in_force.limits_effective_from before 1 July 2025, variable charts",671
-3.3 Setting and holding limits,226,"mart_charts_in_force.limits_effective_from in the year, variable charts",226
-3.3 Setting and holding limits,146,mart_limit_recalculations: rebuild,146
-3.3 Setting and holding limits,74,mart_limit_recalculations: annual review,74
-3.3 Setting and holding limits,71,"mart_limit_recalculations: annual review, January to March",71
-3.3 Setting and holding limits,65,mart_limit_recalculations: tool-wear re-fit,65
-3.3 Setting and holding limits,34,mart_limit_recalculations: failed verification,34
-3.3 Setting and holding limits,30,mart_chart_changes.from_value,30
-3.3 Setting and holding limits,20,mart_chart_changes.to_value,20
-3.3 Setting and holding limits,8 December 2025,mart_chart_changes.changed_on,8 December 2025
-3.3 Setting and holding limits,408,mart_limit_verifications: sharpenings,408
-3.3 Setting and holding limits,33,mart_limit_verifications: sharpenings with a failure,33
-3.3 Setting and holding limits,8.1%,share of sharpenings failed,8.1%
-3.3 Setting and holding limits,34,mart_limit_verifications: X-bar and R failed,34
-3.3 Setting and holding limits,"1,100",mart_limit_verifications: X-bar and R after sharpening,"1,100"
-3.3 Setting and holding limits,3.1%,X-bar and R failure rate,3.1%
-3.3 Setting and holding limits,2,mart_limit_verifications: tool-wear failed,2
-3.3 Setting and holding limits,67,mart_limit_verifications: tool-wear,67
-3.3 Setting and holding limits,3.0%,tool-wear failure rate,3.0%
-3.3 Setting and holding limits,3,mart_limit_verifications: three-way failed,3
-3.3 Setting and holding limits,141,mart_limit_verifications: three-way after a rebuild,141
-3.3 Setting and holding limits,2.1%,three-way failure rate,2.1%
-3.3 Setting and holding limits,0.21,"mart_limit_verifications.mean_offset_sigma, passes, median absolute",0.21
-3.3 Setting and holding limits,0.001,"analytics.chart_performance: false-failure rate of the mean criterion, limits from 25 subgroups",0.001
-3.3 Setting and holding limits,23,mart_limit_sets: three-way annual-review sets below the minimum,23
-3.3 Setting and holding limits,45,mart_limit_sets: three-way annual-review sets,45
-3.3 Setting and holding limits,one,"mart_limit_sets.coil_changes_spanned, lowest",one
-3.3 Setting and holding limits,nine,"mart_limit_sets.coil_changes_spanned, highest",nine
-3.3 Setting and holding limits,50,"mart_limit_sets.subgroups_used, lowest",50
-3.3 Setting and holding limits,978,"mart_limit_sets.subgroups_used, highest",978
+3.3 Control Limits,319,mart_limit_recalculations: limit sets in the year,319
+3.3 Control Limits,897,mart_charts_in_force: variable charts,897
+3.3 Control Limits,671,"mart_charts_in_force.limits_effective_from before 1 July 2025, variable charts",671
+3.3 Control Limits,226,"mart_charts_in_force.limits_effective_from in the year, variable charts",226
+3.3 Control Limits,408,mart_limit_verifications: sharpenings,408
+3.3 Control Limits,33,mart_limit_verifications: sharpenings with a failure,33
+3.3 Control Limits,8.1%,share of sharpenings failed,8.1%
+3.3 Control Limits,34,mart_limit_verifications: X-bar and R failed,34
+3.3 Control Limits,"1,100",mart_limit_verifications: X-bar and R after sharpening,"1,100"
+3.3 Control Limits,3.1%,X-bar and R failure rate,3.1%
+3.3 Control Limits,2,mart_limit_verifications: tool-wear failed,2
+3.3 Control Limits,67,mart_limit_verifications: tool-wear,67
+3.3 Control Limits,3.0%,tool-wear failure rate,3.0%
+3.3 Control Limits,3,mart_limit_verifications: three-way failed,3
+3.3 Control Limits,141,mart_limit_verifications: three-way after a rebuild,141
+3.3 Control Limits,2.1%,three-way failure rate,2.1%
+3.3 Control Limits,0.21,"mart_limit_verifications.mean_offset_sigma, passes, median absolute",0.21
+3.3 Control Limits,0.001,"analytics.chart_performance: false-failure rate of the mean criterion, limits from 25 subgroups",0.001
 4. Chart Performance,93,"mart_capability: critical characteristics at or above 1.33, quarter",93
 4. Chart Performance,100,"mart_capability: critical characteristics, quarter",100
 4.1 Signals and causes,"12,156",mart_signals: routine signals in the year,"12,156"
@@ -790,8 +755,3 @@ Figure: Signals against expectation by characteristic class,0.88,"observed over 
 "Figure: EWMA ARL1 against shift size, three lambda values","1.82%, 0","mart_parts_exposed: FE-006317, shift at onset and strokes to the stop (channel share)",
 4.2 Observed against expected,"6,499","mart_parts_exposed.parts_exposed_hourly_check_up_to, median","6,499"
 4.2 Observed against expected,"11,773","mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03","11,773"
-A3. Formulas,14,mart_variance_components: characteristics with no wear fit,14
-A3. Formulas,4,"mart_variance_components: characteristics with no wear fit, cut geometry",
-A3. Formulas,6,"mart_variance_components: characteristics with no wear fit, formed",
-A3. Formulas,4,"mart_variance_components: characteristics with no wear fit, flatness",
-A3. Formulas,704,mart_tonnage_components: runs,704
