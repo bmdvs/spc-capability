@@ -13,7 +13,7 @@ TONNAGE_COMPONENTS = [("stroke_to_stroke", "Within run", S.LIGHT_BLUE), ("betwee
 
 def variance_components(fig1, tonnage, formed_before):
     """fig1: characteristic_class and the wear-first component medians; tonnage: shares of the per-stroke total by
-    component; formed_before: the formed between-coil share on the coil-change subgroups before centring, marked on its bar."""
+    component; formed_before: the formed between-coil share on the coil-change subgroups before centering, marked on its bar."""
     f, ax = S.fig(h=4.4)
     d = fig1.set_index("characteristic_class").reindex(CLASS_ORDER)
     y = list(range(len(d))); yt = len(d) + 0.4
@@ -29,7 +29,7 @@ def variance_components(fig1, tonnage, formed_before):
         lt += v
     i = CLASS_ORDER.index("formed"); xm = formed_before * 100
     ax.plot([xm, xm], [i - 0.38, i + 0.38], color=S.TEXT, linewidth=1.6)
-    ax.text(xm + 1, i - 0.36, "between coils before centring", fontsize=8.5, color=S.TEXT, va="bottom")
+    ax.text(xm + 1, i - 0.36, "between coils before centering", fontsize=8.5, color=S.TEXT, va="bottom")
     ax.axhline(len(d) - 0.25, color="#DDDDDD", linewidth=0.8)
     ax.set_yticks(y + [yt]); ax.set_yticklabels([CLASS_LABEL[c] for c in d.index] + ["Press tonnage (per stroke)"]); ax.invert_yaxis()
     ax.set_xlim(0, 100); ax.set_xlabel("Share of variance, median across characteristics (%)")
@@ -592,7 +592,7 @@ SEG_COLOURS = {"Within subgroup": S.BRAND_BLUE, "Between subgroups": S.ACCENT, "
 def variance_bars(rows, name, title, label_all=True):
     """rows: (bar label, [(segment, share)]). Short stacked horizontal bars of variance shares; data labels on every segment
     of 3% or more, or on the within-subgroup segment only when label_all is False."""
-    f, ax = S.fig(h=0.62 * len(rows) + 1.25, grid="x")
+    f, ax = S.fig(h=0.42 * len(rows) + 1.05, grid="x")
     seen = set()
     for i, (lab, segs) in enumerate(rows):
         left = 0.0
@@ -605,6 +605,6 @@ def variance_bars(rows, name, title, label_all=True):
     ax.set_yticks(range(len(rows))); ax.set_yticklabels([r[0] for r in rows]); ax.invert_yaxis()
     ax.set_xlim(0, 100); ax.set_xlabel("Share of variance, median across characteristics (%)")
     hs, ls_ = ax.get_legend_handles_labels(); order = [ls_.index(k) for k in SEG_COLOURS if k in ls_]
-    ax.legend([hs[i] for i in order], [ls_[i] for i in order], frameon=False, ncol=4, loc="upper center", bbox_to_anchor=(0.45, -0.42 if len(rows) == 1 else -0.3), fontsize=8.5)
+    ax.legend([hs[i] for i in order], [ls_[i] for i in order], frameon=False, ncol=4, loc="upper center", bbox_to_anchor=(0.45, -0.52 if len(rows) == 1 else -0.36), fontsize=8.5)
     return S.save(f, name, title)
 
