@@ -349,7 +349,7 @@ def no_cause_by_press(lp, med_obs, med_exp):
     return S.save(f, "d1_no_cause_observed_expected_by_press", "Signals with no assignable cause, observed vs. expected, per press and week")
 
 
-def signals_by_chart(f2, bands, labels):
+def signals_by_chart(f2, bands, labels, name="d1_signals_against_expectation_by_chart"):
     """f2: chart, observed per 100, expected per 100, ratio, in page order. Grouped bars per chart type with the design band
     (the observed rate the band allows) shaded behind the pair and the ratio above it."""
     f, ax = S.fig(h=3.6)
@@ -364,7 +364,7 @@ def signals_by_chart(f2, bands, labels):
     ax.set_xlim(-0.6, len(f2) - 0.4); ax.set_ylabel("Signals per 100 routine subgroups")
     ax.set_ylim(0, max(f2["observed per 100"].max(), (f2["expected per 100"] * 1.5).max()) * 1.2)
     ax.legend(frameon=False, fontsize=8.5, loc="upper center", ncol=3, bbox_to_anchor=(0.5, -0.1))
-    return S.save(f, "d1_signals_against_expectation_by_chart", "Signals against expectation by chart type")
+    return S.save(f, name, "Signals against expectation by chart type")
 
 
 def stops_by_finding(t, order, charts, name="d1_stops_by_finding_and_chart", alt="Stops by the per-stroke charts, by finding and chart", legend_above=False, legend_below=False):
@@ -504,7 +504,7 @@ def flagged_bars(rows, name, labels=("Special cause", "No assignable cause"), al
         w = np.where(tot > 0, 100 * rows[col].values / tot, 0)
         ax.barh(y, w, left=left, color=colour, height=0.6, label=lab)
         for i in range(len(rows)):
-            if rows.at[i, col] > 0 and w[i] >= 3:
+            if rows.at[i, col] > 0 and w[i] >= 4.5:
                 ax.text(left[i] + w[i] / 2, i, f"{int(rows.at[i, col]):,}", ha="center", va="center", fontsize=8.5, color=tc)
             elif rows.at[i, col] > 0:
                 x_ = max(left[i] + w[i] / 2, last_small[i] + 3.5); last_small[i] = x_
