@@ -5,7 +5,7 @@ Statistical process control as it runs at a progressive-die metal stamper with e
 - **[SPC Chart Design & Performance:](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/control_chart_design.html)** Comprehensive review of all active SPC charts. Includes overview of chart type selections, variance decompositions, measurement systems, and control limits. Statistical analyses review chart signals, special causes, and observed vs. expected performance. 
 - **[Capability & SPC Review, Q2 2026:](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_quarterly_review_2026_q2.html)** Quarterly review summarizing capability (Ppk/Ppu and Cpk/Cpu) across characteristics, as well as statistical process control performance. 
 
-Two SPC outputs created, embedded in the shop's statistical software:
+Two SPC outputs were created, embedded in the shop's statistical software:
 
 **[SPC terminal screen](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)**, showing a three-way chart at the press monitoring formed heights and bend angles, before and after a coil change. 
 [![SPC terminal screen, PR-03](docs/readme/spc_terminal_screen.png)](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)
