@@ -11,6 +11,7 @@ Two SPC outputs created, embedded in the shop's statistical software:
 [![SPC terminal screen, PR-03](docs/readme/spc_terminal_screen.png)](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)
 
 **[Press monitor screen](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/press_monitor_pr_03.html)**, showing per-stroke tonnage on EWMA and channel-share panels, at the moment of a stop due to a chipped punch. Screenshot below:
+[![Press monitor screen, PR-03](docs/readme/press_monitor_screen.png)](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/press_monitor_pr_03.html)
 
 ## Business Context
 
