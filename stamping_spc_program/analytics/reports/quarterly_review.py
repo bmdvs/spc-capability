@@ -106,12 +106,16 @@ def build():
     lowc = cap[cap["cpk"] < 1.33]; assert len(lowc) == 1 and float(lowc["ppk"].iloc[0]) < 1.33
     pg.p(f"Cpk sits close to Ppk on cut geometry and flatness, and above it by {n(gap['formed'], 'mart_capability.cpk_less_ppk, formed, median', '{:.2f}', was='0.09')} on formed characteristics and "
          f"{n(gap['hole diameter'], 'mart_capability.cpk_less_ppk, hole diameter, median', '{:.2f}', was='0.38')} on hole diameters, as expected given the coil offset left after centering and the wear across the sharpening interval. "
-         f"One characteristic, {txt(lowc['characteristic_id'].iloc[0], 'mart_capability: the characteristic with Cpk under 1.33, quarter', was='C-16315-06')}, ran below 1.33 on Cpk as well, at "
+         f"One characteristic, {txt(lowc['characteristic_id'].iloc[0], 'mart_capability: the characteristic with Cpk under 1.33, quarter', was='C-16315-06')}, ran below 1.33 on Cpk, at "
          f"{n(float(lowc['cpk'].iloc[0]), 'mart_capability.cpk, that characteristic', '{:.2f}', was='1.31')}.")
     pg.figval(fno[0] + 1, f"{float(lowc['cpk'].iloc[0]):.2f}", f"mart_capability.cpk, {lowc['characteristic_id'].iloc[0]}, marked")
     pg.figure(FIG.cpk_against_ppk(cap), F("Cpk against Ppk by class, Q2 '26"))
-    u = below.copy()
-    u["label"] = [f"Cpk {r.cpk:.2f}" if r.cpk < 1.33 else "" for r in u.itertuples()]
+    # each characteristic's largest variance component other than within subgroup, with Cpk where it is also below 1.33
+    u = below.merge(vca[["characteristic_id", "within_share_wear_first", "between_subgroups_share_wear_first", "between_coils_share_wear_first", "wear_share"]], on="characteristic_id", how="left")
+    COMP = {"between_subgroups_share_wear_first": "between subgroups", "between_coils_share_wear_first": "between coils", "wear_share": "tool wear"}
+    assert u[list(COMP)].notna().all().all()
+    u["largest"] = u[list(COMP)].idxmax(axis=1)
+    u["label"] = [f"{COMP[c]} {100 * r[c]:.0f}%" + (f"; Cpk {r.cpk:.2f}" if r.cpk < 1.33 else "") for c, (_, r) in zip(u["largest"], u.iterrows())]
     u["customer"] = (u["ppk_high"] < 1.33) | (u["cpk"] < 1.33)
     cust = sorted(u.loc[u["customer"], "characteristic_id"]); assert cust == ["C-15731-06", "C-16315-06", "C-37007-06"], cust
     assert sorted(u.loc[u["ppk_high"] < 1.33, "characteristic_id"]) == ["C-15731-06", "C-37007-06"] and list(u.loc[u["cpk"] < 1.33, "characteristic_id"]) == ["C-16315-06"]
@@ -122,7 +126,7 @@ def build():
          f"{txt('C-15731-06, C-37007-06', 'mart_capability: ppk_high under 1.33, quarter', was='C-15731-06, C-37007-06')}, whose Q2 confidence intervals lie wholly below 1.33 Ppk, and "
          f"{txt('C-16315-06', 'mart_capability: cpk under 1.33, quarter', was='C-16315-06')}, whose Cpk is also below 1.33.")
     for r in u.itertuples():
-        pg.figval(fno[0] + 1, f"{r.ppk:.2f} ({r.ppk_low:.2f} to {r.ppk_high:.2f})" + (f"; {r.label}" if r.label else ""), f"mart_capability, {r.characteristic_id}")
+        pg.figval(fno[0] + 1, f"{r.ppk:.2f} ({r.ppk_low:.2f} to {r.ppk_high:.2f}); {r.label}", f"mart_capability and mart_variance_components, {r.characteristic_id}")
     pg.figure(FIG.below_133(u[["characteristic_id", "ppk", "ppk_low", "ppk_high", "label", "customer"]]), F("Characteristics below Ppk 1.33"))
     at = query("""select c.characteristic_type t, s.sample_time, s.pieces, coalesce(s.attribute_count, 0) f from staging.stg_spc__subgroups s join marts.mart_charts_in_force c using (characteristic_id)
                   where c.chart_type = 'p' and s.sample_time >= '2025-07-01' and s.sample_time < '2026-07-01'""")
@@ -188,7 +192,7 @@ def build():
         return ", ".join(CHART_ROW[t_] for t_ in ("Xbar-R", "three-way (I-MR-R)", "tool-wear") if t_ in have)
     pg.p(f"{n(n_sc + len(stf), 'special-cause events on the variable charts and per-stroke stops with a finding, quarter', was='130')} signals were traced to a special cause over the quarter. "
          f"The variable characteristic charts most commonly found special causes related to a die at a new level after sharpening or rebuild ({n(e_lvl, 'mart_signals: level-change die events, quarter', was='9')}) "
-         f"and faults related to strip misfeed, slug pull, gauge zero, or lubricant issue ({n(e_oth, 'mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant, quarter', was='6')}).")
+         f"and faults related to strip misfeed, slug pull, gauge zeroing, or lubricant issues ({n(e_oth, 'mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant, quarter', was='6')}).")
     ts_ = pd.DataFrame([
         {"what": "Die at a new level after sharpening or rebuild", "chart": txt(charts_of(lvl_q), 'mart_signals.chart_type, level-change signals, quarter'),
          "events": n(e_lvl, 'mart_signals: level-change die events, quarter', was='9'), "alarms": n(len(lvl_q), 'mart_signals: level-change signals, quarter')},
@@ -196,20 +200,19 @@ def build():
          "events": n(e_fx, 'mart_signals: runs, fixture drift, quarter', was='1'), "alarms": n(len(fx_q), 'mart_signals: fixture drift signals, quarter', was='30')},
         {"what": "Strip misfeed, slug pulling, gauge zeroing, lubricant", "chart": txt(charts_of(oth_q), 'mart_signals.chart_type, other causes, quarter'),
          "events": n(e_oth, 'mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant, quarter', was='6'), "alarms": n(len(oth_q), 'mart_signals: other-cause signals, quarter')},
+        {"what": f"Soft coil ({txt(soft['characteristic_id'].iloc[0], 'mart_signals.characteristic_id, soft coil', was='C-15731-07')})", "chart": "three-way",
+         "events": n(len(soft), 'mart_signals: soft coil, quarter', was='1'), "alarms": n(len(soft), 'mart_signals: soft coil signals, quarter', was='1')},
         {"what": f"Sharpening logged at the wrong count ({txt(wc['press_id'].iloc[0], 'mart_signals.press_id, sharpening logged at the wrong count', was='PR-06')})", "chart": txt(charts_of(wc), 'mart_signals.chart_type, wrong count', was='regression'),
          "events": n(len(wc), 'mart_signals: wrong count, quarter', was='1'), "alarms": n(len(wc), 'mart_signals: wrong-count signals, quarter', was='1')},
-        {"what": f"Soft coil ({txt(soft['characteristic_id'].iloc[0], 'mart_signals.characteristic_id, soft coil', was='C-15731-07')})", "chart": "coil-change",
-         "events": n(len(soft), 'mart_signals: soft coil, quarter', was='1'), "alarms": n(len(soft), 'mart_signals: soft coil signals, quarter', was='1')},
         {"what": "Slug pulling, worn and chipped punches", "chart": "per-stroke EWMA and channel share",
          "events": n(len(stf), 'mart_per_stroke_stops: stops with a finding, quarter', was='112'), "alarms": n(len(stf), 'mart_per_stroke_stops: stops with a finding, as signals, quarter', was='112')}])
-    pg.body_table("Table 1: Special Causes With the Charts that Signaled Them", ts_, {"what": "What was caught", "chart": "Chart", "events": "Events", "alarms": "Alarms"}, bold_cols=("Events",),
-                  caption=f"{n(n_nc, 'mart_signals: routine signals with no assignable cause, quarter', was='2,969')} routine signals and {n(len(ccs) - len(soft), 'mart_signals: coil-change signals with no assignable cause, quarter', was='9')} coil-change signals had no assignable cause.")
+    pg.body_table("Table 1: Special Causes With the Charts that Signaled Them", ts_, {"what": "What was caught", "chart": "Chart", "events": "Events", "alarms": "Alarms"}, bold_cols=("Events",))
     fc = stf["finding_class"].value_counts(); nf_q = stp[stp["finding_class"] == "nothing found"]; n3 = nf_q[nf_q["press_id"] == "PR-03"]
-    pg.p(f"The per-stroke charts stopped the presses {n(len(stp), 'mart_per_stroke_stops: stops, quarter', was='139')} times on {n(srq['strokes'].sum() / 1e6, 'mart_per_stroke_stop_rates.strokes, quarter, millions', '{:.1f}', was='23.2')} million strokes, "
-         f"{n(len(stf), 'stops with a finding, quarter', was='112')} on a finding: {n(int(fc['slug pulling']), 'slug pulling, quarter', was='68')} ({pct(fc['slug pulling'] / len(stf), 'slug pulling share of stops with a finding, quarter', 0)}) due to slug pulling, "
+    pg.p(f"The per-stroke charts stopped the presses on {n(len(stp), 'mart_per_stroke_stops: stops, quarter', was='139')} signals across {n(srq['strokes'].sum() / 1e6, 'mart_per_stroke_stop_rates.strokes, quarter, millions', '{:.1f}', was='23.2')} million strokes in the quarter. "
+         f"{n(len(stf), 'stops with a finding, quarter', was='112')} of these signals were found to have a special cause: {n(int(fc['slug pulling']), 'slug pulling, quarter', was='68')} ({pct(fc['slug pulling'] / len(stf), 'slug pulling share of stops with a finding, quarter', 0)}) due to slug pulling, "
          f"{n(int(fc['chipped punch']), 'chipped punch, quarter', was='23')} ({pct(fc['chipped punch'] / len(stf), 'chipped punch share of stops with a finding, quarter', 0)}) due to chipped punches and "
          f"{n(int(fc['worn punch']), 'worn punch, quarter', was='21')} ({pct(fc['worn punch'] / len(stf), 'worn punch share of stops with a finding, quarter', 0)}) due to worn punches. "
-         f"PR-03 carried {n(len(n3), 'nothing found on PR-03, quarter', was='18')} of the {n(len(nf_q), 'nothing found, quarter', was='27')} stops with nothing found.")
+         f"PR-03 carried {n(len(n3), 'nothing found on PR-03, quarter', was='18')} of the {n(len(nf_q), 'nothing found, quarter', was='27')} ({pct(len(n3) / len(nf_q), 'nothing found on PR-03, share of the quarter', 0)}) signals with no assignable cause.")
     for r in srq.itertuples():
         pg.figval(fno[0] + 1, f"{int(r.stops)}", f"mart_per_stroke_stop_rates.stops, quarter, {r.press_id}")
     pg.figure(FIG.stops_by_press(srq), F("Per-stroke tonnage stops by finding, by press"))
@@ -217,7 +220,12 @@ def build():
     assert sr["signals_rule_3"].sum() + sr["signals_rule_4"].sum() > sr["signals_rule_1"].sum() + sr["signals_rule_2"].sum()
     sch = sr.groupby("chart").agg(subgroups=("subgroups_in_scope", "sum"), signals=("signals_any_rule", "sum"), es=("es", "sum"))
     sch["observed per 100"] = 100 * sch["signals"] / sch["subgroups"]; sch["expected per 100"] = 100 * sch["es"] / sch["subgroups"]; sch["ratio"] = sch["signals"] / sch["es"]
-    pg.p(f"Signals with no assignable cause ran at {n(tot_s / tot_e, 'observed over expected, quarter', '{:.2f}', was='1.23')} times the expected rate, broadly across the plant; the excess is on rules 3 and 4 on the regression and X-bar and R charts, as in {D1_LINK}.")
+    BAND = {"X-bar and R": (0.9, 1.4), "three-way": (0.9, 1.4), "tool-wear": (0.9, 1.5)}
+    assert BAND["three-way"][0] <= sch.at["three-way", "ratio"] < 1.0 and sch.at["tool-wear", "ratio"] > BAND["tool-wear"][1]
+    pg.p(f"Signals with no assignable cause ran at {n(tot_s / tot_e, 'observed over expected, quarter', '{:.2f}', was='1.23')} times the expected rate, broadly across the plant. "
+         "The excess in the quarter was on rules 3 and 4 on the regression and X-bar and R charts. "
+         "The three-way chart signals were at the bottom of the expected range, and the regression chart signals well above it, as expected and detailed in the "
+         '<a href="control_chart_design.html">SPC Chart Design &amp; Performance</a> report.')
     sct = sch.loc[["X-bar and R", "three-way", "tool-wear"], ["observed per 100", "expected per 100", "ratio"]].reset_index()
     for r in sct.itertuples():
         pg.figval(fno[0] + 1, f"{r.ratio:.2f}", f"observed over expected, {r.chart}, quarter")
@@ -287,6 +295,14 @@ def build():
 
     toc = [("summary", "1. Summary"), ("capability", "2. Capability Review"),
            ("spc", "3. SPC Review"), ("signals", "3.1 Signals and Causes", "sub"), ("expected", "3.2 Observed vs. Expectations", "sub"), ("limits", "3.3 Control Limits", "sub"), ("measurement", "3.4 Measurement Systems", "sub")]
+    import re
+    ftitle = {}
+    for blk in pg.body:
+        for m_ in re.finditer(r"chart-title'>Figure (\d+): ([^<]+)</div>", blk):
+            ftitle[int(m_.group(1))] = m_.group(2)
+    pg.body = [re.sub(r"(chart-title'>)(?:Figure|Table) \d+: ", r"\1", blk) for blk in pg.body]
+    assert not any(re.search(r"chart-title'>(?:Figure|Table) \d+", blk) for blk in pg.body)
+    pg.trace[:] = [((f"Figure: {ftitle[int(t[0].split()[1])]}" if re.fullmatch(r"Figure \d+", t[0]) else t[0]),) + tuple(t[1:]) for t in pg.trace]
     html = S.report_shell("Quarterly Capability &amp; SPC Review, Q2 2026", "", "", "\n".join(pg.body), toc)
     out = S.DOCS / "reports"; out.mkdir(parents=True, exist_ok=True)
     (out / "spc_quarterly_review_2026_q2.html").write_text(html, encoding="utf8", newline="\n")
