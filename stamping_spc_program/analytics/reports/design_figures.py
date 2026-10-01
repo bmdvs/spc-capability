@@ -95,9 +95,16 @@ def recalculations(by_month, labels=False):
         v = by_month[t].values.astype(float); ax.bar(range(len(months)), v, bottom=bottom, color=TRIGGER_COLOURS[t], label=f"{t.replace('tool-wear re-fit', 'regression re-fit')} ({int(v.sum())})", width=0.7); bottom += v
     ax.set_xticks(range(len(months))); ax.set_xticklabels([pd.Timestamp(m + "-01").strftime("%b %Y") for m in months], rotation=45, ha="right")
     if labels:
+        base = np.zeros(len(months))
+        for t in [c for c in TRIGGER_COLOURS if c in by_month.columns]:
+            v = by_month[t].values.astype(float)
+            for i, (b0, vv) in enumerate(zip(base, v)):
+                if vv >= max(bottom) * 0.06:
+                    ax.text(i, b0 + vv / 2, f"{int(vv)}", ha="center", va="center", fontsize=8, color="white" if t != "annual review" else S.TEXT)
+            base += v
         for i, t in enumerate(bottom):
-            ax.text(i, t + max(bottom) * 0.015, f"{int(t)}", ha="center", va="bottom", fontsize=8.5)
-        ax.set_ylim(0, max(bottom) * 1.12)
+            ax.text(i, t + max(bottom) * 0.012, f"{int(t)}", ha="center", va="bottom", fontsize=8.5)
+        ax.set_ylim(0, max(bottom) * 1.07)
     ax.set_ylabel("New control limits set" if labels else "New limit sets"); ax.legend(frameon=False, ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.14))
     return S.save(f, "d1_recalculations_by_month_and_trigger", "New control limits set by trigger, last 12 months" if labels else "Recalculations by month and trigger")
 
@@ -107,7 +114,7 @@ def tool_wear_chart(g, centre, slope_per_100k, half_width, usl, lsl):
     x = g["shots_since_sharpening"].values / 1000
     ax.scatter(S.sig(x), S.sig(g["subgroup_mean"]), s=18, color=S.BRAND_BLUE, zorder=3, label="Subgroup mean")
     xs = np.array([0, x.max() * 1.03]); line = centre + slope_per_100k * xs * 1000 / 1e5
-    ax.plot(xs, line, color=S.DARK_GREY, linewidth=1.2, label="Regression centre line")
+    ax.plot(xs, line, color=S.DARK_GREY, linewidth=1.2, label="Regression center line")
     ax.plot(xs, line + half_width, color=S.RED, linestyle="--", linewidth=1, label="Sloped limits")
     ax.plot(xs, line - half_width, color=S.RED, linestyle="--", linewidth=1)
     ax.set_xlabel("Shots since sharpening (thousands)"); ax.set_ylabel("Hole diameter (mm)")
@@ -327,7 +334,40 @@ def wear_rate_by_die(ws, lo, hi, label_id, label_ref):
     return S.save(f, "d1_wear_rate_by_die", "Hole diameter wear rate by die")
 
 
-def stops_by_finding(t, order, charts, name="d1_stops_by_finding_and_chart", alt="Stops by the per-stroke charts, by finding and chart", legend_above=False):
+def no_cause_by_press(lp, med_obs, med_exp):
+    """lp: press_id, observed_per_week, alarms_per_week (expected). Paired columns per press, observed dark and expected light,
+    with the plant median of each as a dashed line."""
+    f, ax = S.fig(h=3.8)
+    x = np.arange(len(lp)); w = 0.38
+    ax.bar(x - w / 2, S.sig(lp["observed_per_week"]), width=w, color=S.BRAND_BLUE, label="Observed")
+    ax.bar(x + w / 2, S.sig(lp["alarms_per_week"]), width=w, color=S.LIGHT_BLUE, label="Expected")
+    ax.axhline(med_obs, color=S.BRAND_BLUE, linestyle="--", linewidth=1.2, label=f"Plant median, actual ({med_obs:.1f})")
+    ax.axhline(med_exp, color=S.AMBER, linestyle="--", linewidth=1.2, label=f"Plant median, expected ({med_exp:.1f})")
+    ax.set_xticks(x); ax.set_xticklabels(lp["press_id"]); ax.set_ylabel("Signals with no assignable cause a week")
+    ax.set_ylim(0, max(lp["observed_per_week"].max(), lp["alarms_per_week"].max()) * 1.15)
+    ax.legend(frameon=False, ncol=4, fontsize=8.5, loc="upper center", bbox_to_anchor=(0.5, -0.1))
+    return S.save(f, "d1_no_cause_observed_expected_by_press", "Signals with no assignable cause, observed vs. expected, per press and week")
+
+
+def signals_by_chart(f2, bands, labels):
+    """f2: chart, observed per 100, expected per 100, ratio, in page order. Grouped bars per chart type with the design band
+    (the observed rate the band allows) shaded behind the pair and the ratio above it."""
+    f, ax = S.fig(h=3.6)
+    w = 0.36
+    for i, r in f2.reset_index(drop=True).iterrows():
+        lo, hi = bands[r.chart]; e = float(r["expected per 100"]); o = float(r["observed per 100"])
+        ax.fill_between([i - 0.45, i + 0.45], e * lo, e * hi, color=S.LIGHT_BLUE, alpha=0.35, linewidth=0, label="Design band" if i == 0 else None)
+        ax.bar(i - w / 2, S.sig(o), width=w, color=S.BRAND_BLUE, label="Observed" if i == 0 else None)
+        ax.bar(i + w / 2, S.sig(e), width=w, color="white", edgecolor=S.BRAND_BLUE, linewidth=1.4, label="Expected" if i == 0 else None)
+        ax.text(i, max(o, e * hi) + 0.15, f"{r.ratio:.2f}x", ha="center", va="bottom", fontsize=9.5, fontweight="bold")
+    ax.set_xticks(range(len(f2))); ax.set_xticklabels([labels[c] for c in f2["chart"]])
+    ax.set_xlim(-0.6, len(f2) - 0.4); ax.set_ylabel("Signals per 100 routine subgroups")
+    ax.set_ylim(0, max(f2["observed per 100"].max(), (f2["expected per 100"] * 1.5).max()) * 1.2)
+    ax.legend(frameon=False, fontsize=8.5, loc="upper center", ncol=3, bbox_to_anchor=(0.5, -0.1))
+    return S.save(f, "d1_signals_against_expectation_by_chart", "Signals against expectation by chart type")
+
+
+def stops_by_finding(t, order, charts, name="d1_stops_by_finding_and_chart", alt="Stops by the per-stroke charts, by finding and chart", legend_above=False, legend_below=False):
     f, ax = S.fig(h=3.0, grid="x")
     y = np.arange(len(order)); left = np.zeros(len(order))
     for ch_, colour in zip(charts, (S.BRAND_BLUE, S.AMBER, S.GREY)):
@@ -340,7 +380,7 @@ def stops_by_finding(t, order, charts, name="d1_stops_by_finding_and_chart", alt
     for i, tot in enumerate(left):
         ax.text(tot + 3, i, f"{int(tot)}", va="center", fontsize=9)
     ax.set_yticks(y); ax.set_yticklabels(order); ax.invert_yaxis(); ax.set_xlim(0, left.max() * 1.12); ax.set_xlabel("Stops in the year")
-    ax.legend(frameon=False, ncol=3, fontsize=9, **({"loc": "lower center", "bbox_to_anchor": (0.5, 1.0)} if legend_above else {"loc": "lower right"}))
+    ax.legend(frameon=False, ncol=3, fontsize=9, **({"loc": "lower center", "bbox_to_anchor": (0.5, 1.0)} if legend_above else {"loc": "upper center", "bbox_to_anchor": (0.5, -0.24)} if legend_below else {"loc": "lower right"}))
     return S.save(f, name, alt)
 
 
@@ -452,14 +492,14 @@ def program_by_class(pv, parts, min_label=12):
     return S.save(f, "d1_charts_by_program_and_class", "Active SPC charts by program and control target")
 
 
-def flagged_bars(rows, name, labels=("Special cause", "No assignable cause")):
+def flagged_bars(rows, name, labels=("Special cause", "No assignable cause"), alt="What the charts flagged in the year"):
     """rows: group, a (special cause), b (no assignable cause), and optionally o (follow-on signals, between the two). One
     100% stacked horizontal bar per group, counts in the segments, the total at the bar's end."""
     f, ax = S.fig(h=0.75 * len(rows) + 1.4, grid="x")
     rows = rows.reset_index(drop=True); has_o = "o" in rows and len(labels) == 3
     y = np.arange(len(rows)); tot = (rows["a"] + (rows["o"] if has_o else 0) + rows["b"]).values.astype(float)
     segs = [("a", S.BRAND_BLUE, "white")] + ([("o", S.ACCENT, "white")] if has_o else []) + [("b", S.LIGHT_BLUE, S.TEXT)]
-    left = np.zeros(len(rows))
+    left = np.zeros(len(rows)); last_small = np.full(len(rows), -99.0)   # small labels sit above the bar, kept apart along it
     for (col, colour, tc), lab in zip(segs, labels if has_o else (labels[0], labels[-1])):
         w = np.where(tot > 0, 100 * rows[col].values / tot, 0)
         ax.barh(y, w, left=left, color=colour, height=0.6, label=lab)
@@ -467,13 +507,14 @@ def flagged_bars(rows, name, labels=("Special cause", "No assignable cause")):
             if rows.at[i, col] > 0 and w[i] >= 3:
                 ax.text(left[i] + w[i] / 2, i, f"{int(rows.at[i, col]):,}", ha="center", va="center", fontsize=8.5, color=tc)
             elif rows.at[i, col] > 0:
-                ax.text(left[i] + w[i] / 2, i - 0.34, f"{int(rows.at[i, col]):,}", ha="center", va="bottom", fontsize=8.5, color=S.TEXT)
+                x_ = max(left[i] + w[i] / 2, last_small[i] + 3.5); last_small[i] = x_
+                ax.text(x_, i - 0.34, f"{int(rows.at[i, col]):,}", ha="center", va="bottom", fontsize=8.5, color=S.TEXT)
         left += w
     for i in range(len(rows)):
         ax.text(102, i, f"{int(tot[i]):,}", va="center", fontsize=9)
     ax.set_yticks(y); ax.set_yticklabels(rows["group"]); ax.invert_yaxis(); ax.set_xlim(0, 112); ax.set_xlabel("Share of what was flagged (%)")
     ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.45, -0.28), fontsize=9)
-    return S.save(f, name, "What the charts flagged in the year")
+    return S.save(f, name, alt)
 
 
 def oot_by_class(rows, name):
@@ -559,7 +600,7 @@ def rules_found(rr, tw3, overall):
     a1.axvline(100 * overall, color=S.GREY, linestyle="--", linewidth=1)
     a1.set_yticks(ys + yt); a1.set_yticklabels(list(rr["row"]) + list(tw3["row"])); a1.invert_yaxis()
     a1.set_xlabel("Signals with a cause, first signals only (%)"); a1.set_xlim(0, None)
-    a2.set_xlabel("Special-cause events first signalled (%)"); a2.set_xlim(0, 100)
+    a2.set_xlabel("Special-cause events first signaled (%)"); a2.set_xlim(0, 100)
     return S.save(f, "d1_rules_found_the_causes", "Which rules found the causes")
 
 
@@ -592,7 +633,8 @@ SEG_COLOURS = {"Within subgroup": S.BRAND_BLUE, "Between subgroups": S.ACCENT, "
 def variance_bars(rows, name, title, label_all=True):
     """rows: (bar label, [(segment, share)]). Short stacked horizontal bars of variance shares; data labels on every segment
     of 3% or more, or on the within-subgroup segment only when label_all is False."""
-    f, ax = S.fig(h=0.42 * len(rows) + 1.05, grid="x")
+    ROW_IN = 0.8                                                     # axes inches per bar, the same on every variance figure
+    f, ax = S.fig(h=ROW_IN * len(rows) / 0.77, grid="x")               # 0.77: the axes' share of the figure height at the default margins
     seen = set()
     for i, (lab, segs) in enumerate(rows):
         left = 0.0
@@ -602,9 +644,9 @@ def variance_bars(rows, name, title, label_all=True):
             if (label_all and w >= 3) or (not label_all and seg == "Within subgroup"):
                 ax.text(left + w / 2, i, f"{w:.1f}%", ha="center", va="center", fontsize=8.5, color="white" if seg in ("Within subgroup", "Between subgroups", "Tool wear") else S.TEXT)
             left += w
-    ax.set_yticks(range(len(rows))); ax.set_yticklabels([r[0] for r in rows]); ax.invert_yaxis()
+    ax.set_yticks(range(len(rows))); ax.set_yticklabels([r[0] for r in rows]); ax.set_ylim(len(rows) - 0.5, -0.5)
     ax.set_xlim(0, 100); ax.set_xlabel("Share of variance, median across characteristics (%)")
     hs, ls_ = ax.get_legend_handles_labels(); order = [ls_.index(k) for k in SEG_COLOURS if k in ls_]
-    ax.legend([hs[i] for i in order], [ls_[i] for i in order], frameon=False, ncol=4, loc="upper center", bbox_to_anchor=(0.45, -0.52 if len(rows) == 1 else -0.36), fontsize=8.5)
+    ax.legend([hs[i] for i in order], [ls_[i] for i in order], frameon=False, ncol=4, loc="upper center", bbox_to_anchor=(0.45, -0.6 / (ROW_IN * len(rows))), fontsize=8.5)
     return S.save(f, name, title)
 
