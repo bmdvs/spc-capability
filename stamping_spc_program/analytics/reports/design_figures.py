@@ -499,7 +499,7 @@ def program_by_class(pv, parts, min_label=12):
     return S.save(f, "d1_charts_by_program_and_class", "Active SPC charts by program and control target")
 
 
-def flagged_bars(rows, name, labels=("Special cause", "No assignable cause"), alt="What the charts flagged in the year"):
+def flagged_bars(rows, name, labels=("Special cause", "No assignable cause"), alt="What the charts flagged in the year", legend_y=-0.28):
     """rows: group, a (special cause), b (no assignable cause), and optionally o (follow-on signals, between the two). One
     100% stacked horizontal bar per group, counts in the segments, the total at the bar's end."""
     f, ax = S.fig(h=0.75 * len(rows) + 1.4, grid="x")
@@ -520,7 +520,7 @@ def flagged_bars(rows, name, labels=("Special cause", "No assignable cause"), al
     for i in range(len(rows)):
         ax.text(102, i, f"{int(tot[i]):,}", va="center", fontsize=9)
     ax.set_yticks(y); ax.set_yticklabels(rows["group"]); ax.invert_yaxis(); ax.set_xlim(0, 112); ax.set_xlabel("Share of what was flagged (%)")
-    ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.45, -0.28), fontsize=9)
+    ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.45, legend_y), fontsize=9)
     return S.save(f, name, alt)
 
 
