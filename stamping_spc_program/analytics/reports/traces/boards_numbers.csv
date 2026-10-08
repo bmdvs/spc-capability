@@ -1,0 +1,71 @@
+section,value_as_printed,read_from
+"SPC board, PR-03",P-11333,"mart_board_current_run.part_id, run_id, die_id, production_start"
+"SPC board, PR-03","111,367",mart_board_run_strokes: rows on the run
+"SPC board, PR-03",1,stg_press_monitor__fault_events: per-stroke signals on the run to the board
+"SPC board, PR-03",22:39,mart_board_current_run.first_piece_check
+"SPC board, PR-03",6,mart_board_current_run.first_piece_characteristics
+"SPC board, PR-03",1,mart_board_current_run.first_piece_rule_1_signals
+"SPC board, PR-03",2025-12-18 17:04,mart_board_current_run.previous_run_last_piece_check
+"SPC board, PR-03",0.981,mart_board_current_run.certificate_thickness_mm
+"SPC board, PR-03",-0.9%,mart_board_current_run: certificate_thickness_mm over nominal_thickness_mm
+"SPC board, PR-03",0.99,mart_board_current_run.nominal_thickness_mm
+"SPC board, PR-03",23:28,mart_board_current_run.last_routine_check plus the frequency as recorded
+"SPC board, PR-03",30,"mart_control_plan.frequency_minutes_as_recorded, shortest on the part's variable characteristics"
+"SPC board, PR-03",22:58,mart_board_current_run.last_routine_check
+"SPC board, PR-03",-0.4%,mart_board_run_strokes.total_kn: EWMA at the board over mart_board_current_run.baseline_total_kn_mean
+"SPC board, PR-03",2.2%,"mart_board_current_run: baseline_total_kn_sd and baseline_lag_1_autocorrelation, with the chart parameters"
+"SPC board, PR-03",6,int_characteristic_history.alarm_rule_1 on the run to the board
+"SPC board, PR-03",1,int_characteristic_history: first-piece subgroups with alarm_rule_1
+"SPC board, PR-03",23,int_characteristic_history.pattern_flags on the run to the board
+"SPC board, PR-03",0,sharpening table: dies with shots since sharpening over the count at 80% of the burr limit
+"SPC board, PR-03",figure: per-stroke tonnage,mart_board_run_strokes; mart_board_current_run for the baseline
+"SPC board, PR-03",figure: manual checks,"int_characteristic_history on the run to the board: subgroup_mean, centre_line, ucl_mean, lcl_mean, alarm_rule_1, pattern_flags"
+"SPC board, PR-03",table: flags with the reaction plan,"int_characteristic_history; stg_spc__reaction_plan_steps, step 1"
+"SPC board, PR-03",table: sharpening,"mart_control_plan (dies of the press), int_sharpening_intervals, int_run_shots, stg_erp__dies; burr line from mart_wear_points"
+"SPC board, PR-03",table: stops,stg_press_monitor__fault_events
+"SPC board, PR-06",P-20417,"mart_board_current_run.part_id, run_id, die_id, production_start"
+"SPC board, PR-06","56,265",mart_board_run_strokes: rows on the run
+"SPC board, PR-06",0,stg_press_monitor__fault_events: per-stroke signals on the run to the board
+"SPC board, PR-06",15:56,mart_board_current_run.first_piece_check
+"SPC board, PR-06",10,mart_board_current_run.first_piece_characteristics
+"SPC board, PR-06",4,mart_board_current_run.first_piece_rule_1_signals
+"SPC board, PR-06",not recorded,mart_board_current_run.previous_run_last_piece_check
+"SPC board, PR-06",2.253,mart_board_current_run.certificate_thickness_mm
+"SPC board, PR-06",-2.0%,mart_board_current_run: certificate_thickness_mm over nominal_thickness_mm
+"SPC board, PR-06",2.30,mart_board_current_run.nominal_thickness_mm
+"SPC board, PR-06",23:58,mart_board_current_run.last_routine_check plus the frequency as recorded
+"SPC board, PR-06",60,"mart_control_plan.frequency_minutes_as_recorded, shortest on the part's variable characteristics"
+"SPC board, PR-06",22:58,mart_board_current_run.last_routine_check
+"SPC board, PR-06",-0.4%,mart_board_run_strokes.total_kn: EWMA at the board over mart_board_current_run.baseline_total_kn_mean
+"SPC board, PR-06",2.1%,"mart_board_current_run: baseline_total_kn_sd and baseline_lag_1_autocorrelation, with the chart parameters"
+"SPC board, PR-06",8,int_characteristic_history.alarm_rule_1 on the run to the board
+"SPC board, PR-06",4,int_characteristic_history: first-piece subgroups with alarm_rule_1
+"SPC board, PR-06",24,int_characteristic_history.pattern_flags on the run to the board
+"SPC board, PR-06",0,sharpening table: dies with shots since sharpening over the count at 80% of the burr limit
+"SPC board, PR-06",figure: per-stroke tonnage,mart_board_run_strokes; mart_board_current_run for the baseline
+"SPC board, PR-06",figure: manual checks,"int_characteristic_history on the run to the board: subgroup_mean, centre_line, ucl_mean, lcl_mean, alarm_rule_1, pattern_flags"
+"SPC board, PR-06",table: flags with the reaction plan,"int_characteristic_history; stg_spc__reaction_plan_steps, step 1"
+"SPC board, PR-06",table: sharpening,"mart_control_plan (dies of the press), int_sharpening_intervals, int_run_shots, stg_erp__dies; burr line from mart_wear_points"
+"SPC board, PR-09",P-36526,"mart_board_current_run.part_id, run_id, die_id, production_start"
+"SPC board, PR-09","39,312",mart_board_run_strokes: rows on the run
+"SPC board, PR-09",0,stg_press_monitor__fault_events: per-stroke signals on the run to the board
+"SPC board, PR-09",13:50,mart_board_current_run.first_piece_check
+"SPC board, PR-09",9,mart_board_current_run.first_piece_characteristics
+"SPC board, PR-09",1,mart_board_current_run.first_piece_rule_1_signals
+"SPC board, PR-09",2025-12-18 09:24,mart_board_current_run.previous_run_last_piece_check
+"SPC board, PR-09",2.422,mart_board_current_run.certificate_thickness_mm
+"SPC board, PR-09",+0.5%,mart_board_current_run: certificate_thickness_mm over nominal_thickness_mm
+"SPC board, PR-09",2.41,mart_board_current_run.nominal_thickness_mm
+"SPC board, PR-09",23:30,mart_board_current_run.last_routine_check plus the frequency as recorded
+"SPC board, PR-09",60,"mart_control_plan.frequency_minutes_as_recorded, shortest on the part's variable characteristics"
+"SPC board, PR-09",22:30,mart_board_current_run.last_routine_check
+"SPC board, PR-09",-0.5%,mart_board_run_strokes.total_kn: EWMA at the board over mart_board_current_run.baseline_total_kn_mean
+"SPC board, PR-09",2.3%,"mart_board_current_run: baseline_total_kn_sd and baseline_lag_1_autocorrelation, with the chart parameters"
+"SPC board, PR-09",6,int_characteristic_history.alarm_rule_1 on the run to the board
+"SPC board, PR-09",1,int_characteristic_history: first-piece subgroups with alarm_rule_1
+"SPC board, PR-09",33,int_characteristic_history.pattern_flags on the run to the board
+"SPC board, PR-09",1,sharpening table: dies with shots since sharpening over the count at 80% of the burr limit
+"SPC board, PR-09",figure: per-stroke tonnage,mart_board_run_strokes; mart_board_current_run for the baseline
+"SPC board, PR-09",figure: manual checks,"int_characteristic_history on the run to the board: subgroup_mean, centre_line, ucl_mean, lcl_mean, alarm_rule_1, pattern_flags"
+"SPC board, PR-09",table: flags with the reaction plan,"int_characteristic_history; stg_spc__reaction_plan_steps, step 1"
+"SPC board, PR-09",table: sharpening,"mart_control_plan (dies of the press), int_sharpening_intervals, int_run_shots, stg_erp__dies; burr line from mart_wear_points"

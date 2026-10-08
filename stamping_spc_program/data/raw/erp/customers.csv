@@ -1,0 +1,31 @@
+customer_id,customer_name,program,ppap_level,scorecard_frequency,ppm_target,status,created_at,export_batch_id
+CU-001,Halvorsen Automotive Systems,automotive,3,monthly,50.0,active,2009-06-18,20260106T053000Z-SPC36M
+CU-002,Tri-County Mobility Components,automotive,3,monthly,50.0,active,2012-09-21,20260106T053000Z-SPC36M
+CU-003,Lakeshore Appliance,appliance,3,quarterly,150.0,active,2010-07-10,20260106T053000Z-SPC36M
+CU-004,Meridian Home Products,appliance,2,quarterly,150.0,active,2019-01-14,20260106T053000Z-SPC36M
+CU-005,Northfield Climate Systems,HVAC,2,none,250.0,active,2010-09-07,20260106T053000Z-SPC36M
+CU-006,Abbott Electrical Supply,industrial,1,none,,active,2011-01-06,20260106T053000Z-SPC36M
+CU-007,Baxter Controls,industrial,2,none,,active,2010-11-11,20260106T053000Z-SPC36M
+CU-008,Carrow Industrial,industrial,2,none,,active,2017-05-27,20260106T053000Z-SPC36M
+CU-009,Dunmore Lighting,industrial,1,none,,active,2017-05-07,20260106T053000Z-SPC36M
+CU-010,Eastgate Power Products,industrial,2,none,,active,2011-04-05,20260106T053000Z-SPC36M
+CU-011,Fenwick Tool Works,industrial,2,none,,active,2016-04-24,20260106T053000Z-SPC36M
+CU-012,Garland Switchgear,industrial,2,none,,active,2019-01-11,20260106T053000Z-SPC36M
+CU-013,Hartwell Fasteners,industrial,2,none,,active,2020-03-13,20260106T053000Z-SPC36M
+CU-014,Ironbridge Equipment,industrial,1,none,,active,2012-01-22,20260106T053000Z-SPC36M
+CU-015,Jessup Connectors,industrial,1,none,,active,2020-02-18,20260106T053000Z-SPC36M
+CU-016,Kessler Outdoor Products,industrial,1,none,,active,2009-06-24,20260106T053000Z-SPC36M
+CU-017,Linden Hardware,electrical,1,none,,active,2016-10-04,20260106T053000Z-SPC36M
+CU-018,Marlow Instruments,electrical,2,none,,active,2012-02-23,20260106T053000Z-SPC36M
+CU-019,Norcross Motors,electrical,2,none,,active,2015-07-10,20260106T053000Z-SPC36M
+CU-020,Oakhurst Furniture Hardware,electrical,1,none,,active,2018-06-16,20260106T053000Z-SPC36M
+CU-021,Prescott Pumps,electrical,1,none,,active,2021-02-03,20260106T053000Z-SPC36M
+CU-022,Quincy Enclosures,electrical,1,none,,active,2015-12-02,20260106T053000Z-SPC36M
+CU-023,Ridgeway Conveyors,electrical,1,none,,active,2015-05-09,20260106T053000Z-SPC36M
+CU-024,Stanfield Wiring Devices,electrical,2,none,,active,2013-11-07,20260106T053000Z-SPC36M
+CU-025,Tolland Agricultural,electrical,1,none,,active,2021-06-07,20260106T053000Z-SPC36M
+CU-026,Underhill Valve,consumer,1,none,,active,2015-04-01,20260106T053000Z-SPC36M
+CU-027,Vickery Cabinets,consumer,1,none,,active,2018-01-02,20260106T053000Z-SPC36M
+CU-028,Westbrook Relay,consumer,2,none,,active,2014-11-22,20260106T053000Z-SPC36M
+CU-029,Yardley Sporting Goods,consumer,2,none,,active,2018-03-04,20260106T053000Z-SPC36M
+CU-030,Zeller Metering,consumer,1,none,,active,2010-01-16,20260106T053000Z-SPC36M

@@ -1,0 +1,7 @@
+spc_program:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('SPC_DUCKDB_PATH', '../../data/spc.duckdb') }}"
+      threads: 4

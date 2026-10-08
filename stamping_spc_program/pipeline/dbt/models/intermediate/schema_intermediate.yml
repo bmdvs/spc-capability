@@ -1,0 +1,182 @@
+version: 2
+
+models:
+  - name: int_press_redesign
+    description: The date the redesign took effect on each press, from the reaction plan steps in the record.
+    columns:
+      - name: press_id
+        tests: [not_null, unique]
+      - name: redesign_date
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: int_die_event_timeline
+    description: The die maintenance log in order, with the sharpening interval each event falls in.
+    columns:
+      - name: die_event_id
+        tests: [not_null, unique]
+      - name: die_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_erp__dies')
+                field: die_id
+      - name: sharpening_interval_no
+        tests:
+          - not_null
+          - in_range:
+              arguments:
+                min_value: 0
+  - name: int_sharpening_intervals
+    description: Sharpening intervals by die, from one sharpening or rebuild to the next.
+    columns:
+      - name: starting_die_event_id
+        tests: [not_null, unique]
+      - name: interval_start
+        tests: [not_null]
+  - name: int_run_shots
+    description: Production runs with the die's sharpening interval and the shots since the sharpening at the start of the run.
+    columns:
+      - name: run_id
+        tests: [not_null, unique]
+      - name: press_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_erp__presses')
+                field: press_id
+      - name: shots_since_sharpening_at_start
+        tests:
+          - in_range:
+              arguments:
+                min_value: 0
+      - name: coils_on_run
+        tests:
+          - in_range:
+              arguments:
+                min_value: 1
+                max_value: 12
+  - name: int_coil_assignment
+    description: The coil in force at each subgroup, recorded or recovered, and how it was assigned.
+    columns:
+      - name: subgroup_id
+        tests: [not_null, unique]
+      - name: coil_assignment
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['recorded', 'recovered: one coil on the run', 'recovered: same coil scanned before and after', 'unassigned']
+      - name: coil_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_erp__coils')
+                field: coil_id
+  - name: int_gauge_status
+    description: Periods in which a gauge was past its calibration due date or out of service for calibration.
+    columns:
+      - name: calibration_id
+        tests: [not_null, unique]
+  - name: int_stroke_run_alignment
+    description: The press monitor clock against the SPC terminal clock, by run.
+    columns:
+      - name: run_id
+        tests: [not_null, unique]
+      - name: monitor_offset_seconds
+        tests:
+          - not_null
+          - in_range:
+              arguments:
+                min_value: -120
+                max_value: 120
+  - name: int_characteristic_history
+    description: Every subgroup with its run, press, die, sharpening interval, characteristic, coil, limits in force, alarms and gauge status. The plausibility rule is applied here.
+    columns:
+      - name: subgroup_id
+        tests: [not_null, unique]
+      - name: characteristic_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_spc__characteristics')
+                field: characteristic_id
+      - name: run_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_erp__production_runs')
+                field: run_id
+      - name: press_id
+        tests: [not_null]
+      - name: implausible_readings
+        tests:
+          - not_null
+          - in_range:
+              arguments:
+                min_value: 0
+                max_value: 5
+      - name: entry_method
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['keyed', 'gauge-connected', 'paper transcription']
+      - name: subgroup_range
+        tests:
+          - in_range:
+              arguments:
+                min_value: 0
+      - name: export_batch_id
+        tests: [not_null]
+  - name: int_run_checks
+    description: The times at which parts were checked on each run, with what was checked.
+    columns:
+      - name: run_id
+        tests: [not_null]
+      - name: check_time
+        tests: [not_null]
+  - name: int_sorting_event_trace
+    description: Each sorting event traced to its nonconformance, run, the check at which it was found, the check before, and the die work that followed.
+    columns:
+      - name: sorting_event_id
+        tests: [not_null, unique]
+      - name: run_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_erp__production_runs')
+                field: run_id
+      - name: traced_to
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['customer complaint', 'die event between two checks', 'press check, no die work logged within three days']
+      - name: sort_basis
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['sorted at the customer', 'sorted from a logged die-protection fault', 'fault logged at the check before; basis not distinguishable', 'sorted back to the check before, in-house', 'sorted back to the check before, sorting service']
+  - name: int_press_stroke_rate
+    description: The strokes a press makes against the strokes its run speed would give, by press.
+    columns:
+      - name: press_id
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              arguments:
+                to: ref('stg_erp__presses')
+                field: press_id
+      - name: realised_share_of_run_speed
+        tests:
+          - not_null
+          - in_range:
+              arguments:
+                min_value: 0.2
+                max_value: 1.0
+

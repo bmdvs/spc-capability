@@ -1,0 +1,32 @@
+section,value_as_printed,read_from
+1. In force,276,mart_control_plan: rows
+1. In force,30,mart_control_plan: distinct part_id
+1. In force,27,mart_control_plan: distinct part_id less the three in full
+1. In force,48,mart_control_plan: variable characteristics with pct_grr_of_tolerance null
+1. In force,table: charts in force,"mart_control_plan.chart_in_force, critical, part_id"
+2. P-20417,2.30,mart_control_plan.thickness_mm
+2. P-20417,1,mart_control_plan.parts_per_stroke
+2. P-20417,64,mart_control_plan.run_speed_spm
+2. P-20417,4,mart_control_plan.load_cell_channels
+2. P-20417,table: control plan,"mart_control_plan: specification, gauge, study, subgroup, frequency as recorded and in the master, parts_between_checks_at_run_speed"
+2. P-20417,table: charts in force,"mart_control_plan: limit set in force (mart_limits_as_set), reaction_plan_steps; int_die_event_timeline for the last sharpening"
+2. P-20417,table: sharpening,"stg_erp__dies, int_die_event_timeline, int_sharpening_intervals; burr line from mart_wear_points (die wear analysis)"
+3. P-31102,0.89,mart_control_plan.thickness_mm
+3. P-31102,2,mart_control_plan.parts_per_stroke
+3. P-31102,34,mart_control_plan.run_speed_spm
+3. P-31102,4,mart_control_plan.load_cell_channels
+3. P-31102,table: control plan,"mart_control_plan: specification, gauge, study, subgroup, frequency as recorded and in the master, parts_between_checks_at_run_speed"
+3. P-31102,table: charts in force,"mart_control_plan: limit set in force (mart_limits_as_set), reaction_plan_steps; int_die_event_timeline for the last sharpening"
+3. P-31102,table: sharpening,"stg_erp__dies, int_die_event_timeline, int_sharpening_intervals; burr line from mart_wear_points (die wear analysis)"
+4. P-10823,0.89,mart_control_plan.thickness_mm
+4. P-10823,2,mart_control_plan.parts_per_stroke
+4. P-10823,196,mart_control_plan.run_speed_spm
+4. P-10823,2,mart_control_plan.load_cell_channels
+4. P-10823,table: control plan,"mart_control_plan: specification, gauge, study, subgroup, frequency as recorded and in the master, parts_between_checks_at_run_speed"
+4. P-10823,table: charts in force,"mart_control_plan: limit set in force (mart_limits_as_set), reaction_plan_steps; int_die_event_timeline for the last sharpening"
+4. P-10823,table: sharpening,"stg_erp__dies, int_die_event_timeline, int_sharpening_intervals; burr line from mart_wear_points (die wear analysis)"
+5. Reaction plan,table: reaction plan steps,stg_spc__reaction_plan_steps on the characteristics of mart_control_plan
+6. Per-stroke monitoring,table: channels and chart parameters,mart_control_plan.load_cell_channels; the chart parameters as designed (per-stroke analysis)
+7. The other parts,table: one row per part,mart_control_plan by part; dies as in the sharpening tables
+8. Count of characteristics,table: count check,mart_control_plan.chart_in_force by press_id
+8. Count of characteristics,table: gauges with no measurement study,"mart_control_plan: variable characteristics with pct_grr_of_tolerance null, by gauge_id"

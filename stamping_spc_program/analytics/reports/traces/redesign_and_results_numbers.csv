@@ -1,0 +1,156 @@
+section,value_as_printed,read_from
+1. Findings,112,"stops_by_chart.stops, both charts"
+1. Findings,70,"stops_by_chart: punch worn and punch chipped, both charts"
+1. Findings,24,"stops_by_chart.slug pulling cleared, both charts"
+1. Findings,18,"stops_by_chart.nothing found, both charts"
+1. Findings,0.88,"stops_with_nothing_found.nothing_found_per_million_strokes, pilot presses"
+1. Findings,70,"punch_replacements: after a stop, 2025"
+1. Findings,70,"punch_replacements: all, 2025"
+1. Findings,13,punch_break_summary.punch_breaks_stopped_by_the_charts
+1. Findings,"5,990","sorting_before_and_under_monitoring.parts_since_the_check_before_median, hourly check"
+1. Findings,7,"sorting.sorting_events, pilot 2024"
+1. Findings,5,"sorting.sorting_events, pilot 2025"
+1. Findings,0.77,"sorting.p_2025_against_this_year, pilot 2024"
+1. Findings,"29,184","sorting.quantity_sorted, pilot 2024"
+1. Findings,"11,929","sorting.quantity_sorted, pilot 2025"
+1. Findings,389,"ppm.ppm, pilot 2024"
+1. Findings,118,"ppm.ppm, pilot 2025"
+1. Findings,0.0046,"ppm.p_2025_against_this_year, pilot 2024"
+1. Findings,198,"ppm.ppm, pilot 2023"
+1. Findings,0.45,"ppm.p_2025_against_this_year, pilot 2023"
+1. Findings,2.60%,"scrap_and_rework.scrap_and_rework_share_of_revenue, pilot 2024"
+1. Findings,1.69%,"scrap_and_rework.scrap_and_rework_share_of_revenue, pilot 2025"
+1. Findings,83,"capability.characteristics, pilot formed 2025"
+1. Findings,1.00,"capability.ppk_median, pilot formed 2024"
+1. Findings,0.95,"capability.ppk_low, pilot formed 2024"
+1. Findings,1.07,"capability.ppk_high, pilot formed 2024"
+1. Findings,1.43,"capability.ppk_median, pilot formed 2025"
+1. Findings,1.38,"capability.ppk_low, pilot formed 2025"
+1. Findings,1.45,"capability.ppk_high, pilot formed 2025"
+1. Findings,1.64,"capability.cpk_median, pilot formed 2024"
+1. Findings,1.75,"capability.cpk_median, pilot formed 2025"
+1. Findings,15.1,"signals.alarm_signals_per_100_subgroups, pilot 2024"
+1. Findings,4.4,"signals.alarm_signals_per_100_subgroups, pilot 2025"
+1. Findings,99%,"signals.acknowledgement_or_adjustment_share, pilot 2025"
+1. Findings,64%,"signals.acknowledgement_or_adjustment_share, pilot 2024"
+1. Findings,7.7%,"gauge_rr.pct_tolerance, F-20417 after rebuild"
+1. Findings,9.5%,"gauge_rr.pct_tolerance, F-31102 after rebuild"
+1. Findings,92%,"attribute_agreement.against_reference, after new limit samples"
+1. Findings,0.04,"autocorrelation.lag_1_autocorrelation, pilot adjusted"
+1. Findings,2.1%,"entry_after_the_parts.share, pilot gauge-connected 2025"
+2. The redesign by characteristic class,897,reaction_plan.characteristics
+2. The redesign by characteristic class,30,mart_control_plan: attribute burr characteristics
+2. The redesign by characteristic class,30,mart_control_plan: burr gauge characteristics with no limit set in force
+"3. Measurement, adjustment and recording after the redesign",7.7%,"gauge_rr.pct_tolerance, F-20417 after rebuild"
+"3. Measurement, adjustment and recording after the redesign",9.5%,"gauge_rr.pct_tolerance, F-31102 after rebuild"
+"3. Measurement, adjustment and recording after the redesign",20,"gauge_rr.ndc, F-20417 after rebuild"
+"3. Measurement, adjustment and recording after the redesign",12,"gauge_rr.ndc, F-31102 after rebuild"
+"3. Measurement, adjustment and recording after the redesign",9%,"gauge_rr.reproducibility_share_of_grr, F-20417 after rebuild"
+"3. Measurement, adjustment and recording after the redesign",15%,"gauge_rr.reproducibility_share_of_grr, F-31102 after rebuild"
+"3. Measurement, adjustment and recording after the redesign",92%,"attribute_agreement.against_reference, after new limit samples"
+"3. Measurement, adjustment and recording after the redesign",0.78,"attribute_agreement.fleiss_kappa, after"
+"3. Measurement, adjustment and recording after the redesign",0.67,"attribute_agreement.kappa_low, after"
+"3. Measurement, adjustment and recording after the redesign",0.88,"attribute_agreement.kappa_high, after"
+"3. Measurement, adjustment and recording after the redesign",80%,"attribute_agreement.against_reference, assessment"
+"3. Measurement, adjustment and recording after the redesign",0.44,"attribute_agreement.fleiss_kappa, assessment"
+"3. Measurement, adjustment and recording after the redesign",50,attribute_agreement.parts
+"3. Measurement, adjustment and recording after the redesign",2,attribute_agreement.trials
+"3. Measurement, adjustment and recording after the redesign",6,attribute_by_operator: operators
+"3. Measurement, adjustment and recording after the redesign",7,"attribute_by_operator: widest reject rate less the burr gauge, after"
+"3. Measurement, adjustment and recording after the redesign","2,776",after_the_reaction_plan.following_a_rule_1_alarm
+"3. Measurement, adjustment and recording after the redesign",49,after_the_reaction_plan.at_a_coil_change
+"3. Measurement, adjustment and recording after the redesign",96.7%,after_the_reaction_plan: rule_1_alarms_with_an_adjustment_recorded over rule_1_alarms
+"3. Measurement, adjustment and recording after the redesign",0.04,"autocorrelation.lag_1_autocorrelation, pilot adjusted"
+"3. Measurement, adjustment and recording after the redesign",0.02,"autocorrelation.low, pilot adjusted"
+"3. Measurement, adjustment and recording after the redesign",0.07,"autocorrelation.high, pilot adjusted"
+"3. Measurement, adjustment and recording after the redesign",-0.15,"autocorrelation.lag_1_autocorrelation, 2024 adjusted"
+"3. Measurement, adjustment and recording after the redesign",-0.05,"autocorrelation.lag_1_autocorrelation, pilot not adjusted"
+"3. Measurement, adjustment and recording after the redesign",-0.07,"autocorrelation.lag_1_autocorrelation, 2024 not adjusted"
+"3. Measurement, adjustment and recording after the redesign",14.8%,"entry_after_the_parts.share, pilot keyed 2024"
+"3. Measurement, adjustment and recording after the redesign",2.1%,"entry_after_the_parts.share, pilot gauge-connected 2025"
+"3. Measurement, adjustment and recording after the redesign",15.2%,"entry_after_the_parts.share, pilot keyed attribute checks 2025"
+"3. Measurement, adjustment and recording after the redesign",90.2%,"pilot_planned_checks.recorded_share, PR-03 nights 2024"
+"3. Measurement, adjustment and recording after the redesign",99.3%,"pilot_planned_checks.recorded_share, PR-03 nights 2025"
+"3. Measurement, adjustment and recording after the redesign",80.8%,"pilot_planned_checks.recorded_share, PR-06 nights 2024"
+"3. Measurement, adjustment and recording after the redesign",89.7%,"pilot_planned_checks.recorded_share, PR-06 nights 2025"
+"3. Measurement, adjustment and recording after the redesign",79.2%,"pilot_planned_checks.recorded_share, PR-09 nights 2024"
+"3. Measurement, adjustment and recording after the redesign",88.6%,"pilot_planned_checks.recorded_share, PR-09 nights 2025"
+"3. Measurement, adjustment and recording after the redesign",0.9,"entry_after_the_parts.minutes_to_entry_median, gauge-connected 2025"
+4. Per-stroke monitoring,1.8%,"rise_before_the_stop.rise_against_the_first_500_median, worn punch on the EWMA"
+4. Per-stroke monitoring,1.4%,rise_before_the_stop.rise_p10
+4. Per-stroke monitoring,2.1%,rise_before_the_stop.rise_p90
+4. Per-stroke monitoring,48,"rise_before_the_stop.stops, worn punch on the EWMA"
+4. Per-stroke monitoring,1.8%,"rise_rows.rise_against_the_first_500, the stop shown"
+4. Per-stroke monitoring,18%,"punch_breaks.fall_in_the_channel_peak, the stop shown"
+4. Per-stroke monitoring,13,punch_break_summary.punch_breaks_stopped_by_the_charts
+4. Per-stroke monitoring,7.3%,punch_break_summary.fall_lowest
+4. Per-stroke monitoring,20.9%,punch_break_summary.fall_highest
+4. Per-stroke monitoring,24,"stops_by_chart.slug pulling cleared, both charts"
+4. Per-stroke monitoring,17,"stops_by_press.slug pulling cleared, PR-09"
+4. Per-stroke monitoring,14,"stops_by_chart.nothing found, EWMA"
+4. Per-stroke monitoring,9,rise_rows: EWMA stops with nothing found and a fall in the total
+4. Per-stroke monitoring,5,rise_rows: EWMA stops with nothing found and a rise in the total
+4. Per-stroke monitoring,0.9%,"rise_rows: smallest shift, EWMA nothing found"
+4. Per-stroke monitoring,1.5%,"rise_rows: largest shift, EWMA nothing found"
+4. Per-stroke monitoring,0.88,"stops_with_nothing_found.nothing_found_per_million_strokes, pilot presses"
+4. Per-stroke monitoring,0.52,stops_with_nothing_found.low
+4. Per-stroke monitoring,1.39,stops_with_nothing_found.high
+4. Per-stroke monitoring,2.0,stops_with_nothing_found.design_false_signals_per_million_at_most
+4. Per-stroke monitoring,70,"punch_replacements: all, 2025"
+4. Per-stroke monitoring,61,"punch_replacements: all, 2023"
+4. Per-stroke monitoring,51,"punch_replacements: all, 2024"
+4. Per-stroke monitoring,"1,084",sorting_under_monitoring.quantity_sorted
+4. Per-stroke monitoring,808,sorting_under_monitoring.quantity_rejected
+5. Outcomes,4,pilot_sorting_starts.started_in_march
+5. Outcomes,5,pilot_sorting_starts.sorting_events
+5. Outcomes,1,pilot_sorting_starts: sorting_events less started_before_per_stroke_monitoring
+5. Outcomes,8,"sorting.sorting_events, pilot 2023"
+5. Outcomes,0.58,"sorting.p_2025_against_this_year, pilot 2023"
+5. Outcomes,"3,509","sorting.cost_booked_or_estimated, pilot 2024"
+5. Outcomes,620,"sorting.cost_booked_or_estimated, pilot 2025"
+5. Outcomes,30,"ppm.complaints, pilot 2024"
+5. Outcomes,16,"ppm.complaints, pilot 2023"
+5. Outcomes,6,"pilot_complaints_by_month.complaints, March 2025"
+5. Outcomes,11,"ppm.complaints, pilot 2025"
+5. Outcomes,107,"ppm.low, pilot 2023"
+5. Outcomes,306,"ppm.high, pilot 2023"
+5. Outcomes,253,"ppm.low, pilot 2024"
+5. Outcomes,550,"ppm.high, pilot 2024"
+5. Outcomes,53,"ppm.low, pilot 2025"
+5. Outcomes,192,"ppm.high, pilot 2025"
+5. Outcomes,0.84,"scrap_and_rework.pieces_scrapped_share, pilot 2025 less 2024"
+5. Outcomes,0.20,"scrap_and_rework.pieces_scrapped_share, comparison 2025 less 2024"
+5. Outcomes,0.57,"scrap_and_rework.pieces_scrapped_share, rollout 2025 less 2024"
+5. Outcomes,0.64,scrap_and_rework.pieces_scrapped_share: pilot change less comparison change
+5. Outcomes,15,"burr.intervals_with_burr_over_the_limit, pilot 2024"
+5. Outcomes,77,"burr.intervals_with_burr_gauge_subgroups, pilot 2024"
+5. Outcomes,7,"burr.intervals_with_burr_over_the_limit, pilot 2025"
+5. Outcomes,94,"burr.intervals_with_burr_gauge_subgroups, pilot 2025"
+5. Outcomes,83,capability_by_characteristic: pilot formed characteristics in both years
+5. Outcomes,76,capability_by_characteristic: Ppk higher in 2025
+5. Outcomes,72,capability_by_characteristic: Ppk under 1.33 in 2024
+5. Outcomes,21,capability_by_characteristic: Ppk under 1.33 in 2025
+5. Outcomes,3,"sorting.sorting_events, comparison 2024"
+5. Outcomes,6,"sorting.sorting_events, comparison 2025"
+5. Outcomes,0.51,"sorting.p_2025_against_this_year, comparison 2024"
+5. Outcomes,328,"ppm.ppm, comparison 2024"
+5. Outcomes,382,"ppm.ppm, comparison 2025"
+5. Outcomes,0.47,"ppm.p_2025_against_this_year, comparison 2024"
+5. Outcomes,1.19,"capability.ppk_median, comparison formed 2024"
+5. Outcomes,1.03,"capability.ppk_median, comparison formed 2025"
+5. Outcomes,3,"capability.characteristics, comparison formed 2024"
+5. Outcomes,2,"capability.characteristics, comparison formed 2025"
+5. Outcomes,226,"ppm.ppm, rollout 2024"
+5. Outcomes,316,"ppm.ppm, rollout 2025"
+5. Outcomes,6,"ppm.complaints, rollout 2024"
+5. Outcomes,6,"burr.burr_nonconformances_at_the_press_check, rollout 2024"
+5. Outcomes,10,"burr.burr_nonconformances_at_the_press_check, rollout 2025"
+6. Residuals,"7 to 5, p = 0.77",sorting
+6. Residuals,"198 to 118, p = 0.45",ppm
+6. Residuals,PPM 226 to 316; burr 6 to 10,"ppm and burr, rollout"
+6. Residuals,"1,084 sorted, 808 rejected",sorting_under_monitoring
+6. Residuals,"18, 0.88 per 1,000,000 strokes",stops_by_chart and stops_with_nothing_found
+6. Residuals,15.2% entered more than 20 minutes after the parts,entry_after_the_parts
+6. Residuals,89.7% and 88.6% of planned checks recorded,pilot_planned_checks
+6. Residuals,"5.7 per 100 subgroups in March, 4.1 in December","rule_1_by_month.rule_1_per_100_subgroups, first and last month"
+6. Residuals,15 of 77 intervals to 7 of 94,"burr.intervals_with_burr_over_the_limit and intervals_with_burr_gauge_subgroups, pilot"

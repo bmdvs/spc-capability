@@ -1,0 +1,45 @@
+version: 2
+
+sources:
+  - name: raw
+    description: The system exports as loaded, one table per export file, every column as text.
+    schema: raw
+    tables:
+      - name: erp__coils
+      - name: erp__customers
+      - name: erp__dies
+      - name: erp__employees
+      - name: erp__export_batch
+      - name: erp__parts
+      - name: erp__presses
+      - name: erp__production_runs
+      - name: erp__scrap_transactions
+      - name: erp__shipments
+      - name: spc__alarms
+      - name: spc__characteristics
+      - name: spc__control_limits
+      - name: spc__export_batch
+      - name: spc__reaction_plan_steps
+      - name: spc__subgroups
+      - name: spc__weekly_reviews
+      - name: press_monitor__export_batch
+      - name: press_monitor__fault_events
+      - name: press_monitor__tonnage_windows
+      - name: qms__capability_reports
+      - name: qms__complaints
+      - name: qms__corrective_actions
+      - name: qms__dock_audits
+      - name: qms__export_batch
+      - name: qms__nonconformances
+      - name: qms__ppap_studies
+      - name: qms__scorecards
+      - name: qms__sorting_events
+      - name: die_room__die_events
+      - name: die_room__export_batch
+      - name: calibration__calibrations
+      - name: calibration__export_batch
+      - name: calibration__gauge_studies
+      - name: calibration__gauges
+      - name: accounting__contribution
+      - name: accounting__export_batch
+      - name: accounting__quality_cost_lines
