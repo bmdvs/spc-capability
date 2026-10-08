@@ -1,0 +1,5 @@
+# every text file is checked out with LF line endings on every platform
+* text=auto eol=lf
+*.parquet binary
+*.gz binary
+*.png binary
