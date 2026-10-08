@@ -1,0 +1,16 @@
+# environments
+.venv/
+venv/
+.env
+
+# caches
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# databases
+*.duckdb
+*.duckdb.wal
