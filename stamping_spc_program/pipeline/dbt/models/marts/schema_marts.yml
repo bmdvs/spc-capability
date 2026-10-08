@@ -1,0 +1,353 @@
+version: 2
+
+models:
+  - name: mart_limits_as_set
+    description: The limit sets the shop had in force on each characteristic, as recorded, with the die work since each took effect.
+    columns:
+      - name: limit_set_id
+        tests: [not_null, unique]
+      - name: characteristic_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_spc__characteristics')
+                field: characteristic_id
+      - name: method
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['rolling 25 at entry', 'PPAP study', 'baseline after sharpening', 'tool-wear regression']
+      - name: sharpenings_while_in_force_to_assessment
+        tests:
+          - in_range:
+              arguments:
+                min_value: 0
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_limits_as_computed
+    description: X-bar and R limits from a stable baseline of 25 subgroups after each sharpening, by characteristic and sharpening interval of the baseline year.
+    columns:
+      - name: characteristic_id
+        tests: [not_null]
+      - name: baseline_basis
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['stable on rules 1 to 4', 'stable on rule 1 only', 'not stable', 'fewer than 40 usable subgroups']
+      - name: mean_range
+        tests:
+          - in_range:
+              arguments:
+                min_value: 0
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_limits_subgroup_flags
+    description: Subgroups of the baseline year after each baseline window, with the signal raised under the limits as set and the signal under the limits as computed.
+    columns:
+      - name: subgroup_id
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              arguments:
+                to: ref('int_characteristic_history')
+                field: subgroup_id
+      - name: limits_as_set_method
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['rolling 25 at entry', 'PPAP study']
+      - name: signal_as_computed_rule_1
+        tests: [not_null]
+  - name: mart_limits_chart_audit
+    description: The chart audit for the baseline year, one row per variable characteristic charted.
+    columns:
+      - name: characteristic_id
+        tests: [not_null, unique]
+      - name: limits_as_set_method
+        tests: [not_null]
+      - name: subgroups
+        tests:
+          - in_range:
+              arguments:
+                min_value: 1
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_capability_as_reported
+    description: Capability figures as the shop filed them or as its software printed them.
+    columns:
+      - name: report_id
+        tests: [not_null, unique]
+      - name: characteristic_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_spc__characteristics')
+                field: characteristic_id
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_capability_study_windows
+    description: Each PPAP study on a critical characteristic with the production window that followed it.
+    columns:
+      - name: study_id
+        tests: [not_null, unique]
+      - name: window_months
+        tests:
+          - in_range:
+              arguments:
+                min_value: 0
+                max_value: 12.1
+  - name: mart_capability_as_computed
+    description: Capability from the production record over each study window, with the filed figures beside.
+    columns:
+      - name: study_id
+        tests: [not_null, unique]
+      - name: sigma_within
+        tests:
+          - in_range:
+              arguments:
+                min_value: 0
+      - name: subgroups
+        tests:
+          - in_range:
+              arguments:
+                min_value: 100
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_capability_coil_means
+    description: Formed-characteristic level by coil with the coil's certificate and receiving values.
+    columns:
+      - name: coil_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_erp__coils')
+                field: coil_id
+      - name: subgroups
+        tests:
+          - in_range:
+              arguments:
+                min_value: 2
+  - name: mart_capability_cmm_matched
+    description: First-piece parts measured on the CMM and on the check fixture.
+    columns:
+      - name: die_event_id
+        tests: [not_null, unique]
+      - name: characteristic_id
+        tests: [not_null]
+  - name: mart_risk_window
+    description: Parts that pass between routine checks by press and part in the baseline year, by the plan and as recorded.
+    columns:
+      - name: press_id
+        tests: [not_null]
+      - name: part_id
+        tests: [not_null]
+      - name: parts_between_checks_by_plan
+        tests:
+          - in_range:
+              arguments:
+                min_value: 0
+  - name: mart_sorting_events
+    description: Sorting events with their trace, quantity sorted against the parts at risk, and hours and cost as booked and as estimated.
+    columns:
+      - name: sorting_event_id
+        tests: [not_null, unique]
+      - name: quantity_sorted
+        tests:
+          - in_range:
+              arguments:
+                min_value: 0
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_adjustment_points
+    description: Routine subgroup means in sequence on each run with the next subgroup beside each, for the adjustment analysis.
+    columns:
+      - name: subgroup_id
+        tests: [not_null, unique]
+      - name: adjusted_at_the_press
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_wear_points
+    description: Subgroup means of critical hole diameters and of burr height on the burr gauge against the die's shots since sharpening.
+    columns:
+      - name: subgroup_id
+        tests: [not_null, unique]
+      - name: shots_since_sharpening
+        tests: [not_null]
+      - name: reading_mean
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_burr_nonconformances
+    description: Burr nonconformances with the die's shots since sharpening at the end of the run and the die's sharpening interval.
+    columns:
+      - name: ncr_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_recording_routine_subgroups
+    description: Routine subgroups with the time each carries and the minutes from the parts to the entry.
+    columns:
+      - name: subgroup_id
+        tests: [not_null, unique]
+      - name: stamped_time
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_recording_planned_checks
+    description: The routine checks the control plan calls for on each run of two hours or more, with whether one was recorded.
+    columns:
+      - name: run_id
+        tests: [not_null]
+      - name: shift
+        tests:
+          - accepted_values:
+              values: ['days', 'nights']
+      - name: recorded
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_per_stroke_run_tonnage
+    description: Per-stroke tonnage by run on the presses with every stroke kept, with the lag-1 autocorrelation of the total and the baseline strokes.
+    columns:
+      - name: run_id
+        tests: [not_null, unique]
+      - name: production_strokes
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_per_stroke_stops
+    description: Stops by the per-stroke charts on the pilot presses with the toolmaker's finding and the die work logged against the stop.
+    columns:
+      - name: fault_event_id
+        tests: [not_null, unique]
+      - name: finding
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_per_stroke_stop_strokes
+    description: The strokes up to each stop by the per-stroke charts, with each channel's share of the total.
+    columns:
+      - name: fault_event_id
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_per_stroke_rollout_strokes
+    description: Strokes by press and month from the per-minute summaries of the press monitors.
+    columns:
+      - name: press_id
+        tests: [not_null]
+      - name: stroke_count
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_outcome_periods
+    description: The press sets and periods of the outcome comparison.
+    columns:
+      - name: press_set
+        tests: [not_null]
+  - name: mart_outcomes
+    description: Outcome counts by press set and period.
+    columns:
+      - name: press_set
+        tests: [not_null]
+      - name: pieces_shipped
+        tests: [not_null]
+      - name: revenue
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_outcome_complaints
+    description: Complaints with the press set and period each falls in.
+    columns:
+      - name: complaint_id
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_outcome_cost_lines
+    description: Quality cost lines as booked with the press each can be traced to.
+    columns:
+      - name: line_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_control_plan
+    description: The control plan as in force at the end of the record on the parts that run on the pilot presses, one row per characteristic.
+    columns:
+      - name: characteristic_id
+        tests: [not_null, unique]
+      - name: chart_in_force
+        tests: [not_null]
+      - name: press_id
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_board_current_run
+    description: The run on each pilot press at the time the SPC boards are drawn for, with its checks, coil and tonnage baseline.
+    columns:
+      - name: press_id
+        tests: [not_null, unique]
+      - name: run_id
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_board_run_strokes
+    description: The production strokes of the run on each pilot press up to the time the SPC boards are drawn for.
+    columns:
+      - name: run_id
+        tests: [not_null]
+      - name: total_kn
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_dashboard_complaints
+    description: Complaints with the press of their run and duplicate entries flagged.
+    columns:
+      - name: complaint_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_dashboard_monthly
+    description: The plant by month for the dashboard.
+    columns:
+      - name: month_start
+        tests: [not_null, unique]
+      - name: pieces_shipped
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_dashboard_ppm_by_customer
+    description: Customer PPM by month with the scorecard figure beside.
+    columns:
+      - name: customer_id
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_dashboard_by_press
+    description: Sorting events and alarm signals by press and month.
+    columns:
+      - name: press_id
+        tests: [not_null]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_dashboard_capability
+    description: Production capability by critical characteristic over the twelve months to the current month, with the PPAP figure beside.
+    columns:
+      - name: characteristic_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: mart_dashboard_gauge_studies
+    description: Gauge study status by check fixture.
+    columns:
+      - name: fixture_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+

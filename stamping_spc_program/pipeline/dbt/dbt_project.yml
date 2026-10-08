@@ -1,0 +1,46 @@
+name: spc_program
+version: "1.0.0"
+profile: spc_program
+model-paths: ["models"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+target-path: target
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  spc_program:
+    staging:
+      +materialized: view
+      +schema: staging
+    intermediate:
+      +materialized: table
+      +schema: intermediate
+    marts:
+      +materialized: table
+      +schema: marts
+
+vars:
+  raw_dir: "../../data/raw"            # the exported files, relative to this project
+  assessment_date: "2024-12-31"        # the record as it stands at the assessment
+  baseline_year: 2024
+  implausible_tolerance_widths: 5      # a keyed reading further than this from nominal cannot be a measurement of the part
+  baseline_subgroups: 25
+  finding_check_minutes: 10            # a check recorded within this many minutes before a finding is the check at which it was found
+  fault_bound_tolerance: 0.25          # a logged fault bounds a sort when the nonconformance quantity is no more than the parts at run speed from the fault to the finding, with this share allowed
+  trace_days: 3                        # die work logged within this many days of a finding at a press check
+  working_day_start_minute: 360        # 06:00; the record holds checks from 06:00 to 23:00
+  working_day_end_minute: 1380         # 23:00
+  fault_at_check_minutes: 10           # a fault logged within this many minutes of the check before gives the same quantity on either basis
+  short_run_minutes: 120               # a run shorter than this from production start to end is a short run
+  planned_check_after_start_minutes: 20   # the first planned check on a run is at least this long after production started
+  planned_check_before_end_minutes: 2
+  planned_check_early_minutes: 6       # a routine check from this long before a planned time
+  planned_check_late_minutes: 31       # to this long after it is the planned check, recorded
+  shift_change_minute: 870             # 14:30, from the operators' shifts on the subgroups either side of it
+  tonnage_baseline_strokes: 500        # the per-stroke charts are set on the first 500 production strokes of a run
+  stop_lookback_strokes: 6500          # strokes kept before each per-stroke stop
+  control_plan_date: "2025-12-31"      # the control plan and chart book state what is in force on this date
+  board_as_at: "2025-12-19 23:00:00"   # the SPC boards are drawn as at the end of the last working day of the last complete week of December 2025
+  dashboard_min_subgroups: 60          # a characteristic enters the dashboard's capability panel with at least this many subgroups in the twelve months
+  run_interval_min_shots: 20000        # a logged sharpening interval under this many shots is not a run interval
+
