@@ -98,6 +98,32 @@ def run_lengths(t):
     return S.save(f, "limits_run_lengths", "Paper presses: average run length under printed and computed limits on rule 1, by characteristic class")
 
 
+def signals_and_actions(t):
+    """Signals per 100 subgroups under the limits as set and as computed by class, software presses and paper presses
+    side by side, with the share of paper-press signals carrying a recorded action."""
+    d = t["signal_comparison"]
+    f, axes = S.fig(h=4.3, ncols=3, gridspec_kw={"width_ratios": [1, 1, 0.95]})
+    x = np.arange(len(CLASSES)); w = 0.38
+    for ax, method, title in zip(axes[:2], ("rolling 25 at entry", "PPAP study"), ("Software presses:\nrolling limits", "Paper presses:\nprinted PPAP limits")):
+        g = d[d["limits_as_set_method"] == method].set_index("characteristic_class").loc[CLASSES]
+        a = S.sig(g["rate_as_set_per_100"].values); c = S.sig(g["rate_as_computed_per_100"].values)
+        b1 = ax.bar(x - w / 2, a, w, color=SET_COLOR, label="Limits as set"); b2 = ax.bar(x + w / 2, c, w, color=COMPUTED_COLOR, label="Limits computed from the stable baseline")
+        _labels(ax, b1, a, dy=0.6); _labels(ax, b2, c, dy=0.6)
+        ax.set_xticks(x); ax.set_xticklabels(["Formed", "Hole\ndiameter", "Other"], fontsize=9); ax.set_title(title, fontsize=10.5); ax.set_ylim(0, 85)
+    axes[0].set_ylabel("Rule-1 signals per 100 subgroups"); axes[1].tick_params(axis="y", labelleft=False)
+    ax = axes[2]; a = t["paper_actions"].set_index("characteristic_class").loc[CLASSES]; al = t["paper_signals_all_subgroups"].iloc[0]
+    share = S.sig(np.append(a["action_share"].values, al["action_share"]) * 100); lo = S.sig(np.append(a["action_share_low"].values, al["action_share_low"]) * 100); hi = S.sig(np.append(a["action_share_high"].values, al["action_share_high"]) * 100)
+    xs = np.arange(4); b = ax.bar(xs, share, 0.55, color=[S.ACCENT] * 3 + [S.DARK_GREY], yerr=[share - lo, hi - share], error_kw={"ecolor": S.TEXT, "capsize": 3, "lw": 1})
+    for bi, v, h_ in zip(b, share, hi):
+        ax.text(bi.get_x() + bi.get_width() / 2, h_ + 1.0, f"{v:.0f}%", ha="center", va="bottom", fontsize=9, color=S.TEXT)
+    ax.set_xticks(xs); ax.set_xticklabels(["Formed", "Hole\ndiameter", "Other", "All"], fontsize=9); ax.set_ylim(0, 50); ax.yaxis.set_major_formatter(lambda v, _: f"{v:.0f}%")
+    ax.set_title("Paper presses: signals\nwith an action recorded", fontsize=10.5)
+    h_, l_ = axes[0].get_legend_handles_labels()
+    f.legend(h_, l_, loc="lower center", ncol=2, frameon=False, fontsize=9, bbox_to_anchor=(0.36, 0.0))
+    f.tight_layout(rect=(0, 0.07, 1, 1))
+    return S.save(f, "limits_signals_and_actions", "Signals per 100 subgroups under the limits as set and as computed by characteristic class on the software and paper presses, and the share of paper-press signals with an action recorded")
+
+
 def build(t):
     return {"signals": signals_as_set_and_as_computed(t), "paper": paper_press_signal_rates(t), "age": printed_limit_age(t), "run_lengths": run_lengths(t)}
 

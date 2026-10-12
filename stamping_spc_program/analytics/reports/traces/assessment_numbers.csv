@@ -1,135 +1,128 @@
 section,value_as_printed,read_from
 Appendix,27,"minute_of_the_hour.subgroups, paper: last minute before 55 with a subgroup"
 Appendix,4,"minute_of_the_hour.subgroups, paper: minute with the fewest up to the last"
-1. Findings,210,"signal_comparison.characteristics, rolling: formed and hole diameter"
-1. Findings,18.5%,"signal_comparison.signals_by_both over signals_as_computed, rolling: formed and hole diameter"
-1. Findings,22.5%,paper_signals_all_subgroups.signal_rate
-1. Findings,28.0%,paper_signals_all_subgroups.action_share
-1. Findings,84,"capability_summary.characteristics, formed"
-1. Findings,1.85,"capability_summary.filed_ppk, formed"
-1. Findings,1.03,"capability_summary.ppk, formed"
-1. Findings,0.98,"capability_summary.ppk_low, formed"
-1. Findings,1.10,"capability_summary.ppk_high, formed"
-1. Findings,"34,043","capability_summary.subgroups, formed"
-1. Findings,100,"capability_summary.studies, formed"
-1. Findings,55%,"capability_summary.share_between_coils, formed"
-1. Findings,"1,010","risk_window.fewest_parts_between_checks_at_the_realised_rate, lowest"
-1. Findings,"21,113","risk_window.most_parts_between_checks_at_the_realised_rate, highest"
-1. Findings,12,"sorting_summary.traced_to_a_die_event_between_two_checks, 2024"
-1. Findings,15,"sorting_summary.sorting_events, 2024"
-1. Findings,31.2%,"gauge_rr.pct_tolerance, F-20417 redesign"
-1. Findings,33.6%,"gauge_rr.pct_tolerance, F-31102 redesign"
-1. Findings,8.9%,"gauge_rr.pct_tolerance, F-20417 PPAP"
-1. Findings,8.4%,"gauge_rr.pct_tolerance, F-31102 PPAP"
-1. Findings,80%,"attribute_agreement.against_reference, at the redesign"
-1. Findings,23.4%,"after_a_point.recorded_share, adjusted at the press, keyed"
-1. Findings,-0.15,"autocorrelation.lag_1_autocorrelation, 2024 adjusted"
-1. Findings,-0.07,"autocorrelation.lag_1_autocorrelation, 2024 not adjusted"
-1. Findings,41,burr_summary.interval_longer_than_the_80pct_count
-1. Findings,124,burr_summary.dies_fitted
-1. Findings,54,runs_past_the_interval.burr_nonconformances_past_the_interval
-1. Findings,55,runs_past_the_interval.burr_nonconformances_with_shots_known
-1. Findings,65.2%,"on_the_hour.stamped_share, all"
-1. Findings,84%,"planned_checks.recorded_share, all presses nights"
-1. Findings,94%,"planned_checks.recorded_share, all presses days"
-2. Charts and limits,42%,"signal_comparison.share_of_computed_also_set, rolling: other punched and dimensional"
-2. Charts and limits,"10,688",software_acknowledgements.alarms
-2. Charts and limits,"4,822",software_acknowledgements.text_of_one_word
-2. Charts and limits,"1,866",software_acknowledgements.adjustment_recorded
-2. Charts and limits,54,paper_limit_age.dies_with_every_limit_set_at_the_most_recent_rebuild
-2. Charts and limits,57,paper_limit_age.dies
-2. Charts and limits,3,paper_limit_age.dies less dies_with_every_limit_set_at_the_most_recent_rebuild
-3. Subgrouping and capability,0.81,"capability_summary.filed_less_production_ppk, formed"
-3. Subgrouping and capability,91,"capability_summary.studies_filed_at_least_0_40_above, formed"
-3. Subgrouping and capability,100,"capability_summary.studies, formed"
-3. Subgrouping and capability,33,"capability_summary.studies_within_0_25, punched"
-3. Subgrouping and capability,56,"capability_summary.studies, punched"
-3. Subgrouping and capability,2.5%,coil_regression_summary.certificate_residual_sd_share_of_tolerance_median
-3. Subgrouping and capability,12.3%,coil_regression_summary.sd_of_coil_means_share_of_tolerance_median
-3. Subgrouping and capability,0.013,"fixture_against_cmm.mean_difference_mm, to 31 December 2024"
-3. Subgrouping and capability,0.012,fixture_against_cmm.low
-3. Subgrouping and capability,0.015,fixture_against_cmm.high
-3. Subgrouping and capability,178,"fixture_against_cmm.matched_first_pieces, to 31 December 2024"
-3. Subgrouping and capability,72,"fixture_against_cmm.fixtures, to 31 December 2024"
-4. Risk window and sorting,15,"sorting_summary.sorting_events, 2024"
-4. Risk window and sorting,"104,804","sorting_summary.quantity_sorted, 2024"
-4. Risk window and sorting,108,"sorting_summary.hours_booked_or_estimated, 2024"
-4. Risk window and sorting,"9,407","sorting_summary.cost_booked_or_estimated, 2024"
-4. Risk window and sorting,81%,"sorting_summary.share_of_hours_booked, 2024"
-4. Risk window and sorting,"1,800","risk_window.fewest_parts_between_checks, lowest"
-4. Risk window and sorting,"38,160","risk_window.most_parts_between_checks, highest"
-4. Risk window and sorting,20,"sorting_by_basis.events, from a logged fault"
-4. Risk window and sorting,"2,948","sorting_by_basis.quantity_sorted_median, from a logged fault"
-4. Risk window and sorting,77%,"sorting_by_basis.rejected_share, from a logged fault"
-4. Risk window and sorting,11,"sorting_by_basis.events, back to the check in-house"
-4. Risk window and sorting,"5,541","sorting_by_basis.quantity_sorted_median, back to the check in-house"
-4. Risk window and sorting,36%,"sorting_by_basis.rejected_share, back to the check in-house"
-5. Measurement systems,4,"gauge_rr.ndc, F-20417 assessment study"
-5. Measurement systems,3,"gauge_rr.ndc, F-31102 assessment study"
-5. Measurement systems,71%,"gauge_rr.reproducibility_share_of_grr, F-20417 assessment study"
-5. Measurement systems,70%,"gauge_rr.reproducibility_share_of_grr, F-31102 assessment study"
-5. Measurement systems,6.1%,"measurement_share.measurement_share_of_variance, F-20417"
-5. Measurement systems,15.4%,"measurement_share.measurement_share_of_variance, F-31102"
-5. Measurement systems,31.2%,"gauge_rr.pct_tolerance, F-20417 assessment study"
-5. Measurement systems,33.6%,"gauge_rr.pct_tolerance, F-31102 assessment study"
-5. Measurement systems,8.9%,"gauge_rr.pct_tolerance, F-20417 PPAP"
-5. Measurement systems,8.4%,"gauge_rr.pct_tolerance, F-31102 PPAP"
-5. Measurement systems,11.3%,"gauge_rr.pct_tolerance, F-10823 assessment study"
-5. Measurement systems,50,attribute_agreement.parts
-5. Measurement systems,2,attribute_agreement.trials
-5. Measurement systems,80%,"attribute_agreement.against_reference, assessment study"
-5. Measurement systems,0.44,"attribute_agreement.fleiss_kappa, assessment study"
-5. Measurement systems,1.75,"entry_methods.times_the_uniform_expectation, keyed"
-5. Measurement systems,0.99,"entry_methods.times_the_uniform_expectation, paper"
-5. Measurement systems,0.36%,"entry_methods.set_aside_share, keyed"
-5. Measurement systems,4.3%,gauge_status.share_out_of_service
-5. Measurement systems,3.5%,gauge_status.share_past_due
-6. Adjustment,23.4%,"after_a_point.recorded_share, keyed"
-6. Adjustment,22.1%,"after_a_point.recorded_share, paper"
-6. Adjustment,0.46,"return_toward_centre.next_as_share_of_position, keyed, none recorded"
-6. Adjustment,0.23,"return_toward_centre.next_as_share_of_position, keyed, adjustment recorded"
-6. Adjustment,5.2,"return_toward_centre.mean_position_in_sigma, paper, none recorded"
-6. Adjustment,0.81,"return_toward_centre.next_as_share_of_position, paper, none recorded"
-6. Adjustment,10.0%,"variance.added_variance_median, no adjustment and no point beyond two sigma"
-6. Adjustment,8.3%,variance.low
-6. Adjustment,12.1%,variance.high
-6. Adjustment,177,variance.characteristics_with_more_variance
-6. Adjustment,200,variance.characteristics
-6. Adjustment,-0.15,"autocorrelation.lag_1_autocorrelation, 2024 adjusted"
-6. Adjustment,-0.17,"autocorrelation.low, 2024 adjusted"
-6. Adjustment,-0.12,"autocorrelation.high, 2024 adjusted"
-6. Adjustment,-0.07,"autocorrelation.lag_1_autocorrelation, 2024 not adjusted"
-6. Adjustment,-0.09,"autocorrelation.low, 2024 not adjusted"
-6. Adjustment,-0.05,"autocorrelation.high, 2024 not adjusted"
-7. Die wear,0,burr_summary.interval_longer_than_the_count_at_the_limit
-7. Die wear,124,burr_summary.dies_fitted
-7. Die wear,1.14,intervals_as_logged.logged_over_stated_median
-7. Die wear,82%,intervals_as_logged.share_longer_than_stated
-7. Die wear,305,intervals_as_logged.intervals_with_shot_counts
-7. Die wear,48,burr_over_the_limit_by_interval.with_a_subgroup_mean_over_the_limit
-7. Die wear,311,burr_over_the_limit_by_interval.with_a_burr_gauge_subgroup
-7. Die wear,0.0043,hole_diameter_summary.slope_by_die_lowest
-7. Die wear,0.0092,hole_diameter_summary.slope_by_die_highest
-7. Die wear,41,burr_summary.interval_longer_than_the_80pct_count
-7. Die wear,124,burr_summary.dies_fitted
-7. Die wear,54,burr_by_die: logged_interval_median over shots_at_80pct_of_limit
-7. Die wear,103,burr_by_die: dies with a logged interval
-7. Die wear,"2,016",runs_past_the_interval.runs_with_shots_known
-7. Die wear,54,runs_past_the_interval.burr_nonconformances_past_the_interval
-7. Die wear,55,runs_past_the_interval.burr_nonconformances_with_shots_known
-7. Die wear,1.2,runs_past_the_interval.position_median_lowest_by_detection
-7. Die wear,1.3,runs_past_the_interval.position_median_highest_by_detection
-7. Die wear,17%,runs_past_the_interval.share_of_runs_past
-8. Recording,60.0%,"on_the_hour.stamped_share, keyed"
-8. Recording,75.2%,"on_the_hour.stamped_share, paper"
-8. Recording,3.1,"entry_after_the_parts.minutes_to_entry_median, keyed 2024"
-8. Recording,74.9%,"on_the_hour.parts_time_share, all"
-8. Recording,15.0%,"entry_after_the_parts.share, keyed 2024"
-8. Recording,77%,"planned_checks_by_hour.recorded_share, all presses 06:00"
-8. Recording,96%,"planned_checks_by_hour.recorded_share, lowest other day hour"
-8. Recording,97%,"planned_checks_by_hour.recorded_share, highest other day hour"
-8. Recording,19,"short_runs.with_no_routine_check, under two hours"
-8. Recording,68,"short_runs.runs, under two hours"
-8. Recording,89.8%,"planned_checks.recorded_share, high-speed nights"
-8. Recording,81.6%,"planned_checks.recorded_share, medium nights"
-Appendix,39,coil_regression_summary.study_windows
+1. Summary: capability and losses,1.03,"capability_summary.ppk, formed"
+1. Summary: capability and losses,1.85,"capability_summary.filed_ppk, formed"
+1. Summary: capability and losses,91,"capability_summary.studies_filed_at_least_0_40_above, formed"
+1. Summary: capability and losses,100,"capability_summary.studies, formed"
+1. Summary: capability and losses,1.55,"capability_summary.ppk, punched"
+1. Summary: capability and losses,1.83,"capability_summary.filed_ppk, punched"
+1. Summary: capability and losses,3.11%,"plant_losses.scrap_and_rework_share_of_revenue, 2024"
+1. Summary: capability and losses,"1,242,216","plant_losses: scrap_booked plus rework_labor_booked, 2024"
+1. Summary: capability and losses,301,"plant_losses.ppm, 2024"
+1. Summary: capability and losses,53,"plant_losses.complaints, 2024"
+1. Summary: capability and losses,15,"sorting_summary.sorting_events, 2024"
+1. Summary: capability and losses,"104,804","sorting_summary.quantity_sorted, 2024"
+1. Summary: capability and losses,55%,"capability_summary.share_between_coils, formed"
+1. Summary: capability and losses,54,runs_past_the_interval.burr_nonconformances_past_the_interval
+1. Summary: capability and losses,55,runs_past_the_interval.burr_nonconformances_with_shots_known
+1. Summary: capability and losses,12,"sorting_summary.traced_to_a_die_event_between_two_checks, 2024"
+1. Summary: capability and losses,15,"sorting_summary.sorting_events, 2024"
+1. Summary: capability and losses,10%,"variance.added_variance_median, no adjustment and no point beyond two sigma"
+1. Summary: capability and losses,15%,"entry_after_the_parts.share, keyed 2024"
+2.1 Coil-to-coil shifts,55%,"capability_summary.share_between_coils, formed"
+2.1 Coil-to-coil shifts,2%,"capability_summary.share_between_coils, punched"
+2.1 Coil-to-coil shifts,2.5%,coil_regression_summary.certificate_residual_sd_share_of_tolerance_median
+2.1 Coil-to-coil shifts,12.3%,coil_regression_summary.sd_of_coil_means_share_of_tolerance_median
+2.1 Coil-to-coil shifts,39,coil_regression_summary.study_windows
+2.2 Die wear,54,runs_past_the_interval.burr_nonconformances_past_the_interval
+2.2 Die wear,55,runs_past_the_interval.burr_nonconformances_with_shots_known
+2.2 Die wear,17%,runs_past_the_interval.share_of_runs_past
+2.2 Die wear,1.14,intervals_as_logged.logged_over_stated_median
+2.2 Die wear,48,burr_over_the_limit_by_interval.with_a_subgroup_mean_over_the_limit
+2.2 Die wear,311,burr_over_the_limit_by_interval.with_a_burr_gauge_subgroup
+2.2 Die wear,41,burr_summary.interval_longer_than_the_80pct_count
+2.2 Die wear,124,burr_summary.dies_fitted
+2.2 Die wear,0.0043,hole_diameter_summary.slope_by_die_lowest
+2.2 Die wear,0.0092,hole_diameter_summary.slope_by_die_highest
+2.2 Die wear,17%,"hole_diameter_by_die.growth_as_share_of_tolerance, lowest"
+2.2 Die wear,31%,hole_diameter_summary.growth_as_share_of_tolerance_highest
+2.2 Die wear,80%,"attribute_agreement.against_reference, assessment study"
+2.2 Die wear,0.44,"attribute_agreement.fleiss_kappa, assessment study"
+2.2 Die wear,27%,"attribute_by_operator.reject_rate, lowest, assessment study"
+2.2 Die wear,75%,"attribute_by_operator.reject_rate, highest, assessment study"
+2.2 Die wear,52%,"attribute_agreement.reference_reject_rate, assessment study"
+2.2 Die wear,"2,016",runs_past_the_interval.runs_with_shots_known
+2.2 Die wear,50,attribute_agreement.parts
+2.2 Die wear,2,attribute_agreement.trials
+2.3 Die events between checks,12,"sorting_summary.traced_to_a_die_event_between_two_checks, 2024"
+2.3 Die events between checks,15,"sorting_summary.sorting_events, 2024"
+2.3 Die events between checks,"1,934","risk_window.median_parts_between_checks_at_the_realised_rate, lowest press"
+2.3 Die events between checks,"16,332","risk_window.median_parts_between_checks_at_the_realised_rate, highest press"
+2.3 Die events between checks,"38,160","risk_window.most_parts_between_checks, highest"
+2.3 Die events between checks,"2,948","sorting_by_basis.quantity_sorted_median, from a logged fault"
+2.3 Die events between checks,77%,"sorting_by_basis.rejected_share, from a logged fault"
+2.3 Die events between checks,"5,541","sorting_by_basis.quantity_sorted_median, back to the check in-house"
+2.3 Die events between checks,36%,"sorting_by_basis.rejected_share, back to the check in-house"
+3.1 Limits,18.5%,"signal_comparison.signals_by_both over signals_as_computed, rolling: formed and hole diameter"
+3.1 Limits,41,"paper_signals.printed_per_100, formed"
+3.1 Limits,5.3,"run_lengths.arl_in_control, printed limits, formed"
+3.1 Limits,28%,paper_signals_all_subgroups.action_share
+3.1 Limits,"10,688",software_acknowledgements.alarms
+3.1 Limits,"4,822",software_acknowledgements.text_of_one_word
+3.1 Limits,"1,866",software_acknowledgements.adjustment_recorded
+3.1 Limits,43,"signal_comparison.rate_as_computed_per_100, rolling: formed"
+3.2 Adjustment,10.0%,"variance.added_variance_median, no adjustment and no point beyond two sigma"
+3.2 Adjustment,177,variance.characteristics_with_more_variance
+3.2 Adjustment,200,variance.characteristics
+3.2 Adjustment,-0.15,"autocorrelation.lag_1_autocorrelation, 2024 adjusted"
+3.2 Adjustment,-0.07,"autocorrelation.lag_1_autocorrelation, 2024 not adjusted"
+3.2 Adjustment,45%,"adjustment_estimate.estimate: an adjustment followed a point beyond two sigma, reference between one and two sigma"
+3.2 Adjustment,about 50%,"adjustment_estimate.estimate: of those adjustments, recorded"
+3.2 Adjustment,0.81,"return_toward_centre.next_as_share_of_position, paper, none recorded"
+4. The record under the charts,31.2%,"gauge_rr.pct_tolerance, F-20417 assessment study"
+4. The record under the charts,33.6%,"gauge_rr.pct_tolerance, F-31102 assessment study"
+4. The record under the charts,8.9%,"gauge_rr.pct_tolerance, F-20417 PPAP"
+4. The record under the charts,8.4%,"gauge_rr.pct_tolerance, F-31102 PPAP"
+4. The record under the charts,about 70%,"gauge_rr.reproducibility_share_of_grr, F-20417 and F-31102 assessment studies"
+4. The record under the charts,1.75,"entry_methods.times_the_uniform_expectation, keyed"
+4. The record under the charts,15.0%,"entry_after_the_parts.share, keyed 2024"
+4. The record under the charts,84%,"planned_checks.recorded_share, all presses nights"
+4. The record under the charts,94%,"planned_checks.recorded_share, all presses days"
+4. The record under the charts,77%,"planned_checks_by_hour.recorded_share, all presses 06:00"
+Appendix,22.5%,paper_signals_all_subgroups.signal_rate
+Appendix,54,paper_limit_age.dies_with_every_limit_set_at_the_most_recent_rebuild
+Appendix,57,paper_limit_age.dies
+Appendix,3,paper_limit_age.dies less dies_with_every_limit_set_at_the_most_recent_rebuild
+Appendix,0.81,"capability_summary.filed_less_production_ppk, formed"
+Appendix,33,"capability_summary.studies_within_0_25, punched"
+Appendix,56,"capability_summary.studies, punched"
+Appendix,15,"sorting_summary.sorting_events, 2024"
+Appendix,"104,804","sorting_summary.quantity_sorted, 2024"
+Appendix,108,"sorting_summary.hours_booked_or_estimated, 2024"
+Appendix,"9,407","sorting_summary.cost_booked_or_estimated, 2024"
+Appendix,81%,"sorting_summary.share_of_hours_booked, 2024"
+Appendix,"1,010","risk_window.fewest_parts_between_checks_at_the_realised_rate, lowest"
+Appendix,"21,113","risk_window.most_parts_between_checks_at_the_realised_rate, highest"
+Appendix,"1,800","risk_window.fewest_parts_between_checks, lowest"
+Appendix,"38,160","risk_window.most_parts_between_checks, highest"
+Appendix,4,"gauge_rr.ndc, F-20417 assessment study"
+Appendix,3,"gauge_rr.ndc, F-31102 assessment study"
+Appendix,71%,"gauge_rr.reproducibility_share_of_grr, F-20417 assessment study"
+Appendix,70%,"gauge_rr.reproducibility_share_of_grr, F-31102 assessment study"
+Appendix,11.3%,"gauge_rr.pct_tolerance, F-10823 assessment study"
+Appendix,6.1%,"measurement_share.measurement_share_of_variance, F-20417"
+Appendix,15.4%,"measurement_share.measurement_share_of_variance, F-31102"
+Appendix,0.36%,"entry_methods.set_aside_share, keyed"
+Appendix,4.3%,gauge_status.share_out_of_service
+Appendix,3.5%,gauge_status.share_past_due
+Appendix,23.4%,"after_a_point.recorded_share, keyed"
+Appendix,22.1%,"after_a_point.recorded_share, paper"
+Appendix,0.46,"return_toward_centre.next_as_share_of_position, keyed, none recorded"
+Appendix,0.23,"return_toward_centre.next_as_share_of_position, keyed, adjustment recorded"
+Appendix,0,burr_summary.interval_longer_than_the_count_at_the_limit
+Appendix,124,burr_summary.dies_fitted
+Appendix,82%,intervals_as_logged.share_longer_than_stated
+Appendix,305,intervals_as_logged.intervals_with_shot_counts
+Appendix,54,burr_by_die: logged_interval_median over shots_at_80pct_of_limit
+Appendix,103,burr_by_die: dies with a logged interval
+Appendix,65.2%,"on_the_hour.stamped_share, all"
+Appendix,60.0%,"on_the_hour.stamped_share, keyed"
+Appendix,75.2%,"on_the_hour.stamped_share, paper"
+Appendix,3.1,"entry_after_the_parts.minutes_to_entry_median, keyed 2024"
+Appendix,74.9%,"on_the_hour.parts_time_share, all"
+Appendix,77%,"planned_checks_by_hour.recorded_share, all presses 06:00"
+Appendix,96%,"planned_checks_by_hour.recorded_share, lowest other day hour"
+Appendix,97%,"planned_checks_by_hour.recorded_share, highest other day hour"
+Appendix,19,"short_runs.with_no_routine_check, under two hours"
+Appendix,68,"short_runs.runs, under two hours"

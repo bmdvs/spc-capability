@@ -20,7 +20,7 @@ from analytics.style import style as S
 
 R1, R2 = "docs/reports/spc_assessment.html", "docs/reports/spc_redesign_and_results.html"
 PAGES_BASE = "https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/"          # where the pages are served; README links to pages use it, links to files stay relative
-PAGES = [("SPC Assessment", "reports/spc_assessment.html", "Report", "Every chart in use audited on the record as it stood at 31 December 2024: limits, capability, risk window, measurement, adjustment, die wear and recording, with actions."),
+PAGES = [("SPC Assessment", "reports/spc_assessment.html", "Report", "Every chart in use audited on the record as it stood at 31 December 2024: limits, capability, risk window, measurement, adjustment, die wear and recording, with findings and exhibits, and an appendix of the tables and statistical detail behind them."),
          ("SPC Redesign and Results", "reports/spc_redesign_and_results.html", "Report", "The redesign by characteristic class, per-stroke monitoring on the pilot presses, and the outcomes against 2024 and 2023 with the comparison and rollout presses."),
          ("Control Plan and Chart Book", "control_plan/control_plan_and_chart_book.html", "Reference", "What is in force at 31 December 2025 on the parts that run on PR-03, PR-06 and PR-09: three parts in full and 27 in summary."),
          ("SPC Board: PR-03", "spc_board/pr_03.html", "SPC board", "Per-stroke tonnage, manual-check charts, flags with the reaction plan and the sharpening table, as at 19 December 2025."),
@@ -106,7 +106,7 @@ def build():
               "Nine analyses feed two reports, a control plan and chart book, three SPC boards and a plant quality dashboard, all computed from the shop's exported records by one pipeline.\n")
     md.append("[![SPC board, PR-06](docs/readme/pr_06_board.png)](docs/spc_board/pr_06.html)\n")
     md.append("## What is included\n")
-    md.append("- Two reports: the [SPC Assessment](docs/reports/spc_assessment.html) and the [SPC Redesign and Results](docs/reports/spc_redesign_and_results.html), each with findings, exhibits, actions and an appendix of the tables behind every finding.\n"
+    md.append("- Two reports: the [SPC Assessment](docs/reports/spc_assessment.html) and the [SPC Redesign and Results](docs/reports/spc_redesign_and_results.html), each with findings and exhibits, and an appendix of the tables and statistical detail behind them.\n"
               "- The [control plan and chart book](docs/control_plan/control_plan_and_chart_book.html): what is in force at 31 December 2025 on the 30 parts that run on the pilot presses, three in full.\n"
               "- Three SPC boards, one per pilot press: [PR-03](docs/spc_board/pr_03.html), [PR-06](docs/spc_board/pr_06.html), [PR-09](docs/spc_board/pr_09.html).\n"
               "- The [plant quality dashboard](docs/dashboard/index.html), December 2025 as the current month. Index of deliverables: [docs/index.html](docs/index.html).\n"
