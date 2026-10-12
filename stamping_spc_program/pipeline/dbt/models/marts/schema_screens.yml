@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: mart_screen_run_strokes
+    description: The production strokes of the run shown on the PR-03 screens, up to the screen time. One row per stroke.
+    columns:
+      - name: stroke_no
+        tests: [not_null, unique]
+      - name: total_kn
+        tests: [not_null]

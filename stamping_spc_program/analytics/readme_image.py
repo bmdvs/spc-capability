@@ -1,17 +1,17 @@
-"""The image at the top of the README: docs/readme/pr_06_board.png, the PR-06 SPC board from its header to the end of
-the per-stroke panel.
+"""The image at the top of the README: docs/readme/spc_terminal_screen.png, the PR-03 SPC terminal screen from its title
+bar to the end of the chart panels.
 
 Usage: python -m analytics.readme_image
-The page is rendered at 1280 px wide with Playwright in the installed Edge or Chrome, or in Playwright's own Chromium
+The page is rendered at 1600 px wide with Playwright in the installed Edge or Chrome, or in Playwright's own Chromium
 where neither is installed; where no browser is available the committed image is left as it is. The image is not part
 of the build, since a browser's rendering is not byte-stable across machines."""
 from playwright.sync_api import sync_playwright
 
 from analytics.style.style import DOCS
 
-WIDTH = 1280
-PAGE = DOCS / "spc_board" / "pr_06.html"
-OUT = DOCS / "readme" / "pr_06_board.png"
+WIDTH = 1600
+PAGE = DOCS / "screens" / "spc_terminal_pr_03.html"
+OUT = DOCS / "readme" / "spc_terminal_screen.png"
 
 
 def main():
@@ -25,12 +25,12 @@ def main():
             except Exception:
                 continue
         if browser is None:
-            print("no browser available; docs/readme/pr_06_board.png left as committed")
+            print("no browser available; docs/readme/spc_terminal_screen.png left as committed")
             return
         page = browser.new_page(viewport={"width": WIDTH, "height": 900}, device_scale_factor=1)
         page.goto(PAGE.as_uri())
         page.wait_for_load_state("networkidle")
-        height = int(page.evaluate("Math.ceil(document.querySelector('#checks').getBoundingClientRect().top + window.scrollY) - 12"))
+        height = int(page.evaluate("Math.ceil(document.querySelectorAll('.grid')[1].getBoundingClientRect().top + window.scrollY)"))
         page.screenshot(path=str(OUT), full_page=True, clip={"x": 0, "y": 0, "width": WIDTH, "height": height})
         browser.close()
     print(f"wrote {OUT.relative_to(DOCS.parent).as_posix()} ({WIDTH} x {height})")

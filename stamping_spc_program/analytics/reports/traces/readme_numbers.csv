@@ -52,7 +52,7 @@ pilot alarm signals 2025,4.4,docs/reports/spc_redesign_and_results.html,signals
 pilot sorting events 2024,7,docs/reports/spc_redesign_and_results.html,sorting
 pilot sorting events 2025,5,docs/reports/spc_redesign_and_results.html,sorting
 "p, sorting",0.77,docs/reports/spc_redesign_and_results.html,sorting
-dbt models,84,pipeline/dbt,information_schema.tables
+dbt models,85,pipeline/dbt,information_schema.tables
 subgroups,"658,446",data/raw/spc,raw.spc__subgroups
 characteristics,"1,560",data/raw/spc,raw.spc__characteristics
 production runs,"6,710",data/raw/erp,raw.erp__production_runs

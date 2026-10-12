@@ -1,0 +1,33 @@
+panel,value_as_shown,read_from
+Characteristic list,C-16315-01: attribute check; pass; 08:59,int_characteristic_history: last subgroup to the screen time; mart_limits_as_set: limit set in force
+Characteristic list,C-16315-02: tool-wear chart; 5.703; 09:33,int_characteristic_history: last subgroup to the screen time; mart_limits_as_set: limit set in force
+Last subgroup,"C-16315-02: mean 5.703, range 0.012, posted 09:34:09","int_characteristic_history: r1 to r5, subgroup_mean, subgroup_range, recorded_at, gauge_id, entry_method"
+Capability tile,"C-16315-02: Cpk 1.94, Ppk 1.67, 33 subgroups","int_characteristic_history: readings on the run to the screen time; within-subgroup sigma pooled, overall sigma from all readings"
+Characteristic list,C-16315-03: X-bar and R; 14.826; 09:33,int_characteristic_history: last subgroup to the screen time; mart_limits_as_set: limit set in force
+Alarm panel,"C-16315-03: raised 13:02:16, acknowledged 13:21:24 by E-1003",stg_spc__alarms; int_characteristic_history
+Last subgroup,"C-16315-03: mean 14.826, range 0.060, posted 09:33:56","int_characteristic_history: r1 to r5, subgroup_mean, subgroup_range, recorded_at, gauge_id, entry_method"
+Capability tile,"C-16315-03: Cpk 1.67, Ppk 1.57, 33 subgroups","int_characteristic_history: readings on the run to the screen time; within-subgroup sigma pooled, overall sigma from all readings"
+Characteristic list,C-16315-04: X-bar and R; 19.362; 08:59,int_characteristic_history: last subgroup to the screen time; mart_limits_as_set: limit set in force
+Alarm panel,"C-16315-04: raised 06:04:22, acknowledged 06:25:39 by E-1003",stg_spc__alarms; int_characteristic_history
+Last subgroup,"C-16315-04: mean 19.362, range 0.030, posted 09:00:21","int_characteristic_history: r1 to r5, subgroup_mean, subgroup_range, recorded_at, gauge_id, entry_method"
+Capability tile,"C-16315-04: Cpk 0.89, Ppk 0.87, 17 subgroups","int_characteristic_history: readings on the run to the screen time; within-subgroup sigma pooled, overall sigma from all readings"
+Characteristic list,C-16315-05: three-way chart; 23.314; 09:33,int_characteristic_history: last subgroup to the screen time; mart_limits_as_set: limit set in force
+Alarm panel,"C-16315-05: raised 09:34:14, acknowledged 09:35:00 by E-1003",stg_spc__alarms; int_characteristic_history
+Last subgroup,"C-16315-05: mean 23.314, range 0.070, posted 09:34:14","int_characteristic_history: r1 to r5, subgroup_mean, subgroup_range, recorded_at, gauge_id, entry_method"
+Capability tile,"C-16315-05: Cpk 1.77, Ppk 1.31, 33 subgroups","int_characteristic_history: readings on the run to the screen time; within-subgroup sigma pooled, overall sigma from all readings"
+Characteristic list,C-16315-06: three-way chart; 24.950; 09:33,int_characteristic_history: last subgroup to the screen time; mart_limits_as_set: limit set in force
+Alarm panel,"C-16315-06: raised 09:34:21, not acknowledged by the screen time",stg_spc__alarms; int_characteristic_history
+Last subgroup,"C-16315-06: mean 24.950, range 0.060, posted 09:34:21","int_characteristic_history: r1 to r5, subgroup_mean, subgroup_range, recorded_at, gauge_id, entry_method"
+Capability tile,"C-16315-06: Cpk 1.63, Ppk 1.37, 33 subgroups","int_characteristic_history: readings on the run to the screen time; within-subgroup sigma pooled, overall sigma from all readings"
+Characteristic list,C-16315-07: three-way chart; 59.99; 09:33,int_characteristic_history: last subgroup to the screen time; mart_limits_as_set: limit set in force
+Alarm panel,"C-16315-07: raised 07:37:35, acknowledged 07:50:52 by E-1003",stg_spc__alarms; int_characteristic_history
+Last subgroup,"C-16315-07: mean 59.99, range 0.30, posted 09:33:55","int_characteristic_history: r1 to r5, subgroup_mean, subgroup_range, recorded_at, gauge_id, entry_method"
+Capability tile,"C-16315-07: Cpk 1.78, Ppk 1.27, 33 subgroups","int_characteristic_history: readings on the run to the screen time; within-subgroup sigma pooled, overall sigma from all readings"
+Characteristic list,C-16315-08: attribute check; pass; 09:33,int_characteristic_history: last subgroup to the screen time; mart_limits_as_set: limit set in force
+Characteristic list,C-16315-09: no chart: sharpening count; ; 06 Oct 17:58,int_characteristic_history: last subgroup to the screen time; mart_limits_as_set: limit set in force
+Shift event log,34 events from 06:00 to 09:45,"int_characteristic_history, stg_spc__alarms, stg_press_monitor__fault_events"
+Context strip,part P-16315 revision D; die D-6315-A; run R25-01738,"int_run_shots, stg_erp__parts"
+Context strip,"coil C-25-01300, 301 stainless, 0.431 mm, 87.8 HRB",stg_erp__coils; coil of the last subgroup
+Context strip,"85,286 shots since sharpening",int_run_shots.shots_since_sharpening_at_start plus the run's stroke count to the screen time (mart_screen_run_strokes)
+Context strip,last check 09:33; next due 10:03,int_characteristic_history: last routine or coil-change check; frequency in force 30 min (mart_control_plan.frequency_minutes_as_recorded)
+Title bar,operator E-1003,"int_characteristic_history.operator_id, last subgroup"

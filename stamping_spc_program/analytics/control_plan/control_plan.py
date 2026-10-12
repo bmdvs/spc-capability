@@ -1,5 +1,5 @@
-"""Control plan and chart book: what is in force at 31 December 2025 on the parts that run on PR-03, PR-06 and PR-09.
-Three parts in full and the other parts on those presses in summary. Writes docs/control_plan/control_plan_and_chart_book.html
+"""Control plans and chart book: what is in force at 31 December 2025 on the parts that run on PR-03, PR-06 and PR-09.
+Three control plans in the AIAG layout, the chart book, and an index of the other parts on those presses. Writes docs/control_plan/control_plan_and_chart_book.html
 and returns the table of every number in the text lines, and of every table, with the mart each is read from."""
 import pandas as pd
 
@@ -15,7 +15,7 @@ RECALCULATION = {"three-way chart": "After each sharpening, on a baseline of at 
                  "X-bar and R": "After each sharpening, on a stable 25-subgroup baseline", "attribute check": "", "no limit set in force": ""}
 SCHEME = "five consecutive parts"
 BURR = "Burr height on the laboratory gauge has no chart. It is controlled by the die's burr line and by the sharpening count (next due in the sharpening table)."
-ASSESSMENT_SECTION = 5          # the measurement systems section of the assessment report
+ASSESSMENT_SECTION = 4          # the section of the assessment report on the record under the charts
 
 
 def plan():
@@ -68,11 +68,12 @@ def fmt_value(v):
 
 
 def frequency(r):
+    """The check frequency in force: as recorded, to the half hour, or the master's where none is recorded."""
     rec = r.frequency_minutes_as_recorded
     if rec != rec:
         return f"{int(r.frequency_minutes_in_the_master)} min"
     rec = int(round(rec / 30.0) * 30) if rec < 300 else int(round(rec / 60.0) * 60)
-    return f"{rec} min" if rec == int(r.frequency_minutes_in_the_master) else f"{rec} min (master: {int(r.frequency_minutes_in_the_master)})"
+    return f"{rec} min"
 
 
 def recalculation(r, last_sharpening):
@@ -83,23 +84,54 @@ def recalculation(r, last_sharpening):
     return RECALCULATION[r.chart_in_force]
 
 
-def part_tables(p, part_id, last_sharpening):
-    g = p[p["part_id"] == part_id]
-    a = pd.DataFrame({
-        "Characteristic": g["characteristic_id"] + " " + g["characteristic_name"], "Critical": g["critical"].map({True: "yes", False: ""}),
-        "Nominal": g["nominal"].map(fmt_value), "LSL": g["lsl"].map(fmt_value), "USL": g["usl"].map(fmt_value), "Unit": g["unit"],
-        "Data": g["data_type"], "Gauge or fixture": g["gauge_id"] + g["gauge_type"].map(lambda t: "" if t != t else f" ({t})"),
-        "%GRR of tolerance, ndc (study)": [f"{x:.1f}%, ndc {int(n)} ({str(d)[:10]})" if x == x else ("" if dt == "attribute" else "No study on this gauge") for x, n, d, dt in zip(g["pct_grr_of_tolerance"], g["ndc"], g["gauge_study_date"], g["data_type"])],
-        "Subgroup": [f"{int(n)} {'consecutive parts' if dt == 'variable' else 'parts, accept or reject'}" for n, dt in zip(g["subgroup_size"], g["data_type"])],
-        "Frequency": [frequency(r) for r in g.itertuples()], "Parts between checks at run speed": [f"{v:,.0f}" for v in g["parts_between_checks_at_run_speed"]]})
-    c = g[g["chart_in_force"] != "attribute check"]
+def header(part_id):
+    """The control plan header fields the record holds for a part."""
+    return query("""select p.part_id, p.revision, c.customer_name, p.ppap_date, (select min(s.effective_from) from staging.stg_spc__reaction_plan_steps s join staging.stg_spc__characteristics k using (characteristic_id) where k.part_id = p.part_id) as revision_date
+                    from staging.stg_erp__parts p join staging.stg_erp__customers c using (customer_id) where p.part_id = ?""", [part_id]).iloc[0]
+
+
+def specification(r):
+    if r.lsl != r.lsl:
+        return f"{fmt_value(r.usl)} {r.unit} maximum"
+    return f"{fmt_value(r.nominal)} ({fmt_value(r.lsl)} to {fmt_value(r.usl)}) {r.unit}"
+
+
+def control_plan_table(p, part_id, die, steps):
+    """The control plan of one part in the AIAG column order: coil load and feed, then stamping with its product and process characteristics."""
+    g = p[p["part_id"] == part_id]; g0 = g.iloc[0]; machine = f"{g0.press_id}; die {g0.die_id}, {int(die.stations)} stations"
+    step1 = steps[(steps["signal"] == "rule 1") & (steps["step"] == 1)]["action"].iloc[0]; rows = []
+
+    def row(operation, mach, number="", product="", process="", special="", spec="", technique="", size="", freq="", method="", reaction=""):
+        rows.append({"Process name or operation description": operation, "Machine, device, jig, tools for manufacturing": mach, "Characteristic number": number, "Product characteristic": product, "Process characteristic": process,
+                     "Special characteristic classification": special, "Product or process specification and tolerance": spec, "Evaluation or measurement technique": technique, "Sample size": size, "Sample frequency": freq, "Control method": method, "Reaction plan": reaction})
+    row("Coil load and feed", g0.press_id, process="Coil certificate thickness and hardness", spec="–", technique="Coil certificate", size="Each coil", freq="Each coil change",
+        method=f"Coil-change subgroup on the three-way charts, with a centring step when its mean is outside one sigma of target (chart book, Section {SEC['charts']})", reaction=f"Chart book, Section {SEC['reaction']}")
+    for r in g.itertuples():
+        fixture = f"; {r.gauge_id}" if r.gauge_type == "check fixture" else ""
+        study = f"{r.pct_grr_of_tolerance:.1f}% GRR of tolerance, ndc {int(r.ndc)}" if r.pct_grr_of_tolerance == r.pct_grr_of_tolerance else ("" if r.data_type == "attribute" else "no study on this gauge")
+        gauge = r.gauge_id + ("" if r.gauge_type != r.gauge_type else f" ({r.gauge_type})")
+        size = f"{int(r.subgroup_size)} consecutive parts" if r.data_type == "variable" else f"{int(r.subgroup_size)} parts, accept or reject"
+        chart = CHART_NAME[r.chart_in_force]
+        method = (f"{chart[0].upper() + chart[1:]} (chart book, Section {SEC['charts']})" if r.chart_in_force in ("three-way chart", "tool-wear chart", "X-bar and R") else
+                  (f"Attribute check" if r.chart_in_force == "attribute check" else f"No chart: sharpening at the due count (chart book, Section {SEC['sharpening']})"))
+        row("Stamping", machine + fixture, r.characteristic_id, r.characteristic_name, special=("Critical" + (", customer designated" if r.customer_designated else "")) if r.critical else "", spec=specification(r), technique=gauge + (f"; {study}" if study else ""), size=size,
+            freq=f"{frequency(r)} ({r.parts_between_checks_at_run_speed:,.0f} parts at run speed)", method=method, reaction=f"Chart book, Section {SEC['reaction']}. Rule 1, step 1: {step1}" if r.reaction_plan_steps else "")
+    row("Stamping", machine, process="Per-stroke total tonnage and channel shares", spec=f"EWMA limits at {EWMA_L} sigma of the EWMA about the level of the run's first 500 strokes; one channel share residual beyond {EWMA_L} sigma", technique=f"Press monitor, {int(g0.load_cell_channels)} load cell channels", size="Every stroke", freq="Continuous",
+        method=f"EWMA on the total and channel share charts; the press stops on a signal (chart book, Section {SEC['per-stroke']})", reaction="Toolmaker inspects the die and records the finding; sorting runs back to the signal")
+    due = "" if die.shots_at_80pct_of_limit != die.shots_at_80pct_of_limit else f"{die.shots_at_80pct_of_limit:,.0f} shots since sharpening (burr at 80% of its limit)"
+    row("Stamping", machine, process="Die shots since sharpening", spec=due, technique="Die shot count, die maintenance log", size="Each run", freq="Each run", method=f"Sharpening at the due count (chart book, Section {SEC['sharpening']})", reaction="Pull the die at the count")
+    return S.table(pd.DataFrame(rows), cls="data wide")
+
+
+def charts_table(p, part_id, last_sharpening):
+    g = p[p["part_id"] == part_id]; c = g[g["chart_in_force"] != "attribute check"]
     b = pd.DataFrame({
         "Characteristic": c["characteristic_id"], "Chart": c["chart_in_force"].map(CHART_NAME), "Limits in force from": c["limits_in_force_from"].map(lambda v: "" if v != v else str(v)[:10]),
         "Centre line": c["centre_line"].map(fmt_value), "LCL, means": c["lcl_mean"].map(fmt_value), "UCL, means": c["ucl_mean"].map(fmt_value), "UCL, range": c["ucl_range"].map(fmt_value),
         "Subgroups used": c["subgroups_used"].map(lambda v: "" if v != v else f"{int(v):,}"), "Coil changes spanned": c["coil_changes_spanned"].map(lambda v: "" if v != v or v is pd.NA else f"{int(v)}"),
         "Wear line, mm per 100,000 shots": c["slope_per_100k_shots"].map(lambda v: "" if v != v else f"{v:.4f}"),
         "Recalculation": [recalculation(r, last_sharpening) for r in c.itertuples()], "Reaction plan": c["reaction_plan_steps"].map(lambda n: f"{int(n)} steps" if n else "")})
-    return S.table(a), S.table(b)
+    return S.table(b)
 
 
 def die_table(d, die_ids):
@@ -128,14 +160,17 @@ def summary_table(p, d):
     return S.table(pd.DataFrame(rows))
 
 
+SEC = {"charts": 5, "sharpening": 6, "reaction": 7, "per-stroke": 8, "index": 9, "count": 10, "gauges": 11}
+
+
 def build():
     p, d, rp = plan(), dies(), reaction_plan()
     check = count_check(p); no_study, n_no_study = gauges_with_no_study(p)
     trace = []          # (section, value as printed or the table, read from)
     body = []
     body.append('<h2 id="in-force">1. In force at 31 December 2025</h2>')
-    body.append(f"<p>{len(p)} characteristics on {p['part_id'].nunique()} parts on PR-03, PR-06 and PR-09: three parts in full (Sections 2 to 4) and {p['part_id'].nunique() - len(FULL)} in summary (Section 7). {BURR} "
-                f"{n_no_study} characteristics are measured on gauges with no measurement study; those gauges are listed in Section 8, and the gauge studies of the assessment are in the assessment report, Section {ASSESSMENT_SECTION}.</p>")
+    body.append(f"<p>{len(p)} characteristics on {p['part_id'].nunique()} parts on PR-03, PR-06 and PR-09: three control plans in full (Sections 2 to 4) and {p['part_id'].nunique() - len(FULL)} in the index (Section {SEC['index']}). {BURR} "
+                f"{n_no_study} characteristics are measured on gauges with no measurement study; those gauges are listed in Section {SEC['gauges']}, and the gauge studies of the assessment are in the assessment report, Section {ASSESSMENT_SECTION}.</p>")
     trace += [("1. In force", str(len(p)), "mart_control_plan: rows"), ("1. In force", str(p["part_id"].nunique()), "mart_control_plan: distinct part_id"), ("1. In force", str(p["part_id"].nunique() - len(FULL)), "mart_control_plan: distinct part_id less the three in full"),
               ("1. In force", str(n_no_study), "mart_control_plan: variable characteristics with pct_grr_of_tolerance null")]
     key = p.groupby("chart_in_force").agg(characteristics=("characteristic_id", "count"), critical=("critical", "sum"), parts=("part_id", "nunique")).reindex(list(CHART_NAME)).reset_index()
@@ -146,48 +181,62 @@ def build():
     body.append(S.table(key.rename(columns={"chart_in_force": "Chart", "characteristics": "Characteristics", "critical": "Critical", "parts": "Parts", "scheme": "Scheme"})[["Chart", "Scheme", "Characteristics", "Critical", "Parts"]]))
     trace.append(("1. In force", "table: charts in force", "mart_control_plan.chart_in_force, critical, part_id"))
 
+    parts = []
     for n, (part, press) in enumerate(FULL, start=2):
-        g = p[p["part_id"] == part].iloc[0]; die = d[d["die_id"] == g.die_id].iloc[0]
-        body.append(f'<h2 id="{part}">{n}. {part} on {press}</h2>')
-        body.append(f"<p>Revision {g.revision}; die {g.die_id}; {g.material_grade}, {g.thickness_mm:.2f} mm; {int(g.parts_per_stroke)} per stroke at {g.run_speed_spm:.0f} strokes a minute; per-stroke monitoring on {int(g.load_cell_channels)} channels. {BURR}</p>")
-        a, b = part_tables(p, part, die.last_sharpening)
-        body.append("<h3>Control plan</h3>" + a + "<h3>Charts in force</h3>" + b + "<h3>Sharpening</h3>" + die_table(d, [g.die_id]))
-        sec = f"{n}. {part}"
+        g = p[p["part_id"] == part].iloc[0]; die = d[d["die_id"] == g.die_id].iloc[0]; h = header(part); parts.append((part, press, g, die))
+        steps = query("select signal, step, action from staging.stg_spc__reaction_plan_steps where characteristic_id in (select characteristic_id from marts.mart_control_plan where part_id = ?) group by all", [part])
+        body.append(f'<h2 id="{part}">{n}. Control plan, {part} on {press}</h2>')
+        rev = pd.Timestamp(h.revision_date); ppap = pd.Timestamp(h.ppap_date)
+        head = pd.DataFrame([("Phase", "Production"), ("Part number and latest change level", f"{h.part_id}, revision {h.revision}"), ("Customer", h.customer_name), ("PPAP date", f"{ppap.day} {ppap.strftime('%B %Y')}"), ("Revision date", f"{rev.day} {rev.strftime('%B %Y')}"),
+                             ("Press and die", f"{press}; die {g.die_id}, {int(die.stations)} stations; {int(g.parts_per_stroke)} per stroke at {g.run_speed_spm:.0f} strokes a minute; per-stroke monitoring on {int(g.load_cell_channels)} channels"),
+                             ("Material", f"{g.material_grade}, {g.thickness_mm:.2f} mm")], columns=["Control plan", ""])
+        body.append(S.table(head)); body.append(control_plan_table(p, part, die, steps))
+        sec = f"{n}. Control plan, {part}"
         trace += [(sec, f"{g.thickness_mm:.2f}", "mart_control_plan.thickness_mm"), (sec, str(int(g.parts_per_stroke)), "mart_control_plan.parts_per_stroke"), (sec, f"{g.run_speed_spm:.0f}", "mart_control_plan.run_speed_spm"), (sec, str(int(g.load_cell_channels)), "mart_control_plan.load_cell_channels"),
-                  (sec, "table: control plan", "mart_control_plan: specification, gauge, study, subgroup, frequency as recorded and in the master, parts_between_checks_at_run_speed"),
-                  (sec, "table: charts in force", "mart_control_plan: limit set in force (mart_limits_as_set), reaction_plan_steps; int_die_event_timeline for the last sharpening"),
-                  (sec, "table: sharpening", "stg_erp__dies, int_die_event_timeline, int_sharpening_intervals; burr line from mart_wear_points (die wear analysis)")]
+                  (sec, "header: part, revision, customer, PPAP date, revision date", "stg_erp__parts, stg_erp__customers; stg_spc__reaction_plan_steps.effective_from, earliest on the part"),
+                  (sec, "table: control plan", "mart_control_plan: specification, gauge, study, subgroup, frequency as recorded, parts_between_checks_at_run_speed, chart in force; stg_spc__reaction_plan_steps, rule 1 step 1; die due count from the burr line (die wear analysis)")]
 
-    body.append('<h2 id="reaction">5. Reaction plan</h2>')
+    body.append(f'<h2 id="charts">{SEC["charts"]}. Chart book: charts in force</h2>')
+    for part, press, g, die in parts:
+        body.append(f"<h3>{part} on {press}</h3>" + charts_table(p, part, die.last_sharpening))
+        trace.append((f"{SEC['charts']}. Charts in force", f"table: {part}", "mart_control_plan: limit set in force (mart_limits_as_set), reaction_plan_steps; int_die_event_timeline for the last sharpening"))
+    body.append(f'<h2 id="sharpening">{SEC["sharpening"]}. Chart book: sharpening</h2>')
+    body.append(f"<p>{BURR}</p>")
+    body.append(die_table(d, [g.die_id for _, _, g, _ in parts]))
+    trace.append((f"{SEC['sharpening']}. Sharpening", "table: sharpening", "stg_erp__dies, int_die_event_timeline, int_sharpening_intervals; burr line from mart_wear_points (die wear analysis)"))
+
+    body.append(f'<h2 id="reaction">{SEC["reaction"]}. Chart book: reaction plan</h2>')
     body.append("<p>The steps on every variable characteristic with a limit set in force.</p>")
     body.append(S.table(rp.rename(columns={"signal": "Signal", "step": "Step", "action": "Action", "owner": "Owner", "characteristics": "Characteristics"})))
-    trace.append(("5. Reaction plan", "table: reaction plan steps", "stg_spc__reaction_plan_steps on the characteristics of mart_control_plan"))
+    trace.append((f"{SEC['reaction']}. Reaction plan", "table: reaction plan steps", "stg_spc__reaction_plan_steps on the characteristics of mart_control_plan"))
 
-    body.append('<h2 id="per-stroke">6. Per-stroke monitoring</h2>')
-    body.append("<p>On every die on the press, from 5 May 2025; the press stops on a signal.</p>")
+    body.append(f'<h2 id="per-stroke">{SEC["per-stroke"]}. Chart book: per-stroke monitoring</h2>')
+    body.append("<p>On every die on the press, from 5 May 2025; the press stops on a signal. The press stops through the historian's signal to the press control's external stop input.</p>")
     ch = p.groupby("press_id")["load_cell_channels"].first().reset_index()
     ps = pd.DataFrame({"Press": ch["press_id"], "Channels": ch["load_cell_channels"].astype(int), "Chart on the total": f"EWMA, two-sided, lambda {EWMA_LAMBDA}, limits at {EWMA_L} sigma of the EWMA", "Chart on each channel": f"Channel share of the total, one residual beyond {EWMA_L} sigma",
                        "Baseline": "First 500 production strokes of the run, first-order autoregressive fit", "On a stop": "Toolmaker inspects the die and records the finding; sorting runs back to the signal"})
     body.append(S.table(ps))
-    trace.append(("6. Per-stroke monitoring", "table: channels and chart parameters", "mart_control_plan.load_cell_channels; the chart parameters as designed (per-stroke analysis)"))
+    trace.append((f"{SEC['per-stroke']}. Per-stroke monitoring", "table: channels and chart parameters", "mart_control_plan.load_cell_channels; the chart parameters as designed (per-stroke analysis)"))
 
-    body.append('<h2 id="summary">7. The other parts on PR-03, PR-06 and PR-09</h2>')
-    body.append("<p>One row per part; frequency as recorded, with the characteristics master's figure where it differs.</p>")
+    body.append(f'<h2 id="index">{SEC["index"]}. Chart book: index of control plans, the other parts on PR-03, PR-06 and PR-09</h2>')
+    body.append("<p>One row per part; frequency as in force.</p>")
     body.append(summary_table(p, d))
-    trace.append(("7. The other parts", "table: one row per part", "mart_control_plan by part; dies as in the sharpening tables"))
+    trace.append((f"{SEC['index']}. Index of control plans", "table: one row per part", "mart_control_plan by part; dies as in the sharpening tables"))
 
-    body.append('<h2 id="count">8. Count of characteristics</h2>')
-    body.append("<p>Every characteristic against what controls it, and the gauges with no measurement study.</p>")
+    body.append(f'<h2 id="count">{SEC["count"]}. Chart book: count of characteristics</h2>')
+    body.append("<p>Every characteristic against what controls it.</p>")
     body.append(S.table(check.rename(columns={"press_id": "Press", "matched_to": "Controlled by", "characteristics": "Characteristics", "parts": "Parts"})))
+    body.append(f'<h2 id="gauges">{SEC["gauges"]}. Chart book: gauges with no measurement study</h2>')
     body.append(S.table(no_study.rename(columns={"gauge_id": "Gauge", "gauge_type": "Type", "characteristics": "Characteristics measured", "parts": "Parts"})))
-    trace += [("8. Count of characteristics", "table: count check", "mart_control_plan.chart_in_force by press_id"), ("8. Count of characteristics", "table: gauges with no measurement study", "mart_control_plan: variable characteristics with pct_grr_of_tolerance null, by gauge_id")]
-    body.append("<p class='glossary'>Limits are those in force at 31 December 2025. Frequency is as recorded from March to December 2025 (the median minutes between consecutive routine checks on a run, to the half hour), with the characteristics master's figure in brackets where it differs; the master is to be updated. "
+    trace += [(f"{SEC['count']}. Count of characteristics", "table: count check", "mart_control_plan.chart_in_force by press_id"), (f"{SEC['gauges']}. Gauges with no measurement study", "table: gauges with no measurement study", "mart_control_plan: variable characteristics with pct_grr_of_tolerance null, by gauge_id")]
+    body.append("<p class='glossary'>Limits are those in force at 31 December 2025. Frequency is as recorded from March to December 2025 (the median minutes between consecutive routine checks on a run, to the half hour). "
                 "Parts between checks are at the part's median run speed in 2025. A gauge study is the latest on that gauge or check fixture; gauge R&amp;R is by the ANOVA method, %GRR of tolerance at 6 sigma. "
                 "The next sharpening is due when the die's burr line reaches 80% of the burr limit, counted from the last sharpening; the burr line is the regression of burr height on shots since sharpening on the burr gauge readings of 2023 and 2024, with its 95% interval. The last interval is the last run interval; a sharpening followed within 20,000 shots by a rebuild is counted as the rebuild. Dimensions in millimetres, angles in degrees.</p>")
 
-    toc = [("in-force", "In force")] + [(part, part) for part, _ in FULL] + [("reaction", "Reaction plan"), ("per-stroke", "Per-stroke monitoring"), ("summary", "Other parts"), ("count", "Count")]
-    meta = ("Progressive-die metal stamper, about 110 employees, eleven presses, one plant; IATF 16949 certified. PR-03, PR-06 and PR-09, as in force at 31 December 2025; SPC software, calibration system, die maintenance log and gauge study worksheets.<br>PPAP elements 7, 8 and 11; IATF 16949 8.5.1.1 and 9.1.1.1.")
-    html = S.shell("Control Plan and Chart Book", "Reference", meta, "\n".join(body), toc)
+    toc = [("in-force", "1. In force")] + [(part, f"{n}. Control plan, {part}") for n, (part, _) in enumerate(FULL, start=2)] + [("charts", f"{SEC['charts']}. Charts in force"), ("sharpening", f"{SEC['sharpening']}. Sharpening"), ("reaction", f"{SEC['reaction']}. Reaction plan"),
+           ("per-stroke", f"{SEC['per-stroke']}. Per-stroke monitoring"), ("index", f"{SEC['index']}. Index of control plans"), ("count", f"{SEC['count']}. Count of characteristics"), ("gauges", f"{SEC['gauges']}. Gauges with no study")]
+    content = "\n".join(body).replace('<table class="data wide">', '<div style="overflow-x:auto"><table class="data" style="font-size:12px;min-width:1700px">').replace('<table class="data">','<div style="overflow-x:auto"><table class="data" style="font-size:12px">').replace("</table>", "</table></div>")          # a wide table scrolls inside the text column
+    html = S.report_shell("Control Plans and Chart Book, PR-03, PR-06 and PR-09", "", "", content, toc)
     out = S.DOCS / "control_plan"; out.mkdir(parents=True, exist_ok=True)
     (out / "control_plan_and_chart_book.html").write_text(html, encoding="utf8", newline="\n")
     return html, p, d, check, pd.DataFrame(trace, columns=["section", "value_as_printed", "read_from"])
