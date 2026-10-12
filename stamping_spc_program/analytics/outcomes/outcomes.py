@@ -222,6 +222,63 @@ def pilot_sorting_starts(year=2025):
                     from marts.mart_sorting_events where is_pilot_press and sort_started >= make_date(?, 3, 1) and sort_started < make_date(? + 1, 1, 1)""", [year, year])
 
 
+def plant_losses(years=(2023, 2024)):
+    """Plant-wide quality losses by calendar year, on the definitions of the outcome tables: scrap and rework as booked
+    to a press over revenue on runs ended in the year, customer PPM with a bootstrap interval over complaints (duplicate
+    entries left out), and sorting events on the date the sorting started."""
+    rows = []
+    for y in years:
+        r = query("""
+            with presses as (select press_id from intermediate.int_press_redesign),
+            booked as (select sum(l.amount) filter (where l.category = 'scrap') as scrap_booked, sum(l.amount) filter (where l.category = 'rework labor') as rework_labor_booked
+                       from staging.stg_accounting__quality_cost_lines l
+                       where l.category in ('scrap', 'rework labor') and year(cast(l.period || '-01' as date)) = $y and regexp_extract(l.source_record, 'PR-[0-9]{2}') in (select press_id from presses)),
+            production as (select sum(r.quantity_produced * c.price) as revenue, sum(r.quantity_produced) as pieces_produced, sum(r.quantity_scrapped) as pieces_scrapped
+                           from intermediate.int_run_shots r join presses using (press_id)
+                           left join staging.stg_accounting__contribution c on c.part_id = r.part_id and c.year = least(greatest(year(r.production_start), 2023), 2025)
+                           where year(r.actual_end) = $y),
+            shipments as (select sum(s.quantity) as pieces_shipped from staging.stg_erp__shipments s join intermediate.int_run_shots r using (run_id) join presses using (press_id) where year(s.ship_date) = $y),
+            sorting as (select count(*) as sorting_events, sum(quantity_sorted) as quantity_sorted, sum(sorting_cost_booked) as sorting_cost_booked, sum(sorting_cost_booked_or_estimated) as sorting_cost_booked_or_estimated
+                        from marts.mart_sorting_events where year(sort_started) = $y)
+            select * from booked, production, shipments, sorting""".replace("$y", str(int(y)))).iloc[0]
+        c = query("""
+            with c as (select c.*, row_number() over (partition by c.customer_id, c.part_id, c.run_ids, c.quantity, c.defect_code order by c.received, c.complaint_id) > 1 as duplicate_entry
+                       from staging.stg_qms__complaints c)
+            select c.complaint_id, c.quantity, c.duplicate_entry
+            from c join intermediate.int_run_shots r on r.run_id = split_part(c.run_ids, ';', 1) join intermediate.int_press_redesign x using (press_id)
+            where year(c.received) = ? order by c.complaint_id""", [int(y)])
+        q = c[~c["duplicate_entry"]]["quantity"].values.astype(float); g = np.random.default_rng([SEED, 21, int(y)])
+        tot = [g.choice(q, size=g.poisson(len(q)), replace=True).sum() for _ in range(2000)] if len(q) else [0.0]
+        rows.append({"year": int(y), "scrap_booked": r.scrap_booked, "rework_labor_booked": r.rework_labor_booked, "revenue": r.revenue, "scrap_and_rework_share_of_revenue": (r.scrap_booked + r.rework_labor_booked) / r.revenue,
+                     "complaints": len(q), "duplicate_entries_left_out": int(c["duplicate_entry"].sum()), "pieces_rejected": int(q.sum()), "pieces_shipped": int(r.pieces_shipped), "ppm": q.sum() / r.pieces_shipped * 1e6,
+                     "low": np.percentile(tot, 2.5) / r.pieces_shipped * 1e6, "high": np.percentile(tot, 97.5) / r.pieces_shipped * 1e6, "sorting_events": int(r.sorting_events), "quantity_sorted": int(r.quantity_sorted),
+                     "sorting_cost_booked": r.sorting_cost_booked, "sorting_cost_booked_or_estimated": r.sorting_cost_booked_or_estimated})
+    return pd.DataFrame(rows)
+
+
+def hole_diameter_under_the_tool_wear_chart():
+    """The pilot presses' hole diameters, March to December of 2024 and of 2025: alarm signals per 100 subgroups under the
+    limits in force in each period, and production Ppk as the median over characteristics with a bootstrap interval."""
+    h = query("""
+        select p.period_year, h.characteristic_id, h.die_id, h.press_id, h.usl, h.lsl, h.r1, h.r2, h.r3, h.r4, h.r5, h.implausible_readings, h.alarm_raised
+        from marts.mart_outcome_periods p join intermediate.int_characteristic_history h
+          on h.is_pilot_press = p.is_pilot_press and h.sample_time >= p.period_start and h.sample_time < p.period_end
+        where p.press_set = 'pilot presses' and p.period_year >= 2024 and h.characteristic_type = 'hole diameter' and h.data_type = 'variable' and h.subgroup_mean is not null
+        order by p.period_year, h.characteristic_id, h.sample_time, h.subgroup_id""")
+    by, rows = [], []
+    for k, (y, g) in enumerate(h.groupby("period_year", sort=True)):
+        for cid, c in g.groupby("characteristic_id", sort=True):
+            x = c[c["r5"].notna() & (c["implausible_readings"] == 0)][R5].values.astype(float)
+            row = {"year": int(y), "characteristic_id": cid, "die_id": c["die_id"].iloc[0], "press_id": c["press_id"].iloc[0], "subgroups": len(c), "alarm_signals": int(c["alarm_raised"].sum()), "ppk": np.nan}
+            if len(x) >= MIN_SUBGROUPS:
+                m = x.mean(); row["ppk"] = min(c["usl"].iloc[0] - m, m - c["lsl"].iloc[0]) / (3 * x.std(ddof=1))
+            by.append(row)
+        b = pd.DataFrame([x for x in by if x["year"] == int(y)]); v = b["ppk"].dropna().values; boot = np.median(v[np.random.default_rng([SEED, 41, k]).integers(0, len(v), (2000, len(v)))], axis=1)
+        rows.append({"months": "March to December", "year": int(y), "characteristics": len(b), "subgroups": int(b["subgroups"].sum()), "alarm_signals": int(b["alarm_signals"].sum()),
+                     "alarm_signals_per_100_subgroups": b["alarm_signals"].sum() / b["subgroups"].sum() * 100, "ppk_median": float(np.median(v)), "ppk_low": float(np.percentile(boot, 2.5)), "ppk_high": float(np.percentile(boot, 97.5))})
+    return pd.DataFrame(rows), pd.DataFrame(by)
+
+
 def compute():
     cap, by_characteristic = capability(); lines, plant = cost_lines()
     return {"sorting": sorting(), "ppm": ppm(), "scrap_and_rework": scrap_and_rework(), "capability": cap, "capability_by_characteristic": by_characteristic, "burr": burr(), "signals": signals(),

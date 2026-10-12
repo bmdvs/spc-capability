@@ -112,6 +112,104 @@ def cost_lines(t):
     return S.save(f, "outcomes_cost_lines", "Quality cost lines as booked by category on the pilot presses, March to December of 2023, 2024 and 2025")
 
 
+def press_sets_five_measures(t):
+    """The three press sets on the five measures, each on its own months of 2023, 2024 and 2025."""
+    m = _measures(t)
+    order = ["scrap", "ppk", "signals", "ppm", "sorting"]; panels = sorted(PANELS, key=lambda p: order.index(p[0])); tops = {}
+    f, axes = S.fig(h=7.2, ncols=5, nrows=3, sharey="col")
+    for i, (s, label) in enumerate(SETS):
+        for j, (key, title, fmt) in enumerate(panels):
+            ax = axes[i, j]; top = tops.get(key, 0)
+            for x, y in enumerate(YEARS):
+                v, lo, hi = m[(s, y)][key]; v = float(S.sig(v))
+                ax.bar(x, v, 0.68, color=YEAR_COLOR[y])
+                if lo is not None:
+                    ax.errorbar(x, v, yerr=[[v - float(S.sig(lo))], [float(S.sig(hi)) - v]], color=S.TEXT, lw=1.1, capsize=3)
+                edge = float(S.sig(hi)) if hi is not None else v; top = max(top, edge)
+                ax.text(x, edge, fmt.format(v), ha="center", va="bottom", fontsize=8.5)
+            tops[key] = top; ax.set_xticks(range(3)); ax.set_xticklabels([str(y) for y in YEARS], fontsize=8.5); ax.set_ylim(0, max(top, 1) * 1.16); ax.tick_params(axis="y", labelsize=8, labelleft=True)
+            if key == "sorting":
+                ax.yaxis.get_major_locator().set_params(integer=True)
+            if i == 0:
+                ax.set_title(title, fontsize=9.5)
+            if j == 0:
+                ax.set_ylabel(label, fontsize=9.5, fontweight="bold", color=S.BRAND_BLUE)
+    counts = "; ".join(f"{lab.split(',')[0].lower()} " + ", ".join(str(m[(s_, y)]["ppk_n"]) for y in YEARS) for s_, lab in SETS)
+    f.text(0.01, 0.005, f"Ppk: characteristics with 60 subgroups or more in the period, 2023, 2024 and 2025: {counts}.", fontsize=8, color=S.DARK_GREY, ha="left", va="bottom")
+    f.tight_layout(rect=(0, 0.03, 1, 1))
+    return S.save(f, "outcomes_press_sets_five_measures", "The pilot, comparison and rollout presses on sorting events, customer PPM, scrap and rework, Ppk on critical formed characteristics and alarm signals, each on its own months of 2023, 2024 and 2025")
+
+
+def _grouped_by_set(ax, values, fmt, intervals=None, notes=None):
+    """One group of three year columns per press set; values, intervals and notes are keyed by (press set, year)."""
+    top = 0
+    for i, (s, _) in enumerate(SETS):
+        for j, y in enumerate(YEARS):
+            x = i + (j - 1) * 0.27; v = float(S.sig(values[(s, y)]))
+            ax.bar(x, v, 0.25, color=YEAR_COLOR[y], label=str(y) if i == 0 else None); edge = v
+            if intervals is not None:
+                lo, hi = (float(S.sig(q)) for q in intervals[(s, y)]); ax.errorbar(x, v, yerr=[[v - lo], [hi - v]], color=S.TEXT, lw=1.1, capsize=3); edge = hi
+            ax.text(x, edge, fmt.format(v) + (f"\n{notes[(s, y)]}" if notes else ""), ha="center", va="bottom", fontsize=8)
+            top = max(top, edge)
+    ax.set_xticks(range(3)); ax.set_xticklabels([lab for _, lab in SETS], fontsize=9)
+    return top
+
+
+def burr_over_the_limit(t):
+    """Share of sharpening intervals with burr over the limit before the sharpening, by press set and year."""
+    b = t["burr"].set_index(["press_set", "period_year"])
+    val = {k: b.loc[k, "share_over_the_limit"] * 100 for k in b.index}; ci = {k: (b.loc[k, "low"] * 100, b.loc[k, "high"] * 100) for k in b.index}
+    note = {k: f"{int(b.loc[k, 'intervals_with_burr_over_the_limit'])} of {int(b.loc[k, 'intervals_with_burr_gauge_subgroups'])}" for k in b.index}
+    f, ax = S.fig(h=4.0)
+    top = _grouped_by_set(ax, val, "{:.0f}%", ci, note)
+    ax.set_ylim(0, top * 1.22); ax.set_ylabel("Sharpening intervals with burr\nover the limit before the sharpening, %"); ax.yaxis.set_major_formatter(lambda v, _: f"{v:.0f}%")
+    ax.legend(loc="upper right", frameon=False, fontsize=9, ncol=3)
+    f.tight_layout()
+    return S.save(f, "outcomes_burr_over_the_limit", "Share of sharpening intervals with burr over the limit before the sharpening, with 95% intervals, by press set and year")
+
+
+def alarm_rate_and_response(t):
+    """Alarm signals per 100 subgroups and the share with an adjustment recorded, by press set and year."""
+    g = t["signals"]; g = g[g["presses"] == "all presses of the set"].set_index(["press_set", "period_year"])
+    f, axes = S.fig(h=4.0, ncols=2)
+    top = _grouped_by_set(axes[0], {k: g.loc[k, "alarm_signals_per_100_subgroups"] for k in g.index}, "{:.1f}")
+    axes[0].set_ylim(0, top * 1.14); axes[0].set_title("Alarm signals\nper 100 subgroups", fontsize=11)
+    _grouped_by_set(axes[1], {k: g.loc[k, "adjustment_share"] * 100 for k in g.index}, "{:.0f}%")
+    axes[1].set_ylim(0, 100); axes[1].set_title("Alarm signals with\nan adjustment recorded", fontsize=11); axes[1].yaxis.set_major_formatter(lambda v, _: f"{v:.0f}%")
+    for ax in axes:
+        ax.set_xticklabels([lab.replace(" to ", " to\n") for _, lab in SETS], fontsize=8.5)
+    f.legend(*axes[0].get_legend_handles_labels(), loc="lower center", ncol=3, frameon=False, fontsize=9)
+    f.tight_layout(rect=(0, 0.07, 1, 1), w_pad=2.5)
+    return S.save(f, "outcomes_alarm_rate_and_response", "Alarm signals per 100 subgroups and the share with an adjustment recorded, by press set and year")
+
+
+def hole_diameter_on_the_tool_wear_chart(die="D-0417-B", characteristic="C-20417-01"):
+    """One hole diameter on its tool-wear chart: subgroup means against shots since sharpening with the centre line and
+    limits in force at each entry, on the die's sharpening interval that began and ended in March to December 2025."""
+    d = query("""select h.sharpening_interval_no, h.shots_since_sharpening / 1000 as shots, h.subgroup_mean, h.centre_line, h.ucl_mean, h.lcl_mean, h.usl, h.lsl, h.alarm_raised
+                 from intermediate.int_characteristic_history h join intermediate.int_sharpening_intervals i using (die_id, sharpening_interval_no)
+                 where h.die_id = ? and h.characteristic_id = ? and h.after_redesign and h.limits_in_force and h.subgroup_mean is not null
+                   and i.interval_start >= date '2025-03-01' and i.interval_end < date '2026-01-01'
+                 order by h.sharpening_interval_no, h.shots_since_sharpening, h.subgroup_id""", [die, characteristic])
+    no = d.groupby("sharpening_interval_no").size().sort_values(ascending=False, kind="stable").index[0]; d = d[d["sharpening_interval_no"] == no]
+    x = S.sig(d["shots"].values); a = d["alarm_raised"].values.astype(bool)
+    f, ax = S.fig(h=4.2)
+    usl, lsl = float(d["usl"].iloc[0]), float(d["lsl"].iloc[0])
+    for v, lab in ((usl, "USL"), (lsl, "LSL")):
+        ax.axhline(v, color=S.GREY, lw=1.4); ax.text(float(x.max()) * 1.015, v, f"{lab} {v:.4f}", color=S.DARK_GREY, fontsize=8.5, ha="right", va="bottom")
+    ax.plot(x, S.sig(d["centre_line"].values), color=S.BRAND_BLUE, lw=1.6, label="Tool-wear centre line")
+    ax.plot(x, S.sig(d["ucl_mean"].values), color=S.RED, lw=1.0, ls="--", label="Limits"); ax.plot(x, S.sig(d["lcl_mean"].values), color=S.RED, lw=1.0, ls="--")
+    ax.scatter(x[~a], S.sig(d["subgroup_mean"].values[~a]), s=10, color=S.ACCENT, alpha=0.6, lw=0, label=f"Subgroup mean ({len(d)})")
+    ax.scatter(x[a], S.sig(d["subgroup_mean"].values[a]), s=34, facecolors="none", edgecolors=S.RED, linewidths=1.5, label=f"Alarm signal ({int(a.sum())})")
+    pad = (usl - lsl) * 0.09; ax.set_ylim(lsl - pad, usl + pad); ax.set_xlim(0, float(x.max()) * 1.02)
+    ax.set_xlabel("Shots since sharpening, thousands"); ax.set_ylabel("Hole diameter, subgroup mean, mm")
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=4, frameon=False, fontsize=8.5)
+    f.tight_layout()
+    info = {"die_id": die, "characteristic_id": characteristic, "subgroups": len(d), "alarm_signals": int(a.sum()), "shots_at_the_last_subgroup": float(d["shots"].max()) * 1000, "centre_line_at_the_first": float(d["centre_line"].iloc[0]),
+            "centre_line_at_the_last": float(d["centre_line"].iloc[-1]), "limit_half_width": float((d["ucl_mean"] - d["centre_line"]).median())}
+    return S.save(f, "outcomes_hole_diameter_tool_wear_chart", f"Hole diameter {characteristic} on die {die} against shots since sharpening over one sharpening interval of 2025, with the tool-wear centre line and limits"), info
+
+
 def build(t):
     ppk, w = ppk_by_characteristic(t); comp, n = complaints_by_month(t)
     return {"pilot": pilot_five_measures(t), "sets": three_press_sets(t), "ppk": ppk, "ppk_table": w, "complaints": comp, "complaints_n": n, "costs": cost_lines(t)}
