@@ -1,0 +1,108 @@
+section,value_as_printed,read_from
+1. Summary,4.5,"alarms.alarm_signals_per_100_subgroups, December"
+1. Summary,15.2,"alarms.alarm_signals_per_100_subgroups, 2024"
+1. Summary,99%,"alarms.acknowledgement_or_adjustment_share, December"
+1. Summary,99.1%,"planned_checks.recorded_share, December"
+1. Summary,89.6%,"planned_checks.recorded_share, 2024"
+1. Summary,17,"sharpenings_against_the_due_count: at or before, December"
+1. Summary,19,"sharpenings_against_the_due_count: with a burr line, December"
+1. Summary,145,"sharpenings_against_the_due_count: at or before, 2024"
+1. Summary,305,"sharpenings_against_the_due_count: with a burr line, 2024"
+1. Summary,39,"capability_plant.ppk_under_1_33, 2025"
+1. Summary,149,"capability_plant.characteristics, 2025"
+1. Summary,5,dies_due: past due
+1. Summary,12,gauges_past_due_or_out_of_service: past due
+1. Summary,15.3%,"entries_after_the_parts.share, keyed, December"
+2. Capability on critical characteristics,1.37,"capability_plant.ppk_median, formed 2025"
+2. Capability on critical characteristics,1.01,"capability_plant.ppk_median, formed 2024"
+2. Capability on critical characteristics,87,"capability_plant.ppk_under_1_33, 2024"
+2. Capability on critical characteristics,39,"capability_plant.ppk_under_1_33, 2025"
+2. Capability on critical characteristics,149,"capability_plant.characteristics, 2025"
+2. Capability on critical characteristics,39,capability_under_1_33: rows
+2. Capability on critical characteristics,36,capability_under_1_33: formed
+2. Capability on critical characteristics,31,"capability_under_1_33: formed, on PR-03, PR-06 and PR-09"
+2. Capability on critical characteristics,39,capability_under_1_33: rows
+2. Capability on critical characteristics,1.60,"capability_under_1_33.cpk, median"
+2. Capability on critical characteristics,1.23,"capability_under_1_33.ppk, median"
+3. Alarms and reaction,4.5,"alarms.alarm_signals_per_100_subgroups, December"
+3. Alarms and reaction,6,"alarms.with_nothing_recorded, December"
+3. Alarms and reaction,600,"alarms.alarm_signals, December"
+3. Alarms and reaction,2.6,"alarms.alarm_signals_per_100_subgroups, lowest press, December"
+3. Alarms and reaction,7.0,"alarms.alarm_signals_per_100_subgroups, highest press, December"
+3. Alarms and reaction,77%,"alarms.adjustment_share, December"
+3. Alarms and reaction,6,alarms_with_nothing_recorded: rows
+3. Alarms and reaction,5,alarms_with_nothing_recorded: presses
+3. Alarms and reaction,4,alarms_with_nothing_recorded: critical
+3. Alarms and reaction,"2,519","alarms.subgroups_with_a_pattern_shown, December"
+3. Alarms and reaction,"13,245","alarms.variable_subgroups, December"
+3. Alarms and reaction,"1,672","alarms.rule_4, December"
+4. Checks and recording,99.1%,"planned_checks.recorded_share, December"
+4. Checks and recording,89.6%,"planned_checks.recorded_share, 2024"
+4. Checks and recording,99.5%,"planned_checks.recorded_share, nights, December"
+4. Checks and recording,84.4%,"planned_checks.recorded_share, nights, 2024"
+4. Checks and recording,95.6%,"first_check_of_the_shift.recorded_share, days, December"
+4. Checks and recording,77.0%,"first_check_of_the_shift.recorded_share, days, 2024"
+4. Checks and recording,84.8%,"first_check_of_the_shift.recorded_share, nights, 2024"
+4. Checks and recording,1.7%,"entries_after_the_parts.share, gauge-connected, December"
+4. Checks and recording,15.3%,"entries_after_the_parts.share, keyed, December"
+4. Checks and recording,"7,009","entries_after_the_parts.subgroups, keyed, December"
+4. Checks and recording,15.0%,"entries_after_the_parts.share, keyed, 2024"
+5. Limits,100,"limits_recalculated.charts_recalculated, December"
+5. Limits,96,"limits_recalculated.charts_recalculated, baseline after sharpening"
+5. Limits,4,"limits_recalculated.charts_recalculated, tool-wear regression"
+5. Limits,17,"limits_recalculated.charts_with_first_limits_under_the_redesign, December"
+5. Limits,246,"limits_status: limits from before the last sharpening, baseline not yet complete"
+6. Die wear and per-stroke monitoring,17,"sharpenings_against_the_due_count: at or before, December"
+6. Die wear and per-stroke monitoring,19,"sharpenings_against_the_due_count: with a burr line, December"
+6. Die wear and per-stroke monitoring,145,"sharpenings_against_the_due_count: at or before, 2024"
+6. Die wear and per-stroke monitoring,305,"sharpenings_against_the_due_count: with a burr line, 2024"
+6. Die wear and per-stroke monitoring,19%,"sharpenings_in_the_month: shots over the due count, first"
+6. Die wear and per-stroke monitoring,6%,"sharpenings_in_the_month: shots over the due count, second"
+6. Die wear and per-stroke monitoring,5,dies_due: past due
+6. Die wear and per-stroke monitoring,3,dies_due: past due and not run in December
+6. Die wear and per-stroke monitoring,14,dies_due: due in January
+6. Die wear and per-stroke monitoring,37,stops_in_the_month.stops
+6. Die wear and per-stroke monitoring,18,stops_in_the_month: punch worn and punch chipped
+6. Die wear and per-stroke monitoring,17,stops_in_the_month.slug pulling cleared
+6. Die wear and per-stroke monitoring,2,stops_in_the_month.nothing found
+6. Die wear and per-stroke monitoring,18,"punch_replacements, December"
+7. Measurement systems,12,gauges_past_due_or_out_of_service: past due
+7. Measurement systems,4,gauges_past_due_or_out_of_service: check fixtures
+7. Measurement systems,3,gauges_past_due_or_out_of_service: check fixtures out of service
+7. Measurement systems,8,gauges_past_due_or_out_of_service: other gauges
+7. Measurement systems,1,gauges_past_due_or_out_of_service: other gauges out of service
+7. Measurement systems,649,"subgroups_on_gauges.on_a_gauge_past_due_or_out_of_service, December"
+7. Measurement systems,180,check_fixtures_by_grr: check fixtures
+7. Measurement systems,104,check_fixtures_by_grr: under 10%
+7. Measurement systems,252,characteristics_on_a_gauge_with_no_study.characteristics
+7. Measurement systems,23,characteristics_on_a_gauge_with_no_study.critical_characteristics
+8. SPC-related nonconformances,15,"nonconformances_by_press.sorting_events, 2025"
+8. SPC-related nonconformances,53,"nonconformances_by_press.burr_nonconformances, 2025"
+8. SPC-related nonconformances,56,"nonconformances_by_press.burr_nonconformances, 2024"
+8. SPC-related nonconformances,50,burr_nonconformances: past the due count
+8. SPC-related nonconformances,51,burr_nonconformances: with a due count
+8. SPC-related nonconformances,10,burr_nonconformances: opened from 2 September 2025
+Appendix,"table: Production Ppk and Cpk by press, critical characteristics",monthly summary tables
+Appendix,table: Alarm signals by press,monthly summary tables
+Appendix,"table: December: alarms with nothing recorded and patterns shown, by press",monthly summary tables
+Appendix,table: Planned checks recorded by press and shift,monthly summary tables
+Appendix,table: The first check of each shift,monthly summary tables
+Appendix,"table: Entries made more than 20 minutes after the parts, by press and entry",monthly summary tables
+Appendix,table: Charts by recalculation status at 31 December,monthly summary tables
+Appendix,table: Sharpenings against the due count,monthly summary tables
+Appendix,table: Sharpenings in December,monthly summary tables
+Appendix,table: Sharpening intervals with burr over the limit,monthly summary tables
+Appendix,table: Punch replacements by cause,monthly summary tables
+Appendix,table: Subgroups on a gauge past calibration due or out of service,monthly summary tables
+Appendix,table: Check fixtures by latest %GRR of tolerance,monthly summary tables
+Appendix,table: Check fixtures at 10% of tolerance or more on the latest study,monthly summary tables
+Appendix,table: Variable characteristics measured on a gauge with no study,monthly summary tables
+Appendix,table: Sorting events and burr nonconformances by press,monthly summary tables
+Appendix,table: Burr nonconformances of 2025 with the die's position in its sharpening interval,monthly summary tables
+Body tables,table: C-1,"alarms, planned_checks, first_check_of_the_shift, entries_after_the_parts, capability_plant, limits, sharpenings, burr, stops, punch_replacements"
+Body tables,table: C-4,capability_under_1_33
+Body tables,table: C-7,alarms_with_nothing_recorded
+Body tables,table: C-11,limits_recalculated
+Body tables,table: C-16,dies_due
+Body tables,table: C-17,stops_in_the_month
+Body tables,table: C-19,gauges_past_due_or_out_of_service
