@@ -22,11 +22,10 @@ R1, R2 = "docs/reports/spc_assessment.html", "docs/reports/spc_redesign_and_resu
 PAGES_BASE = "https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/"          # where the pages are served; README links to pages use it, links to files stay relative
 PAGES = [("SPC Assessment", "reports/spc_assessment.html", "Report", "Every chart in use audited on the record as it stood at 31 December 2024: limits, capability, risk window, measurement, adjustment, die wear and recording, with findings and exhibits, and an appendix of the tables and statistical detail behind them."),
          ("SPC Redesign and Results", "reports/spc_redesign_and_results.html", "Report", "The redesign by characteristic class, per-stroke monitoring on the pilot presses, and the outcomes against 2024 and 2023 with the comparison and rollout presses."),
-         ("Control Plan and Chart Book", "control_plan/control_plan_and_chart_book.html", "Reference", "What is in force at 31 December 2025 on the parts that run on PR-03, PR-06 and PR-09: three parts in full and 27 in summary."),
-         ("SPC Board: PR-03", "spc_board/pr_03.html", "SPC board", "Per-stroke tonnage, manual-check charts, flags with the reaction plan and the sharpening table, as at 19 December 2025."),
-         ("SPC Board: PR-06", "spc_board/pr_06.html", "SPC board", "The same for PR-06."),
-         ("SPC Board: PR-09", "spc_board/pr_09.html", "SPC board", "The same for PR-09."),
-         ("Plant Quality Dashboard", "dashboard/index.html", "Dashboard", "Customer PPM, sorting, scrap and rework, production capability, alarm signals, gauge study status and burr by month, December 2025 as the current month.")]
+         ("SPC Terminal Screen, PR-03", "screens/spc_terminal_pr_03.html", "Screen", "The press-side SPC software on PR-03 at 09:45 on 7 October 2025: the characteristics of the part on the run, the chart in force, the last subgroup, the most recent alarm and the shift event log."),
+         ("Press Monitor Screen, PR-03", "screens/press_monitor_pr_03.html", "Screen", "The press monitor historian's display for PR-03 at the same moment: the per-stroke total and channel shares on the run, the stop log and the die's shots against its sharpening due count."),
+         ("SPC Monthly Summary, December 2025", "monthly_summary/spc_monthly_summary_2025_12.html", "Monthly summary", "The SPC measures of December 2025 on all eleven presses against 2024 and by month: capability, alarms and reaction, checks and recording, limits, die wear and per-stroke monitoring, measurement systems and nonconformances."),
+         ("Control Plans and Chart Book", "control_plan/control_plan_and_chart_book.html", "Reference", "What is in force at 31 December 2025 on the parts that run on PR-03, PR-06 and PR-09: three control plans in full, the chart book and an index of the other 27 parts.")]
 
 
 def landing():
@@ -103,13 +102,13 @@ def build():
     md = []
     md.append("# mfg-spc-program\n")
     md.append("Statistical process control at a progressive-die metal stamper, January 2023 to December 2025: an assessment of every chart in use on the shop's own record, a redesign of the charts, limits, sampling and reaction plan on three pilot presses with per-stroke tonnage monitoring, and the results against the same months of 2024 and 2023 with the other presses as the comparison. "
-              "Nine analyses feed two reports, a control plan and chart book, three SPC boards and a plant quality dashboard, all computed from the shop's exported records by one pipeline.\n")
-    md.append("[![SPC board, PR-06](docs/readme/pr_06_board.png)](docs/spc_board/pr_06.html)\n")
+              "Nine analyses feed two reports, an SPC terminal screen and a press monitor screen for PR-03, an SPC monthly summary, and control plans and a chart book, all computed from the shop's exported records by one pipeline.\n")
+    md.append("[![SPC terminal screen, PR-03](docs/readme/spc_terminal_screen.png)](docs/screens/spc_terminal_pr_03.html)\n")
     md.append("## What is included\n")
     md.append("- Two reports: the [SPC Assessment](docs/reports/spc_assessment.html) and the [SPC Redesign and Results](docs/reports/spc_redesign_and_results.html), each with findings and exhibits, and an appendix of the tables and statistical detail behind them.\n"
-              "- The [control plan and chart book](docs/control_plan/control_plan_and_chart_book.html): what is in force at 31 December 2025 on the 30 parts that run on the pilot presses, three in full.\n"
-              "- Three SPC boards, one per pilot press: [PR-03](docs/spc_board/pr_03.html), [PR-06](docs/spc_board/pr_06.html), [PR-09](docs/spc_board/pr_09.html).\n"
-              "- The [plant quality dashboard](docs/dashboard/index.html), December 2025 as the current month. Index of deliverables: [docs/index.html](docs/index.html).\n"
+              "- The [SPC terminal screen](docs/screens/spc_terminal_pr_03.html) and the [press monitor screen](docs/screens/press_monitor_pr_03.html) for PR-03.\n"
+              "- The [SPC monthly summary](docs/monthly_summary/spc_monthly_summary_2025_12.html) for December 2025.\n"
+              "- The [control plans and chart book](docs/control_plan/control_plan_and_chart_book.html). Index of deliverables: [docs/index.html](docs/index.html).\n"
               "- The pipeline from the exported files to the marts: dlt, DuckDB and dbt with schema tests, and one build command that writes every table, figure and page.\n")
     md.append("## Business Context\n")
     md.append("The shop is a progressive-die metal stamper: about 110 employees, IATF 16949 certified, one plant, eleven presses, about 180 part numbers on about 170 dies for automotive, appliance, HVAC, industrial, electrical and consumer customers. It charted six to twelve characteristics a part at the press, in SPC software on the seven medium presses and on paper on the four high-speed presses, filed a Ppk from 300 consecutive pieces at PPAP, sharpened dies on a stated shot interval, and adjusted the die at the operator's discretion. "
@@ -130,7 +129,7 @@ def build():
               "Anderson-Darling with the Box-Cox transformation on bounded characteristics; lag-1 autocorrelation of subgroup means within a run and coil; an EWMA for autocorrelated data on the per-stroke total and a residual chart on each channel's share; the exact Poisson rate test on event and complaint counts, a bootstrap interval over complaints on PPM, and the two-proportion score test with the Newcombe interval. Every result carries its interval, its sample size and its coverage.\n")
     nodes = query("select count(*) as n from information_schema.tables where table_schema in ('staging', 'intermediate', 'marts')")["n"].iloc[0]
     md.append(f"Data engineering: the exported files are loaded to DuckDB with dlt, the per-stroke and per-minute press monitor exports are read in place as Parquet, and a dbt project builds {v(str(int(nodes)), 'dbt models', 'pipeline/dbt', 'information_schema.tables')} staging, intermediate and mart models with schema tests on every layer. "
-              "Every table, figure and page is written by scripts that read the marts; no number is typed into a page, and two consecutive builds are byte-identical. Each report, the control plan, the boards and the dashboard has a table of every number it prints with the mart it is read from, under `analytics/reports/traces/`.\n")
+              "Every table, figure and page is written by scripts that read the marts; no number is typed into a page, and two consecutive builds are byte-identical. Each report, the two screens, the monthly summary and the control plans has a table of every number it prints with the mart it is read from, under `analytics/reports/traces/`.\n")
     md.append("## Data\n")
     md.append(f"Thirty-six months of the shop's records, January 2023 to December 2025, export batch {batch}: {v(f'{n['spc__subgroups']:,}', 'subgroups', 'data/raw/spc', 'raw.spc__subgroups')} subgroups on {v(f'{n['spc__characteristics']:,}', 'characteristics', 'data/raw/spc', 'raw.spc__characteristics')} characteristics, "
               f"{v(f'{n['erp__production_runs']:,}', 'production runs', 'data/raw/erp', 'raw.erp__production_runs')} production runs, {v(f'{n['erp__coils']:,}', 'coils', 'data/raw/erp', 'raw.erp__coils')} coils and {v(f'{strokes:,}', 'strokes kept by the historian', 'data/raw/press_monitor', 'mart_per_stroke_run_tonnage')} press strokes on the pilot presses from 5 May 2025.\n")
@@ -142,11 +141,11 @@ def build():
            ("Die maintenance log", "sharpenings, punch replacements, rebuilds, repairs", n["die_room__die_events"]), ("Calibration system", "gauges, calibrations, gauge studies", n["calibration__calibrations"] + n["calibration__gauge_studies"]), ("Accounting", "quality cost lines, contribution by part", n["accounting__quality_cost_lines"]),
            ("Study worksheets", "seven gauge R&R studies and two attribute agreement studies, as recorded", 9)]
     md.append("| Source | Tables | Records |\n|---|---|---|\n" + "\n".join(f"| {a} | {b} | {c:,} |" for a, b, c in src) + "\n")
-    md.append("Pipeline: `pipeline/load` loads each exported file to the `raw` schema; `pipeline/dbt` builds one staging model per source table, the intermediate models (the characteristic history with run, press, coil, die shot count, limits in force and gauge status joined; coil assignment; sharpening intervals; the trace of each sorting event to its die event and the check before) and the marts each analysis, the boards and the dashboard read. Every mart carries the export batch id.\n")
+    md.append("Pipeline: `pipeline/load` loads each exported file to the `raw` schema; `pipeline/dbt` builds one staging model per source table, the intermediate models (the characteristic history with run, press, coil, die shot count, limits in force and gauge status joined; coil assignment; sharpening intervals; the trace of each sorting event to its die event and the check before) and the marts each analysis, the two screens, the monthly summary and the control plans read. Every mart carries the export batch id.\n")
     md.append("## How to run\n")
     md.append("Python 3.12 or later. Run from `stamping_spc_program/`.\n\n```bash\npython -m venv .venv\n```\n\nActivate it: `.venv\\Scripts\\activate` on Windows, `source .venv/bin/activate` on Linux and macOS. Then:\n\n```bash\npip install -e .\n```\n\n```bash\npython -m pipeline.load.load_exports\n```\n\n"
               "```bash\ncd pipeline/dbt && dbt build --profiles-dir . && cd ../..\n```\n\n```bash\npython -m analytics.build_all\n```\n\n"
-              "The last command writes every figure under `docs/figures`, the two reports, the control plan and chart book, the three boards, the dashboard, `docs/index.html`, this README and the number traces.\n")
+              "The last command writes every figure under `docs/figures`, the two reports, the two screens, the monthly summary, the control plans and chart book, `docs/index.html`, this README and the number traces.\n")
     md.append("## Author\n")
     md.append("Brian Davis. Data engineering and applied analytics/ML for manufacturers. Other work: [github.com/brimsystems](https://github.com/brimsystems?tab=repositories).\n")
     text = "\n".join(md)

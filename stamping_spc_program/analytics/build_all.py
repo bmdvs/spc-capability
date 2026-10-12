@@ -4,7 +4,7 @@ Usage: python -m analytics.build_all
 Run after the exports are loaded and the dbt project is built. Two consecutive runs give byte-identical outputs."""
 import runpy
 
-MODULES = ["analytics.reports.assessment", "analytics.reports.redesign_results", "analytics.control_plan.control_plan", "analytics.spc_board.spc_board", "analytics.dashboard.dashboard", "analytics.site"]
+MODULES = ["analytics.reports.assessment", "analytics.reports.redesign_results", "analytics.screens.screens", "analytics.monthly_summary.report", "analytics.control_plan.control_plan", "analytics.site"]
 
 
 def main():

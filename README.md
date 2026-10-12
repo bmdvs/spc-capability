@@ -12,9 +12,9 @@ Read the [case README](molding_predictive_quality/README.md) and the [deliverabl
 
 ## Metal stamping: SPC program
 
-An SPC program for a progressive-die metal stamper with eleven presses: an assessment of every chart in use (limits, capability, the risk window between checks, measurement systems, adjustment, die wear and recording), a redesign of the charts, limits, sampling and reaction plan on three pilot presses with per-stroke tonnage monitoring, and the results against the same months of the two years before, with the other presses as the comparison. It delivers the SPC Assessment report, the SPC Redesign and Results report, a control plan and chart book, an SPC board for each pilot press and a plant quality dashboard.
+An SPC program for a progressive-die metal stamper with eleven presses: an assessment of every chart in use (limits, capability, the risk window between checks, measurement systems, adjustment, die wear and recording), a redesign of the charts, limits, sampling and reaction plan on three pilot presses with per-stroke tonnage monitoring, and the results against the same months of the two years before, with the other presses as the comparison. It delivers the SPC Assessment report, the SPC Redesign and Results report, an SPC terminal screen and a press monitor screen for PR-03, an SPC monthly summary, and control plans and a chart book.
 
-[![SPC board, PR-06](stamping_spc_program/docs/readme/pr_06_board.png)](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/spc_board/pr_06.html)
+[![SPC terminal screen, PR-03](stamping_spc_program/docs/readme/spc_terminal_screen.png)](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)
 
 Read the [case README](stamping_spc_program/README.md) and the [deliverables index](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/index.html).
 
