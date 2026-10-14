@@ -1,4 +1,9 @@
 section,value_as_printed,read_from,value_in_the_text
+1. Executive summary,"1,550","scope.classes.characteristics, total, to the ten","1,550"
+1. Executive summary,179,scope.parts,179
+1. Executive summary,93%,"plant_wide.share, subgroups on a gauge in service and in calibration, all",93%
+1. Executive summary,"10,474",software_acknowledgements.alarms,"10,474"
+1. Executive summary,94%,"planned_checks.recorded_share, all presses days",94%
 1. Executive summary,1.55,"capability_summary.ppk, punched",1.55
 1. Executive summary,1.79,"bounded_summary.ppu_percentile_median, flatness",1.79
 1. Executive summary,1.04,"capability_summary.ppk, formed",1.04
@@ -26,6 +31,20 @@ section,value_as_printed,read_from,value_in_the_text
 2. Scope,12,"scope.gauge_studies.study_date, earliest, day of January",12
 2. Scope,15,"scope.attribute_study.date, day of January",15
 2. Scope,130,"capability_summary.characteristics, all critical",130
+3. SPC assessment,"10,474",software_acknowledgements.alarms,"10,474"
+3. SPC assessment,2.6,"signal_comparison.rate_as_set_per_100, rolling: other punched",2.6
+3. SPC assessment,3.5,"signal_comparison.rate_as_computed_per_100, rolling: other punched",3.5
+3. SPC assessment,1.55,"capability_summary.ppk, punched",1.55
+3. SPC assessment,22,"punched_by_type.within_0_25, hole-to-hole and hole-to-edge",22
+3. SPC assessment,36,"punched_by_type.studies, hole-to-hole and hole-to-edge",36
+3. SPC assessment,1.79,"bounded_summary.ppu_percentile_median, flatness",1.79
+3. SPC assessment,93%,"plant_wide.share, subgroups on a gauge in service and in calibration, all",93%
+3. SPC assessment,0.014,"fixture_against_cmm.mean_difference_mm, to the assessment date",0.014
+3. SPC assessment,3%,"fixture_against_cmm.mean_difference_mm over gauge_rr.tolerance_mm, lowest of the three studied fixtures",3%
+3. SPC assessment,5%,"the same, highest",5%
+3. SPC assessment,94%,"planned_checks.recorded_share, all presses days",94%
+3. SPC assessment,95%,"planned_checks_by_hour.recorded_share, lowest other day hour",95%
+3. SPC assessment,97%,"planned_checks_by_hour.recorded_share, highest other day hour",97%
 3.1 Chart selection and limits,17.0%,"signal_comparison.signals_by_both over signals_as_computed, rolling: formed and hole diameter",17.0%
 3.1 Chart selection and limits,42,"paper_signals.printed_per_100, formed",42
 3.1 Chart selection and limits,28%,paper_signals_all_subgroups.action_share,28%
