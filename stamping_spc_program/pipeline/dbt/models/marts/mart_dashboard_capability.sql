@@ -7,7 +7,7 @@ with h as (
     select characteristic_id, part_id, press_id, is_pilot_press, characteristic_type, usl, lsl, r1, r2, r3, r4, r5
     from {{ ref('int_characteristic_history') }}
     where critical and data_type = 'variable' and r5 is not null and implausible_readings = 0 and lsl is not null
-      and sample_time >= date '2025-01-01' and sample_time < date '2026-01-01'
+      and sample_time >= date '2025-07-01' and sample_time < date '2026-07-01'
 
 ),
 

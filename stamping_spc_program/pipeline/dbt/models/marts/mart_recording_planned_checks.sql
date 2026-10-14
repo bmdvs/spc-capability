@@ -9,7 +9,7 @@
 with runs as (
 
     select r.run_id, r.press_id, r.part_id, r.production_start, r.actual_end, p.is_pilot_press,
-           cast(r.production_start as date) >= p.redesign_date as after_redesign
+           coalesce(cast(r.production_start as date) >= p.redesign_date, false) as after_redesign
     from {{ ref('int_run_shots') }} r
     join {{ ref('int_press_redesign') }} p using (press_id)
     where r.production_start is not null and r.actual_end is not null

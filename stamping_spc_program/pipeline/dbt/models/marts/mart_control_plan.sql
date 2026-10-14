@@ -1,7 +1,7 @@
 -- The control plan as in force at the end of the record on the parts that run on the pilot presses. Grain: one row per
 -- characteristic. Each characteristic carries its limit set in force at {{ var('control_plan_date') }} where it has one, the latest study on
 -- its gauge or check fixture, the count of reaction plan steps, the check frequency in the characteristics master and
--- the frequency as recorded (the median minutes between consecutive routine subgroups on a run, March to December 2025).
+-- the frequency as recorded (the median minutes between consecutive routine subgroups on a run, April to June 2026).
 
 with parts as (
 
@@ -44,7 +44,7 @@ gaps as (
     select characteristic_id, run_id,
            date_diff('minute', lag(sample_time) over (partition by characteristic_id, run_id order by sample_time), sample_time) as minutes_since_the_check_before
     from {{ ref('int_characteristic_history') }}
-    where subgroup_type = 'routine' and after_redesign and sample_time >= date '2025-03-01' and sample_time < date '2026-01-01'
+    where subgroup_type = 'routine' and after_redesign and sample_time >= date '2026-04-01' and sample_time < date '2026-07-01'
 
 ),
 
@@ -61,7 +61,7 @@ speed as (
 
     select part_id, median(run_speed_spm) as run_speed_spm
     from {{ ref('int_run_shots') }}
-    where production_start >= date '2025-02-03'
+    where production_start >= date '2026-02-02'
     group by 1
 
 )

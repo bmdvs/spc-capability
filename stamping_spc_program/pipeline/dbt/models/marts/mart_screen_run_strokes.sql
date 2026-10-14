@@ -3,8 +3,8 @@
 -- The production strokes of the run shown on the PR-03 SPC terminal and press monitor screens, up to the time the
 -- screens are drawn for, with each channel's peak and its share of the total. Grain: one row per stroke.
 
-{% set screen_run = 'R25-01738' %}
-{% set screen_as_at = '2025-10-07 09:45:00' %}
+{% set screen_run = 'R26-00820' %}
+{% set screen_as_at = '2026-05-13 12:04:00' %}
 
 select
     s.press_id, s.run_id, s.stroke_no, s.stroke_ts, s.total_kn, s.strokes_per_minute,

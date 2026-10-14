@@ -1,4 +1,4 @@
-"""Control plans and chart book: what is in force at 31 December 2025 on the parts that run on PR-03, PR-06 and PR-09.
+"""Control plans and chart book: what is in force at 30 June 2026 on the parts that run on PR-03, PR-06 and PR-09.
 Three control plans in the AIAG layout, the chart book, and an index of the other parts on those presses. Writes docs/control_plan/control_plan_and_chart_book.html
 and returns the table of every number in the text lines, and of every table, with the mart each is read from."""
 import pandas as pd
@@ -8,14 +8,14 @@ from analytics.die_wear.die_wear import burr_by_die
 from analytics.per_stroke.figures import L as EWMA_L, LAMBDA as EWMA_LAMBDA
 from analytics.style import style as S
 
-AS_AT = "2025-12-31"
+AS_AT = "2026-06-30"
 FULL = [("P-20417", "PR-06"), ("P-31102", "PR-09"), ("P-10823", "PR-03")]
 CHART_NAME = {"three-way chart": "three-way chart", "tool-wear chart": "tool-wear chart", "X-bar and R": "X-bar and R", "attribute check": "attribute check", "no limit set in force": "no chart: sharpening count"}
 RECALCULATION = {"three-way chart": "After each sharpening, on a baseline of at least 25 subgroups spanning five coil changes", "tool-wear chart": "On a planned trigger, from the die's earlier sharpening intervals",
                  "X-bar and R": "After each sharpening, on a stable 25-subgroup baseline", "attribute check": "", "no limit set in force": ""}
 SCHEME = "five consecutive parts"
 BURR = "Burr height on the laboratory gauge has no chart. It is controlled by the die's burr line and by the sharpening count (next due in the sharpening table)."
-ASSESSMENT_SECTION = 4          # the section of the assessment report on the record under the charts
+ASSESSMENT_SECTION = "3.3"          # the section of the assessment report on measurement systems
 
 
 def plan():
@@ -37,8 +37,8 @@ def dies():
         where d.die_id in (select die_id from marts.mart_control_plan) order by d.die_id""")
     b, _ = burr_by_die()
     d = d.merge(b[["die_id", "shots_at_80pct_of_limit", "low", "high"]], on="die_id", how="left")
-    d["next_sharpening_due_at_shot_count"] = d["shot_count_at_last_sharpening"] + d["shots_at_80pct_of_limit"]
-    d["shots_past_due"] = d["shot_count_at_the_end_of_the_record"] - d["next_sharpening_due_at_shot_count"]
+    d["next_sharpening_due_at_shot_count"] = (d["shot_count_at_last_sharpening"] + d["shots_at_80pct_of_limit"]).astype(float)          # not known where the last sharpening was logged with no shot count
+    d["shots_past_due"] = (d["shot_count_at_the_end_of_the_record"] - d["next_sharpening_due_at_shot_count"]).astype(float)
     return d
 
 
@@ -105,7 +105,7 @@ def control_plan_table(p, part_id, die, steps):
         rows.append({"Process name or operation description": operation, "Machine, device, jig, tools for manufacturing": mach, "Characteristic number": number, "Product characteristic": product, "Process characteristic": process,
                      "Special characteristic classification": special, "Product or process specification and tolerance": spec, "Evaluation or measurement technique": technique, "Sample size": size, "Sample frequency": freq, "Control method": method, "Reaction plan": reaction})
     row("Coil load and feed", g0.press_id, process="Coil certificate thickness and hardness", spec="–", technique="Coil certificate", size="Each coil", freq="Each coil change",
-        method=f"Coil-change subgroup on the three-way charts, with a centring step when its mean is outside one sigma of target (chart book, Section {SEC['charts']})", reaction=f"Chart book, Section {SEC['reaction']}")
+        method=f"Subgroup at each coil change; on a rule 1 alarm, adjust only as the plan for the characteristic states and record the adjustment (chart book, Section {SEC['charts']})", reaction=f"Chart book, Section {SEC['reaction']}")
     for r in g.itertuples():
         fixture = f"; {r.gauge_id}" if r.gauge_type == "check fixture" else ""
         study = f"{r.pct_grr_of_tolerance:.1f}% GRR of tolerance, ndc {int(r.ndc)}" if r.pct_grr_of_tolerance == r.pct_grr_of_tolerance else ("" if r.data_type == "attribute" else "no study on this gauge")
@@ -155,7 +155,7 @@ def summary_table(p, d):
                      "Frequency, critical variable": " / ".join(sorted({frequency(r) for r in g[g["critical"] & (g["data_type"] == "variable")].itertuples()})) or "none critical",
                      "Limits in force from": f"{str(v['limits_in_force_from'].min())[:10]} to {str(v['limits_in_force_from'].max())[:10]}",
                      "Gauge studies": "none" if st.empty else f"{str(st.min())[:10]} to {str(st.max())[:10]}",
-                     "Next due, shot count (burr at 80% of its limit)": f"{die.next_sharpening_due_at_shot_count:,.0f}" + (f", past due by {die.shots_past_due:,.0f}" if die.shots_past_due > 0 else ""),
+                     "Next due, shot count (burr at 80% of its limit)": ("not stated: the last sharpening was logged with no shot count" if die.next_sharpening_due_at_shot_count != die.next_sharpening_due_at_shot_count else f"{die.next_sharpening_due_at_shot_count:,.0f}" + (f", past due by {die.shots_past_due:,.0f}" if die.shots_past_due > 0 else "")),
                      "Last interval (strokes)": "" if die.last_interval_run != die.last_interval_run else f"{die.last_interval_run:,.0f}", "Master interval (strokes)": f"{die.master_interval:,.0f}"})
     return S.table(pd.DataFrame(rows))
 
@@ -168,13 +168,13 @@ def build():
     check = count_check(p); no_study, n_no_study = gauges_with_no_study(p)
     trace = []          # (section, value as printed or the table, read from)
     body = []
-    body.append('<h2 id="in-force">1. In force at 31 December 2025</h2>')
+    body.append('<h2 id="in-force">1. In force at 30 June 2026</h2>')
     body.append(f"<p>{len(p)} characteristics on {p['part_id'].nunique()} parts on PR-03, PR-06 and PR-09: three control plans in full (Sections 2 to 4) and {p['part_id'].nunique() - len(FULL)} in the index (Section {SEC['index']}). {BURR} "
                 f"{n_no_study} characteristics are measured on gauges with no measurement study; those gauges are listed in Section {SEC['gauges']}, and the gauge studies of the assessment are in the assessment report, Section {ASSESSMENT_SECTION}.</p>")
     trace += [("1. In force", str(len(p)), "mart_control_plan: rows"), ("1. In force", str(p["part_id"].nunique()), "mart_control_plan: distinct part_id"), ("1. In force", str(p["part_id"].nunique() - len(FULL)), "mart_control_plan: distinct part_id less the three in full"),
               ("1. In force", str(n_no_study), "mart_control_plan: variable characteristics with pct_grr_of_tolerance null")]
     key = p.groupby("chart_in_force").agg(characteristics=("characteristic_id", "count"), critical=("critical", "sum"), parts=("part_id", "nunique")).reindex(list(CHART_NAME)).reset_index()
-    key["scheme"] = key["chart_in_force"].map({"three-way chart": f"Subgroup means on an individuals chart with limits from the moving range of the baseline means, and a range chart; {SCHEME}; a coil-change subgroup with a centring step when its mean is outside one sigma of target",
+    key["scheme"] = key["chart_in_force"].map({"three-way chart": f"Subgroup means on an individuals chart with limits from the moving range of the baseline means, and a range chart; {SCHEME}; subgroup at each coil change; on a rule 1 alarm, adjust only as the plan for the characteristic states and record the adjustment",
                                                "tool-wear chart": f"Centre line on the regression of diameter on shots since sharpening, limits about the line; {SCHEME}", "X-bar and R": f"Means and range charts; {SCHEME}",
                                                "attribute check": "Accept or reject against the limit sample (burr) or the pin gauge (hole diameter)", "no limit set in force": "Burr height on the laboratory gauge, a variable characteristic with no chart"})
     key["chart_in_force"] = key["chart_in_force"].map(CHART_NAME)
@@ -211,7 +211,7 @@ def build():
     trace.append((f"{SEC['reaction']}. Reaction plan", "table: reaction plan steps", "stg_spc__reaction_plan_steps on the characteristics of mart_control_plan"))
 
     body.append(f'<h2 id="per-stroke">{SEC["per-stroke"]}. Chart book: per-stroke monitoring</h2>')
-    body.append("<p>On every die on the press, from 5 May 2025; the press stops on a signal. The press stops through the historian's signal to the press control's external stop input.</p>")
+    body.append("<p>On every die on the press, from 1 April 2026; the press stops on a signal. The press stops through the historian's signal to the press control's external stop input.</p>")
     ch = p.groupby("press_id")["load_cell_channels"].first().reset_index()
     ps = pd.DataFrame({"Press": ch["press_id"], "Channels": ch["load_cell_channels"].astype(int), "Chart on the total": f"EWMA, two-sided, lambda {EWMA_LAMBDA}, limits at {EWMA_L} sigma of the EWMA", "Chart on each channel": f"Channel share of the total, one residual beyond {EWMA_L} sigma",
                        "Baseline": "First 500 production strokes of the run, first-order autoregressive fit", "On a stop": "Toolmaker inspects the die and records the finding; sorting runs back to the signal"})
@@ -229,8 +229,8 @@ def build():
     body.append(f'<h2 id="gauges">{SEC["gauges"]}. Chart book: gauges with no measurement study</h2>')
     body.append(S.table(no_study.rename(columns={"gauge_id": "Gauge", "gauge_type": "Type", "characteristics": "Characteristics measured", "parts": "Parts"})))
     trace += [(f"{SEC['count']}. Count of characteristics", "table: count check", "mart_control_plan.chart_in_force by press_id"), (f"{SEC['gauges']}. Gauges with no measurement study", "table: gauges with no measurement study", "mart_control_plan: variable characteristics with pct_grr_of_tolerance null, by gauge_id")]
-    body.append("<p class='glossary'>Limits are those in force at 31 December 2025. Frequency is as recorded from March to December 2025 (the median minutes between consecutive routine checks on a run, to the half hour). "
-                "Parts between checks are at the part's median run speed in 2025. A gauge study is the latest on that gauge or check fixture; gauge R&amp;R is by the ANOVA method, %GRR of tolerance at 6 sigma. "
+    body.append("<p class='glossary'>Limits are those in force at 30 June 2026. Frequency is as recorded from April to June 2026 (the median minutes between consecutive routine checks on a run, to the half hour). "
+                "Parts between checks are at the part's median run speed from 2 February 2026. A gauge study is the latest on that gauge or check fixture; gauge R&amp;R is by the ANOVA method, %GRR of tolerance at 6 sigma. "
                 "The next sharpening is due when the die's burr line reaches 80% of the burr limit, counted from the last sharpening; the burr line is the regression of burr height on shots since sharpening on the burr gauge readings of 2023 and 2024, with its 95% interval. The last interval is the last run interval; a sharpening followed within 20,000 shots by a rebuild is counted as the rebuild. Dimensions in millimetres, angles in degrees.</p>")
 
     toc = [("in-force", "1. In force")] + [(part, f"{n}. Control plan, {part}") for n, (part, _) in enumerate(FULL, start=2)] + [("charts", f"{SEC['charts']}. Charts in force"), ("sharpening", f"{SEC['sharpening']}. Sharpening"), ("reaction", f"{SEC['reaction']}. Reaction plan"),

@@ -1,5 +1,5 @@
 -- Each PPAP study on a critical characteristic with the production record that followed it: the twelve months after
--- the study, cut at the date the redesign reached the part's press and at the end of the record. Grain: one row per
+-- the study, cut at the date the redesign reached the part's press and at the assessment date. Grain: one row per
 -- study. A window shorter than six months is kept and marked; the capability comparison leaves it out.
 
 with s as (
@@ -17,7 +17,7 @@ w as (
 
     select s.*,
         s."date" as window_start,
-        least(s."date" + interval 12 month, cast(s.redesign_date as timestamp), timestamp '2026-01-01') as window_end,
+        least(s."date" + interval 12 month, cast(s.redesign_date as timestamp), cast('{{ var("assessment_date") }}' as timestamp) + interval 1 day) as window_end,
         lead(s."date") over (partition by s.characteristic_id order by s."date") as next_study_date
     from s
 
@@ -33,5 +33,6 @@ select
     w.nominal, w.usl, w.lsl,
     {{ batch_id() }} as export_batch_id
 from w
-where w.window_start < cast(w.redesign_date as date)
+where (w.redesign_date is null or w.window_start < cast(w.redesign_date as date))
+  and w.window_start <= cast('{{ var("assessment_date") }}' as date)
 order by w.characteristic_id, w.window_start

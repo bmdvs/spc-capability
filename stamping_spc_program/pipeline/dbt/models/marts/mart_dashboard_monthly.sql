@@ -4,7 +4,7 @@
 
 with months as (
 
-    select unnest(range(date '2023-01-01', date '2026-01-01', interval 1 month))::date as month_start
+    select unnest(range(date '2024-01-01', date '2026-07-01', interval 1 month))::date as month_start
 
 ),
 
@@ -30,7 +30,7 @@ booked as (
 revenue as (
     select date_trunc('month', r.actual_end)::date as month_start, sum(r.quantity_produced * c.price) as revenue, sum(r.quantity_produced) as pieces_produced, sum(r.quantity_scrapped) as pieces_scrapped
     from {{ ref('int_run_shots') }} r
-    left join {{ ref('stg_accounting__contribution') }} c on c.part_id = r.part_id and c.year = least(greatest(year(r.production_start), 2023), 2025)
+    left join {{ ref('stg_accounting__contribution') }} c on c.part_id = r.part_id and c.year = least(greatest(year(r.production_start), 2024), 2026)
     where r.actual_end is not null group by 1
 ),
 

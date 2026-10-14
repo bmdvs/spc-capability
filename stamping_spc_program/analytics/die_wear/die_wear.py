@@ -8,7 +8,7 @@ from scipy import stats as st
 from analytics.data import query
 
 SEED = 20250106
-BASELINE_YEAR = 2024
+BASELINE_YEAR = 2025
 MIN_SUBGROUPS, MIN_SHOT_SPAN = 15, 60000      # an interval enters the hole diameter regression with at least these
 MIN_BURR_SUBGROUPS = 30                        # a die enters the burr regression with at least this many lab subgroups
 

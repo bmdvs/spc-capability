@@ -35,7 +35,7 @@ def we_rules(z):
 
 def model(dbt, session):
     dbt.config(materialized="table")
-    year = int(dbt.config.get("baseline_year", 2024))
+    year = int(dbt.config.get("baseline_year", 2025))
     size = 25
     h = dbt.ref("int_characteristic_history").df()
     h = h[(h["data_type"] == "variable") & (h["characteristic_type"] != "burr height") & h["subgroup_mean"].notna() & ~h["after_redesign"].fillna(False)

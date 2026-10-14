@@ -13,7 +13,7 @@ runs as (
     from {{ ref('int_run_shots') }} r
     join presses x using (press_id)
     left join {{ ref('stg_accounting__contribution') }} c
-        on c.part_id = r.part_id and c.year = least(greatest(year(r.production_start), 2023), 2025)
+        on c.part_id = r.part_id and c.year = least(greatest(year(r.production_start), 2024), 2026)
 ),
 
 sorting as (

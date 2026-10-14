@@ -2,7 +2,7 @@
 # Fixture: F-20417   Characteristic: C-20417-06 95 (mm)
 # Nominal 12.58   USL 12.78   LSL 12.38   Tolerance 0.4
 # Date: 2020-10-22   Engineer: E-1038   Appraisers: E-1035, E-1036, E-1037   Parts: 10   Trials: 3   Method: ANOVA
-# export_batch_id: 20260106T053000Z-SPC36M
+# export_batch_id: 20260713T053000Z-SPC30M
 operator,part,trial,value
 E-1035,1,1,12.5
 E-1035,2,1,12.57

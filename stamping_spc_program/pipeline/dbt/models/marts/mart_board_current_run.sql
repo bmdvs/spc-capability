@@ -1,5 +1,5 @@
 -- The run on each pilot press at the time the SPC boards are drawn for ({{ var('board_as_at') }}, the end of the last
--- working day of the last complete week of December 2025). Grain: one row per pilot press.
+-- working day of the last complete week of June 2026). Grain: one row per pilot press.
 
 with runs as (
 

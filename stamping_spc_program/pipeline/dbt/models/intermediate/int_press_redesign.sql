@@ -1,5 +1,5 @@
 -- The date the redesign took effect on each press, from the record: the earliest reaction plan step on a part whose
--- primary press it is. Grain: one row per press.
+-- primary press it is. A press the redesign has not reached in the record has no date. Grain: one row per press.
 
 with steps as (
 
@@ -17,7 +17,7 @@ select
     pr.spc_entry_at_install,
     pr.load_cell_channels,
     s.redesign_date,
-    (s.redesign_date = (select min(redesign_date) from steps)) as is_pilot_press,
+    coalesce(s.redesign_date = (select min(redesign_date) from steps), false) as is_pilot_press,
     {{ batch_id() }} as export_batch_id
 from {{ ref('stg_erp__presses') }} pr
 left join steps s on s.press_id = pr.press_id

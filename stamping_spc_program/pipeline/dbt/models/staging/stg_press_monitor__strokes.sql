@@ -1,4 +1,4 @@
--- Press monitor export: peak force per channel on every stroke, pilot presses from 5 May 2025. One row per press and stroke.
+-- Press monitor export: peak force per channel on every stroke, pilot presses from 1 April 2026. One row per press and stroke.
 -- Read in place from the Parquet export, one file per press and month.
 
 select

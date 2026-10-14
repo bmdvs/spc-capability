@@ -5,11 +5,12 @@ import pandas as pd
 from analytics.style import style as S
 
 MONTHS = "JFMAMJJASOND"
-REDESIGN = ((1 + 2 / 28, "Pilot presses,\n3 February"), (8 + 1 / 30, "Other presses,\n2 September"))          # position on the month axis, January at 0
+REDESIGN = ((1 + 1 / 28, "Redesign, pilot\npresses, 2 February"), (3.0, "Per-stroke\nmonitoring, 1 April"))          # position on the month axis, January at 0
 
 
 def _months(t):
-    return pd.date_range(t["periods"]["twelve_months"][0], periods=12, freq="MS")
+    a, b = t["periods"]["twelve_months"]
+    return pd.date_range(a, b - pd.Timedelta(days=1), freq="MS")
 
 
 def series(t):
@@ -43,15 +44,15 @@ def small_multiples(t):
     d = series(t)
     f, axes = S.fig(h=5.4, ncols=5, nrows=2)
     for ax, (col, title, fmt) in zip(axes.ravel(), PANELS):
-        v = S.sig(d[col].values.astype(float)); x = np.arange(12); ok = ~np.isnan(v)
+        v = S.sig(d[col].values.astype(float)); n = len(v); x = np.arange(n); ok = ~np.isnan(v)
         ax.plot(x[ok], v[ok], color=S.BRAND_BLUE, lw=1.6); ax.scatter(x[ok], v[ok], s=10, color=S.BRAND_BLUE, zorder=3)
-        ax.scatter([11], [v[11]], s=30, color=S.AMBER, zorder=4); ax.text(11, v[11], " " + fmt.format(v[11]), fontsize=8, va="center", ha="left", color=S.TEXT)
+        ax.scatter([n - 1], [v[n - 1]], s=30, color=S.AMBER, zorder=4); ax.text(n - 1, v[n - 1], " " + fmt.format(v[n - 1]), fontsize=8, va="center", ha="left", color=S.TEXT)
         for pos, _ in REDESIGN:
             ax.axvline(pos - 0.5, color=S.GREY, lw=1.0, ls="--")
-        top = np.nanmax(v); ax.set_ylim(0, top * 1.18 if top > 0 else 1); ax.set_xlim(-0.6, 13.4)
-        ax.set_xticks(range(12)); ax.set_xticklabels(list(MONTHS), fontsize=7); ax.tick_params(axis="y", labelsize=7.5); ax.set_title(title, fontsize=8.5)
+        top = np.nanmax(v); ax.set_ylim(0, top * 1.18 if top > 0 else 1); ax.set_xlim(-0.6, n + 0.9)
+        ax.set_xticks(range(n)); ax.set_xticklabels(list(MONTHS[:n]), fontsize=7); ax.tick_params(axis="y", labelsize=7.5); ax.set_title(title, fontsize=8.5)
     f.tight_layout()
-    return S.save(f, "monthly_headline_measures", "Monthly values of the headline measures on all presses, January to December 2025, with the dates the redesign took effect")
+    return S.save(f, "monthly_headline_measures", "Monthly values of the headline measures on all presses, January to June 2026, with the dates of the redesign and of per-stroke monitoring on the pilot presses")
 
 
 def _paired(ax, labels, before, now, fmt, names):
@@ -67,10 +68,10 @@ def alarms_by_press(t):
     """Alarm signals per 100 subgroups by press, the month against the twelve months before the last twelve."""
     a = t["alarms"]; a = a[a["press_id"] != "all presses"]; now = a[a["period"] == "month"].set_index("press_id"); before = a[a["period"] == "twelve_months_before"].set_index("press_id").reindex(now.index)
     f, ax = S.fig(h=3.7)
-    _paired(ax, list(now.index), before["alarm_signals_per_100_subgroups"].values, now["alarm_signals_per_100_subgroups"].values, "{:.1f}", ("2024", "December 2025"))
+    _paired(ax, list(now.index), before["alarm_signals_per_100_subgroups"].values, now["alarm_signals_per_100_subgroups"].values, "{:.1f}", ("2025", "June 2026"))
     ax.set_ylabel("Alarm signals per 100 subgroups"); ax.set_ylim(0, float(before["alarm_signals_per_100_subgroups"].max()) * 1.12); ax.legend(loc="upper right", frameon=False, fontsize=9, ncol=2)
     f.tight_layout()
-    return S.save(f, "monthly_alarms_by_press", "Alarm signals per 100 subgroups by press, December 2025 against 2024")
+    return S.save(f, "monthly_alarms_by_press", "Alarm signals per 100 subgroups by press, June 2026 against 2025")
 
 
 def planned_checks_by_press(t):
@@ -79,16 +80,16 @@ def planned_checks_by_press(t):
     f, axes = S.fig(h=5.4, nrows=2, sharex=True)
     for ax, shift in zip(axes, ("days", "nights")):
         g = p[p["shift"] == shift]; now = g[g["period"] == "month"].set_index("press_id"); before = g[g["period"] == "twelve_months_before"].set_index("press_id").reindex(now.index)
-        _paired(ax, list(now.index), before["recorded_share"].values * 100, now["recorded_share"].values * 100, "{:.0f}", ("2024", "December 2025"))
+        _paired(ax, list(now.index), before["recorded_share"].values * 100, now["recorded_share"].values * 100, "{:.0f}", ("2025", "June 2026"))
         ax.set_ylim(60, 106); ax.set_ylabel(f"{shift.capitalize()}: planned checks\nrecorded, %"); ax.yaxis.set_major_formatter(lambda v, _: f"{v:.0f}%")
     axes[0].legend(loc="lower right", frameon=False, fontsize=9, ncol=2)
     f.tight_layout()
-    return S.save(f, "monthly_planned_checks_by_press", "Planned checks recorded by press and shift, December 2025 against 2024")
+    return S.save(f, "monthly_planned_checks_by_press", "Planned checks recorded by press and shift, June 2026 against 2025")
 
 
 def sharpenings_by_month(t):
     """Sharpenings on dies with a burr line by month: at or before the due count, and after it."""
-    s = t["sharpenings_by_month"].set_index("month_start").reindex(_months(t)); on = S.sig(s["at_or_before_the_due_count"].values.astype(float)); late = S.sig((s["sharpenings_on_a_die_with_a_burr_line"] - s["at_or_before_the_due_count"]).values.astype(float)); x = np.arange(12)
+    s = t["sharpenings_by_month"].set_index("month_start").reindex(_months(t)); on = S.sig(s["at_or_before_the_due_count"].values.astype(float)); late = S.sig((s["sharpenings_on_a_die_with_a_burr_line"] - s["at_or_before_the_due_count"]).values.astype(float)); x = np.arange(len(on))
     f, ax = S.fig(h=3.7)
     ax.bar(x, on, 0.7, color=S.BRAND_BLUE, label="At or before the due count"); ax.bar(x, late, 0.7, bottom=on, color=S.AMBER, label="After the due count")
     for xi, a, b in zip(x, on, late):
@@ -98,7 +99,7 @@ def sharpenings_by_month(t):
     ax.set_xticks(x); ax.set_xticklabels([m.strftime("%b") for m in _months(t)]); ax.set_ylabel("Sharpenings"); ax.set_ylim(0, float((on + late).max()) * 1.26)
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.1), ncol=2, frameon=False, fontsize=9)
     f.tight_layout()
-    return S.save(f, "monthly_sharpenings_against_the_due_count", "Sharpenings at or before the due count and after it, by month, 2025")
+    return S.save(f, "monthly_sharpenings_against_the_due_count", "Sharpenings at or before the due count and after it, by month, January to June 2026")
 
 
 def build(t):

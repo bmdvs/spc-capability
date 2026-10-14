@@ -14,8 +14,8 @@ from analytics.die_wear.die_wear import burr_by_die
 from analytics.per_stroke.figures import L, LAMBDA
 from analytics.style import style as S
 
-PRESS, RUN = "PR-03", "R25-01738"
-AS_AT = pd.Timestamp("2025-10-07 09:45:00")          # the screen time; mart_screen_run_strokes is built to the same run and time
+PRESS, RUN = "PR-03", "R26-00820"
+AS_AT = pd.Timestamp("2026-05-13 12:04:00")          # the screen time; mart_screen_run_strokes is built to the same run and time
 SHIFT_START, SHIFT_CHANGE = "06:00", "14:30"
 FORMED = ("formed height", "bend angle")
 R5 = ["r1", "r2", "r3", "r4", "r5"]
@@ -35,7 +35,7 @@ CSS = """
 .kv{display:flex;flex-direction:column} .kv .l{color:#8fa3b8;font-size:10px;text-transform:uppercase;letter-spacing:.8px} .kv .v{font-weight:600;font-size:13px}
 .lamp{display:inline-block;padding:4px 12px;border-radius:3px;font-weight:700;letter-spacing:.6px;font-size:12px}
 .lamp.ok{background:#1d6b3a} .lamp.warn{background:#9a6a12} .lamp.alarm{background:#a11b1b}
-.grid{display:grid;gap:10px;padding:10px 12px} .g-spc{grid-template-columns:420px minmax(0,1fr) 320px} .g-pm{grid-template-columns:minmax(0,1.9fr) minmax(0,1fr)}
+.grid{display:grid;gap:10px;padding:10px 12px} .g-spc{grid-template-columns:460px minmax(0,1fr) 320px} .g-pm{grid-template-columns:minmax(0,1.9fr) minmax(0,1fr)}
 .col{display:flex;flex-direction:column;gap:10px;min-width:0}
 .panel{background:#121a23;border:1px solid #243140;padding:8px 10px;min-width:0}
 .panel h3{margin:0 0 6px;font-size:11px;color:#8fa3b8;text-transform:uppercase;letter-spacing:1px;display:flex;justify-content:space-between;gap:8px}
@@ -51,7 +51,7 @@ td.name{white-space:nowrap} tr.pick{cursor:pointer} tr.pick:hover td{background:
 img{max-width:100%;display:block} [hidden]{display:none!important}
 .statusline{border-top:1px solid #263444;background:#16202b;color:#8fa3b8;padding:5px 12px;font-size:11.5px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .credit{max-width:1600px;margin:6px auto 16px;color:#6f8296;font-size:11px;padding:0 4px}
-@media(max-width:1340px){.g-spc{grid-template-columns:420px minmax(0,1fr)} .g-spc .col.right{grid-column:1 / -1} .g-spc .col.right>.col{flex-direction:row;flex-wrap:wrap} .g-spc .col.right>.col>.panel{flex:1 1 260px}}
+@media(max-width:1340px){.g-spc{grid-template-columns:460px minmax(0,1fr)} .g-spc .col.right{grid-column:1 / -1} .g-spc .col.right>.col{flex-direction:row;flex-wrap:wrap} .g-spc .col.right>.col>.panel{flex:1 1 260px}}
 @media(max-width:820px){.g-spc,.g-pm{grid-template-columns:minmax(0,1fr)} .window{margin-top:0;border-left:0;border-right:0}}
 """
 
@@ -74,6 +74,19 @@ def hm(t):
 
 def fmt(v, unit="mm"):
     return f"{v:.2f}" if unit == "deg" else f"{v:.3f}"
+
+
+def rule_1_on(s, unit):
+    """The chart and statistic that raised a rule 1 alarm: the mean against the limit it passed, the range against its upper limit, or both."""
+    out = []
+    if s.subgroup_mean > s.ucl_mean:
+        out.append(f"mean {fmt(s.subgroup_mean, unit)} {unit} against an upper limit of {fmt(s.ucl_mean, unit)}")
+    elif s.subgroup_mean < s.lcl_mean:
+        out.append(f"mean {fmt(s.subgroup_mean, unit)} {unit} against a lower limit of {fmt(s.lcl_mean, unit)}")
+    if s.subgroup_range > s.ucl_range:
+        out.append(f"range {fmt(s.subgroup_range, unit)} {unit} against an upper limit of {fmt(s.ucl_range, unit)}")
+    assert out, f"rule 1 alarm with the mean and the range inside their limits: {s.subgroup_id}"
+    return " and ".join(out)
 
 
 def save(f, name, alt):
@@ -106,8 +119,9 @@ def moment():
     m["strokes"] = query("select stroke_no, stroke_ts, total_kn, strokes_per_minute, peak_kn_ch1, peak_kn_ch2, peak_kn_ch3, peak_kn_ch4, share_ch1, share_ch2, share_ch3, share_ch4 from marts.mart_screen_run_strokes order by stroke_no")
     assert pd.Timestamp(query("select max(screen_as_at) as t from marts.mart_screen_run_strokes")["t"].iloc[0]) == AS_AT
     m["baseline"] = query("select baseline_total_kn_mean as mean, baseline_total_kn_sd as sd, baseline_lag_1_autocorrelation as phi, setup_strokes from marts.mart_per_stroke_run_tonnage where run_id = ?", [RUN]).iloc[0]
+    # the last sharpening before the run began: the die log carries a date and no time, so a sharpening logged on the screen's own day after the run is not it
     m["last_sharpening"] = query("""select event_date, shot_count from intermediate.int_die_event_timeline where die_id = ? and starts_interval and event_date <= cast(? as date)
-                                    qualify row_number() over (order by event_date desc, shot_count desc) = 1""", [m["run"].die_id, AS_AT]).iloc[0]
+                                    qualify row_number() over (order by event_date desc, shot_count desc) = 1""", [m["run"].die_id, pd.Timestamp(query("select actual_start from intermediate.int_run_shots where run_id = ?", [RUN])["actual_start"].iloc[0])]).iloc[0]
     m["punches"] = query("""select e.event_date, e.notes, e.toolmaker, e.fault_event_id, f."timestamp" as stopped_at from intermediate.int_die_event_timeline e left join staging.stg_press_monitor__fault_events f using (fault_event_id)
                             where e.die_id = ? and e.event_type = 'punch replacement' and e.event_date >= ? and coalesce(f."timestamp", cast(e.event_date as timestamp)) <= ? order by 1""", [m["run"].die_id, m["last_sharpening"].event_date, AS_AT])
     b, _ = burr_by_die(); m["due_count"] = float(b.set_index("die_id").loc[m["run"].die_id, "shots_at_80pct_of_limit"])
@@ -145,7 +159,8 @@ def spc_chart(m, c, chart):
         ax.plot(x, mean, color=LINE, lw=1.2, zorder=3)
         r1 = d["alarm_rule_1"].values.astype(bool); pat = d["pattern_flags"].notna().values & ~r1; cc = (d["subgroup_type"] == "coil-change").values; adj = d["adjustment_recorded"].values.astype(bool)
         ax.scatter(x[~cc], mean[~cc], s=14, color=LINE, zorder=4, lw=0); ax.scatter(x[cc], mean[cc], s=42, marker="D", color="#ffffff", zorder=5, lw=0, label="Coil-change subgroup")
-        ax.scatter(x[pat], mean[pat], s=90, facecolors="none", edgecolors=WARN, linewidths=1.5, zorder=6, label="Pattern, rules 2 to 4"); ax.scatter(x[r1], mean[r1], s=90, facecolors="none", edgecolors=ALARM, linewidths=1.8, zorder=7, label="Rule 1 alarm")
+        r1r = r1 & (rng > ur); r1m = r1 & ((mean > ucl) | (mean < lcl) | ~r1r)          # a rule 1 alarm is ringed on the chart that raised it
+        ax.scatter(x[pat], mean[pat], s=90, facecolors="none", edgecolors=WARN, linewidths=1.5, zorder=6, label="Pattern, rules 2 to 4"); ax.scatter(x[r1m], mean[r1m], s=90, facecolors="none", edgecolors=ALARM, linewidths=1.8, zorder=7, label="Rule 1 alarm")
         span = float(c.usl - c.lsl)
         ax.scatter(x[adj & ~cc], mean[adj & ~cc] + 0.06 * span * np.where(mean[adj & ~cc] >= cl[adj & ~cc], 1, -1), s=34, marker="v", color=OK, zorder=6, lw=0, label="Adjustment recorded")
         ax.scatter(x[adj & cc], mean[adj & cc] + 0.06 * span * np.where(mean[adj & cc] >= cl[adj & cc], 1, -1), s=44, marker="P", color=OK, zorder=6, lw=0, label="Centring step")
@@ -154,16 +169,19 @@ def spc_chart(m, c, chart):
             if coil[i] != coil[i - 1]:
                 for a in axes:
                     a.axvline(x[i] - 0.5, color=MUTED, lw=1.0, ls=":")
-                ax.text(x[i] - 0.4, c.usl + 0.03 * span, f"Coil change: {coil[i]}", color=MUTED, fontsize=8, va="bottom", ha="left")
-        ax.set_ylim(c.lsl - 0.08 * span, c.usl + 0.34 * span); ax.set_ylabel(f"Subgroup mean, {c.unit}")
-        ax.legend(loc="upper left", ncol=4, frameon=False, fontsize=7.5, handletextpad=0.4, columnspacing=1.0, borderaxespad=0.2)
+                ax.text(x[i] - 0.4, c.lsl - 0.05 * span, f"Coil change: {coil[i]}", color=MUTED, fontsize=8, va="top", ha="left")
+        ax.set_ylim(c.lsl - 0.2 * span, c.usl + 0.34 * span); ax.set_ylabel(f"Subgroup mean, {c.unit}")
+        ax.legend(loc="upper left", ncol=4, frameon=False, fontsize=7.5, handletextpad=0.4, columnspacing=1.6, borderaxespad=0.2)
         k = 1
         if three:
             mr = np.abs(np.diff(mean)); lim = MR_FACTOR * (ucl - cl)
             a = axes[1]; a.plot(x[1:], S.sig(mr), color=LINE, lw=1.0); a.scatter(x[1:], S.sig(mr), s=10, color=LINE, lw=0); a.step(x, S.sig(lim), where="mid", color=LIMIT, lw=1.0, ls="--"); a.set_ylabel("Moving range\nof means"); a.set_ylim(0, float(max(np.nanmax(lim), mr.max())) * 1.15); k = 2
         a = axes[k]; a.plot(x, rng, color=LINE, lw=1.0); a.scatter(x, rng, s=10, color=LINE, lw=0); a.step(x, ur, where="mid", color=LIMIT, lw=1.0, ls="--"); a.set_ylabel("Range"); a.set_ylim(0, float(max(np.nanmax(ur), rng.max())) * 1.15)
-        ticks = [i for i in range(len(d)) if i % 4 == 0]; t = pd.to_datetime(d["sample_time"])
-        a.set_xticks(x[ticks]); a.set_xticklabels([t.iloc[i].strftime("%d %b\n%H:%M") if (i == 0 or t.iloc[i].date() != t.iloc[ticks[max(ticks.index(i) - 1, 0)]].date()) else t.iloc[i].strftime("%H:%M") for i in ticks]); a.set_xlim(0.3, len(d) + 3.2)
+        a.scatter(x[r1r], rng[r1r], s=90, facecolors="none", edgecolors=ALARM, linewidths=1.8, zorder=7)
+        # the date once at the first subgroup of each day, and a time at every eighth subgroup between
+        t = pd.to_datetime(d["sample_time"]); days = [i for i in range(len(d)) if i == 0 or t.iloc[i].date() != t.iloc[i - 1].date()]
+        ticks = sorted(set(days) | {i for i in range(len(d)) if i % 8 == 0 and min(abs(i - j) for j in days) >= 4})
+        a.set_xticks(x[ticks]); a.set_xticklabels([t.iloc[i].strftime("%H:%M") + (f"\n{t.iloc[i].day} {t.iloc[i].strftime('%b')}" if i in days else "") for i in ticks]); a.set_xlim(0.3, len(d) + 3.2)
         f.tight_layout(h_pad=0.4)
     return save(f, f"screen_spc_{c.characteristic_id.lower().replace('-', '_')}", f"{c.characteristic_id} {c.name} over run {RUN} on its {chart}")
 
@@ -191,7 +209,8 @@ def spc_terminal(m, trace):
             elif bool(lastrow.alarm_rule_1):
                 chip = '<span class="chip alarm">RULE 1 ALARM</span>' if lastrow.subgroup_id in m["open_alarms"] else '<span class="chip acked">ALARM &middot; ACK</span>'
             elif isinstance(lastrow.pattern_flags, str):
-                chip = f'<span class="chip warn">PATTERN, RULE {" ".join(lastrow.pattern_flags.split())}</span>'
+                flags = lastrow.pattern_flags.split()
+                chip = f'<span class="chip warn">PATTERN, {"RULE " + flags[0] if len(flags) == 1 else "RULES " + ", ".join(flags[:-1]) + " AND " + flags[-1]}</span>'
             elif f_min and AS_AT > pd.Timestamp(lastrow.sample_time) + pd.Timedelta(minutes=int(round(f_min / 30.0) * 30)):
                 chip = '<span class="chip warn">CHECK DUE</span>'
             else:
@@ -207,7 +226,7 @@ def spc_terminal(m, trace):
         al = m["alarms"]; al = al[(al["characteristic_id"] == c.characteristic_id) & (al["rule"].astype(str) == "1")]
         if len(al):
             a = al.iloc[-1]; sub = d[d["subgroup_id"] == a.subgroup_id].iloc[0]
-            alarm = (f"<table><tbody><tr><th>Subgroup</th><td>{hm(sub.sample_time)}, {sub.subgroup_type}, mean {fmt(sub.subgroup_mean, c.unit)} {c.unit} (limits {fmt(sub.lcl_mean, c.unit)} to {fmt(sub.ucl_mean, c.unit)})</td></tr>"
+            alarm = (f"<table><tbody><tr><th>Subgroup</th><td>{hm(sub.sample_time)}, {sub.subgroup_type}</td></tr><tr><th>Rule 1 on</th><td>{rule_1_on(sub, c.unit)}</td></tr>"
                      f"<tr><th>Raised</th><td>{pd.Timestamp(a.raised_at).strftime('%H:%M:%S')}</td></tr>")
             acked = a.subgroup_id not in m["open_alarms"]
             if acked:
@@ -228,7 +247,10 @@ def spc_terminal(m, trace):
 <div class="panel"><h3>Most recent alarm{head}</h3>{alarm}</div>
 <div class="panel"><h3>Capability on the run, {c.characteristic_id}</h3><div class="tiles"><div class="tile"><div class="v">{cpk:.2f}</div><div class="l">Cpk</div></div><div class="tile"><div class="v">{ppk:.2f}</div><div class="l">Ppk</div></div>
  <div class="tile"><div class="v">{n}</div><div class="l">subgroups</div></div></div></div>"""))
-    default = default or blocks[0][0].characteristic_id
+    # where no critical formed characteristic stands in alarm at its last subgroup, the screen opens on the one with the most recent rule 1 alarm of the run
+    charted_ids = {b[0].characteristic_id: b[0] for b in blocks}
+    recent = h[h["alarm_rule_1"].fillna(False).astype(bool) & h["characteristic_id"].isin([k for k, c in charted_ids.items() if c.critical and c.type in FORMED])].sort_values(["sample_time", "characteristic_id"])
+    default = default or (recent["characteristic_id"].iloc[-1] if len(recent) else blocks[0][0].characteristic_id)
     lst = "".join(f'<tr class="{"pick" if charted else ""}{" sel" if c.characteristic_id == default else ""}"{f" data-c={chr(34)}{c.characteristic_id}{chr(34)}" if charted else ""}><td class="name">{c.characteristic_id}{" <span class=crit title=Critical>&#9670;</span>" if c.critical else ""} {e(c.name)}<br><span class="muted">{chart}</span></td>'
                   f'<td class="n">{value}<br><span class="muted">{when}</span></td><td>{chip}</td></tr>' for c, chart, value, when, chip, charted in rows)
     charts = "".join(f'<div data-view="{c.characteristic_id}"{"" if c.characteristic_id == default else " hidden"}><h3>{c.characteristic_id} {e(c.name)}{" (critical)" if c.critical else ""}: {chart}, run {RUN}<span>{fmt(c.nominal, c.unit)} ({fmt(c.lsl, c.unit)} to {fmt(c.usl, c.unit)}) {c.unit}</span></h3>{img}</div>' for c, chart, img, _ in blocks)
@@ -282,7 +304,7 @@ def shift_log(m):
         for r in g.itertuples():
             nm = f"{r.characteristic_id} {names.loc[r.characteristic_id, 'name']}"
             if bool(r.alarm_rule_1):
-                ev.append((pd.Timestamp(t), 2, "alarm", "RULE 1 ALARM", f"{nm}: mean {fmt(r.subgroup_mean, r.unit)}, limits {fmt(r.lcl_mean, r.unit)} to {fmt(r.ucl_mean, r.unit)}"))
+                ev.append((pd.Timestamp(t), 2, "alarm", "RULE 1 ALARM", f"{nm}: {rule_1_on(r, r.unit)}"))
             elif isinstance(r.pattern_flags, str):
                 ev.append((pd.Timestamp(t), 2, "warn", "PATTERN", f"{nm}: rule {' and '.join(r.pattern_flags.split())}"))
             if bool(r.adjustment_recorded):
@@ -344,7 +366,7 @@ def monitor_figures(m, z, sz):
         t = d.tail(300); f, ax = plt.subplots(figsize=(5.4, 2.6)); ax.grid(True, axis="y", color=GRID, lw=0.6); ax.set_axisbelow(True)
         for c, color in zip(ch, shades):
             ax.plot(t["stroke_no"].values, t[f"peak_kn_{c}"].values.astype(float), color=color, lw=0.9, label=f"Channel {c[-1]}")
-        ax.set_ylabel("Peak force, kN"); ax.set_xlabel("Stroke"); ax.xaxis.set_major_formatter(lambda v, _: f"{int(v):,}"); ax.legend(loc="lower left", ncol=4, frameon=False)
+        ax.set_ylabel("Peak force, kN"); ax.set_xlabel("Stroke"); ax.xaxis.set_major_formatter(lambda v, _: f"{int(v):,}"); ax.legend(loc="lower left", bbox_to_anchor=(0, 1.0), ncol=4, frameon=False, borderaxespad=0.2)
         for sp in ("top", "right"):
             ax.spines[sp].set_visible(False)
         f.tight_layout(); latest = save(f, "screen_monitor_latest_strokes", f"Peak force by channel over the last 300 strokes on run {RUN}, {PRESS}")

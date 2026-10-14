@@ -13,7 +13,7 @@ from analytics.stats import fleiss_kappa, grr_anova, wilson
 SEED = 20250104
 R5 = ["r1", "r2", "r3", "r4", "r5"]
 STUDIES = ROOT / "data" / "raw" / "studies"
-BASELINE_YEAR = 2024
+BASELINE_YEAR = 2025
 
 
 READINGS_CTE = f"""
@@ -21,7 +21,7 @@ READINGS_CTE = f"""
             select h.characteristic_id, h.entry_method, h.usl, h.lsl, h.nominal, h.tolerance_width, unnest([h.r1, h.r2, h.r3, h.r4, h.r5]) as reading
             from intermediate.int_characteristic_history h
             where h.r1 is not null and h.data_type = 'variable' and h.characteristic_type not in ('burr height', 'flatness')
-              and ((h.entry_method <> 'gauge-connected' and year(h.sample_time) = {BASELINE_YEAR}) or (h.entry_method = 'gauge-connected' and h.is_pilot_press and h.sample_time >= date '2025-03-01'))),
+              and ((h.entry_method <> 'gauge-connected' and year(h.sample_time) = {BASELINE_YEAR}) or (h.entry_method = 'gauge-connected' and h.is_pilot_press and h.sample_time >= date '2026-04-01'))),
         -- the step a characteristic is read to, from its own readings: the coarsest of the steps below that 99% of them sit on
         step as (
             select characteristic_id,
@@ -61,7 +61,7 @@ def gauge_rr():
     return pd.DataFrame(rows), anovas
 
 
-REWORKED_FROM = {"F-20417": "2024-03-01", "F-31102": "2024-06-01"}          # the first full month after each fixture's indicators were replaced and nests reworked
+REWORKED_FROM = {"F-20417": "2025-03-01", "F-31102": "2025-06-01"}          # the first full month after each fixture's indicators were replaced and nests reworked
 
 
 def measurement_share(studies, anovas):
@@ -136,7 +136,7 @@ def entry_methods():
             select h.characteristic_id, h.entry_method, h.usl, h.lsl, h.nominal, h.tolerance_width, unnest([h.r1, h.r2, h.r3, h.r4, h.r5]) as reading
             from intermediate.int_characteristic_history h
             where h.r1 is not null and h.data_type = 'variable' and h.characteristic_type not in ('burr height', 'flatness')
-              and ((h.entry_method <> 'gauge-connected' and year(h.sample_time) = {BASELINE_YEAR}) or (h.entry_method = 'gauge-connected' and h.is_pilot_press and h.sample_time >= date '2025-03-01'))),
+              and ((h.entry_method <> 'gauge-connected' and year(h.sample_time) = {BASELINE_YEAR}) or (h.entry_method = 'gauge-connected' and h.is_pilot_press and h.sample_time >= date '2026-04-01'))),
         -- the step a characteristic is read to, from its own readings: the coarsest of the steps below that 99% of them sit on
         step as (
             select characteristic_id,

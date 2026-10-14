@@ -2,12 +2,11 @@ version: 2
 
 models:
   - name: int_press_redesign
-    description: The date the redesign took effect on each press, from the reaction plan steps in the record.
+    description: The date the redesign took effect on each press, from the reaction plan steps in the record; empty where it has not.
     columns:
       - name: press_id
         tests: [not_null, unique]
       - name: redesign_date
-        tests: [not_null]
       - name: export_batch_id
         tests: [not_null]
   - name: int_die_event_timeline

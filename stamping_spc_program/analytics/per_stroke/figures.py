@@ -76,7 +76,7 @@ def stops_by_chart(t):
                 ax.text(left + n / 2, y, str(n), ha="center", va="center", fontsize=9.5, color="white" if color in (S.BRAND_BLUE, S.ACCENT) else S.TEXT)
             left += n
         ax.text(left + 0.8, y, f"{left} stops", va="center", fontsize=9.5)
-    ax.set_yticks([0, 1]); ax.set_yticklabels(["Channel share", "EWMA on the total"]); ax.set_xlabel("Stops, 5 May to 31 December 2025"); ax.set_xlim(0, 72)
+    ax.set_yticks([0, 1]); ax.set_yticklabels(["Channel share", "EWMA on the total"]); ax.set_xlabel("Stops, 1 April to 30 June 2026"); ax.set_xlim(0, 72)
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.32), ncol=4, frameon=False, fontsize=8.5)
     f.tight_layout()
     return S.save(f, "per_stroke_stops_by_chart", "Stops by the per-stroke charts on the pilot presses by chart and the toolmaker's finding")
@@ -87,7 +87,7 @@ def punch_replacements(t):
     d = t["punch_replacements"]
     kinds = [("after a stop by the per-stroke charts", "After a stop by the per-stroke charts", S.BRAND_BLUE), ("at a sharpening", "At a sharpening", S.LIGHT_BLUE),
              ("punch chipped", "Punch chipped, as logged", S.AMBER), ("after nonconforming parts", "After nonconforming parts", S.RED)]
-    years = [2023, 2024, 2025]; f, ax = S.fig(h=4.0, w=6.4); bottom = np.zeros(3)
+    years = [2024, 2025, 2026]; f, ax = S.fig(h=4.0, w=6.4); bottom = np.zeros(3)
     for key, label, color in kinds:
         v = np.array([float(d[(d["event_year"] == y) & (d["led_by"] == key)]["punch_replacements"].sum()) for y in years])
         ax.bar(range(3), v, 0.6, bottom=bottom, color=color, label=label)
@@ -97,10 +97,10 @@ def punch_replacements(t):
         bottom += v
     for x, n in enumerate(bottom):
         ax.text(x, n + 1, f"{n:.0f}", ha="center", va="bottom", fontsize=9.5)
-    ax.set_xticks(range(3)); ax.set_xticklabels([str(y) for y in years]); ax.set_ylabel("Punch replacements, 5 May to 31 December"); ax.set_ylim(0, 80)
+    ax.set_xticks(range(3)); ax.set_xticklabels([str(y) for y in years]); ax.set_ylabel("Punch replacements, 1 April to 30 June"); ax.set_ylim(0, 80)
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.1), ncol=2, frameon=False, fontsize=8.5)
     f.tight_layout()
-    return S.save(f, "per_stroke_punch_replacements", "Punch replacements on the dies run on the pilot presses by what led to them, 5 May to 31 December of 2023, 2024 and 2025")
+    return S.save(f, "per_stroke_punch_replacements", "Punch replacements on the dies run on the pilot presses by what led to them, 1 April to 30 June of 2024, 2025 and 2026")
 
 
 def fall_at_the_breaks(t):

@@ -7,7 +7,7 @@ import pandas as pd
 from analytics.data import query
 from analytics.die_wear.die_wear import burr_by_die
 
-MONTH = pd.Timestamp("2025-12-01")
+MONTH = pd.Timestamp("2026-06-01")
 MIN_SUBGROUPS = 60                 # a characteristic enters a capability figure with at least this many subgroups in the period
 BASELINE_SUBGROUPS = 25            # the chart book's baseline after a sharpening
 COIL_CHANGES = 6                   # coil changes on the new edge before a three-way chart is recalculated
@@ -16,9 +16,10 @@ R5 = ["r1", "r2", "r3", "r4", "r5"]
 
 
 def periods(month=MONTH):
-    """The month, the month before, the twelve months to the month and the twelve months before those, as (label, start, end)."""
+    """The month, the month before, the year to the end of the month and the calendar year before, as (start, end). The last two keep the names
+    the tables were first built on."""
     end = month + pd.offsets.MonthBegin(1)
-    return {"month": (month, end), "month_before": (month - pd.offsets.MonthBegin(1), month), "twelve_months": (end - pd.DateOffset(years=1), end), "twelve_months_before": (end - pd.DateOffset(years=2), end - pd.DateOffset(years=1))}
+    return {"month": (month, end), "month_before": (month - pd.offsets.MonthBegin(1), month), "twelve_months": (pd.Timestamp(month.year, 1, 1), end), "twelve_months_before": (pd.Timestamp(month.year - 1, 1, 1), pd.Timestamp(month.year, 1, 1))}
 
 
 def _d(t):
@@ -150,28 +151,40 @@ def limits(P):
 def die_wear(P):
     m = P["month"]; as_at = m[1] - pd.Timedelta(days=1); b, _ = burr_by_die(); b = b[["die_id", "shots_at_80pct_of_limit"]]
     press = query("select die_id, mode(press_id) as press_id from intermediate.int_run_shots where production_start >= date '2025-01-01' group by 1")
+    # the press of a sharpening interval is the press of the die's last run in it; a die with no run in the interval keeps its usual press
+    last = query("""select i.die_id, i.sharpening_interval_no, arg_max(r.press_id, r.actual_start) as press_of_the_last_run
+                    from intermediate.int_sharpening_intervals i join intermediate.int_run_shots r on r.die_id = i.die_id and r.sharpening_date = i.interval_start group by 1, 2""")
+
+    def on_press(d):
+        d = d.merge(press, on="die_id", how="left").merge(last, on=["die_id", "sharpening_interval_no"], how="left"); d["press_id"] = d["press_of_the_last_run"].fillna(d["press_id"])
+        return d.drop(columns="press_of_the_last_run")
 
     def sharpenings(p):
         s = query(f"""select i.die_id, i.sharpening_interval_no, i.interval_end as sharpened, i.shots_in_interval_logged from intermediate.int_sharpening_intervals i
-                      where i.is_run_interval and i.shots_in_interval_logged is not null and {_where('i.interval_end', p)} order by 3, 1""").merge(b, on="die_id", how="left").merge(press, on="die_id", how="left")
+                      where i.is_run_interval and i.shots_in_interval_logged is not null and {_where('i.interval_end', p)} order by 3, 1""").merge(b, on="die_id", how="left"); s = on_press(s)
         s["against_the_due_count"] = np.where(s["shots_at_80pct_of_limit"].isna(), "no burr line on the die", np.where(s["shots_in_interval_logged"] <= s["shots_at_80pct_of_limit"], "at or before the due count", "after the due count"))
         return s
     sh = {k: sharpenings(P[k]) for k in ("month", "month_before", "twelve_months", "twelve_months_before")}
     counts = pd.concat([v.groupby("against_the_due_count").size().rename(k) for k, v in sh.items()], axis=1).fillna(0).astype(int).reset_index()
 
     def burr(p):
-        return query(f"""with w as (select die_id, sharpening_interval_no, count(*) as subgroups, max(share_of_limit) as highest from marts.mart_wear_points where characteristic_type = 'burr height' group by 1, 2)
+        return on_press(query(f"""with w as (select die_id, sharpening_interval_no, count(*) as subgroups, max(share_of_limit) as highest from marts.mart_wear_points where characteristic_type = 'burr height' group by 1, 2)
                          select s.die_id, s.sharpening_interval_no, s.interval_end, w.subgroups, w.highest from intermediate.int_sharpening_intervals s join w using (die_id, sharpening_interval_no)
-                         where {_where('s.interval_end', p)} and w.subgroups >= 5 order by 3, 1""").merge(press, on="die_id", how="left")
+                         where {_where('s.interval_end', p)} and w.subgroups >= 5 order by 3, 1"""))
     bu = {k: burr(P[k]) for k in sh}
     burr_counts = pd.DataFrame([{"period": k, "intervals_with_burr_gauge_subgroups": len(v), "intervals_with_burr_over_the_limit": int((v["highest"] > 1).sum())} for k, v in bu.items()])
     days = (m[1] - m[0]).days
     due = query(f"""
         with last as (select die_id, event_date as last_sharpening, shot_count as shot_count_at_last_sharpening from intermediate.int_die_event_timeline where starts_interval and event_date <= {_d(as_at)}
                       qualify row_number() over (partition by die_id order by event_date desc, shot_count desc) = 1),
-             rate as (select die_id, sum(strokes) as strokes_in_the_month from intermediate.int_run_shots where {_where('actual_end', m)} group by 1)
-        select d.die_id, d.part_ids as part_id, d.shot_count as shot_count_at_the_end_of_the_month, l.last_sharpening, d.shot_count - l.shot_count_at_last_sharpening as shots_since_sharpening, coalesce(r.strokes_in_the_month, 0) as strokes_in_the_month
-        from staging.stg_erp__dies d join last l using (die_id) left join rate r using (die_id) where d.status = 'active'""").merge(b, on="die_id").merge(press, on="die_id", how="left")
+             rate as (select die_id, sum(strokes) as strokes_in_the_month from intermediate.int_run_shots where {_where('actual_end', m)} group by 1),
+             since as (select r.die_id, sum(r.strokes) as strokes_since from intermediate.int_run_shots r join last l on l.die_id = r.die_id and r.sharpening_date = l.last_sharpening
+                       where r.actual_start < {_d(as_at)} + interval 1 day group by 1)
+        -- shots since sharpening are the strokes on runs since the last sharpening, the run in process included: the die log rounds its shot
+        -- counts and the die master leaves out the run in process, so the difference of the two can fall below zero
+        select d.die_id, d.part_ids as part_id, d.shot_count as shot_count_at_the_end_of_the_month, l.last_sharpening, coalesce(s.strokes_since, 0) as shots_since_sharpening, coalesce(r.strokes_in_the_month, 0) as strokes_in_the_month
+        from staging.stg_erp__dies d join last l using (die_id) left join rate r using (die_id) left join since s using (die_id) where d.status = 'active'""").merge(b, on="die_id").merge(press, on="die_id", how="left")
+    due["shots_since_sharpening"] = due["shots_since_sharpening"].astype(float)          # a sharpening logged with no shot count leaves the shots since unknown
     due["shots_to_the_due_count"] = due["shots_at_80pct_of_limit"] - due["shots_since_sharpening"]; due["strokes_a_day"] = due["strokes_in_the_month"] / days
     due["days_to_the_due_count"] = np.where(due["shots_to_the_due_count"] <= 0, 0.0, np.where(due["strokes_a_day"] > 0, due["shots_to_the_due_count"] / due["strokes_a_day"].replace(0, np.nan), np.nan))
     nxt = (m[1] + pd.offsets.MonthBegin(1) - m[1]).days
@@ -215,7 +228,7 @@ def measurement(P):
         where (c.due <= {_d(as_at)} and (c.done is null or c.done > {_d(as_at)})) or (c.removed_from_service is not null and c.removed_from_service <= {_d(as_at)} and (c.done is null or c.done > {_d(as_at)})) order by c.due""")
     lost = query("select gauge_id, type, location, status from staging.stg_calibration__gauges where status <> 'active'")
     sub = []
-    for label in ("month", "twelve_months"):
+    for label in ("month", "month_before", "twelve_months", "twelve_months_before"):
         # past due on the subgroup's date with no calibration done by then, calibrations still open included; out of service by the flag of the characteristic history
         d = query(f"""
             with h as (select subgroup_id, press_id, gauge_id, cast(sample_time as date) as d, gauge_out_of_service from intermediate.int_characteristic_history where {_where('sample_time', P[label])}),
@@ -255,10 +268,21 @@ def nonconformances(P):
     return {"nonconformances_by_press": d, "burr_nonconformances": burr, "sorting_events": sort, "nonconformances_by_month": monthly}
 
 
+def alarms_by_press_in_the_month(P):
+    """Alarm signals of the month by press with what was recorded: nothing, a text of one word, an adjustment."""
+    return query(f"""
+        select press_id, count(*) as alarm_signals,
+               count(*) filter (where (acknowledgement_text is null or acknowledgement_text = '') and not coalesce(adjustment_recorded, false)) as with_nothing_recorded,
+               count(*) filter (where acknowledgement_text is not null and acknowledgement_text <> '' and position(' ' in trim(acknowledgement_text)) = 0) as with_a_one_word_text,
+               count(*) filter (where coalesce(adjustment_recorded, false)) as with_an_adjustment_recorded
+        from intermediate.int_characteristic_history where {_where('sample_time', P['month'])} and data_type = 'variable' and (alarm_raised or alarm_rule_1) group by 1 order by 1""")
+
+
 def compute(month=MONTH):
     P = periods(month); out = {"periods": P}
     for part in (capability(P), alarms(P), checks(P), limits(P), die_wear(P), measurement(P), nonconformances(P)):
         out.update(part)
+    out["alarms_by_press_in_the_month"] = alarms_by_press_in_the_month(P)
     out["alarms_by_month"] = monthly_alarms(P); out["planned_checks_by_month"], out["entries_by_month"] = monthly_checks(P)
     for v in out.values():
         if isinstance(v, pd.DataFrame) and "month_start" in v.columns:

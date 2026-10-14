@@ -24,4 +24,4 @@ join {{ ref('stg_erp__customers') }} k using (customer_id)
 left join rejected r using (customer_id, month_start)
 left join cards m on m.customer_id = s.customer_id and m.period = strftime(s.month_start, '%Y-%m')
 left join cards q on q.customer_id = s.customer_id and q.period = strftime(s.month_start, '%Y') || 'Q' || cast(quarter(s.month_start) as varchar)
-where s.month_start >= date '2023-01-01' and s.month_start < date '2026-01-01'
+where s.month_start >= date '2024-01-01' and s.month_start < date '2026-07-01'

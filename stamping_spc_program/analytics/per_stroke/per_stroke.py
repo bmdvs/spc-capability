@@ -1,4 +1,4 @@
-"""Per-stroke monitoring on the pilot presses from 5 May 2025: the autocorrelation of per-stroke tonnage, every stop by
+"""Per-stroke monitoring on the pilot presses from 1 April 2026: the autocorrelation of per-stroke tonnage, every stop by
 the per-stroke charts with the toolmaker's finding, punch replacements by what led to them, the channel drop and the
 strokes to the stop at punch breaks, the rise of the total before a worn punch was found, and the parts between a
 nonconformance arising and its finding under the hourly check against the stop."""
@@ -8,7 +8,7 @@ from scipy import stats as st
 
 from analytics.data import query
 
-MONITORING_FROM = "2025-05-05"
+MONITORING_FROM = "2026-04-01"
 DESIGN_ARL_STROKES = 500_000          # the combined in-control average run length the charts were designed to, at least
 STEP_SIGMA = 4.0                      # a channel share further than this from its level before the stop is part of the step
 LEVEL_FROM, LEVEL_TO = 300, 21        # strokes before the stop that give a channel's level and spread before a step
@@ -55,9 +55,9 @@ def punch_replacements():
     monitoring against the same months of the two years before."""
     return query(f"""
         with dies as (select distinct die_id from intermediate.int_run_shots where press_id in (select press_id from intermediate.int_press_redesign where is_pilot_press)
-                      and production_start >= date '2023-01-01'),
+                      and production_start >= date '2024-01-01'),
         e as (select e.*, year(e.event_date) as event_year from intermediate.int_die_event_timeline e join dies using (die_id)
-              where e.event_type = 'punch replacement' and (month(e.event_date), day(e.event_date)) >= (5, 5))
+              where e.event_type = 'punch replacement' and month(e.event_date) between 4 and 6)
         select event_year, case when fault_event_id is not null then 'after a stop by the per-stroke charts'
                                 when notes like '%sharpening%' then 'at a sharpening'
                                 when notes like '%nonconforming%' then 'after nonconforming parts'
@@ -115,7 +115,7 @@ def parts_before_the_finding(breaks):
     presses under the hourly check, and after per-stroke monitoring; and the strokes from the step to the stop at the
     punch breaks the charts stopped."""
     s = query(f"""
-        select case when found_at < date '{MONITORING_FROM}' then 'before per-stroke monitoring, 2023 to 4 May 2025' else 'under per-stroke monitoring, from 5 May 2025' end as period,
+        select case when found_at < date '{MONITORING_FROM}' then 'before per-stroke monitoring, 2024 to 31 March 2026' else 'under per-stroke monitoring, from 1 April 2026' end as period,
                count(*) as sorting_events_found_at_the_press, median(parts_from_check_before_to_finding_at_the_realised_rate) as parts_since_the_check_before_median,
                median(quantity_sorted) as quantity_sorted_median, max(quantity_sorted) as quantity_sorted_largest, sum(quantity_sorted) as quantity_sorted_total
         from marts.mart_sorting_events where is_pilot_press and detected_at <> 'customer' group by 1 order by 1""")
@@ -127,19 +127,6 @@ def parts_before_the_finding(breaks):
     return s, b
 
 
-def rollout_presses():
-    """The rollout presses from 2 September 2025, outside the per-stroke analysis: stops by chart and finding from the
-    fault events, and stops with nothing found per 1,000,000 strokes on the stroke counts of the per-minute summaries."""
-    d = query("""
-        select case when f.input = 'EWMA signal' then 'EWMA on the total' else 'channel share' end as chart, f.finding, count(*) as stops
-        from staging.stg_press_monitor__fault_events f join intermediate.int_press_redesign p using (press_id)
-        where f.input in ('EWMA signal', 'channel share signal') and not p.is_pilot_press group by 1, 2 order by 1, 2""")
-    by_chart = d.pivot_table(index="chart", columns="finding", values="stops", aggfunc="sum", fill_value=0); by_chart["stops"] = by_chart.sum(axis=1); by_chart.loc["both charts"] = by_chart.sum(axis=0)
-    strokes = float(query("select sum(stroke_count) as n from marts.mart_per_stroke_rollout_strokes")["n"].iloc[0]); k = int(by_chart.loc["both charts", "nothing found"]); lo, hi = poisson_interval(k, strokes / 1e6)
-    rate = pd.DataFrame([{"strokes_in_the_per_minute_summaries": int(strokes), "stops": int(by_chart.loc["both charts", "stops"]), "stops_with_nothing_found": k, "nothing_found_per_million_strokes": k / strokes * 1e6, "low": lo, "high": hi}])
-    return by_chart.reset_index(), rate
-
-
 def sorting_under_monitoring():
     """The sorting events found at the press on the pilot presses under per-stroke monitoring, as the QMS records them."""
     return query(f"""select sorting_event_id, press_id, found_at, defect_code, quantity_affected, quantity_sorted, quantity_rejected, sort_basis, die_event_notes
@@ -148,8 +135,7 @@ def sorting_under_monitoring():
 
 def compute():
     by_chart, by_press, rates, stop_rows = stops(); breaks = punch_breaks(stop_rows); rise, rise_rows = rise_before_a_worn_punch(stop_rows); sorts, break_summary = parts_before_the_finding(breaks)
-    rollout, rollout_rate = rollout_presses()
-    return {"rollout_stops": rollout, "rollout_rate": rollout_rate, "tonnage_by_press": tonnage_by_press(), "stops_by_chart": by_chart, "stops_by_press": by_press, "stops_with_nothing_found": rates, "punch_replacements": punch_replacements(),
+    return {"tonnage_by_press": tonnage_by_press(), "stops_by_chart": by_chart, "stops_by_press": by_press, "stops_with_nothing_found": rates, "punch_replacements": punch_replacements(),
             "punch_breaks": breaks, "punch_break_summary": break_summary, "rise_before_the_stop": rise, "rise_rows": rise_rows, "sorting_before_and_under_monitoring": sorts, "sorting_under_monitoring": sorting_under_monitoring(), "stop_rows": stop_rows}
 
 
