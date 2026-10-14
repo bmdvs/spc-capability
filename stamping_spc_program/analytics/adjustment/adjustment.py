@@ -9,7 +9,7 @@ from analytics.data import query
 from analytics.stats import wilson
 
 SEED = 20250105
-BASELINE_YEAR = 2024
+BASELINE_YEAR = 2025
 R5 = ["r1", "r2", "r3", "r4", "r5"]
 
 
@@ -135,10 +135,10 @@ def _interval(by_char, key):
 
 def autocorrelation():
     """Lag-1 autocorrelation of subgroup means within a run and coil: the baseline year before the redesign, and the
-    pilot presses from March 2025, by whether the characteristic is adjusted at the press."""
+    pilot presses from April 2026, by whether the characteristic is adjusted at the press."""
     rows = []
-    sets = (("2024, before the redesign", f"sample_year = {BASELINE_YEAR} and not after_redesign"),
-            ("pilot presses, March to December 2025", "after_redesign and is_pilot_press and sample_time >= date '2025-03-01' and sample_time < date '2026-01-01'"))
+    sets = (("2025, before the redesign", f"sample_year = {BASELINE_YEAR} and not after_redesign"),
+            ("pilot presses, April to June 2026", "after_redesign and is_pilot_press and sample_time >= date '2026-04-01' and sample_time < date '2026-07-01'"))
     for i, (label, flt) in enumerate(sets):
         d = _segments(flt)
         for j, (cls, g) in enumerate((("adjusted at the press", d[d["adjusted_at_the_press"]]), ("not adjusted at the press", d[~d["adjusted_at_the_press"]]))):
@@ -177,7 +177,7 @@ def variance_in_adjusted_runs(year=BASELINE_YEAR):
 
 
 def after_the_reaction_plan():
-    """Pilot presses, March to December 2025: adjustments recorded, and what they followed."""
+    """Pilot presses, April to June 2026: adjustments recorded, and what they followed."""
     return query("""
         select count(*) filter (where h.adjustment_recorded) as adjustments_recorded,
                count(*) filter (where h.adjustment_recorded and h.alarm_rule_1) as following_a_rule_1_alarm,
@@ -186,7 +186,7 @@ def after_the_reaction_plan():
                count(*) filter (where h.alarm_rule_1) as rule_1_alarms,
                count(*) filter (where h.alarm_rule_1 and h.adjustment_recorded) as rule_1_alarms_with_an_adjustment_recorded
         from intermediate.int_characteristic_history h
-        where h.after_redesign and h.is_pilot_press and h.sample_time >= date '2025-03-01' and h.sample_time < date '2026-01-01'
+        where h.after_redesign and h.is_pilot_press and h.sample_time >= date '2026-04-01' and h.sample_time < date '2026-07-01'
           and h.data_type = 'variable' and h.characteristic_type not in ('burr height', 'flatness') and h.subgroup_mean is not null
           and h.characteristic_type in ('formed height', 'bend angle', 'hole-to-edge')""")
 

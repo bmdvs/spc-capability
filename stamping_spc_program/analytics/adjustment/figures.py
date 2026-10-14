@@ -75,7 +75,10 @@ def return_by_group(t):
         ax.bar(x, v, 0.6, color=color); ax.errorbar(x, v, yerr=[[v - lo], [hi - v]], color=S.TEXT, lw=1.2, capsize=4)
         ax.text(x, hi + 0.02, f"{v:.2f}", ha="center", va="bottom", fontsize=9.5, color=S.TEXT)
     ax.set_xticks(range(4)); ax.set_xticklabels([f"{r[1]}\n({int(d.loc[r[0], 'points']):,} points)" for r in rows], fontsize=8.5)
-    ax.set_ylabel("Next subgroup's position as a share\nof the point's position"); ax.set_ylim(0, 0.7)
+    ax.set_ylabel("Next subgroup's position as a share\nof the point's position"); ax.set_ylim(0, 0.85)
+    est = t["adjustment_estimate"]; est = est[est["reference_for_a_point_left_alone"].str.contains("sensitivity") & est["measure"].str.contains("followed")].iloc[0]
+    rec = t["after_a_point"].set_index(["adjusted_at_the_press", "entry_method"]).loc[(True, "keyed"), "recorded_share"]
+    ax.text(0.5, 0.97, f"Adjustment followed an estimated {est.estimate * 100:.0f}% of points beyond two sigma;\n{rec * 100:.1f}% carry one in the record", transform=ax.transAxes, ha="center", va="top", fontsize=9.5, color=S.TEXT, fontweight="bold")
     f.tight_layout()
     return S.save(f, "adjustment_return_by_group", "Position of the next subgroup as a share of the position of the point, by group of points, keyed entry, with 95% intervals")
 
@@ -85,7 +88,7 @@ def autocorrelation(t, after=False):
     after=True the pilot presses under the reaction plan beside it."""
     d = t["autocorrelation"]
     if not after:
-        d = d[d["period"].str.startswith("2024")]
+        d = d[d["period"].str.startswith("2025")]
     f, ax = S.fig(h=3.0 if after else 2.0, grid="x")
     labels = []
     for y, r in enumerate(d.iloc[::-1].itertuples()):
@@ -101,13 +104,14 @@ def autocorrelation(t, after=False):
 
 
 def added_variance(t):
-    """Added variance by characteristic, sorted, with the median marked."""
-    v = S.sig(np.sort(t["variance_by_characteristic"]["added_variance"].values) * 100); med = float(S.sig(np.median(v)))
+    """Added variance by adjusted characteristic as a histogram, with zero and the median marked."""
+    raw = t["variance_by_characteristic"]["added_variance"].values * 100; v = S.sig(np.clip(raw, -40, 200)); med = float(S.sig(np.median(raw)))
+    r = t["variance"].set_index("comparison_runs").loc["no adjustment recorded and no point beyond two sigma"]
     f, ax = S.fig(h=3.8)
-    ax.bar(np.arange(1, len(v) + 1), v, 1.0, color=[S.BRAND_BLUE if q > 0 else S.GREY for q in v])
-    ax.axhline(0, color=S.DARK_GREY, lw=1.0); ax.axhline(med, color=S.AMBER, lw=1.4, ls="--"); ax.text(2, med + 6, f"median {med:.0f}%", fontsize=9, color=S.AMBER, va="bottom")
-    ax.set_xlabel(f"Characteristics adjusted at the press, sorted ({len(v)})"); ax.set_ylabel("Added variance, %")
-    ax.set_xlim(0, len(v) + 1)
+    ax.hist(v, bins=np.arange(-40, 205, 5), color=S.BRAND_BLUE)
+    ax.axvline(0, color=S.DARK_GREY, lw=1.2); ax.axvline(med, color=S.AMBER, lw=1.6, ls="--")
+    ax.text(0.985, 0.95, f"Median {r.added_variance_median * 100:+.1f}% ({r.low * 100:.1f}% to {r.high * 100:.1f}%); {int(r.characteristics_with_more_variance)} of {int(r.characteristics)} higher", transform=ax.transAxes, ha="right", va="top", fontsize=10, color=S.TEXT, fontweight="bold")
+    ax.set_xlabel("Added variance, % (the last column holds 200% and over)"); ax.set_ylabel(f"Characteristics adjusted at the press ({len(v)})"); ax.set_xlim(-42, 205)
     f.tight_layout()
     return S.save(f, "adjustment_added_variance", "Added variance by characteristic against the same characteristic's runs with no recorded adjustment and no point beyond two sigma")
 

@@ -6,7 +6,7 @@ import numpy as np
 from analytics.style import style as S
 
 STUDY_COLOR = {"PPAP": S.LIGHT_BLUE, "redesign": S.BRAND_BLUE, "rebuilt": S.ACCENT}
-STUDY_LABEL = {"PPAP": "PPAP study", "redesign": "Assessment study, January 2025", "rebuilt": "After rebuild"}
+STUDY_LABEL = {"PPAP": "PPAP study", "redesign": "Assessment study, January 2026", "rebuilt": "After rebuild"}
 
 
 def grr_by_study(t, after=False):
@@ -54,24 +54,52 @@ def gauge_variance_split(t, after=False):
 
 
 def burr_by_operator(t, after=False):
-    """Reject rate on the burr check by operator against the burr gauge."""
+    """Reject rate on the burr check by operator against the burr gauge, each operator with the agreement with the gauge."""
     d = t["attribute_by_operator"]; a = d[d["study"] == "at the redesign"].set_index("operator"); b = d[d["study"] == "after new limit samples"].set_index("operator")
-    ops = a.sort_values("reject_rate").index.tolist(); y = np.arange(len(ops))
-    panels = [(a, "At the assessment"), (b, "After the new limit samples")] if after else [(a, None)]
-    f, axes = S.fig(h=3.6, w=None if after else 6.2, ncols=len(panels), sharey=True, grid="x"); axes = np.atleast_1d(axes)
-    for ax, (tab, title) in zip(axes, panels):
-        ref = float(tab["reference_reject_rate"].iloc[0]) * 100; v = S.sig(tab.loc[ops, "reject_rate"].values * 100)
+    ops = a.sort_values("reject_rate").index.tolist(); y = np.arange(len(ops)); agree = t["attribute_agreement"].set_index("study")
+    panels = [(a, "At the assessment", "at the redesign"), (b, "After the new limit samples", "after new limit samples")] if after else [(a, None, "at the redesign")]
+    f, axes = S.fig(h=3.8, w=None if after else 6.6, ncols=len(panels), sharey=True, grid="x"); axes = np.atleast_1d(axes)
+    for ax, (tab, title, study) in zip(axes, panels):
+        ref = float(tab["reference_reject_rate"].iloc[0]) * 100; v = S.sig(tab.loc[ops, "reject_rate"].values * 100); ag = tab.loc[ops, "against_reference"].values * 100
         ax.hlines(y, np.minimum(v, ref), np.maximum(v, ref), color=S.LIGHT_BLUE, lw=3, zorder=2)
         ax.scatter(v, y, s=52, color=S.BRAND_BLUE, zorder=3)
-        ax.axvline(ref, color=S.AMBER, lw=1.6, zorder=1); ax.text(ref + 1.2, len(ops) - 0.45, f"burr gauge {ref:.0f}%", fontsize=8.5, color=S.AMBER, va="center")
-        for yi, vi in zip(y, v):
-            ax.text(vi + (2.2 if vi >= ref else -2.2), yi, f"{vi:.0f}%", ha="left" if vi >= ref else "right", va="center", fontsize=9)
-        ax.set_xlim(15, 90); ax.set_xlabel("Parts rejected, %"); ax.set_ylim(-0.6, len(ops) - 0.1)
+        ax.axvline(ref, color=S.AMBER, lw=1.6, zorder=1); ax.text(ref + 1.2, -0.42, f"burr gauge rejects {ref:.0f}%", fontsize=8.5, color=S.AMBER, va="center")
+        for yi, vi, gi in zip(y, v, ag):
+            ax.text((max(vi, ref) + 2.2) if not after else vi + (2.2 if vi >= ref else -2.2), yi, f"{vi:.0f}%" if after else f"{vi:.0f}% rejected; agrees on {gi:.0f}%", ha="left" if (vi >= ref or not after) else "right", va="center", fontsize=8.5)
+        if not after:
+            ax.text(0.985, 0.97, f"Agreement {agree.loc[study, 'against_reference'] * 100:.0f}%, kappa {agree.loc[study, 'fleiss_kappa']:.2f}", transform=ax.transAxes, ha="right", va="top", fontsize=10, fontweight="bold", color=S.TEXT)
+        ax.set_xlim(-5 if not after else 15, 115 if not after else 90); ax.set_xlabel("Parts rejected, %"); ax.set_ylim(-0.75, len(ops) + (0.35 if not after else -0.1))
+        if not after:
+            ax.set_xticks(range(0, 101, 20))
         if title:
             ax.set_title(title, fontsize=11.5)
     axes[0].set_yticks(y); axes[0].set_yticklabels(ops)
     f.tight_layout()
     return S.save(f, "measurement_burr_by_operator" + ("_after_new_limit_samples" if after else ""), "Share of parts rejected on the burr check by operator against the burr gauge")
+
+
+def fixture_status(latest):
+    """Check fixtures by %GRR of tolerance on the latest study on file, and by the trigger of that study."""
+    d = latest[latest["gauge_type"] == "check fixture"].copy(); st = d[d["pct_grr_of_tolerance"].notna()]
+    bands = [("Under 10%", st[st["pct_grr_of_tolerance"] < 10]), ("10% to 30%", st[(st["pct_grr_of_tolerance"] >= 10) & (st["pct_grr_of_tolerance"] <= 30)]), ("Over 30%", st[st["pct_grr_of_tolerance"] > 30]), ("No study\non file", d[d["pct_grr_of_tolerance"].isna()])]
+    f, axes = S.fig(h=3.9, ncols=2, gridspec_kw={"width_ratios": [1.15, 1]})
+    ax = axes[0]; counts = [len(g) for _, g in bands]
+    b = ax.bar(range(4), counts, 0.6, color=[S.GREEN, S.AMBER, S.RED, S.GREY])
+    for bi, n, (_, g) in zip(b, counts, bands):
+        ax.text(bi.get_x() + bi.get_width() / 2, n + max(counts) * 0.015, f"{n}", ha="center", va="bottom", fontsize=10)
+    over = bands[2][1].sort_values("gauge_id")
+    if len(over):
+        ax.text(2, len(over) + max(counts) * 0.1, "\n".join(f"{r.gauge_id}: {r.pct_grr_of_tolerance:.1f}%" for r in over.itertuples()), ha="center", va="bottom", fontsize=8.5, color=S.RED)
+    ax.set_xticks(range(4)); ax.set_xticklabels([n for n, _ in bands], fontsize=9); ax.set_ylabel(f"Check fixtures ({len(d)})"); ax.set_ylim(0, max(counts) * 1.25); ax.set_title("%GRR of tolerance, latest study on file", fontsize=10.5)
+    ax = axes[1]; name = {"PPAP": "PPAP", "annual": "Annual", "die rebuild": "Die rebuild", "redesign": "January 2026\nstudies"}
+    g = st.assign(t=st["trigger"].map(lambda v: name.get(v, v))).groupby("t").agg(n=("gauge_id", "size"), first=("study_date", "min"), last=("study_date", "max")).reset_index()
+    rows = [(r.t, int(r.n), f"{r.first.day} to {r.last.day} {r.last.strftime('%B %Y')}" if (r.first.month, r.first.year) == (r.last.month, r.last.year) and r.first.day != r.last.day else f"{str(r.first)[:10]} to {str(r.last)[:10]}") for r in g.itertuples()] + [("No study\non file", int(d["pct_grr_of_tolerance"].isna().sum()), "")]
+    b = ax.bar(range(len(rows)), [r[1] for r in rows], 0.6, color=[S.BRAND_BLUE] * (len(rows) - 1) + [S.GREY])
+    for bi, (_, n, dates) in zip(b, rows):
+        ax.text(bi.get_x() + bi.get_width() / 2, n + max(counts) * 0.015, (f"{dates}\n" if dates else "") + f"{n}", ha="center", va="bottom", fontsize=9)
+    ax.set_xticks(range(len(rows))); ax.set_xticklabels([r[0] for r in rows], fontsize=9); ax.set_ylim(0, max(counts) * 1.25); ax.set_xlim(-0.8, len(rows) - 0.2); ax.set_title("Trigger of the latest study", fontsize=10.5)
+    f.tight_layout()
+    return S.save(f, "measurement_fixture_status", "Check fixtures by %GRR of tolerance on the latest study on file and by the trigger of that study")
 
 
 def last_digit(t, after=False):
@@ -84,15 +112,18 @@ def last_digit(t, after=False):
         ax.bar(range(10), v, 0.75, color=[S.BRAND_BLUE if k in (0, 5) else S.LIGHT_BLUE for k in range(10)])
         ax.axhline(10, color=S.DARK_GREY, ls="--", lw=1.0)
         ax.set_xticks(range(10)); ax.set_title(f"{title} ({int(g['readings'].sum()):,})", fontsize=10.5); ax.set_xlabel("Last digit")
+        if not after:
+            times = float(t["entry_methods"].set_index("entry_method").loc[method, "times_the_uniform_expectation"])
+            ax.text(2.5, 20.4, f"0 and 5: {times:.2f}\u00d7 uniform", ha="center", va="center", fontsize=9.5, color=S.BRAND_BLUE, fontweight="bold")
     axes[0].set_ylabel("Share of readings, %"); axes[0].set_ylim(0, 22)
     f.tight_layout()
     return S.save(f, "measurement_last_digit" + ("_with_gauge_connected" if after else ""), "Share of readings ending in each digit by entry method, against the uniform 10%")
 
 
-def readings_near_the_limit(t, after=False):
+def readings_near_the_limit(t):
     """Readings by distance from the nearer specification limit, by entry method."""
     d = t["readings_at_the_limit"]
-    lines = [("keyed", "Keyed", S.BRAND_BLUE), ("paper transcription", "Paper, transcribed", S.AMBER)] + ([("gauge-connected", "Gauge-connected", S.ACCENT)] if after else [])
+    lines = [("keyed", "Keyed", S.BRAND_BLUE), ("paper transcription", "Paper, transcribed", S.AMBER)]
     f, ax = S.fig(h=3.8, w=6.6)
     for method, label, color in lines:
         g = d[d["entry_method"] == method].sort_values("steps_from_the_limit")
@@ -102,13 +133,14 @@ def readings_near_the_limit(t, after=False):
     ax.set_xlabel("Steps of the reading resolution from the nearer limit (negative inside, positive outside)"); ax.set_ylabel("Readings, log scale")
     ax.legend(loc="upper right", frameon=False, fontsize=9)
     f.tight_layout()
-    return S.save(f, "measurement_readings_near_the_limit" + ("_with_gauge_connected" if after else ""), "Readings by distance from the nearer specification limit, by entry method")
+    return S.save(f, "measurement_readings_near_the_limit", "Readings by distance from the nearer specification limit, by entry method")
 
 
 def build(t):
     out = {}
     for after, suffix in ((False, ""), (True, "_after")):
-        out.update({"grr" + suffix: grr_by_study(t, after), "split" + suffix: gauge_variance_split(t, after), "burr" + suffix: burr_by_operator(t, after), "digit" + suffix: last_digit(t, after), "limit" + suffix: readings_near_the_limit(t, after)})
+        out.update({"grr" + suffix: grr_by_study(t, after), "split" + suffix: gauge_variance_split(t, after), "burr" + suffix: burr_by_operator(t, after), "digit" + suffix: last_digit(t, after)})
+    out["limit"] = readings_near_the_limit(t)
     return out
 
 

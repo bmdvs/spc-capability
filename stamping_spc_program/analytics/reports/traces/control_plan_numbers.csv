@@ -12,7 +12,7 @@ section,value_as_printed,read_from
 "2. Control plan, P-20417",table: control plan,"mart_control_plan: specification, gauge, study, subgroup, frequency as recorded, parts_between_checks_at_run_speed, chart in force; stg_spc__reaction_plan_steps, rule 1 step 1; die due count from the burr line (die wear analysis)"
 "3. Control plan, P-31102",0.89,mart_control_plan.thickness_mm
 "3. Control plan, P-31102",2,mart_control_plan.parts_per_stroke
-"3. Control plan, P-31102",34,mart_control_plan.run_speed_spm
+"3. Control plan, P-31102",33,mart_control_plan.run_speed_spm
 "3. Control plan, P-31102",4,mart_control_plan.load_cell_channels
 "3. Control plan, P-31102","header: part, revision, customer, PPAP date, revision date","stg_erp__parts, stg_erp__customers; stg_spc__reaction_plan_steps.effective_from, earliest on the part"
 "3. Control plan, P-31102",table: control plan,"mart_control_plan: specification, gauge, study, subgroup, frequency as recorded, parts_between_checks_at_run_speed, chart in force; stg_spc__reaction_plan_steps, rule 1 step 1; die due count from the burr line (die wear analysis)"

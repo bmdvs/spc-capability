@@ -1,8 +1,8 @@
 # Gauge R&R study worksheet
 # Fixture: F-10823   Characteristic: C-10823-04 3 (mm)
 # Nominal 18.45   USL 18.63   LSL 18.27   Tolerance 0.36
-# Date: 2025-01-14   Engineer: E-1039   Appraisers: E-1035, E-1036, E-1037   Parts: 10   Trials: 3   Method: ANOVA
-# export_batch_id: 20260106T053000Z-SPC36M
+# Date: 2026-01-13   Engineer: E-1039   Appraisers: E-1035, E-1036, E-1037   Parts: 10   Trials: 3   Method: ANOVA
+# export_batch_id: 20260713T053000Z-SPC30M
 operator,part,trial,value
 E-1035,1,1,18.37
 E-1035,2,1,18.47

@@ -238,15 +238,6 @@ models:
         tests: [not_null]
       - name: export_batch_id
         tests: [not_null]
-  - name: mart_per_stroke_rollout_strokes
-    description: Strokes by press and month from the per-minute summaries of the press monitors.
-    columns:
-      - name: press_id
-        tests: [not_null]
-      - name: stroke_count
-        tests: [not_null]
-      - name: export_batch_id
-        tests: [not_null]
   - name: mart_outcome_periods
     description: The press sets and periods of the outcome comparison.
     columns:

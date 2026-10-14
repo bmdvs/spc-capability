@@ -27,13 +27,13 @@ c as (
 gauge_days as (
 
     select distinct s.subgroup_id,
-        bool_or(g.out_of_service_from is not null and cast(s.sample_time as date) >= g.out_of_service_from and cast(s.sample_time as date) <= g.back_in_service) as gauge_out_of_service,
+        bool_or(g.out_of_service_from is not null and cast(s.sample_time as date) >= g.out_of_service_from and (g.back_in_service is null or cast(s.sample_time as date) <= g.back_in_service)) as gauge_out_of_service,
         bool_or(g.back_in_service > g.overdue_from and cast(s.sample_time as date) > g.overdue_from and cast(s.sample_time as date) <= coalesce(g.out_of_service_from, g.back_in_service)) as gauge_past_due
     from s
     join {{ ref('int_gauge_status') }} g
         on g.gauge_id = s.gauge_id
        and cast(s.sample_time as date) > least(g.overdue_from, coalesce(g.out_of_service_from, g.overdue_from))
-       and cast(s.sample_time as date) <= g.back_in_service
+       and (g.back_in_service is null or cast(s.sample_time as date) <= g.back_in_service)
     group by 1
 
 ),
@@ -100,7 +100,7 @@ select
     coalesce(g.gauge_out_of_service, false) as gauge_out_of_service,
     coalesce(g.gauge_past_due, false) as gauge_past_due,
     coalesce(gm.status = 'lost', false) as gauge_recorded_as_lost,
-    (s.sample_time >= pr.redesign_date) as after_redesign,
+    coalesce(s.sample_time >= pr.redesign_date, false) as after_redesign,
     pr.is_pilot_press,
     {{ batch_id() }} as export_batch_id
 from s

@@ -1,7 +1,7 @@
 # Attribute agreement worksheet: burr height against the limit samples
 # Limit 0.23 mm   Reference: burr gauge reading against the limit
-# Date: 2025-01-16   Engineer: E-1038   Operators: E-1003, E-1006, E-1010, E-1015, E-1018, E-1022   Parts: 50   Trials: 2
-# export_batch_id: 20260106T053000Z-SPC36M
+# Date: 2026-01-15   Engineer: E-1038   Operators: E-1003, E-1006, E-1010, E-1015, E-1018, E-1022   Parts: 50   Trials: 2
+# export_batch_id: 20260713T053000Z-SPC30M
 operator,part,trial,call,burr_gauge_mm,reference
 E-1003,1,1,reject,0.24,reject
 E-1003,2,1,accept,0.165,accept

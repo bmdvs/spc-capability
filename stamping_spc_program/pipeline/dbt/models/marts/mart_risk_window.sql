@@ -48,6 +48,6 @@ join {{ ref('stg_erp__parts') }} p on p.part_id = r.part_id
 join {{ ref('int_press_stroke_rate') }} sr on sr.press_id = r.press_id
 left join freq f on f.part_id = r.part_id
 left join run_gaps g on g.run_id = r.run_id
-where year(r.production_start) = {{ var('baseline_year') }} and r.production_start < pr.redesign_date
+where year(r.production_start) = {{ var('baseline_year') }} and (pr.redesign_date is null or r.production_start < pr.redesign_date)
 group by 1, 2, 3, 4
 order by 1, 3
