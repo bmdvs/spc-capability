@@ -10,11 +10,10 @@ import numpy as np
 import pandas as pd
 
 from analytics.data import query
-from analytics.die_wear.die_wear import burr_by_die
-from analytics.per_stroke.figures import L, LAMBDA
 from analytics.style import style as S
 
 PRESS, RUN = "PR-03", "R26-00820"
+LAMBDA, L = (float(v) for v in query("select value from marts.mart_chart_design where parameter in ('ewma_lambda', 'ewma_L') order by case parameter when 'ewma_lambda' then 0 else 1 end")["value"])          # the EWMA on the per-stroke total as designed
 AS_AT = pd.Timestamp("2026-05-13 12:04:00")          # the screen time; mart_screen_run_strokes is built to the same run and time
 SHIFT_START, SHIFT_CHANGE = "06:00", "14:30"
 FORMED = ("formed height", "bend angle")
@@ -77,8 +76,14 @@ def fmt(v, unit="mm"):
 
 
 def rule_1_on(s, unit):
-    """The chart and statistic that raised a rule 1 alarm: the mean against the limit it passed, the range against its upper limit, or both."""
+    """The chart and statistic that raised a rule 1 alarm: the mean against the limit it passed, the range against its upper limit, the moving range
+    of the means against its limit, or the coil-change mean against the coil-change chart's limits."""
     out = []
+    if bool(getattr(s, "alarm_rule_1_coil_change", False)) and s.coil_change_ucl == s.coil_change_ucl:
+        side = "an upper" if s.subgroup_mean > s.coil_change_ucl else "a lower"; lim = s.coil_change_ucl if s.subgroup_mean > s.coil_change_ucl else s.coil_change_lcl
+        out.append(f"coil-change mean {fmt(s.subgroup_mean, unit)} {unit} against {side} limit of {fmt(lim, unit)}")
+    if bool(getattr(s, "alarm_rule_1_moving_range", False)) and s.moving_range == s.moving_range:
+        out.append(f"moving range {fmt(s.moving_range, unit)} {unit} against an upper limit of {fmt(s.ucl_moving_range, unit)}")
     if s.subgroup_mean > s.ucl_mean:
         out.append(f"mean {fmt(s.subgroup_mean, unit)} {unit} against an upper limit of {fmt(s.ucl_mean, unit)}")
     elif s.subgroup_mean < s.lcl_mean:
@@ -105,12 +110,15 @@ def moment():
                  where h.run_id = ? and h.sample_time <= ? order by h.sample_time, h.characteristic_id, h.subgroup_id""", [RUN, AS_AT])
     m["history"] = h
     m["characteristics"] = query("select characteristic_id, name, type, nominal, usl, lsl, unit, critical, customer_designated, gauge_id, data_type from staging.stg_spc__characteristics where part_id = ? and status = 'active' order by 1", [m["run"].part_id])
-    m["limit_sets"] = query("""select characteristic_id, method from marts.mart_limits_as_set where part_id = ? and effective_from <= ? and (effective_to is null or effective_to > ?)
+    m["limit_sets"] = query("""select characteristic_id, basis as method from marts.mart_limit_sets where part_id = ? and effective_from <= ? and (effective_to is null or effective_to > ?)
                                qualify row_number() over (partition by characteristic_id order by effective_from desc) = 1""", [m["run"].part_id, AS_AT, AS_AT]).set_index("characteristic_id")["method"]
-    m["frequency"] = query("select characteristic_id, frequency_minutes_as_recorded, frequency_minutes_in_the_master from marts.mart_control_plan where part_id = ?", [m["run"].part_id]).set_index("characteristic_id")
-    m["alarms"] = alarms = query("""select a.alarm_id, a.subgroup_id, a.rule, a.raised_at, a.acknowledged_at, a.acknowledged_by, a.text, s.characteristic_id from staging.stg_spc__alarms a join staging.stg_spc__subgroups s using (subgroup_id)
-                           where s.run_id = ? and a.raised_at <= ? order by a.raised_at, a.alarm_id""", [RUN, AS_AT])
+    m["frequency"] = query("select characteristic_id, frequency_minutes as frequency_minutes_as_recorded, frequency_minutes as frequency_minutes_in_the_master from staging.stg_spc__characteristics where part_id = ?", [m["run"].part_id]).set_index("characteristic_id")
+    m["alarms"] = alarms = query("""select a.alarm_id, a.subgroup_id, a.rule, a.raised_at, a.acknowledged_at, a.acknowledged_by, case when a.closed_at <= ? then a.action end as text, s.characteristic_id from staging.stg_spc__alarms a join staging.stg_spc__subgroups s using (subgroup_id)
+                           where s.run_id = ? and a.raised_at <= ? order by a.raised_at, a.alarm_id""", [AS_AT, RUN, AS_AT])
     open_alarms = set(alarms[pd.to_datetime(alarms["acknowledged_at"]) > AS_AT]["subgroup_id"])          # raised by the screen time and acknowledged after it
+    h["acknowledgement_text"] = None; h["implausible_readings"] = 0          # every reading on the run is gauge-connected
+    rt_ = h["subgroup_type"] == "routine"                                      # the moving range of routine means, as the three-way chart plots it
+    h["moving_range"] = np.nan; h.loc[rt_, "moving_range"] = h[rt_].groupby("characteristic_id")["subgroup_mean"].diff().abs()
     h.loc[h["subgroup_id"].isin(open_alarms), ["adjustment_recorded", "acknowledgement_text"]] = [False, None]; m["open_alarms"] = open_alarms
     coil_id = h[h["coil_id"].notna()]["coil_id"].iloc[-1]
     m["coil"] = query("select * from staging.stg_erp__coils where coil_id = ?", [coil_id]).iloc[0]
@@ -124,7 +132,7 @@ def moment():
                                     qualify row_number() over (order by event_date desc, shot_count desc) = 1""", [m["run"].die_id, pd.Timestamp(query("select actual_start from intermediate.int_run_shots where run_id = ?", [RUN])["actual_start"].iloc[0])]).iloc[0]
     m["punches"] = query("""select e.event_date, e.notes, e.toolmaker, e.fault_event_id, f."timestamp" as stopped_at from intermediate.int_die_event_timeline e left join staging.stg_press_monitor__fault_events f using (fault_event_id)
                             where e.die_id = ? and e.event_type = 'punch replacement' and e.event_date >= ? and coalesce(f."timestamp", cast(e.event_date as timestamp)) <= ? order by 1""", [m["run"].die_id, m["last_sharpening"].event_date, AS_AT])
-    b, _ = burr_by_die(); m["due_count"] = float(b.set_index("die_id").loc[m["run"].die_id, "shots_at_80pct_of_limit"])
+    m["due_count"] = float(m["die"].sharpening_due_count)          # the die master's sharpening due count, set where the die's burr line reaches 80% of the limit
     m["shots_since_sharpening"] = float(m["run"].shots_since_sharpening_at_start) + float(m["strokes"]["stroke_no"].iloc[-1])
     return m
 
@@ -218,7 +226,7 @@ def spc_terminal(m, trace):
         charted = variable and not chart.startswith("no chart")
         if charted and default is None and c.critical and c.type in FORMED and bool(lastrow.alarm_rule_1):
             default = c.characteristic_id
-        rows.append((c, chart, value, when, chip, charted)); T(("Characteristic list", f"{c.characteristic_id}: {chart}; {value}; {when}", "int_characteristic_history: last subgroup to the screen time; mart_limits_as_set: limit set in force"))
+        rows.append((c, chart, value, when, chip, charted)); T(("Characteristic list", f"{c.characteristic_id}: {chart}; {value}; {when}", "int_characteristic_history: last subgroup to the screen time; mart_limit_sets: limit set in force"))
         if not charted:
             continue
         img = spc_chart(m, c, chart); s = lastrow; cpk, ppk, n = capability_on_the_run(d, c)
@@ -260,7 +268,7 @@ def spc_terminal(m, trace):
     shots = m["shots_since_sharpening"]; mins = int((due - AS_AT).total_seconds() // 60)
     for k, v, src in (("Context strip", f"part {run.part_id} revision {run.revision}; die {run.die_id}; run {RUN}", "int_run_shots, stg_erp__parts"), ("Context strip", f"coil {coil.coil_id}, {coil.grade}, {coil.certificate_thickness_mm:.3f} mm, {coil.certificate_hardness_hrb:.1f} HRB", "stg_erp__coils; coil of the last subgroup"),
                       ("Context strip", f"{shots:,.0f} shots since sharpening", "int_run_shots.shots_since_sharpening_at_start plus the run's stroke count to the screen time (mart_screen_run_strokes)"),
-                      ("Context strip", f"last check {hm(last_check)}; next due {hm(due)}", f"int_characteristic_history: last routine or coil-change check; frequency in force {freq} min (mart_control_plan.frequency_minutes_as_recorded)"), ("Title bar", f"operator {operator}", "int_characteristic_history.operator_id, last subgroup")):
+                      ("Context strip", f"last check {hm(last_check)}; next due {hm(due)}", f"int_characteristic_history: last routine or coil-change check; frequency in force {freq} min (stg_spc__characteristics.frequency_minutes)"), ("Title bar", f"operator {operator}", "int_characteristic_history.operator_id, last subgroup")):
         T((k, v, src))
     body = f"""<div class="window">
 <div class="titlebar"><div class="app">SPC software &middot; gauge station, {PRESS}</div><div class="who"><span>Operator {e(operator)}</span><span>Day shift, {SHIFT_START} to {SHIFT_CHANGE}</span><span>{AS_AT.day} {AS_AT.strftime('%B %Y')}</span><span><b>{hm(AS_AT)}</b></span></div></div>
@@ -393,7 +401,7 @@ def press_monitor(m, trace):
     for k, v, src in (("Header", f"{spm} strokes a minute; run stroke count {int(last.stroke_no):,}; die shot count {die_count:,.0f}", "mart_screen_run_strokes: last stroke; int_die_event_timeline: shot count at the last sharpening plus shots since"),
                       ("Per-stroke total", f"baseline {b['mean']:.1f} kN; limits {b['mean'] - L * sz:.1f} to {b['mean'] + L * sz:.1f} kN; EWMA now {z[-1]:.1f} kN", "mart_per_stroke_run_tonnage: baseline of the first 500 strokes; EWMA lambda 0.02, limits at 5.5 sigma of the EWMA"),
                       ("Channel shares", "; ".join(f"channel {c[-1]} level {lv:.2f}%, limits {lv - L * sd:.2f}% to {lv + L * sd:.2f}%" for c, (lv, sd) in levels.items()), "mart_screen_run_strokes: share over the first 500 production strokes, 5.5 sigma"),
-                      ("Die panel", f"{shots:,.0f} shots since sharpening of {ls.day} {ls.strftime('%B %Y')}; due count {m['due_count']:,.0f}; {to_go:,.0f} strokes to go", "int_run_shots, mart_screen_run_strokes; due count from the die's burr line (die wear analysis)"),
+                      ("Die panel", f"{shots:,.0f} shots since sharpening of {ls.day} {ls.strftime('%B %Y')}; due count {m['due_count']:,.0f}; {to_go:,.0f} strokes to go", "int_run_shots, mart_screen_run_strokes; stg_erp__dies.sharpening_due_count"),
                       ("Die panel", f"{len(m['punches'])} punch replacements since the last sharpening", "int_die_event_timeline")):
         T((k, v, src))
     lamp = '<span class="lamp ok">RUNNING</span>' if running else f'<span class="lamp alarm">STOPPED: {e(open_stop.iloc[-1].chart)}</span>'

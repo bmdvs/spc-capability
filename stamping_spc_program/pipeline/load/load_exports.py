@@ -12,7 +12,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[2]
 RAW = ROOT / "data" / "raw"
 DB = ROOT / "data" / "spc.duckdb"
-SYSTEMS = ["erp", "spc", "press_monitor", "qms", "die_room", "calibration", "accounting"]
+SYSTEMS = ["erp", "spc", "press_monitor", "qms", "die_room", "calibration"]
 
 
 def rows(path, chunk=50000):

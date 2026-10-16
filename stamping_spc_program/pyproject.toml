@@ -1,7 +1,7 @@
 [project]
 name = "mfg-spc-program"
 version = "1.0.0"
-description = "Statistical process control assessment, redesign and results for a progressive-die metal stamper"
+description = "Statistical process control program for a progressive-die metal stamper: the control chart design revalidation and the quarterly review"
 requires-python = ">=3.12"
 dependencies = [
     "dlt[duckdb]>=1.0",

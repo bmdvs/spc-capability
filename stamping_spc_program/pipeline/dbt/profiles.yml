@@ -5,3 +5,5 @@ spc_program:
       type: duckdb
       path: "{{ env_var('SPC_DUCKDB_PATH', '../../data/spc.duckdb') }}"
       threads: 4
+      settings:
+        threads: 1          # one DuckDB thread: aggregates accumulate in the same order on every build

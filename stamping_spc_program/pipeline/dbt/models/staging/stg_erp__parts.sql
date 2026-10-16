@@ -15,6 +15,6 @@ select
     cast(nullif(trim(standard_run_quantity), '') as bigint) as standard_run_quantity,
     cast(nullif(trim(ppap_date), '') as date) as ppap_date,
     nullif(trim(family_code), '') as family_code,
-    nullif(trim(status), '') as status,
+    nullif(trim("status"), '') as "status",
     nullif(trim(export_batch_id), '') as export_batch_id
 from {{ source('raw', 'erp__parts') }}

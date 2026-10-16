@@ -1,16 +1,16 @@
 -- The strokes a press makes against the strokes its run speed would give, by press, over every completed run that
--- started in the baseline year: strokes made over run speed times the run's working clock time. Grain: one row per press.
+-- started in the record: strokes made over run speed times the run's working clock time. Grain: one row per press.
 --
 -- Working clock time is the part of the run, from start of production to end, that falls inside the plant's working
--- day ({{ var('working_day_start_minute') // 60 }}:00 to {{ var('working_day_end_minute') // 60 }}:00, the hours in which the record holds checks) on days the
--- press recorded a check. A run's whole clock time cannot be used: runs of more than a shift span the hours the plant
--- does not run, and over those the figure falls to about half its value.
+-- day ({{ var('working_day_start_minute') // 60 }}:00 to {{ var('working_day_end_minute') // 60 }}:00) on days the press recorded a check. A run's whole clock time cannot be used:
+-- runs of more than a shift span the hours the plant does not run.
 
 with runs as (
 
     select run_id, press_id, strokes, run_speed_spm, production_start, actual_end
     from {{ ref('stg_erp__production_runs') }}
-    where status = 'complete' and year(production_start) = {{ var('baseline_year') }}
+    where status = 'complete'
+      and cast(production_start as date) between cast('{{ var("record_start") }}' as date) and cast('{{ var("record_end") }}' as date)
 
 ),
 

@@ -1,0 +1,19 @@
+parameter,value,unit,description
+routine_subgroup_size,5,pieces,pieces in a routine subgroup
+coil_change_subgroup_size,10,pieces,pieces in a coil-change subgroup on formed characteristics
+check_frequency_high_speed,30,minutes,routine check interval on the high-speed presses
+check_frequency_medium,60,minutes,routine check interval on the medium presses
+baseline_subgroups,25,subgroups,subgroups in a Phase I baseline
+three_way_baseline_coil_changes,10,coil changes,coil changes a three-way baseline spans at least
+verification_subgroups,25,subgroups,routine subgroups on which limits held across a die event are verified
+verification_formed_coil_changes,2,coil changes,coil changes the verification of a formed chart spans at least
+verification_mean_within_sigma,1.5,sigma of means,the verification mean lies within this distance of the centre line
+coil_change_chart_min_coils,6,coils,coils on record before the chart of coil-change means carries limits
+coil_change_chart_window,20,coils,coils the chart of coil-change means takes its limits from once it has them
+sharpening_burr_share_of_limit,0.8,share of limit,burr height at which the die's sharpening count is set
+ewma_lambda,0.02,,weight of the EWMA on the per-stroke total
+ewma_L,5.5,EWMA sigmas,limit of the EWMA on the per-stroke total
+ewma_L_considered,4.9,EWMA sigmas,the lower limit considered for the EWMA
+ewma_baseline_strokes,500,strokes,production strokes the per-stroke charts are set on at each run
+channel_share_L,5.5,sigmas,limit of the channel-share residual charts
+in_control_arl_floor,500000,strokes,in-control ARL the per-stroke charts are designed to exceed with estimated parameters

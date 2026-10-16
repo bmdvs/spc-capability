@@ -2,7 +2,7 @@
 
 select
     nullif(trim(corrective_action_id), '') as corrective_action_id,
-    nullif(trim(source), '') as source,
+    nullif(trim(source_ncr_id), '') as source_ncr_id,
     cast(nullif(trim(opened), '') as date) as opened,
     nullif(trim(owner), '') as owner,
     nullif(trim(root_cause_text), '') as root_cause_text,

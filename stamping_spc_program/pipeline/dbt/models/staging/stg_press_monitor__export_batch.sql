@@ -1,4 +1,4 @@
--- Press monitor export: export batch, typed. One row per export row.
+-- press monitor export: export batch, typed. One row per export row.
 
 select
     nullif(trim(export_batch_id), '') as export_batch_id,

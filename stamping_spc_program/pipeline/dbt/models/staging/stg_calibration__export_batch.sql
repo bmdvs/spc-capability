@@ -1,4 +1,4 @@
--- Calibration system export: export batch, typed. One row per export row.
+-- calibration system export: export batch, typed. One row per export row.
 
 select
     nullif(trim(export_batch_id), '') as export_batch_id,
