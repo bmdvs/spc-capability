@@ -1,0 +1,312 @@
+version: 2
+
+models:
+  - name: stg_calibration__attribute_qualifications
+    description: The calibration system export of burr check qualifications, typed.
+    columns:
+      - name: qualification_id
+        tests: [not_null, unique]
+      - name: operator_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_erp__employees')
+                field: employee_id
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_calibration__calibrations
+    description: The calibration system export of calibrations, typed.
+    columns:
+      - name: calibration_id
+        tests: [not_null, unique]
+      - name: gauge_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_calibration__gauges')
+                field: gauge_id
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_calibration__export_batch
+    description: The calibration system export of export batch, typed.
+    columns:
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_calibration__fixture_verifications
+    description: The calibration system export of fixture verifications, typed.
+    columns:
+      - name: verification_id
+        tests: [not_null, unique]
+      - name: gauge_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_calibration__gauges')
+                field: gauge_id
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_calibration__gauge_studies
+    description: The calibration system export of gauge studies, typed.
+    columns:
+      - name: study_id
+        tests: [not_null, unique]
+      - name: gauge_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_calibration__gauges')
+                field: gauge_id
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_calibration__gauges
+    description: The calibration system export of gauges, typed.
+    columns:
+      - name: gauge_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_die_room__die_events
+    description: The die maintenance log export of die events, typed.
+    columns:
+      - name: die_event_id
+        tests: [not_null, unique]
+      - name: die_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_erp__dies')
+                field: die_id
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_die_room__export_batch
+    description: The die maintenance log export of export batch, typed.
+    columns:
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_erp__coils
+    description: The ERP export of coils, typed.
+    columns:
+      - name: coil_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_erp__customers
+    description: The ERP export of customers, typed.
+    columns:
+      - name: customer_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_erp__dies
+    description: The ERP export of dies, typed.
+    columns:
+      - name: die_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_erp__employees
+    description: The ERP export of employees, typed.
+    columns:
+      - name: employee_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_erp__export_batch
+    description: The ERP export of export batch, typed.
+    columns:
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_erp__parts
+    description: The ERP export of parts, typed.
+    columns:
+      - name: part_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_erp__presses
+    description: The ERP export of presses, typed.
+    columns:
+      - name: press_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_erp__production_runs
+    description: The ERP export of production runs, typed.
+    columns:
+      - name: run_id
+        tests: [not_null, unique]
+      - name: part_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_erp__parts')
+                field: part_id
+      - name: press_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_erp__presses')
+                field: press_id
+      - name: die_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_erp__dies')
+                field: die_id
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_press_monitor__export_batch
+    description: The press monitor export of export batch, typed.
+    columns:
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_press_monitor__fault_events
+    description: The press monitor export of fault events, typed.
+    columns:
+      - name: fault_event_id
+        tests: [not_null, unique]
+      - name: run_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_erp__production_runs')
+                field: run_id
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_press_monitor__tonnage_windows
+    description: The press monitor export of tonnage windows, typed.
+    columns:
+      - name: run_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_qms__corrective_actions
+    description: The QMS export of corrective actions, typed.
+    columns:
+      - name: corrective_action_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_qms__export_batch
+    description: The QMS export of export batch, typed.
+    columns:
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_qms__first_piece_approvals
+    description: The QMS export of first-piece approvals, typed.
+    columns:
+      - name: approval_id
+        tests: [not_null, unique]
+      - name: run_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_erp__production_runs')
+                field: run_id
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_qms__nonconformances
+    description: The QMS export of nonconformances, typed.
+    columns:
+      - name: ncr_id
+        tests: [not_null, unique]
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_spc__alarms
+    description: The SPC software export of alarms, typed.
+    columns:
+      - name: alarm_id
+        tests: [not_null, unique]
+      - name: subgroup_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_spc__subgroups')
+                field: subgroup_id
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_spc__characteristics
+    description: The SPC software export of characteristics, typed.
+    columns:
+      - name: characteristic_id
+        tests: [not_null, unique]
+      - name: part_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_erp__parts')
+                field: part_id
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_spc__control_limits
+    description: The SPC software export of control limits, typed.
+    columns:
+      - name: limit_set_id
+        tests: [not_null, unique]
+      - name: characteristic_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_spc__characteristics')
+                field: characteristic_id
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_spc__export_batch
+    description: The SPC software export of export batch, typed.
+    columns:
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_spc__limit_verifications
+    description: The SPC software export of limit verifications, typed.
+    columns:
+      - name: verification_id
+        tests: [not_null, unique]
+      - name: limit_set_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_spc__control_limits')
+                field: limit_set_id
+      - name: characteristic_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_spc__characteristics')
+                field: characteristic_id
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_spc__reaction_plan_steps
+    description: The SPC software export of reaction plan steps, typed.
+    columns:
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_spc__subgroups
+    description: The SPC software export of subgroups, typed.
+    columns:
+      - name: subgroup_id
+        tests: [not_null, unique]
+      - name: run_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_erp__production_runs')
+                field: run_id
+      - name: characteristic_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_spc__characteristics')
+                field: characteristic_id
+      - name: export_batch_id
+        tests: [not_null]
+  - name: stg_press_monitor__strokes
+    description: The press monitor historian's per-stroke rows.
+    columns:
+      - name: stroke_no
+        tests: [not_null]
+      - name: total_kn
+        tests:
+          - not_null
+          - in_range:
+              arguments:
+                min_value: 0

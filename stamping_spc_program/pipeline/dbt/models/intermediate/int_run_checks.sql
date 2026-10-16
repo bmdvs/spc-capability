@@ -9,7 +9,6 @@ select
     bool_or(h.subgroup_type = 'first-piece') as first_piece_check,
     bool_or(h.subgroup_type = 'coil-change') as coil_change_check,
     bool_or(h.subgroup_type = 'last-piece') as last_piece_check,
-    bool_or(h.characteristic_type = 'hole diameter') as hole_diameter_checked,
     {{ batch_id() }} as export_batch_id
 from {{ ref('int_characteristic_history') }} h
 group by 1, 2

@@ -8,7 +8,7 @@ select
     cast(nullif(trim(build_date), '') as date) as build_date,
     cast(nullif(trim(last_rebuild_date), '') as date) as last_rebuild_date,
     cast(nullif(trim(shot_count), '') as bigint) as shot_count,
-    cast(nullif(trim(sharpening_interval_shots), '') as bigint) as sharpening_interval_shots,
-    nullif(trim(status), '') as status,
+    cast(nullif(trim(sharpening_due_count), '') as bigint) as sharpening_due_count,
+    nullif(trim("status"), '') as "status",
     nullif(trim(export_batch_id), '') as export_batch_id
 from {{ source('raw', 'erp__dies') }}

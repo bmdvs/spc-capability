@@ -1,136 +1,96 @@
 # Metal stamping: SPC program
 
-Statistical process control at a progressive-die metal stamper with eleven presses, on the shop's records from January 2024 to June 2026. The work has three parts:
-- an assessment of every chart in use on all eleven presses in 2025;
-- a redesign of the charts, limits, sampling and reaction plan on three pilot presses from February 2026, with per-stroke tonnage monitoring from April 2026;
-- the results for April to June 2026 against the same months of 2025, with the other eight presses as the comparison.
+Statistical process control as it runs at a progressive-die metal stamper with eleven presses, on the shop's records from July 2025 to June 2026. Two documents from the quality engineer's working set, computed by one pipeline from the exported records:
+- the **control chart design revalidation**, which derives the chart for each characteristic class from its variance structure, sets out how limits are governed across sharpenings and rebuilds, and measures each chart's false-alarm rate and detection against its design;
+- the **SPC quarterly review** for April to June 2026, which reports signals and their dispositions, limits governance, capability with intervals, measurement gating, dies and per-stroke monitoring, and first-piece approvals.
 
-The analyses feed two reports, two PR-03 screens (the SPC terminal and the press monitor), an SPC monthly summary, and control plans with a chart book. One pipeline computes all of them from the shop's exported records.
+The plant is covered at summary level, and one part family (three C110 copper parts on PR-03) in full, characteristic by characteristic.
 
 [![SPC terminal screen, PR-03](docs/readme/spc_terminal_screen.png)](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)
 
 ## What is included
 
-- **Reports:** the [SPC Assessment](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_assessment.html) and the [SPC Redesign and Results](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_redesign_and_results.html). Each has findings and exhibits, and an appendix of the tables and statistical detail behind them.
-- **Screens, PR-03 at 12:04 on 13 May 2026:** the [SPC terminal screen](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html) and the [press monitor screen](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/press_monitor_pr_03.html).
-- **Monthly summary:** the [SPC monthly summary](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/monthly_summary/spc_monthly_summary_2026_06.html) for June 2026.
-- **Control plans:** the [control plans and chart book](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/control_plan/control_plan_and_chart_book.html), in force at 30 June 2026.
-- **Index:** all deliverables are listed at [docs/index.html](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/index.html).
-- **Pipeline:** from the exported files to the marts, built with dlt, DuckDB and dbt, with schema tests. One build command writes every table, figure and page.
+- **Control Chart Design:** [revalidation on the July 2025 to June 2026 record](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/control_chart_design.html). Variance components by class, Phase I baselines and verification, ARL by chart and rule, the three-way chart design for coil-structured variation, the tool-wear chart, the per-stroke EWMA design, and the charts in force. Appendix with the formulas.
+- **SPC Quarterly Review, April to June 2026:** [the operating record for the quarter](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_quarterly_review_2026_q2.html). Observed against expected signals, assignable causes and closure, recalculations and verifications, Cpk and Ppk with intervals, gauge studies and operator qualification, sharpenings against the due count, per-stroke stops, first-piece holds and recording. Appendix with every signal of the quarter.
+- **Screens, PR-03 at 12:04 on 13 May 2026:** the [SPC terminal screen](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html) and the [press monitor screen](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/press_monitor_pr_03.html), at the moment of a per-stroke stop on a chipped punch.
+- **Index:** [docs/index.html](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/index.html).
+- **Pipeline:** dlt, DuckDB and dbt from the exported files to the marts, with schema tests; one build command writes every table, figure and page, and two builds are byte-identical.
 
 ## Business Context
 
 The shop is a progressive-die metal stamper:
 - about 110 employees, IATF 16949 certified;
-- one plant with eleven presses;
+- one plant with eleven presses, four high-speed and seven medium;
 - about 180 part numbers on about 170 dies, for automotive, appliance, HVAC, industrial, electrical and consumer customers.
 
-Its practice as found:
-- it charted six to twelve characteristics a part at the press, in SPC software on the seven medium presses and on paper on the four high-speed presses;
-- it filed a Ppk from 300 consecutive pieces at PPAP;
-- it sharpened dies on a stated shot interval;
-- operators adjusted the die at their discretion.
+The program it runs:
+- **Charts by characteristic class.** Formed heights and bend angles on three-way charts with a coil-change chart beside them; hole diameters on tool-wear charts with limits sloped on shots since sharpening; hole position, length, width and flatness on X-bar and R; the burr and pin checks on p charts.
+- **Limits held under verification.** Limits are set from a baseline and held across sharpenings; the first 25 subgroups after a sharpening verify them, and a failed verification starts a new baseline. Formed charts are verified after a rebuild or a forming-station repair.
+- **Centring at the coil change.** A 10-piece coil-change subgroup centres the die on each coil, and plots on the coil-change chart.
+- **Per-stroke monitoring.** An EWMA on the per-stroke tonnage total and a residual chart on each channel's share, on every press, stopping the press on a signal.
+- **Measurement gating.** No gauge feeds a chart without a current calibration and a gauge study; check fixtures are verified daily against a master part, and burr check operators are qualified quarterly against the burr gauge.
+- **Sharpening at the count.** Each die is sharpened at the shot count where its burr line reaches 80% of the limit.
+- **First-piece approval** at every run start, with the run held until release.
 
-In 2025 scrap and rework cost 3.12% of revenue ($1,242,201), customer PPM was 463, and 14 sorting events covered 101,154 parts.
-
-The shop assessed every chart in use on the 2025 record. The charts held on punched characteristics and flatness, and failed on formed characteristics, hole diameters and burr:
-- **Limits:** rolling limits in the software flagged 17.0% of what baseline limits flag. Printed limits on the paper presses signalled on 42 of every 100 formed-characteristic subgroups, and an action was recorded on 28% of paper signals.
-- **Capability:** production Ppk on critical formed characteristics was 1.04, against 1.84 filed at PPAP.
-- **Coils:** 54% of the variance on formed characteristics lay between coils.
-- **Die wear:** 60 of the 61 burr nonconformances fell on runs past the die's stated sharpening interval.
-- **Die events:** 12 of the 14 sorting events traced to a die event between two checks.
-- **Gauge studies:** studies covered 2 of the 180 check fixtures.
-
-From 2 February 2026 the shop changed its practice on three pilot presses, PR-03, PR-06 and PR-09:
-- **Gauges:** it rebuilt and studied the two reworked fixtures, replaced the burr limit samples, and connected the gauges to the terminals.
-- **Charts and limits:** it moved PR-03 from paper to the software. Formed characteristics went onto a three-way chart with a subgroup at each coil change, and hole diameters onto a tool-wear chart. Limits were fixed from a stable baseline after each sharpening.
-- **Checks and reaction:** it set check frequency from the parts made between checks and put a written reaction plan on every chart.
-- **Sharpening:** it set each die's sharpening count from its burr.
-
-From 1 April 2026 the press monitor's historian kept every stroke on the pilot presses. The per-stroke total and channel shares were charted, and the press stopped on a signal. The same changes reach the other eight presses from 3 August 2026.
-
-From April to June 2026 on the pilot presses, against the same months of 2025:
-- **Scrap and rework:** fell from 2.60% to 1.69% of revenue, about $32,000 in the quarter, while the comparison presses held at 3.32%.
-- **Capability:** production Ppk on critical formed characteristics rose from 1.07 to 1.42.
-- **Alarms:** alarm signals fell from 15.3 to 5.3 per 100 subgroups, and an adjustment was recorded on 84% of them, against 17%.
-- **Per-stroke stops:** the charts stopped all 6 punch breaks on the stroke of the break.
-
-Customer PPM, at 267 against 191 on 6 complaints in each quarter, and sorting events, 0 against 1, are too few to show an effect in three months.
+The two documents are what that program produces: the annual revalidation of the chart design, and the quarterly review of its operation.
 
 ## Analyses
 
-| Analysis | Question | Finding | Report | PPAP element |
-|---|---|---|---|---|
-| Charts and limits | Do the limits in use signal when the process changes? | On formed characteristics and hole diameters, the software's rolling limits flag 17.0% of the subgroups that baseline limits flag. On the paper presses, printed limits signal on 42 of every 100 formed-characteristic subgroups, with an action recorded on 28% of signals. | [SPC Assessment](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_assessment.html) | 11, initial process studies |
-| Capability | Does the Ppk filed at PPAP describe production? | Production Ppk on critical formed characteristics is 1.04 against 1.84 filed; punched characteristics hold at 1.55 against 1.85. | [SPC Assessment](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_assessment.html) | 9 and 11, dimensional results and initial process studies |
-| Measurement systems | Are the gauges studied, and do they hold? | Before January 2026, 2 of the 180 check fixtures had a gauge study. The two reworked fixtures consume 31.2% and 33.6% of tolerance, and the burr check agrees with the burr gauge on 80% of calls (kappa 0.44). | [SPC Assessment](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_assessment.html) | 8, measurement system analysis studies |
-| Sampling and recording | How many parts pass between checks, and are checks recorded on time? | A median 1,934 to 16,333 parts pass between routine checks, by press. Nights record 84% of planned checks against 94% on days, and 15.1% of keyed entries are made more than 20 minutes after the parts. | [SPC Assessment](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_assessment.html) | IATF 16949 9.1.1.1 |
-| Reaction | What follows a signal? | All 10,474 software alarms were acknowledged, 4,691 with a one-word text. Adjusted characteristics carry a lag-1 autocorrelation of -0.14 against -0.07 on the others, and 9.9% more variance. | [SPC Assessment](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_assessment.html) | IATF 16949 9.1.1.1 |
-| Coil-to-coil variation | Where does the variance on formed characteristics lie? | 54% of it lies between coils, against 2% on punched characteristics. A coil's level is predictable from its certificate to 2.5% of tolerance. | [SPC Assessment](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_assessment.html) | 11, initial process studies |
-| Die wear | Is the sharpening interval set by the die's burr? | 60 of the 61 burr nonconformances of 2025 fell on runs past the stated interval. Sharpenings are logged at a median 1.14 times the interval, and on 41 of 124 dies the interval is longer than the count at which burr reaches 80% of its limit. | [SPC Assessment](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_assessment.html) | IATF 16949 9.1.1.1 |
-| Die events and sorting | What does a sorting event cover? | 12 of the 14 sorting events of 2025 trace to a die event between two checks. Sorting back to the check before rejects 37% of what it sorts, against 77% where a fault bounds the event. | [SPC Assessment](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_assessment.html) | IATF 16949 9.1.1.1 |
-| Formed characteristics, redesigned | Does the three-way chart raise capability on formed characteristics? | On 46 characteristics, production Ppk rose from 1.07 to 1.42, and the gap between Cpk and Ppk fell from 0.46 to 0.28. The die is centred at a coil change on 30 of 276 coil-change subgroups between one and three sigma off centre. | [SPC Redesign and Results](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_redesign_and_results.html) | 11, initial process studies |
-| Sharpening at the count | Does the count keep burr under its limit? | All 13 pilot intervals begun under the count were sharpened at or before it, and none crossed the limit. The tool-wear chart cut alarms on hole diameters from 14.4 to 0.6 per 100 subgroups. | [SPC Redesign and Results](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_redesign_and_results.html) | IATF 16949 9.1.1.1 |
-| Per-stroke monitoring | What does charting every stroke find that the check cannot? | The charts stopped the pilot presses 36 times: on a worn or chipped punch 22 times, on slug pulling 9, and on nothing 5 (0.63 per million strokes). All 6 punch breaks were stopped on the stroke, and 22 of 25 punch replacements followed a stop. | [SPC Redesign and Results](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_redesign_and_results.html) | IATF 16949 9.1.1.1 |
-| Signals and adjustment | Are alarms fewer, and answered? | Alarm signals fell from 15.3 to 5.3 per 100 subgroups, and the share with an adjustment recorded rose from 17% to 84%. | [SPC Redesign and Results](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_redesign_and_results.html) | IATF 16949 9.1.1.1 |
-| Outcomes | What moved on the pilot presses, against the comparison presses? | Scrap and rework fell from 2.60% to 1.69% of revenue, and held at 3.32% on the comparison presses. Customer PPM, at 267 against 191, and sorting are too few to show an effect in three months. | [SPC Redesign and Results](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_redesign_and_results.html) | 11, initial process studies |
+| Analysis | Question | Finding | Document |
+|---|---|---|---|
+| Variance structure | Where does each class's variance lie, and which chart follows? | Formed characteristics carry 49.7% of their incoming variance between coils and 80.0% within the subgroup after centring; hole diameters carry 36.2% in the wear trend; hole position and flatness carry 97.4% and 97.5% within the subgroup. | [Control Chart Design](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/control_chart_design.html) |
+| Coil effect | Is the coil effect predictable from the certificate? | Certificate thickness and hardness explain the coil means with R squared 0.82; the residual is 3.2% of tolerance against coil means that spread 10.1%. | [Control Chart Design](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/control_chart_design.html) |
+| Limits governance | How are limits set, held and verified? | 244 baselines and 1,308 verifications in the year; 8.1% of sharpenings failed verification on at least one chart; 23 of 45 annual-review three-way sets spanned fewer than ten coil changes. | [Control Chart Design](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/control_chart_design.html) |
+| Chart performance | What does each chart cost in false alarms, and what does it catch? | ARL by Markov chain for rules 1 to 4 and for the EWMA on AR(1) data; observed signals at 1.30, 0.83 and 1.79 times expectation on X-bar and R, three-way and tool-wear charts, with the causes. | [Control Chart Design](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/control_chart_design.html) |
+| Three-way chart design | How is coil-structured variation charted without constant false alarms? | Centring on a 10-piece coil-change subgroup, individuals limits from the spread of the baseline means, rule 1 only: 0.27 false alarms per 100 points, against 20.5 with moving-range limits and rules 1 to 4. | [Control Chart Design](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/control_chart_design.html) |
+| Per-stroke monitoring | How are the EWMA parameters chosen, and what do the charts catch? | Lambda 0.02 and L 5.5 for parameters estimated from 500 strokes (in-control ARL 2.64 million strokes); 1.02 false stops per million strokes; chipped punches stopped at a median 0 strokes against up to 11,773 parts under an hourly check. | [Control Chart Design](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/control_chart_design.html) |
+| Signals and reaction | Did the quarter's signals run at the design rate, and were causes found? | 3.80 signals per 100 subgroups against 3.08 expected; 418 alarms with an assignable cause, all closed; six special causes caught by the chart designed to catch them. | [SPC Quarterly Review](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_quarterly_review_2026_q2.html) |
+| Capability | Is the process capable, by the right index for each chart? | 93 of 100 critical characteristics at or above Ppk 1.33; Cpk by between/within sigma on three-way charts and about the regression on tool-wear charts; Bissell intervals. | [SPC Quarterly Review](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_quarterly_review_2026_q2.html) |
+| Measurement gating | Did every chart run on a gauge in gating status? | 0 of 897 charts fed by a gauge past due, away or unstudied; a drifting fixture seen on the charts four days before its verification failed, pulled and rebuilt; 24 operators qualified at kappa 0.78 to 0.89. | [SPC Quarterly Review](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_quarterly_review_2026_q2.html) |
+| Dies, first pieces and recording | Is the rest of the program running to its rules? | 69 of 76 sharpenings at or before the due count, burr at most 90.8% of its limit; 19 of 583 run starts held at the first piece; planned checks recorded on 97.9% of day and 96.9% of night occasions. | [SPC Quarterly Review](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_quarterly_review_2026_q2.html) |
 
 ## Methods
 
 **Statistics:**
-- **Control charts and capability:** by AIAG SPC, 2nd edition. Within-subgroup sigma is pooled across subgroups, and overall sigma is taken from all readings.
-- **Stability:** Western Electric rules 1 to 4, with average run length by the Markov chain method.
-- **Variance components:** a nested random-effects model fitted by REML.
-- **Gauge R&R:** AIAG MSA, 4th edition, ANOVA method, with %tolerance at 6 sigma and ndc. Attribute agreement uses Fleiss' kappa.
-- **Bounded characteristics:** Anderson-Darling, with the Box-Cox transformation.
-- **Autocorrelation:** lag-1 autocorrelation of subgroup means within a run and coil.
-- **Per-stroke charts:** an EWMA for autocorrelated data on the per-stroke total, and a residual chart on each channel's share.
-- **Rates and proportions:** the exact Poisson rate test on event and complaint counts, the two-proportion score test with the Newcombe interval, and bootstrap intervals over complaints on PPM.
-
-Every result carries its interval, its sample size and its coverage.
+- **Control charts:** X-bar and R, three-way (individuals on subgroup means with limits from the spread of the baseline means, moving range, range), tool-wear charts with limits about a regression on shots since sharpening, p charts; Western Electric rules 1 to 4 where in force.
+- **Capability:** Ppk on overall sigma; Cpk by chart class (pooled within-subgroup, between/within, residual about the regression); one-sided indices on bounded characteristics; Bissell's approximation for intervals.
+- **Variance components:** nested method of moments (within subgroup, between subgroups within coil, between coils, between sharpening intervals).
+- **Chart performance:** ARL by the Markov chain method for rules 1 to 4, for AR(1) subgroup means, and for the EWMA on AR(1) per-stroke data; the coil-change chart's expectation by Monte Carlo on the record's coil lots.
+- **Measurement:** gauge R&R by the AIAG MSA ANOVA method, %tolerance at 6 sigma and ndc; attribute agreement by Fleiss' kappa.
+- **Normality:** Anderson-Darling on baseline means, with Box-Cox on bounded characteristics.
 
 **Data engineering:**
-- The exported files are loaded to DuckDB with dlt, and the per-stroke press monitor export is read in place as Parquet.
-- A dbt project builds 83 staging, intermediate and mart models, with 263 schema tests on every layer.
-- Every table, figure and page is written by scripts that read the marts. No number is typed into a page, and two consecutive builds are byte-identical.
-- Each deliverable has a table of every number it prints and the mart it is read from, under `analytics/reports/traces/`. This covers both reports, the two screens, the monthly summary and the control plans.
+- The exported files are loaded to DuckDB with dlt; the per-stroke press monitor export is read in place as Parquet.
+- A dbt project builds 75 staging, intermediate and mart models with 297 schema tests, and every mart carries the export batch id.
+- Every table, figure and page is written by scripts that read the marts; no number is typed into a page, and each page has a trace of every number it prints and the mart it is read from under `analytics/reports/traces/`. Two consecutive builds are byte-identical.
 
 ## Data
 
-The record covers thirty months of the shop's records, January 2024 to June 2026, in export batch 20260713T053000Z-SPC30M. It holds:
-- 525,576 subgroups on 1,560 characteristics;
-- 5,620 production runs and 4,665 coils;
-- 8,030,315 press strokes on the pilot presses from 1 April 2026.
+Twelve months of the shop's records, 1 July 2025 to 30 June 2026, in export batch 20260713T053000Z-SPC12M:
+- 379,677 subgroups on 1,560 characteristics;
+- 2,228 production runs and 1,914 coils;
+- 37.9 million press strokes: April to June 2026 on all presses, and the full year on PR-03.
 
-Conditions of the record, each stated in the reports where it bears on a figure:
-- **Keyed readings:** they end in 0 or 5 at 1.76 times the expected rate. Readings that cannot be a measurement of the part (0.35% of keyed readings) are set aside, with the count stated.
-- **Gauge status:** subgroups recorded against a gauge away for calibration that day (4.4% in 2025), or past its calibration due date (2.7%).
-- **Late entries:** 15.1% of keyed subgroups in 2025 were entered more than 20 minutes after the parts.
-- **Coil ids:** missing coil ids are recovered from the run's coil sequence.
-- **Complaints:** some are entered twice.
-- **Sorting:** sorting is booked to the production run instead of the sorting labor code.
-- **Die log:** shot counts are rounded to the thousand on 349 of 845 sharpenings.
-- **Paper charts:** they were transcribed for the assessment.
+Conditions of the record, stated in the documents where they bear on a figure:
+- the die log carries dates without times, so 15 runs that start on a sharpening day are placed in a sharpening interval by the day;
+- the SPC software leaves the subgroup mean blank on laboratory burr readings, which are averaged from the readings;
+- a run started on a coil already in use plots no new point on the coil-change chart;
+- 0.27% of the quarter's subgroups were recorded against a gauge away for calibration.
 
 | Source | Tables | Records |
 |---|---|---|
-| SPC software | characteristics, control limits, subgroups, alarms, reaction plan steps | 591,376 |
-| Press monitors | per-stroke peaks (pilot presses), tonnage windows, fault events | 8,050,637 |
-| ERP | parts, dies, presses, production runs, coils, scrap, shipments | 33,411 |
-| QMS | nonconformances, sorting events, complaints, dock audits, PPAP studies, scorecards | 8,468 |
-| Die maintenance log | sharpenings, punch replacements, rebuilds, repairs | 1,909 |
-| Calibration system | gauges, calibrations, gauge studies | 2,478 |
-| Accounting | quality cost lines, contribution by part | 1,358 |
-| Study worksheets | gauge R&R and attribute agreement studies, as recorded | 9 |
+| SPC software | characteristics, control limits, limit verifications, subgroups, alarms with dispositions, reaction plan steps | 404,717 |
+| Press monitors | per-stroke peaks, tonnage windows, fault events | 37,905,094 |
+| ERP | parts, dies, presses, production runs, coils | 4,503 |
+| QMS | nonconformances, corrective actions, first-piece approvals | 2,403 |
+| Die maintenance log | sharpenings with corrections, punch replacements, rebuilds, repairs | 1,114 |
+| Calibration system | gauges, calibrations, gauge studies, fixture verifications, attribute qualifications | 5,913 |
+| Study worksheets | gauge R&R studies, as recorded | 52 |
 
 The pipeline runs in three stages:
-- `pipeline/load` loads each exported file to the `raw` schema.
-- `pipeline/dbt` builds one staging model per source table, then the intermediate models:
-  - the characteristic history, with run, press, coil, die shot count, limits in force and gauge status joined;
-  - coil assignment;
-  - sharpening intervals;
-  - the trace of each sorting event to its die event and the check before.
-- It then builds the marts that the analyses, the two screens, the monthly summary and the control plans read. Every mart carries the export batch id.
+- `pipeline/load` loads each exported file to the `raw` schema;
+- `pipeline/dbt` builds one staging model per source table, then the intermediate models (the characteristic history with run, press, coil, die shot count, limits in force and gauge status joined; coil assignment; sharpening intervals; limit sets with their basis and verifications; alarm dispositions with time to reaction and closure), then the marts the two documents and the screens read;
+- `analytics/build_all.py` writes every figure, both documents, the two screens, `docs/index.html`, this README and the number traces.
 
 ## How to run
 
@@ -158,7 +118,7 @@ cd pipeline/dbt && dbt build --profiles-dir . && cd ../..
 python -m analytics.build_all
 ```
 
-The last command writes every figure under `docs/figures`, the two reports, the two screens, the monthly summary, the control plans and chart book, `docs/index.html`, this README and the number traces.
+The last command writes every figure under `docs/figures`, the two documents, the two screens, `docs/index.html`, this README and the number traces.
 
 ## Author
 

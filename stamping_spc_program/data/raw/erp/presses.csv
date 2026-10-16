@@ -1,12 +1,12 @@
-press_id,tonnage,bed_size_mm,speed_min_spm,speed_max_spm,load_cell_channels,press_group,shift_pattern,spc_entry_at_install,spc_software_from,tonnage_monitor,status,export_batch_id
-PR-01,60,900 x 600,120,250,2,high_speed,"2 shifts, Mon-Fri",paper,,2-channel,active,20260713T053000Z-SPC30M
-PR-02,100,1100 x 700,120,250,2,high_speed,"2 shifts, Mon-Fri",paper,,2-channel,active,20260713T053000Z-SPC30M
-PR-03,150,1300 x 800,120,220,2,high_speed,"2 shifts, Mon-Fri",paper,2026-02-02,2-channel,active,20260713T053000Z-SPC30M
-PR-04,200,1500 x 900,120,200,2,high_speed,"2 shifts, Mon-Fri",paper,,2-channel,active,20260713T053000Z-SPC30M
-PR-05,200,1800 x 1000,40,70,4,medium,"2 shifts, Mon-Fri; Sat first shift in peak months",software,2019-06-03,4-channel,active,20260713T053000Z-SPC30M
-PR-06,250,2000 x 1100,40,70,4,medium,"2 shifts, Mon-Fri; Sat first shift in peak months",software,2019-06-03,4-channel,active,20260713T053000Z-SPC30M
-PR-07,300,2200 x 1200,35,65,4,medium,"2 shifts, Mon-Fri; Sat first shift in peak months",software,2019-06-03,4-channel,active,20260713T053000Z-SPC30M
-PR-08,400,2500 x 1300,30,60,4,medium,"2 shifts, Mon-Fri; Sat first shift in peak months",software,2019-06-03,4-channel,active,20260713T053000Z-SPC30M
-PR-09,400,2500 x 1300,30,60,4,medium,"2 shifts, Mon-Fri; Sat first shift in peak months",software,2019-06-03,4-channel,active,20260713T053000Z-SPC30M
-PR-10,500,3000 x 1500,30,55,4,medium,"2 shifts, Mon-Fri; Sat first shift in peak months",software,2019-06-03,4-channel,active,20260713T053000Z-SPC30M
-PR-11,600,3600 x 1800,30,50,4,medium,"2 shifts, Mon-Fri; Sat first shift in peak months",software,2019-06-03,4-channel,active,20260713T053000Z-SPC30M
+press_id,tonnage,bed_size_mm,speed_min_spm,speed_max_spm,load_cell_channels,press_group,shift_pattern,spc_software_from,gauge_connection_from,per_stroke_monitoring_from,tonnage_monitor,status,export_batch_id
+PR-01,60,900 x 600,120,250,2,high_speed,"2 shifts, Mon-Fri",2019-06-03,2023-03-06,2024-01-08,2-channel,active,20260713T053000Z-SPC12M
+PR-02,100,1100 x 700,120,250,2,high_speed,"2 shifts, Mon-Fri",2019-06-03,2023-03-06,2024-01-08,2-channel,active,20260713T053000Z-SPC12M
+PR-03,150,1300 x 800,120,220,2,high_speed,"2 shifts, Mon-Fri",2019-06-03,2023-03-06,2024-01-08,2-channel,active,20260713T053000Z-SPC12M
+PR-04,200,1500 x 900,120,200,2,high_speed,"2 shifts, Mon-Fri",2019-06-03,2023-03-06,2024-01-08,2-channel,active,20260713T053000Z-SPC12M
+PR-05,200,1800 x 1000,40,70,4,medium,"2 shifts, Mon-Fri; Sat first shift in peak months",2019-06-03,2023-03-06,2024-01-08,4-channel,active,20260713T053000Z-SPC12M
+PR-06,250,2000 x 1100,40,70,4,medium,"2 shifts, Mon-Fri; Sat first shift in peak months",2019-06-03,2023-03-06,2024-01-08,4-channel,active,20260713T053000Z-SPC12M
+PR-07,300,2200 x 1200,35,65,4,medium,"2 shifts, Mon-Fri; Sat first shift in peak months",2019-06-03,2023-03-06,2024-01-08,4-channel,active,20260713T053000Z-SPC12M
+PR-08,400,2500 x 1300,30,60,4,medium,"2 shifts, Mon-Fri; Sat first shift in peak months",2019-06-03,2023-03-06,2024-01-08,4-channel,active,20260713T053000Z-SPC12M
+PR-09,400,2500 x 1300,30,60,4,medium,"2 shifts, Mon-Fri; Sat first shift in peak months",2019-06-03,2023-03-06,2024-01-08,4-channel,active,20260713T053000Z-SPC12M
+PR-10,500,3000 x 1500,30,55,4,medium,"2 shifts, Mon-Fri; Sat first shift in peak months",2019-06-03,2023-03-06,2024-01-08,4-channel,active,20260713T053000Z-SPC12M
+PR-11,600,3600 x 1800,30,50,4,medium,"2 shifts, Mon-Fri; Sat first shift in peak months",2019-06-03,2023-03-06,2024-01-08,4-channel,active,20260713T053000Z-SPC12M

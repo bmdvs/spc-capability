@@ -1,1007 +1,162 @@
 ncr_id,run_id,characteristic_id,defect_code,quantity_affected,detected_at,cause_code,cause_text,disposition,opened,closed,corrective_action_id,export_batch_id
-NCR-24-0001,R23-00838,,burr,1794,customer,operator,burr found,scrap,2024-01-02 00:00:00,2024-01-31 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0002,R24-00003,,scratch,501,press check,die,scratch found,rework,2024-01-02 21:42:56,2024-01-13 21:42:56,,20260713T053000Z-SPC30M
-NCR-24-0003,R24-00025,,dimension,31,press check,operator,dimension found,scrap,2024-01-05 15:15:01,2024-02-08 15:15:01,,20260713T053000Z-SPC30M
-NCR-24-0004,R24-00032,,first-piece dimension,49,first-piece,material,first-piece dimension found,scrap,2024-01-05 20:03:10,2024-01-18 20:03:10,,20260713T053000Z-SPC30M
-NCR-24-0005,R24-00024,C-16315-08,burr,5781,press check,,burr found,rework,2024-01-05 22:02:55,2024-01-26 22:02:55,,20260713T053000Z-SPC30M
-NCR-24-0006,R24-00045,,first-piece dimension,38,first-piece,gauge,first-piece out,scrap,2024-01-09 07:16:10,2024-02-16 07:16:10,,20260713T053000Z-SPC30M
-NCR-24-0007,R24-00040,C-16483-06,burr,23938,press check,die,burr over the limit,rework,2024-01-09 15:58:22,2024-02-11 15:58:22,,20260713T053000Z-SPC30M
-NCR-24-0008,R23-00907,,scratch,471,customer,operator,customer complaint,scrap,2024-01-10 00:00:00,2024-02-13 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0009,R23-00931,,missing or deformed hole,241,customer,operator,missing or deformed hole found,scrap,2024-01-10 00:00:00,2024-02-18 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0010,R24-00054,,mixed part,652,press check,method,mixed part found,scrap,2024-01-10 19:14:58,2024-02-09 19:14:58,,20260713T053000Z-SPC30M
-NCR-24-0011,R24-00060,,scratch,519,press check,die,scratch found,rework,2024-01-11 16:19:20,2024-01-29 16:19:20,,20260713T053000Z-SPC30M
-NCR-24-0012,R23-00915,,missing or deformed hole,301,customer,die,missing or deformed hole found,scrap,2024-01-12 00:00:00,2024-01-16 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0013,R24-00058,,dimension,275,press check,die,found at the press,rework,2024-01-12 00:21:13,2024-02-20 00:21:13,,20260713T053000Z-SPC30M
-NCR-24-0014,R24-00074,,dimension,20,press check,operator,dimension found,use as is,2024-01-14 15:26:13,2024-02-20 15:26:13,,20260713T053000Z-SPC30M
-NCR-24-0015,R24-00083,,flatness,613,press check,method,flatness found,scrap,2024-01-16 02:32:13,2024-02-19 02:32:13,,20260713T053000Z-SPC30M
-NCR-24-0016,R24-00091,C-12201-01,hole burr and size,1590,press check,gauge,punch worn,sort,2024-01-16 21:01:44,2024-01-26 21:01:44,,20260713T053000Z-SPC30M
-NCR-24-0017,R24-00095,,scratch,272,press check,,found at the press,scrap,2024-01-17 14:51:08,2024-01-25 14:51:08,,20260713T053000Z-SPC30M
-NCR-24-0018,R24-00102,C-15731-01,hole burr and size,1976,press check,die,hole burr and size found,sort,2024-01-18 14:25:42,2024-01-24 14:25:42,,20260713T053000Z-SPC30M
-NCR-24-0019,R24-00117,,first-piece dimension,44,first-piece,method,first-piece dimension found,scrap,2024-01-19 09:31:48,2024-02-26 09:31:48,,20260713T053000Z-SPC30M
-NCR-24-0020,R24-00118,,first-piece dimension,52,first-piece,operator,first-piece out,scrap,2024-01-19 10:23:29,2024-02-18 10:23:29,,20260713T053000Z-SPC30M
-NCR-24-0021,R24-00114,,scratch,201,press check,operator,scratch found,use as is,2024-01-21 15:06:52,2024-02-05 15:06:52,,20260713T053000Z-SPC30M
-NCR-24-0022,R24-00126,,mixed part,610,press check,,mixed part found,scrap,2024-01-23 00:03:03,2024-02-16 00:03:03,,20260713T053000Z-SPC30M
-NCR-24-0023,R24-00131,,hole burr and size,148,press check,material,"punch chipped, noticed at the press",scrap,2024-01-23 12:35:35,2024-02-28 12:35:35,,20260713T053000Z-SPC30M
-NCR-24-0024,R24-00136,,dimension,82,press check,operator,dimension found,scrap,2024-01-24 00:37:49,2024-02-22 00:37:49,,20260713T053000Z-SPC30M
-NCR-24-0025,R24-00141,C-19454-10,burr,16300,press check,die,burr found,rework,2024-01-24 21:57:42,2024-02-26 21:57:42,,20260713T053000Z-SPC30M
-NCR-24-0026,R24-00163,,first-piece dimension,10,first-piece,machine,first-piece dimension found,scrap,2024-01-26 18:58:04,2024-02-13 18:58:04,,20260713T053000Z-SPC30M
-NCR-24-0027,R24-00024,,burr,386,customer,machine,customer complaint,scrap,2024-01-27 00:00:00,2024-03-04 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0028,R24-00169,,mixed part,422,press check,die,mixed part found,use as is,2024-01-30 07:21:28,2024-02-27 07:21:28,,20260713T053000Z-SPC30M
-NCR-24-0029,R24-00168,C-16280-01,missing or deformed hole,1891,press check,die,missing or deformed hole found,sort,2024-01-30 09:57:15,2024-02-11 09:57:15,,20260713T053000Z-SPC30M
-NCR-24-0030,R24-00168,C-16280-09,burr,55186,press check,die,burr found,rework,2024-01-30 12:02:34,2024-02-15 12:02:34,,20260713T053000Z-SPC30M
-NCR-24-0031,R24-00172,,mixed part,66,press check,operator,found at the press,scrap,2024-01-30 14:23:19,2024-02-13 14:23:19,,20260713T053000Z-SPC30M
-NCR-24-0032,R24-00174,C-18431-10,burr,3687,press check,die,burr found,rework,2024-01-31 07:01:14,2024-02-26 07:01:14,,20260713T053000Z-SPC30M
-NCR-24-0033,R24-00187,,missing or deformed hole,9333,press check,die,punch chipped,sort,2024-01-31 20:22:01,2024-03-02 20:22:01,,20260713T053000Z-SPC30M
-NCR-24-0034,R24-00179,C-11333-07,burr,74186,press check,material,burr found,rework,2024-02-01 15:03:43,2024-02-20 15:03:43,,20260713T053000Z-SPC30M
-NCR-24-0035,R24-00195,,dimension,611,press check,operator,dimension found,rework,2024-02-02 01:09:48,2024-03-08 01:09:48,,20260713T053000Z-SPC30M
-NCR-24-0036,R24-00199,,dimension,422,press check,operator,found at the press,rework,2024-02-02 11:46:45,2024-02-24 11:46:45,,20260713T053000Z-SPC30M
-NCR-24-0037,R24-00206,C-19604-09,burr,9216,press check,machine,burr found,rework,2024-02-05 07:57:30,2024-02-22 07:57:30,,20260713T053000Z-SPC30M
-NCR-24-0038,R24-00187,,burr,15874,dock audit,die,burr over the limit,rework,2024-02-07 06:25:12,2024-02-18 06:25:12,,20260713T053000Z-SPC30M
-NCR-24-0039,R24-00249,,first-piece dimension,24,first-piece,method,first-piece dimension found,scrap,2024-02-09 17:46:21,2024-02-20 17:46:21,,20260713T053000Z-SPC30M
-NCR-24-0040,R24-00245,,scratch,638,press check,die,found at the press,scrap,2024-02-12 01:25:39,2024-03-18 01:25:39,,20260713T053000Z-SPC30M
-NCR-24-0041,R24-00259,,first-piece dimension,55,first-piece,,first-piece dimension found,scrap,2024-02-12 22:04:21,2024-02-25 22:04:21,,20260713T053000Z-SPC30M
-NCR-24-0042,R24-00264,C-34749-06,burr,33236,press check,machine,burr found,rework,2024-02-13 18:17:11,2024-02-28 18:17:11,,20260713T053000Z-SPC30M
-NCR-24-0043,R24-00267,,flatness,407,press check,,flatness found,rework,2024-02-13 20:24:00,2024-02-24 20:24:00,,20260713T053000Z-SPC30M
-NCR-24-0044,R24-00155,,scratch,398,customer,die,customer complaint,scrap,2024-02-14 00:00:00,2024-02-28 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0045,R24-00263,C-10531-09,burr,98112,press check,gauge,burr found,rework,2024-02-14 11:54:26,2024-03-16 11:54:26,,20260713T053000Z-SPC30M
-NCR-24-0046,R24-00281,,scratch,46,press check,,scratch found,rework,2024-02-15 11:39:06,2024-03-15 11:39:06,,20260713T053000Z-SPC30M
-NCR-24-0047,R24-00295,,mixed part,378,press check,material,mixed part found,rework,2024-02-18 10:17:26,2024-02-29 10:17:26,,20260713T053000Z-SPC30M
-NCR-24-0048,R24-00050,,formed dimension,415,customer,operator,customer complaint,scrap,2024-02-19 00:00:00,2024-03-01 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0049,R24-00295,,missing or deformed hole,978,press check,gauge,missing or deformed hole found,scrap,2024-02-19 07:37:46,2024-02-26 07:37:46,,20260713T053000Z-SPC30M
-NCR-24-0050,R24-00293,C-19454-11,burr,13587,press check,method,burr found,rework,2024-02-19 10:03:30,2024-04-01 10:03:30,,20260713T053000Z-SPC30M
-NCR-24-0051,R24-00308,,scratch,500,press check,,scratch found,scrap,2024-02-20 19:00:05,2024-03-08 19:00:05,,20260713T053000Z-SPC30M
-NCR-24-0052,R24-00314,,mixed part,109,press check,operator,mixed part found,rework,2024-02-21 13:49:21,2024-03-25 13:49:21,,20260713T053000Z-SPC30M
-NCR-24-0053,R24-00324,,hole burr and size,676,press check,die,"punch chipped, noticed at the press",scrap,2024-02-22 11:38:29,2024-03-23 11:38:29,,20260713T053000Z-SPC30M
-NCR-24-0054,R24-00160,,mixed part,904,customer,method,mixed part found,scrap,2024-02-23 00:00:00,2024-03-14 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0055,R24-00263,,burr,478,customer,method,customer complaint,scrap,2024-02-25 00:00:00,2024-03-18 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0056,R24-00342,,scratch,480,press check,gauge,scratch found,use as is,2024-02-26 15:35:46,2024-03-18 15:35:46,,20260713T053000Z-SPC30M
-NCR-24-0057,R24-00343,,mixed part,201,press check,operator,mixed part found,use as is,2024-02-26 22:16:34,2024-03-16 22:16:34,,20260713T053000Z-SPC30M
-NCR-24-0058,R24-00356,,first-piece dimension,23,first-piece,method,first-piece dimension found,scrap,2024-02-27 21:50:09,2024-03-27 21:50:09,,20260713T053000Z-SPC30M
-NCR-24-0059,R24-00380,,first-piece dimension,26,first-piece,method,first-piece dimension found,scrap,2024-03-01 16:27:32,2024-03-20 16:27:32,,20260713T053000Z-SPC30M
-NCR-24-0060,R24-00145,,mixed part,4382,customer,operator,mixed part found,scrap,2024-03-02 00:00:00,2024-03-10 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0061,R24-00396,,first-piece dimension,31,first-piece,operator,first-piece dimension found,scrap,2024-03-04 20:30:27,2024-03-20 20:30:27,,20260713T053000Z-SPC30M
-NCR-24-0062,R24-00395,,dimension,257,press check,machine,dimension found,scrap,2024-03-05 03:56:57,2024-03-23 03:56:57,,20260713T053000Z-SPC30M
-NCR-24-0063,R24-00408,,mixed part,295,press check,operator,found at the press,rework,2024-03-06 02:15:16,2024-04-10 02:15:16,,20260713T053000Z-SPC30M
-NCR-24-0064,R24-00429,,flatness,698,press check,operator,found at the press,scrap,2024-03-08 13:19:01,2024-03-18 13:19:01,,20260713T053000Z-SPC30M
-NCR-24-0065,R24-00433,,dimension,635,press check,operator,dimension found,rework,2024-03-09 22:44:50,2024-03-13 22:44:50,,20260713T053000Z-SPC30M
-NCR-24-0066,R24-00179,,burr,540,customer,material,burr found,sort,2024-03-13 00:00:00,2024-04-24 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0067,R24-00421,,burr,18761,dock audit,die,burr over the limit,rework,2024-03-13 03:22:17,2024-03-26 03:22:17,,20260713T053000Z-SPC30M
-NCR-24-0068,R24-00459,,flatness,319,press check,material,flatness found,use as is,2024-03-13 19:15:42,2024-04-22 19:15:42,,20260713T053000Z-SPC30M
-NCR-24-0069,R24-00461,,dimension,649,press check,machine,dimension found,use as is,2024-03-14 10:12:17,2024-03-26 10:12:17,,20260713T053000Z-SPC30M
-NCR-24-0070,R24-00466,,dimension,497,press check,die,found at the press,rework,2024-03-14 15:30:08,2024-03-31 15:30:08,,20260713T053000Z-SPC30M
-NCR-24-0071,R24-00472,,mixed part,38,press check,gauge,mixed part found,rework,2024-03-15 15:46:58,2024-04-18 15:46:58,,20260713T053000Z-SPC30M
-NCR-24-0072,R24-00494,,dimension,525,press check,gauge,dimension found,scrap,2024-03-20 06:21:41,2024-04-09 06:21:41,,20260713T053000Z-SPC30M
-NCR-24-0073,R24-00496,,missing or deformed hole,488,press check,die,missing or deformed hole found,scrap,2024-03-20 08:46:48,2024-04-06 08:46:48,,20260713T053000Z-SPC30M
-NCR-24-0074,R24-00507,,flatness,490,press check,,flatness found,use as is,2024-03-20 16:30:19,2024-04-09 16:30:19,,20260713T053000Z-SPC30M
-NCR-24-0075,R24-00509,,flatness,701,press check,machine,found at the press,rework,2024-03-21 08:56:22,2024-04-24 08:56:22,,20260713T053000Z-SPC30M
-NCR-24-0076,R24-00495,,burr,525,dock audit,die,burr found,rework,2024-03-21 21:15:10,2024-04-24 21:15:10,,20260713T053000Z-SPC30M
-NCR-24-0077,R24-00516,,flatness,697,press check,operator,flatness found,scrap,2024-03-21 23:48:55,2024-04-21 23:48:55,,20260713T053000Z-SPC30M
-NCR-24-0078,R24-00288,,missing or deformed hole,685,customer,operator,missing or deformed hole found,scrap,2024-03-23 00:00:00,2024-04-06 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0079,R24-00525,,dimension,124,press check,operator,dimension found,use as is,2024-03-24 08:45:27,2024-04-09 08:45:27,,20260713T053000Z-SPC30M
-NCR-24-0080,R24-00496,,burr,52753,dock audit,material,burr found,rework,2024-03-25 04:57:42,2024-04-30 04:57:42,,20260713T053000Z-SPC30M
-NCR-24-0081,R24-00526,C-18287-07,burr,15064,press check,die,burr over the limit,rework,2024-03-25 22:00:39,2024-04-12 22:00:39,,20260713T053000Z-SPC30M
-NCR-24-0082,R24-00530,,scratch,591,press check,operator,scratch found,scrap,2024-03-25 22:21:15,2024-04-23 22:21:15,,20260713T053000Z-SPC30M
-NCR-24-0083,R24-00540,,mixed part,417,press check,die,found at the press,scrap,2024-03-26 17:50:30,2024-04-06 17:50:30,,20260713T053000Z-SPC30M
-NCR-24-0084,R24-00550,,missing or deformed hole,107,press check,die,missing or deformed hole found,scrap,2024-03-27 18:41:22,2024-03-30 18:41:22,,20260713T053000Z-SPC30M
-NCR-24-0085,R24-00546,,flatness,704,press check,machine,found at the press,scrap,2024-03-27 23:09:02,2024-04-18 23:09:02,,20260713T053000Z-SPC30M
-NCR-24-0086,R24-00553,,scratch,588,press check,operator,found at the press,rework,2024-03-28 04:41:16,2024-05-11 04:41:16,,20260713T053000Z-SPC30M
-NCR-24-0087,R24-00558,,first-piece dimension,52,first-piece,operator,first-piece dimension found,scrap,2024-03-28 12:58:11,2024-04-04 12:58:11,,20260713T053000Z-SPC30M
-NCR-24-0088,R24-00557,,mixed part,50,press check,die,mixed part found,scrap,2024-03-28 16:40:29,2024-04-05 16:40:29,,20260713T053000Z-SPC30M
-NCR-24-0089,R24-00558,,mixed part,316,press check,machine,mixed part found,rework,2024-03-28 19:34:53,2024-04-08 19:34:53,,20260713T053000Z-SPC30M
-NCR-24-0090,R24-00570,,dimension,367,press check,operator,dimension found,rework,2024-03-29 16:26:38,2024-05-02 16:26:38,,20260713T053000Z-SPC30M
-NCR-24-0091,R24-00568,,scratch,51,press check,operator,scratch found,use as is,2024-03-29 23:18:51,2024-04-02 23:18:51,,20260713T053000Z-SPC30M
-NCR-24-0092,R24-00572,,dimension,590,press check,operator,dimension found,scrap,2024-03-30 03:22:24,2024-04-12 03:22:24,,20260713T053000Z-SPC30M
-NCR-24-0093,R24-00567,,mixed part,639,press check,operator,mixed part found,rework,2024-03-30 06:52:55,2024-05-03 06:52:55,,20260713T053000Z-SPC30M
-NCR-24-0094,R24-00574,,scratch,670,press check,material,scratch found,scrap,2024-03-30 09:44:14,2024-04-20 09:44:14,,20260713T053000Z-SPC30M
-NCR-24-0095,R24-00559,,mixed part,200,press check,operator,mixed part found,rework,2024-03-31 07:12:37,2024-04-22 07:12:37,,20260713T053000Z-SPC30M
-NCR-24-0096,R24-00267,,scratch,428,customer,operator,scratch found,scrap,2024-04-02 00:00:00,2024-04-24 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0097,R24-00578,,flatness,462,press check,operator,flatness found,rework,2024-04-02 00:39:01,2024-04-04 00:39:01,,20260713T053000Z-SPC30M
-NCR-24-0098,R24-00592,,first-piece dimension,39,first-piece,operator,first-piece dimension found,scrap,2024-04-02 14:28:23,2024-04-09 14:28:23,,20260713T053000Z-SPC30M
-NCR-24-0099,R24-00589,,scratch,714,press check,operator,scratch found,scrap,2024-04-03 03:43:27,2024-04-05 03:43:27,,20260713T053000Z-SPC30M
-NCR-24-0100,R24-00595,,flatness,107,press check,operator,flatness found,rework,2024-04-03 17:15:35,2024-05-10 17:15:35,,20260713T053000Z-SPC30M
-NCR-24-0101,R24-00605,,mixed part,622,press check,operator,mixed part found,scrap,2024-04-05 03:12:43,2024-04-24 03:12:43,,20260713T053000Z-SPC30M
-NCR-24-0102,R24-00616,,scratch,122,press check,die,found at the press,scrap,2024-04-06 02:32:19,2024-04-08 02:32:19,,20260713T053000Z-SPC30M
-NCR-24-0103,R24-00617,,scratch,148,press check,operator,found at the press,scrap,2024-04-06 19:36:07,2024-04-29 19:36:07,,20260713T053000Z-SPC30M
-NCR-24-0104,R24-00496,,burr,296,customer,die,burr found,scrap,2024-04-07 00:00:00,2024-04-18 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0105,R24-00621,,mixed part,452,press check,operator,mixed part found,rework,2024-04-07 03:04:05,2024-04-23 03:04:05,,20260713T053000Z-SPC30M
-NCR-24-0106,R24-00628,,dimension,611,press check,operator,dimension found,use as is,2024-04-09 11:11:24,2024-04-27 11:11:24,,20260713T053000Z-SPC30M
-NCR-24-0107,R24-00625,,hole burr and size,844,press check,material,hole burr and size found,scrap,2024-04-09 18:44:10,2024-04-14 18:44:10,,20260713T053000Z-SPC30M
-NCR-24-0108,R24-00641,,hole burr and size,530,press check,die,hole burr and size found,scrap,2024-04-10 06:40:28,2024-05-03 06:40:28,,20260713T053000Z-SPC30M
-NCR-24-0109,R24-00641,C-12139-08,burr,3507,press check,machine,burr found,rework,2024-04-10 10:01:41,2024-04-24 10:01:41,,20260713T053000Z-SPC30M
-NCR-24-0110,R24-00642,,dimension,386,press check,,dimension found,scrap,2024-04-10 12:05:26,2024-04-19 12:05:26,,20260713T053000Z-SPC30M
-NCR-24-0111,R24-00648,,scratch,750,press check,operator,scratch found,scrap,2024-04-11 01:34:02,2024-04-15 01:34:02,,20260713T053000Z-SPC30M
-NCR-24-0112,R24-00657,,scratch,378,press check,,found at the press,rework,2024-04-11 20:51:45,2024-05-16 20:51:45,,20260713T053000Z-SPC30M
-NCR-24-0113,R24-00666,,first-piece dimension,51,first-piece,machine,first-piece dimension found,scrap,2024-04-12 13:21:46,2024-05-17 13:21:46,,20260713T053000Z-SPC30M
-NCR-24-0114,R24-00625,,burr,1462,dock audit,die,burr over the limit,rework,2024-04-14 03:03:52,2024-05-14 03:03:52,,20260713T053000Z-SPC30M
-NCR-24-0115,R24-00356,,mixed part,3591,customer,die,mixed part found,scrap,2024-04-15 00:00:00,2024-05-03 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0116,R24-00669,,dimension,325,press check,material,dimension found,use as is,2024-04-15 05:38:21,2024-05-27 05:38:21,,20260713T053000Z-SPC30M
-NCR-24-0117,R24-00667,C-10531-09,burr,75248,press check,die,burr found,rework,2024-04-15 10:00:49,2024-04-29 10:00:49,,20260713T053000Z-SPC30M
-NCR-24-0118,R24-00558,,formed dimension,582,customer,operator,customer complaint,scrap,2024-04-16 00:00:00,2024-05-23 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0119,R24-00675,C-39057-08,burr,21617,press check,gauge,burr found,rework,2024-04-16 10:15:24,2024-04-28 10:15:24,,20260713T053000Z-SPC30M
-NCR-24-0120,R24-00690,,scratch,193,press check,machine,scratch found,scrap,2024-04-17 15:18:54,2024-05-14 15:18:54,,20260713T053000Z-SPC30M
-NCR-24-0121,R24-00703,,first-piece dimension,56,first-piece,operator,first-piece out,scrap,2024-04-18 10:47:59,2024-05-21 10:47:59,,20260713T053000Z-SPC30M
-NCR-24-0122,R24-00708,,first-piece dimension,10,first-piece,material,first-piece out,scrap,2024-04-18 19:19:03,2024-04-22 19:19:03,,20260713T053000Z-SPC30M
-NCR-24-0123,R24-00568,,dimension,3082,customer,operator,dimension found,scrap,2024-04-22 00:00:00,2024-05-20 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0124,R24-00720,C-11396-09,burr,7722,press check,die,burr found,rework,2024-04-22 08:19:46,2024-05-31 08:19:46,,20260713T053000Z-SPC30M
-NCR-24-0125,R24-00703,C-11333-07,burr,1963,press check,die,burr over the limit,rework,2024-04-22 15:59:46,2024-05-31 15:59:46,,20260713T053000Z-SPC30M
-NCR-24-0126,R24-00707,,burr,6649,dock audit,machine,burr found,rework,2024-04-23 05:35:32,2024-06-05 05:35:32,,20260713T053000Z-SPC30M
-NCR-24-0127,R24-00619,,formed dimension,396,customer,die,formed dimension found,scrap,2024-04-24 00:00:00,2024-06-04 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0128,R24-00741,,scratch,321,press check,material,scratch found,rework,2024-04-24 12:25:19,2024-05-22 12:25:19,,20260713T053000Z-SPC30M
-NCR-24-0129,R24-00743,,flatness,586,press check,operator,flatness found,rework,2024-04-24 16:21:52,2024-05-01 16:21:52,,20260713T053000Z-SPC30M
-NCR-24-0130,R24-00745,C-16315-01,missing or deformed hole,883,press check,die,punch chipped,scrap,2024-04-24 20:22:40,2024-04-26 20:22:40,,20260713T053000Z-SPC30M
-NCR-24-0131,R24-00752,,missing or deformed hole,410,press check,machine,missing or deformed hole found,scrap,2024-04-25 20:45:00,2024-05-16 20:45:00,,20260713T053000Z-SPC30M
-NCR-24-0132,R24-00752,,scratch,624,press check,,scratch found,scrap,2024-04-26 02:21:41,2024-04-28 02:21:41,,20260713T053000Z-SPC30M
-NCR-24-0133,R24-00762,C-16483-06,burr,27970,press check,,burr found,rework,2024-04-26 21:59:02,2024-05-25 21:59:02,,20260713T053000Z-SPC30M
-NCR-24-0134,R24-00772,,mixed part,78,press check,gauge,found at the press,use as is,2024-04-29 21:35:40,2024-06-04 21:35:40,,20260713T053000Z-SPC30M
-NCR-24-0135,R24-00778,,dimension,128,press check,,dimension found,rework,2024-04-30 12:47:53,2024-05-12 12:47:53,,20260713T053000Z-SPC30M
-NCR-24-0136,R24-00786,C-39101-11,burr,22301,press check,die,burr found,rework,2024-05-01 18:00:45,2024-05-11 18:00:45,,20260713T053000Z-SPC30M
-NCR-24-0137,R24-00794,,first-piece dimension,57,first-piece,operator,first-piece dimension found,scrap,2024-05-01 20:15:16,2024-05-08 20:15:16,,20260713T053000Z-SPC30M
-NCR-24-0138,R24-00806,,missing or deformed hole,4585,press check,die,missing or deformed hole found,sort,2024-05-03 13:34:17,2024-05-13 13:34:17,,20260713T053000Z-SPC30M
-NCR-24-0139,R24-00816,,first-piece dimension,48,first-piece,die,first-piece dimension found,scrap,2024-05-04 10:09:58,2024-05-19 10:09:58,,20260713T053000Z-SPC30M
-NCR-24-0140,R24-00777,,burr,2866,dock audit,,burr found,rework,2024-05-05 19:20:57,2024-05-25 19:20:57,,20260713T053000Z-SPC30M
-NCR-24-0141,R24-00825,,first-piece dimension,10,first-piece,operator,first-piece dimension found,scrap,2024-05-07 07:28:42,2024-05-30 07:28:42,,20260713T053000Z-SPC30M
-NCR-24-0142,R24-00841,,first-piece dimension,51,first-piece,die,first-piece dimension found,scrap,2024-05-08 22:04:33,2024-05-16 22:04:33,,20260713T053000Z-SPC30M
-NCR-24-0143,R24-00830,,mixed part,276,press check,,found at the press,scrap,2024-05-09 08:48:14,2024-05-15 08:48:14,,20260713T053000Z-SPC30M
-NCR-24-0144,R24-00832,C-16467-07,burr,29449,press check,material,burr found,rework,2024-05-09 15:00:20,2024-05-18 15:00:20,,20260713T053000Z-SPC30M
-NCR-24-0145,R24-00526,,burr,3450,customer,operator,burr found,scrap,2024-05-10 00:00:00,2024-05-27 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0146,R24-00852,,first-piece dimension,10,first-piece,operator,first-piece dimension found,scrap,2024-05-10 10:55:46,2024-05-12 10:55:46,,20260713T053000Z-SPC30M
-NCR-24-0147,R24-00848,,missing or deformed hole,3292,press check,die,missing or deformed hole found,sort,2024-05-10 12:52:44,2024-06-14 12:52:44,,20260713T053000Z-SPC30M
-NCR-24-0148,R24-00863,,missing or deformed hole,435,press check,,"punch chipped, noticed at the press",scrap,2024-05-13 16:08:48,2024-06-22 16:08:48,,20260713T053000Z-SPC30M
-NCR-24-0149,R24-00864,,hole burr and size,281,press check,machine,hole burr and size found,scrap,2024-05-14 11:42:08,2024-05-19 11:42:08,,20260713T053000Z-SPC30M
-NCR-24-0150,R24-00875,,first-piece dimension,22,first-piece,operator,first-piece dimension found,scrap,2024-05-14 17:10:01,2024-06-03 17:10:01,,20260713T053000Z-SPC30M
-NCR-24-0151,R24-00875,,mixed part,46,press check,die,found at the press,scrap,2024-05-15 06:52:52,2024-06-06 06:52:52,,20260713T053000Z-SPC30M
-NCR-24-0152,R24-00885,,dimension,323,press check,operator,dimension found,use as is,2024-05-15 16:50:52,2024-05-25 16:50:52,,20260713T053000Z-SPC30M
-NCR-24-0153,R24-00596,,scratch,4438,customer,operator,scratch found,scrap,2024-05-16 00:00:00,2024-05-24 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0154,R24-00892,,missing or deformed hole,766,press check,die,missing or deformed hole found,scrap,2024-05-16 18:35:38,2024-06-15 18:35:38,,20260713T053000Z-SPC30M
-NCR-24-0155,R24-00895,,flatness,130,press check,operator,found at the press,scrap,2024-05-16 18:54:00,2024-05-24 18:54:00,,20260713T053000Z-SPC30M
-NCR-24-0156,R24-00900,,missing or deformed hole,706,press check,method,missing or deformed hole found,scrap,2024-05-17 14:01:11,2024-06-17 14:01:11,,20260713T053000Z-SPC30M
-NCR-24-0157,R24-00925,,mixed part,415,press check,machine,mixed part found,scrap,2024-05-22 03:33:59,2024-05-31 03:33:59,,20260713T053000Z-SPC30M
-NCR-24-0158,R24-00930,,scratch,569,press check,,scratch found,rework,2024-05-22 11:55:09,2024-06-25 11:55:09,,20260713T053000Z-SPC30M
-NCR-24-0159,R24-00931,,first-piece dimension,22,first-piece,gauge,first-piece dimension found,scrap,2024-05-22 12:04:00,2024-06-19 12:04:00,,20260713T053000Z-SPC30M
-NCR-24-0160,R24-00937,,scratch,675,press check,die,found at the press,rework,2024-05-23 11:06:16,2024-06-17 11:06:16,,20260713T053000Z-SPC30M
-NCR-24-0161,R24-00944,,flatness,730,press check,operator,flatness found,use as is,2024-05-24 15:50:03,2024-06-02 15:50:03,,20260713T053000Z-SPC30M
-NCR-24-0162,R24-00948,,scratch,91,press check,operator,found at the press,scrap,2024-05-24 15:55:35,2024-06-11 15:55:35,,20260713T053000Z-SPC30M
-NCR-24-0163,R24-00951,,flatness,771,press check,operator,flatness found,scrap,2024-05-24 22:00:36,2024-05-29 22:00:36,,20260713T053000Z-SPC30M
-NCR-24-0164,R24-00955,,missing or deformed hole,431,press check,die,missing or deformed hole found,scrap,2024-05-28 10:58:06,2024-06-26 10:58:06,,20260713T053000Z-SPC30M
-NCR-24-0165,R24-00964,,mixed part,663,press check,,found at the press,rework,2024-05-29 11:25:58,2024-07-02 11:25:58,,20260713T053000Z-SPC30M
-NCR-24-0166,R24-00979,,missing or deformed hole,710,press check,die,missing or deformed hole found,scrap,2024-05-30 12:39:55,2024-06-04 12:39:55,,20260713T053000Z-SPC30M
-NCR-24-0167,R24-00667,,burr,479,customer,operator,burr found,scrap,2024-05-31 00:00:00,2024-06-16 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0168,R24-00989,,first-piece dimension,26,first-piece,operator,first-piece dimension found,scrap,2024-05-31 14:44:10,2024-06-08 14:44:10,,20260713T053000Z-SPC30M
-NCR-24-0169,R24-00979,C-11333-07,burr,9972,press check,gauge,burr found,rework,2024-05-31 21:14:56,2024-06-26 21:14:56,,20260713T053000Z-SPC30M
-NCR-24-0170,R24-00979,,dimension,679,press check,operator,dimension found,scrap,2024-06-02 16:59:38,2024-06-07 16:59:38,,20260713T053000Z-SPC30M
-NCR-24-0171,R24-00795,,formed dimension,629,customer,operator,formed dimension found,scrap,2024-06-03 00:00:00,2024-06-14 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0172,R24-00995,,mixed part,249,press check,machine,mixed part found,rework,2024-06-03 16:13:12,2024-06-14 16:13:12,,20260713T053000Z-SPC30M
-NCR-24-0173,R24-01002,,mixed part,45,press check,machine,mixed part found,scrap,2024-06-04 15:11:14,2024-06-27 15:11:14,,20260713T053000Z-SPC30M
-NCR-24-0174,R24-01007,,flatness,536,press check,gauge,found at the press,scrap,2024-06-05 03:42:09,2024-07-08 03:42:09,,20260713T053000Z-SPC30M
-NCR-24-0175,R24-01010,C-15051-06,burr,37150,press check,die,burr found,rework,2024-06-05 13:19:10,2024-06-14 13:19:10,,20260713T053000Z-SPC30M
-NCR-24-0176,R24-00824,,scratch,609,customer,die,customer complaint,scrap,2024-06-06 00:00:00,2024-06-11 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0177,R24-00768,,burr,614,customer,operator,burr found,scrap,2024-06-07 00:00:00,2024-06-19 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0178,R24-01023,,burr,15711,dock audit,,burr found,rework,2024-06-10 10:39:58,2024-07-20 10:39:58,,20260713T053000Z-SPC30M
-NCR-24-0179,R24-01032,,mixed part,255,press check,die,found at the press,scrap,2024-06-10 16:14:17,2024-07-05 16:14:17,,20260713T053000Z-SPC30M
-NCR-24-0180,R24-01037,C-39736-09,burr,6477,press check,die,burr found,rework,2024-06-11 07:05:38,2024-07-25 07:05:38,,20260713T053000Z-SPC30M
-NCR-24-0181,R24-01057,,dimension,166,press check,operator,found at the press,scrap,2024-06-12 18:45:25,2024-07-22 18:45:25,,20260713T053000Z-SPC30M
-NCR-24-0182,R24-01048,,scratch,597,press check,operator,scratch found,scrap,2024-06-12 19:51:29,2024-07-19 19:51:29,,20260713T053000Z-SPC30M
-NCR-24-0183,R24-01052,,flatness,74,press check,operator,flatness found,rework,2024-06-13 07:04:07,2024-07-10 07:04:07,,20260713T053000Z-SPC30M
-NCR-24-0184,R24-00826,,scratch,701,customer,operator,scratch found,scrap,2024-06-14 00:00:00,2024-06-23 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0185,R24-01066,,flatness,553,press check,operator,found at the press,rework,2024-06-14 03:13:35,2024-07-03 03:13:35,,20260713T053000Z-SPC30M
-NCR-24-0186,R24-01074,,missing or deformed hole,1980,press check,,punch chipped,sort,2024-06-14 15:59:04,2024-06-18 15:59:04,,20260713T053000Z-SPC30M
-NCR-24-0187,R24-00832,,burr,414,customer,die,burr found,scrap,2024-06-15 00:00:00,2024-07-23 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0188,R24-01074,,mixed part,445,press check,gauge,mixed part found,scrap,2024-06-15 14:30:09,2024-07-06 14:30:09,,20260713T053000Z-SPC30M
-NCR-24-0189,R24-01091,,dimension,248,press check,machine,dimension found,rework,2024-06-18 16:19:48,2024-07-26 16:19:48,,20260713T053000Z-SPC30M
-NCR-24-0190,R24-01117,C-12139-08,burr,8772,press check,method,burr over the limit,rework,2024-06-24 06:02:26,2024-07-19 06:02:26,,20260713T053000Z-SPC30M
-NCR-24-0191,R24-01130,C-12409-09,burr,21309,press check,material,burr over the limit,rework,2024-06-24 22:57:27,2024-07-12 22:57:27,,20260713T053000Z-SPC30M
-NCR-24-0192,R24-00979,,burr,607,customer,gauge,burr found,sort,2024-06-25 00:00:00,2024-08-07 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0193,R24-00979,,burr,607,customer,gauge,burr found,scrap,2024-06-25 00:00:00,2024-08-04 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0194,R24-01126,,mixed part,96,press check,die,mixed part found,use as is,2024-06-25 05:05:29,2024-07-03 05:05:29,,20260713T053000Z-SPC30M
-NCR-24-0195,R24-01135,,first-piece dimension,25,first-piece,machine,first-piece dimension found,scrap,2024-06-25 08:45:56,2024-07-24 08:45:56,,20260713T053000Z-SPC30M
-NCR-24-0196,R24-01097,,burr,56198,dock audit,die,burr found,rework,2024-06-25 09:39:20,2024-07-16 09:39:20,,20260713T053000Z-SPC30M
-NCR-24-0197,R24-01140,,mixed part,324,press check,die,mixed part found,use as is,2024-06-26 11:17:39,2024-07-24 11:17:39,,20260713T053000Z-SPC30M
-NCR-24-0198,R24-01147,C-27778-01,hole burr and size,3102,press check,die,hole burr and size found,sort,2024-06-27 11:17:28,2024-07-04 11:17:28,,20260713T053000Z-SPC30M
-NCR-24-0199,R24-01128,,burr,7297,dock audit,,burr found,rework,2024-06-27 13:55:55,2024-07-01 13:55:55,,20260713T053000Z-SPC30M
-NCR-24-0200,R24-01152,,missing or deformed hole,2630,press check,gauge,punch chipped,sort,2024-06-27 19:41:04,2024-08-04 19:41:04,,20260713T053000Z-SPC30M
-NCR-24-0201,R24-01157,,mixed part,665,press check,die,found at the press,rework,2024-06-28 07:17:01,2024-07-06 07:17:01,,20260713T053000Z-SPC30M
-NCR-24-0202,R24-01156,,missing or deformed hole,616,press check,,"punch chipped, noticed at the press",scrap,2024-06-28 18:12:36,2024-07-20 18:12:36,,20260713T053000Z-SPC30M
-NCR-24-0203,R24-01140,,burr,6731,dock audit,die,burr found,rework,2024-06-28 21:25:32,2024-08-08 21:25:32,,20260713T053000Z-SPC30M
-NCR-24-0204,R24-01168,,mixed part,44,press check,operator,found at the press,use as is,2024-07-01 15:51:13,2024-07-22 15:51:13,,20260713T053000Z-SPC30M
-NCR-24-0205,R24-01173,,missing or deformed hole,4938,press check,die,punch chipped,sort,2024-07-01 21:40:53,2024-07-25 21:40:53,,20260713T053000Z-SPC30M
-NCR-24-0206,R24-01181,,first-piece dimension,33,first-piece,die,first-piece dimension found,scrap,2024-07-02 11:19:06,2024-07-16 11:19:06,,20260713T053000Z-SPC30M
-NCR-24-0207,R24-01179,,mixed part,623,press check,operator,mixed part found,scrap,2024-07-02 11:29:59,2024-07-14 11:29:59,,20260713T053000Z-SPC30M
-NCR-24-0208,R24-01176,,missing or deformed hole,310,press check,die,missing or deformed hole found,scrap,2024-07-02 11:47:43,2024-08-08 11:47:43,,20260713T053000Z-SPC30M
-NCR-24-0209,R24-01177,C-29540-10,burr,19140,press check,die,burr found,rework,2024-07-03 09:58:11,2024-08-07 09:58:11,,20260713T053000Z-SPC30M
-NCR-24-0210,R24-01185,,flatness,465,press check,operator,flatness found,rework,2024-07-03 10:31:40,2024-08-02 10:31:40,,20260713T053000Z-SPC30M
-NCR-24-0211,R24-01197,,hole burr and size,5709,press check,method,hole burr and size found,sort,2024-07-05 08:53:56,2024-07-09 08:53:56,,20260713T053000Z-SPC30M
-NCR-24-0212,R24-01199,C-18287-07,burr,809,press check,die,burr found,rework,2024-07-05 12:23:52,2024-07-29 12:23:52,,20260713T053000Z-SPC30M
-NCR-24-0213,R24-01202,,first-piece dimension,20,first-piece,operator,first-piece dimension found,scrap,2024-07-05 14:54:42,2024-07-16 14:54:42,,20260713T053000Z-SPC30M
-NCR-24-0214,R24-01197,C-10823-11,burr,92025,press check,die,burr over the limit,rework,2024-07-05 17:59:50,2024-07-15 17:59:50,,20260713T053000Z-SPC30M
-NCR-24-0215,R24-01199,,scratch,430,press check,die,scratch found,use as is,2024-07-07 13:40:17,2024-08-17 13:40:17,,20260713T053000Z-SPC30M
-NCR-24-0216,R24-01021,,dimension,671,customer,operator,dimension found,scrap,2024-07-08 00:00:00,2024-07-10 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0217,R24-01207,,mixed part,294,press check,die,mixed part found,rework,2024-07-08 22:14:48,2024-08-03 22:14:48,,20260713T053000Z-SPC30M
-NCR-24-0218,R24-01117,,burr,1034,customer,operator,burr found,scrap,2024-07-09 00:00:00,2024-07-16 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0219,R24-01213,,mixed part,185,press check,operator,found at the press,use as is,2024-07-09 03:35:06,2024-07-29 03:35:06,,20260713T053000Z-SPC30M
-NCR-24-0220,R24-01097,,burr,444,customer,die,customer complaint,scrap,2024-07-10 00:00:00,2024-08-05 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0221,R24-01227,,flatness,476,press check,gauge,found at the press,rework,2024-07-10 20:26:41,2024-07-13 20:26:41,,20260713T053000Z-SPC30M
-NCR-24-0222,R24-01101,,scratch,571,customer,,scratch found,sort,2024-07-12 00:00:00,2024-07-20 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0223,R24-01026,,missing or deformed hole,391,customer,operator,customer complaint,scrap,2024-07-12 00:00:00,2024-07-31 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0224,R24-01101,,scratch,571,customer,operator,scratch found,scrap,2024-07-12 00:00:00,2024-08-06 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0225,R24-01233,,dimension,555,press check,die,dimension found,scrap,2024-07-12 00:22:49,2024-08-24 00:22:49,,20260713T053000Z-SPC30M
-NCR-24-0226,R24-01239,,scratch,543,press check,die,scratch found,scrap,2024-07-12 09:28:01,2024-07-20 09:28:01,,20260713T053000Z-SPC30M
-NCR-24-0227,R24-01237,C-26125-01,missing or deformed hole,299,press check,die,missing or deformed hole found,scrap,2024-07-12 13:03:52,2024-08-13 13:03:52,,20260713T053000Z-SPC30M
-NCR-24-0228,R24-01237,,scratch,491,press check,,found at the press,rework,2024-07-12 18:40:37,2024-08-02 18:40:37,,20260713T053000Z-SPC30M
-NCR-24-0229,R24-01130,,burr,447,customer,,burr found,scrap,2024-07-14 00:00:00,2024-08-11 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0230,R24-01253,,dimension,171,press check,operator,dimension found,rework,2024-07-17 07:49:08,2024-08-22 07:49:08,,20260713T053000Z-SPC30M
-NCR-24-0231,R24-01269,C-14393-08,burr,1298,press check,,burr over the limit,rework,2024-07-18 07:57:35,2024-07-24 07:57:35,,20260713T053000Z-SPC30M
-NCR-24-0232,R24-01273,C-32474-01,hole burr and size,1856,press check,machine,hole burr and size found,sort,2024-07-18 16:01:52,2024-08-18 16:01:52,,20260713T053000Z-SPC30M
-NCR-24-0233,R24-01280,,mixed part,489,press check,,mixed part found,rework,2024-07-19 02:03:27,2024-07-25 02:03:27,,20260713T053000Z-SPC30M
-NCR-24-0234,R24-01284,,first-piece dimension,5,first-piece,die,first-piece out,scrap,2024-07-19 09:55:15,2024-08-24 09:55:15,,20260713T053000Z-SPC30M
-NCR-24-0235,R24-01284,,flatness,21,press check,operator,flatness found,rework,2024-07-19 11:43:41,2024-08-26 11:43:41,,20260713T053000Z-SPC30M
-NCR-24-0236,R24-01288,,hole burr and size,598,press check,machine,hole burr and size found,scrap,2024-07-22 06:32:51,2024-07-29 06:32:51,,20260713T053000Z-SPC30M
-NCR-24-0237,R24-01077,,missing or deformed hole,828,customer,operator,missing or deformed hole found,scrap,2024-07-23 00:00:00,2024-08-27 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0238,R24-01297,C-39564-10,burr,18635,press check,,burr found,rework,2024-07-23 07:46:09,2024-08-26 07:46:09,,20260713T053000Z-SPC30M
-NCR-24-0239,R24-01300,,missing or deformed hole,574,press check,die,missing or deformed hole found,scrap,2024-07-23 14:07:00,2024-08-19 14:07:00,,20260713T053000Z-SPC30M
-NCR-24-0240,R24-01307,,scratch,793,press check,operator,scratch found,scrap,2024-07-24 02:26:36,2024-08-16 02:26:36,,20260713T053000Z-SPC30M
-NCR-24-0241,R24-01309,,scratch,715,press check,die,scratch found,scrap,2024-07-24 10:54:02,2024-08-01 10:54:02,,20260713T053000Z-SPC30M
-NCR-24-0242,R24-01314,,scratch,314,press check,operator,found at the press,rework,2024-07-24 22:46:15,2024-08-22 22:46:15,,20260713T053000Z-SPC30M
-NCR-24-0243,R24-01315,C-28187-01,missing or deformed hole,1218,press check,die,missing or deformed hole found,scrap,2024-07-25 08:00:59,2024-09-02 08:00:59,,20260713T053000Z-SPC30M
-NCR-24-0244,R24-01306,C-11333-07,burr,56644,press check,,burr found,rework,2024-07-25 14:58:04,2024-08-23 14:58:04,,20260713T053000Z-SPC30M
-NCR-24-0245,R24-01292,,burr,17333,dock audit,die,burr found,rework,2024-07-25 23:09:54,2024-08-13 23:09:54,,20260713T053000Z-SPC30M
-NCR-24-0246,R24-01324,C-16483-06,burr,12397,press check,method,burr found,rework,2024-07-26 21:58:53,2024-08-05 21:58:53,,20260713T053000Z-SPC30M
-NCR-24-0247,R24-01299,,burr,6684,dock audit,machine,burr found,rework,2024-07-28 04:08:08,2024-09-06 04:08:08,,20260713T053000Z-SPC30M
-NCR-24-0248,R24-01332,,flatness,624,press check,operator,flatness found,scrap,2024-07-28 20:46:45,2024-08-19 20:46:45,,20260713T053000Z-SPC30M
-NCR-24-0249,R24-01266,,packaging,661,customer,operator,packaging found,scrap,2024-07-29 00:00:00,2024-08-30 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0250,R24-01335,,dimension,172,press check,gauge,dimension found,scrap,2024-07-29 17:16:32,2024-08-21 17:16:32,,20260713T053000Z-SPC30M
-NCR-24-0251,R24-01119,,packaging,2304,customer,method,customer complaint,scrap,2024-07-30 00:00:00,2024-08-27 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0252,R24-01334,,flatness,772,press check,operator,flatness found,rework,2024-07-30 00:24:51,2024-08-16 00:24:51,,20260713T053000Z-SPC30M
-NCR-24-0253,R24-01351,C-11396-10,burr,14658,press check,,burr found,rework,2024-08-01 10:53:44,2024-08-14 10:53:44,,20260713T053000Z-SPC30M
-NCR-24-0254,R24-01356,,missing or deformed hole,7371,press check,machine,missing or deformed hole found,sort,2024-08-01 13:00:05,2024-08-19 13:00:05,,20260713T053000Z-SPC30M
-NCR-24-0255,R24-01357,,mixed part,512,press check,method,found at the press,rework,2024-08-01 15:00:43,2024-08-11 15:00:43,,20260713T053000Z-SPC30M
-NCR-24-0256,R24-01365,C-11209-06,burr,8288,press check,method,burr over the limit,rework,2024-08-02 20:03:20,2024-08-10 20:03:20,,20260713T053000Z-SPC30M
-NCR-24-0257,R24-01299,,burr,251,customer,gauge,burr found,sort,2024-08-06 00:00:00,2024-09-15 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0258,R24-01299,,burr,251,customer,die,burr found,scrap,2024-08-06 00:00:00,2024-09-16 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0259,R24-01398,,dimension,168,press check,,dimension found,scrap,2024-08-08 18:18:24,2024-09-11 18:18:24,,20260713T053000Z-SPC30M
-NCR-24-0260,R24-01421,,missing or deformed hole,132,press check,die,"punch chipped, noticed at the press",scrap,2024-08-13 21:14:03,2024-08-27 21:14:03,,20260713T053000Z-SPC30M
-NCR-24-0261,R24-01435,,missing or deformed hole,110,press check,material,missing or deformed hole found,scrap,2024-08-15 10:28:17,2024-09-02 10:28:17,,20260713T053000Z-SPC30M
-NCR-24-0262,R24-01428,C-19408-06,burr,124844,press check,die,burr found,rework,2024-08-15 18:00:43,2024-08-28 18:00:43,,20260713T053000Z-SPC30M
-NCR-24-0263,R24-01435,C-16315-09,burr,17697,press check,die,burr found,rework,2024-08-16 06:00:52,2024-09-16 06:00:52,,20260713T053000Z-SPC30M
-NCR-24-0264,R24-01443,,flatness,446,press check,operator,found at the press,scrap,2024-08-16 12:11:18,2024-09-25 12:11:18,,20260713T053000Z-SPC30M
-NCR-24-0265,R24-01442,C-10531-08,burr,89077,press check,gauge,burr found,rework,2024-08-16 15:15:57,2024-09-15 15:15:57,,20260713T053000Z-SPC30M
-NCR-24-0266,R24-01292,,burr,2517,customer,die,burr found,scrap,2024-08-18 00:00:00,2024-09-27 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0267,R24-01459,,mixed part,250,press check,operator,mixed part found,scrap,2024-08-20 06:54:46,2024-09-15 06:54:46,,20260713T053000Z-SPC30M
-NCR-24-0268,R24-01465,,mixed part,39,press check,die,mixed part found,scrap,2024-08-20 19:31:51,2024-08-31 19:31:51,,20260713T053000Z-SPC30M
-NCR-24-0269,R24-01456,,scratch,414,press check,machine,scratch found,scrap,2024-08-20 20:51:28,2024-08-24 20:51:28,,20260713T053000Z-SPC30M
-NCR-24-0270,R24-01476,,first-piece dimension,56,first-piece,gauge,first-piece dimension found,scrap,2024-08-21 16:40:52,2024-10-04 16:40:52,,20260713T053000Z-SPC30M
-NCR-24-0271,R24-01480,,first-piece dimension,35,first-piece,material,first-piece dimension found,scrap,2024-08-22 13:09:41,2024-09-06 13:09:41,,20260713T053000Z-SPC30M
-NCR-24-0272,R24-01481,,first-piece dimension,41,first-piece,operator,first-piece dimension found,scrap,2024-08-22 14:09:28,2024-09-25 14:09:28,,20260713T053000Z-SPC30M
-NCR-24-0273,R24-01483,C-37771-01,missing or deformed hole,393,press check,machine,missing or deformed hole found,scrap,2024-08-23 11:01:54,2024-09-24 11:01:54,,20260713T053000Z-SPC30M
-NCR-24-0274,R24-01506,,hole burr and size,14338,press check,die,hole burr and size found,sort,2024-08-27 19:34:19,2024-08-29 19:34:19,,20260713T053000Z-SPC30M
-NCR-24-0275,R24-01511,,first-piece dimension,11,first-piece,,first-piece dimension found,scrap,2024-08-27 22:33:27,2024-09-10 22:33:27,,20260713T053000Z-SPC30M
-NCR-24-0276,R24-01511,,scratch,396,press check,die,scratch found,scrap,2024-08-28 02:27:56,2024-09-15 02:27:56,,20260713T053000Z-SPC30M
-NCR-24-0277,R24-01506,C-16602-11,missing or deformed hole,7938,press check,method,missing or deformed hole found,sort,2024-08-28 08:03:22,2024-10-03 08:03:22,,20260713T053000Z-SPC30M
-NCR-24-0278,R24-01513,,hole burr and size,255,press check,,hole burr and size found,scrap,2024-08-28 18:33:22,2024-09-28 18:33:22,,20260713T053000Z-SPC30M
-NCR-24-0279,R24-01306,,burr,473,customer,operator,burr found,scrap,2024-08-29 00:00:00,2024-10-07 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0280,R24-01525,,scratch,76,press check,die,scratch found,rework,2024-08-30 00:10:31,2024-10-06 00:10:31,,20260713T053000Z-SPC30M
-NCR-24-0281,R24-01524,,missing or deformed hole,462,press check,die,missing or deformed hole found,scrap,2024-08-30 10:15:43,2024-10-04 10:15:43,,20260713T053000Z-SPC30M
-NCR-24-0282,R24-01523,,scratch,764,press check,operator,scratch found,scrap,2024-09-01 08:57:10,2024-10-07 08:57:10,,20260713T053000Z-SPC30M
-NCR-24-0283,R24-01534,,flatness,526,press check,,flatness found,scrap,2024-09-02 07:52:16,2024-10-15 07:52:16,,20260713T053000Z-SPC30M
-NCR-24-0284,R24-01442,,burr,504,customer,die,burr found,scrap,2024-09-03 00:00:00,2024-09-27 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0285,R24-01529,C-23247-11,burr,6654,press check,die,burr found,rework,2024-09-03 21:15:25,2024-09-26 21:15:25,,20260713T053000Z-SPC30M
-NCR-24-0286,R24-01559,C-26458-10,burr,5585,press check,machine,burr over the limit,rework,2024-09-06 10:00:07,2024-10-12 10:00:07,,20260713T053000Z-SPC30M
-NCR-24-0287,R24-01562,C-20415-01,missing or deformed hole,5467,press check,die,missing or deformed hole found,sort,2024-09-06 19:01:28,2024-09-21 19:01:28,,20260713T053000Z-SPC30M
-NCR-24-0288,R24-01479,,dimension,3568,customer,die,customer complaint,scrap,2024-09-07 00:00:00,2024-09-16 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0289,R24-01564,,dimension,52,press check,die,dimension found,rework,2024-09-07 12:17:58,2024-10-17 12:17:58,,20260713T053000Z-SPC30M
-NCR-24-0290,R24-01575,,first-piece dimension,56,first-piece,operator,first-piece dimension found,scrap,2024-09-09 11:20:15,2024-09-24 11:20:15,,20260713T053000Z-SPC30M
-NCR-24-0291,R24-01571,,flatness,547,press check,method,flatness found,scrap,2024-09-09 12:11:59,2024-10-10 12:11:59,,20260713T053000Z-SPC30M
-NCR-24-0292,R24-01583,,missing or deformed hole,3054,press check,material,missing or deformed hole found,sort,2024-09-10 18:55:57,2024-09-23 18:55:57,,20260713T053000Z-SPC30M
-NCR-24-0293,R24-01585,,flatness,516,press check,operator,found at the press,rework,2024-09-11 09:26:53,2024-09-18 09:26:53,,20260713T053000Z-SPC30M
-NCR-24-0294,R24-01605,,mixed part,433,press check,operator,mixed part found,scrap,2024-09-13 12:49:32,2024-10-02 12:49:32,,20260713T053000Z-SPC30M
-NCR-24-0295,R24-01587,,burr,3848,dock audit,die,burr found,rework,2024-09-14 03:03:21,2024-10-04 03:03:21,,20260713T053000Z-SPC30M
-NCR-24-0296,R24-01617,,flatness,158,press check,material,found at the press,scrap,2024-09-16 17:10:12,2024-10-05 17:10:12,,20260713T053000Z-SPC30M
-NCR-24-0297,R24-01618,,dimension,767,press check,die,dimension found,use as is,2024-09-16 19:22:56,2024-09-22 19:22:56,,20260713T053000Z-SPC30M
-NCR-24-0298,R24-01620,C-14494-07,burr,19201,press check,die,burr found,rework,2024-09-16 21:01:58,2024-10-24 21:01:58,,20260713T053000Z-SPC30M
-NCR-24-0299,R24-01630,,scratch,649,press check,die,scratch found,scrap,2024-09-18 03:01:16,2024-10-07 03:01:16,,20260713T053000Z-SPC30M
-NCR-24-0300,R24-01619,C-22558-01,missing or deformed hole,565,press check,die,missing or deformed hole found,scrap,2024-09-18 06:01:12,2024-10-04 06:01:12,,20260713T053000Z-SPC30M
-NCR-24-0301,R24-01634,,mixed part,319,press check,operator,mixed part found,scrap,2024-09-18 13:55:47,2024-10-22 13:55:47,,20260713T053000Z-SPC30M
-NCR-24-0302,R24-01633,,flatness,788,press check,die,flatness found,scrap,2024-09-18 18:51:26,2024-10-01 18:51:26,,20260713T053000Z-SPC30M
-NCR-24-0303,R24-01654,,mixed part,129,press check,material,mixed part found,scrap,2024-09-20 15:53:38,2024-09-26 15:53:38,,20260713T053000Z-SPC30M
-NCR-24-0304,R24-01658,C-35987-01,missing or deformed hole,1028,press check,material,missing or deformed hole found,scrap,2024-09-23 07:25:50,2024-09-29 07:25:50,,20260713T053000Z-SPC30M
-NCR-24-0305,R24-01667,,flatness,771,press check,operator,flatness found,use as is,2024-09-23 14:13:52,2024-10-27 14:13:52,,20260713T053000Z-SPC30M
-NCR-24-0306,R24-01487,,formed dimension,731,customer,die,formed dimension found,scrap,2024-09-25 00:00:00,2024-10-25 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0307,R24-01680,,scratch,99,press check,,scratch found,scrap,2024-09-25 06:34:22,2024-10-07 06:34:22,,20260713T053000Z-SPC30M
-NCR-24-0308,R24-01694,,first-piece dimension,53,first-piece,operator,first-piece dimension found,scrap,2024-09-25 22:37:20,2024-11-02 22:37:20,,20260713T053000Z-SPC30M
-NCR-24-0309,R24-01684,C-11687-08,burr,39654,press check,material,burr over the limit,rework,2024-09-26 12:06:18,2024-11-05 12:06:18,,20260713T053000Z-SPC30M
-NCR-24-0310,R24-01699,,mixed part,68,press check,,mixed part found,use as is,2024-09-26 17:09:41,2024-10-05 17:09:41,,20260713T053000Z-SPC30M
-NCR-24-0311,R24-01702,C-16483-07,burr,31249,press check,die,burr found,rework,2024-09-27 10:03:53,2024-10-25 10:03:53,,20260713T053000Z-SPC30M
-NCR-24-0312,R24-01706,,flatness,201,press check,operator,flatness found,scrap,2024-09-27 13:34:52,2024-10-23 13:34:52,,20260713T053000Z-SPC30M
-NCR-24-0313,R24-01471,,packaging,1862,customer,die,packaging found,scrap,2024-09-30 00:00:00,2024-10-21 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0314,R24-01717,,scratch,596,press check,operator,scratch found,use as is,2024-09-30 13:58:47,2024-10-04 13:58:47,,20260713T053000Z-SPC30M
-NCR-24-0315,R24-01444,,packaging,3340,customer,operator,packaging found,scrap,2024-10-01 00:00:00,2024-11-03 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0316,R24-01601,,formed dimension,307,customer,die,formed dimension found,scrap,2024-10-01 00:00:00,2024-10-11 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0317,R24-01720,C-18287-08,burr,10889,press check,die,burr found,rework,2024-10-01 09:04:10,2024-10-03 09:04:10,,20260713T053000Z-SPC30M
-NCR-24-0318,R24-01725,,dimension,196,press check,machine,dimension found,scrap,2024-10-01 15:44:48,2024-10-11 15:44:48,,20260713T053000Z-SPC30M
-NCR-24-0319,R24-01724,,missing or deformed hole,85,press check,die,"punch chipped, noticed at the press",scrap,2024-10-02 08:51:01,2024-11-13 08:51:01,,20260713T053000Z-SPC30M
-NCR-24-0320,R24-01730,C-18431-11,burr,12068,press check,,burr found,rework,2024-10-02 21:33:38,2024-10-24 21:33:38,,20260713T053000Z-SPC30M
-NCR-24-0321,R24-01736,,mixed part,634,press check,operator,found at the press,rework,2024-10-03 02:21:20,2024-10-30 02:21:20,,20260713T053000Z-SPC30M
-NCR-24-0322,R24-01736,C-14411-06,burr,29296,press check,die,burr found,rework,2024-10-03 10:02:39,2024-11-03 10:02:39,,20260713T053000Z-SPC30M
-NCR-24-0323,R24-01747,,scratch,668,press check,operator,scratch found,use as is,2024-10-04 13:41:13,2024-10-17 13:41:13,,20260713T053000Z-SPC30M
-NCR-24-0324,R24-01750,,mixed part,170,press check,machine,mixed part found,scrap,2024-10-04 16:16:36,2024-10-15 16:16:36,,20260713T053000Z-SPC30M
-NCR-24-0325,R24-01757,,mixed part,777,press check,operator,mixed part found,use as is,2024-10-07 19:54:05,2024-10-09 19:54:05,,20260713T053000Z-SPC30M
-NCR-24-0326,R24-01762,,scratch,636,press check,,scratch found,scrap,2024-10-07 22:19:56,2024-10-13 22:19:56,,20260713T053000Z-SPC30M
-NCR-24-0327,R24-01765,C-28553-01,missing or deformed hole,2392,press check,die,missing or deformed hole found,sort,2024-10-08 11:23:43,2024-10-22 11:23:43,,20260713T053000Z-SPC30M
-NCR-24-0328,R24-01775,,dimension,47,press check,method,dimension found,rework,2024-10-10 10:01:51,2024-11-15 10:01:51,,20260713T053000Z-SPC30M
-NCR-24-0329,R24-01799,,dimension,133,press check,operator,dimension found,scrap,2024-10-12 07:16:08,2024-11-12 07:16:08,,20260713T053000Z-SPC30M
-NCR-24-0330,R24-01805,,scratch,754,press check,machine,found at the press,scrap,2024-10-14 22:29:03,2024-10-16 22:29:03,,20260713T053000Z-SPC30M
-NCR-24-0331,R24-01814,C-26458-01,hole burr and size,767,press check,die,punch worn,scrap,2024-10-15 19:59:53,2024-10-24 19:59:53,,20260713T053000Z-SPC30M
-NCR-24-0332,R24-01706,,formed dimension,522,customer,operator,formed dimension found,scrap,2024-10-17 00:00:00,2024-11-19 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0333,R24-01831,,scratch,563,press check,material,scratch found,rework,2024-10-17 11:59:58,2024-11-09 11:59:58,,20260713T053000Z-SPC30M
-NCR-24-0334,R24-01834,,mixed part,501,press check,die,found at the press,scrap,2024-10-17 14:55:59,2024-11-27 14:55:59,,20260713T053000Z-SPC30M
-NCR-24-0335,R24-01833,,scratch,635,press check,operator,scratch found,scrap,2024-10-17 15:48:20,2024-11-19 15:48:20,,20260713T053000Z-SPC30M
-NCR-24-0336,R24-01838,,missing or deformed hole,2091,press check,,punch chipped,sort,2024-10-17 22:59:55,2024-10-23 22:59:55,,20260713T053000Z-SPC30M
-NCR-24-0337,R24-01830,,mixed part,382,press check,machine,mixed part found,rework,2024-10-18 09:41:18,2024-11-12 09:41:18,,20260713T053000Z-SPC30M
-NCR-24-0338,R24-01832,C-11859-01,hole burr and size,7904,press check,die,punch worn,sort,2024-10-18 11:01:47,2024-11-02 11:01:47,,20260713T053000Z-SPC30M
-NCR-24-0339,R24-01852,,flatness,352,press check,operator,flatness found,scrap,2024-10-19 20:41:12,2024-11-17 20:41:12,,20260713T053000Z-SPC30M
-NCR-24-0340,R24-01684,,packaging,336,customer,operator,customer complaint,scrap,2024-10-20 00:00:00,2024-10-30 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0341,R24-01849,,flatness,51,press check,material,flatness found,rework,2024-10-22 03:04:29,2024-11-17 03:04:29,,20260713T053000Z-SPC30M
-NCR-24-0342,R24-01702,,burr,1874,customer,machine,customer complaint,scrap,2024-10-23 00:00:00,2024-10-26 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0343,R24-01866,,scratch,176,press check,,scratch found,rework,2024-10-23 02:02:41,2024-11-27 02:02:41,,20260713T053000Z-SPC30M
-NCR-24-0344,R24-01874,,first-piece dimension,49,first-piece,operator,first-piece dimension found,scrap,2024-10-23 14:43:43,2024-11-10 14:43:43,,20260713T053000Z-SPC30M
-NCR-24-0345,R24-01712,,missing or deformed hole,629,customer,operator,missing or deformed hole found,scrap,2024-10-24 00:00:00,2024-10-30 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0346,R24-01873,C-22558-01,hole burr and size,1207,press check,,hole burr and size found,scrap,2024-10-24 09:03:15,2024-11-27 09:03:15,,20260713T053000Z-SPC30M
-NCR-24-0347,R24-01855,,burr,29975,dock audit,die,burr found,rework,2024-10-24 13:42:57,2024-11-13 13:42:57,,20260713T053000Z-SPC30M
-NCR-24-0348,R24-01876,,mixed part,42,press check,operator,mixed part found,scrap,2024-10-25 06:55:04,2024-10-27 06:55:04,,20260713T053000Z-SPC30M
-NCR-24-0349,R24-01888,,scratch,328,press check,operator,scratch found,scrap,2024-10-25 18:45:22,2024-11-21 18:45:22,,20260713T053000Z-SPC30M
-NCR-24-0350,R24-01895,,first-piece dimension,37,first-piece,operator,first-piece dimension found,scrap,2024-10-26 14:28:27,2024-12-07 14:28:27,,20260713T053000Z-SPC30M
-NCR-24-0351,R24-01922,,flatness,477,press check,operator,flatness found,rework,2024-10-30 20:11:44,2024-12-03 20:11:44,,20260713T053000Z-SPC30M
-NCR-24-0352,R24-01928,,first-piece dimension,18,first-piece,operator,first-piece out,scrap,2024-10-31 09:29:12,2024-11-08 09:29:12,,20260713T053000Z-SPC30M
-NCR-24-0353,R24-01926,C-12139-08,burr,1482,press check,die,burr found,rework,2024-10-31 12:02:07,2024-11-18 12:02:07,,20260713T053000Z-SPC30M
-NCR-24-0354,R24-01935,,scratch,262,press check,die,found at the press,rework,2024-11-01 14:29:54,2024-12-02 14:29:54,,20260713T053000Z-SPC30M
-NCR-24-0355,R24-01940,,flatness,612,press check,die,flatness found,rework,2024-11-04 00:57:36,2024-11-16 00:57:36,,20260713T053000Z-SPC30M
-NCR-24-0356,R24-01948,C-27389-11,burr,9809,press check,die,burr found,rework,2024-11-04 14:00:08,2024-12-03 14:00:08,,20260713T053000Z-SPC30M
-NCR-24-0357,R24-01945,,scratch,348,press check,die,scratch found,rework,2024-11-04 15:22:30,2024-11-19 15:22:30,,20260713T053000Z-SPC30M
-NCR-24-0358,R24-01957,,mixed part,748,press check,die,mixed part found,rework,2024-11-05 16:13:27,2024-11-10 16:13:27,,20260713T053000Z-SPC30M
-NCR-24-0359,R24-01980,C-19387-10,burr,4351,press check,die,burr found,rework,2024-11-07 22:57:38,2024-11-26 22:57:38,,20260713T053000Z-SPC30M
-NCR-24-0360,R24-01982,,dimension,489,press check,die,dimension found,rework,2024-11-08 02:58:01,2024-12-06 02:58:01,,20260713T053000Z-SPC30M
-NCR-24-0361,R24-01986,,flatness,453,press check,operator,flatness found,scrap,2024-11-10 13:31:24,2024-12-05 13:31:24,,20260713T053000Z-SPC30M
-NCR-24-0362,R24-01981,C-11333-08,burr,52410,press check,die,burr found,rework,2024-11-12 09:54:33,2024-12-21 09:54:33,,20260713T053000Z-SPC30M
-NCR-24-0363,R24-02006,,dimension,464,press check,material,found at the press,scrap,2024-11-13 06:10:02,2024-11-22 06:10:02,,20260713T053000Z-SPC30M
-NCR-24-0364,R24-02005,C-11687-01,hole burr and size,16470,press check,die,hole burr and size found,sort,2024-11-13 08:59:01,2024-11-16 08:59:01,,20260713T053000Z-SPC30M
-NCR-24-0365,R24-02007,,scratch,186,press check,operator,scratch found,rework,2024-11-13 13:00:05,2024-11-19 13:00:05,,20260713T053000Z-SPC30M
-NCR-24-0366,R24-02005,C-11687-07,burr,5210,press check,die,burr found,rework,2024-11-13 17:06:08,2024-12-22 17:06:08,,20260713T053000Z-SPC30M
-NCR-24-0367,R24-02016,,first-piece dimension,43,first-piece,machine,first-piece dimension found,scrap,2024-11-13 18:23:50,2024-12-02 18:23:50,,20260713T053000Z-SPC30M
-NCR-24-0368,R24-02015,,scratch,315,press check,operator,scratch found,scrap,2024-11-14 02:43:21,2024-11-23 02:43:21,,20260713T053000Z-SPC30M
-NCR-24-0369,R24-02024,,mixed part,680,press check,material,found at the press,use as is,2024-11-15 00:59:19,2024-12-17 00:59:19,,20260713T053000Z-SPC30M
-NCR-24-0370,R24-02036,,hole burr and size,2543,press check,die,punch worn,sort,2024-11-15 22:26:13,2024-12-21 22:26:13,,20260713T053000Z-SPC30M
-NCR-24-0371,R24-02023,,burr,2640,dock audit,gauge,burr over the limit,rework,2024-11-17 17:34:56,2024-11-29 17:34:56,,20260713T053000Z-SPC30M
-NCR-24-0372,R24-02017,,burr,28465,dock audit,die,burr found,rework,2024-11-17 18:02:20,2024-11-25 18:02:20,,20260713T053000Z-SPC30M
-NCR-24-0373,R24-02038,,first-piece dimension,28,first-piece,machine,first-piece dimension found,scrap,2024-11-18 07:26:25,2024-12-20 07:26:25,,20260713T053000Z-SPC30M
-NCR-24-0374,R24-02035,C-22558-02,hole burr and size,2391,press check,die,punch worn,sort,2024-11-18 16:01:44,2024-11-23 16:01:44,,20260713T053000Z-SPC30M
-NCR-24-0375,R24-02046,,scratch,309,press check,operator,found at the press,scrap,2024-11-19 10:59:45,2024-12-01 10:59:45,,20260713T053000Z-SPC30M
-NCR-24-0376,R24-01855,,burr,380,customer,operator,burr found,scrap,2024-11-20 00:00:00,2024-11-28 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0377,R24-02075,,scratch,406,press check,machine,scratch found,use as is,2024-11-22 10:38:24,2024-12-02 10:38:24,,20260713T053000Z-SPC30M
-NCR-24-0378,R24-01873,,formed dimension,245,customer,operator,formed dimension found,scrap,2024-11-24 00:00:00,2024-12-23 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0379,R24-02076,,hole burr and size,788,press check,die,hole burr and size found,scrap,2024-11-25 16:20:39,2024-12-26 16:20:39,,20260713T053000Z-SPC30M
-NCR-24-0380,R24-01780,,dimension,487,customer,die,dimension found,scrap,2024-11-26 00:00:00,2025-01-02 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0381,R24-02005,,burr,884,customer,die,burr found,scrap,2024-11-26 00:00:00,2024-12-15 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0382,R24-02083,,flatness,594,press check,,flatness found,scrap,2024-11-26 06:01:09,2024-12-20 06:01:09,,20260713T053000Z-SPC30M
-NCR-24-0383,R24-02083,C-10719-06,burr,5190,press check,,burr found,rework,2024-11-26 08:42:25,2025-01-07 08:42:25,,20260713T053000Z-SPC30M
-NCR-24-0384,R24-02093,,mixed part,343,press check,gauge,mixed part found,scrap,2024-11-27 05:09:43,2025-01-04 05:09:43,,20260713T053000Z-SPC30M
-NCR-24-0385,R24-01980,,burr,3301,customer,operator,burr found,scrap,2024-11-28 00:00:00,2025-01-08 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0386,R24-01870,,mixed part,3254,customer,die,mixed part found,scrap,2024-11-30 00:00:00,2024-12-23 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0387,R24-02098,,missing or deformed hole,3444,press check,die,missing or deformed hole found,sort,2024-12-02 10:40:12,2024-12-25 10:40:12,,20260713T053000Z-SPC30M
-NCR-24-0388,R24-02109,,flatness,190,press check,operator,flatness found,use as is,2024-12-02 23:57:20,2024-12-07 23:57:20,,20260713T053000Z-SPC30M
-NCR-24-0389,R24-02120,,scratch,762,press check,operator,scratch found,use as is,2024-12-04 17:13:37,2025-01-14 17:13:37,,20260713T053000Z-SPC30M
-NCR-24-0390,R24-02135,,first-piece dimension,48,first-piece,operator,first-piece dimension found,scrap,2024-12-05 18:52:26,2025-01-11 18:52:26,,20260713T053000Z-SPC30M
-NCR-24-0391,R24-02133,,flatness,727,press check,die,flatness found,scrap,2024-12-06 00:32:49,2024-12-29 00:32:49,,20260713T053000Z-SPC30M
-NCR-24-0392,R24-02136,C-11333-07,burr,114110,press check,die,burr found,rework,2024-12-06 16:23:02,2025-01-04 16:23:02,,20260713T053000Z-SPC30M
-NCR-24-0393,R24-02160,C-14026-10,burr,4064,press check,die,burr found,rework,2024-12-10 19:16:29,2025-01-21 19:16:29,,20260713T053000Z-SPC30M
-NCR-24-0394,R24-01868,,scratch,3941,customer,method,scratch found,scrap,2024-12-11 00:00:00,2025-01-10 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0395,R24-01914,,missing or deformed hole,848,customer,operator,missing or deformed hole found,scrap,2024-12-12 00:00:00,2024-12-28 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0396,R24-02178,,dimension,628,press check,die,dimension found,rework,2024-12-15 21:19:07,2025-01-28 21:19:07,,20260713T053000Z-SPC30M
-NCR-24-0397,R24-02193,,flatness,661,press check,,flatness found,scrap,2024-12-16 15:55:02,2025-01-29 15:55:02,,20260713T053000Z-SPC30M
-NCR-24-0398,R24-02196,,scratch,487,press check,operator,found at the press,rework,2024-12-16 17:00:46,2025-01-29 17:00:46,,20260713T053000Z-SPC30M
-NCR-24-0399,R24-02186,C-13708-08,burr,118551,press check,method,burr over the limit,rework,2024-12-16 17:59:52,2024-12-18 17:59:52,,20260713T053000Z-SPC30M
-NCR-24-0400,R24-02197,C-22558-01,missing or deformed hole,107,press check,die,missing or deformed hole found,scrap,2024-12-16 22:59:32,2025-01-24 22:59:32,,20260713T053000Z-SPC30M
-NCR-24-0401,R24-02195,,mixed part,25,press check,gauge,mixed part found,use as is,2024-12-17 04:59:39,2025-01-24 04:59:39,,20260713T053000Z-SPC30M
-NCR-24-0402,R24-02198,,mixed part,291,press check,gauge,mixed part found,use as is,2024-12-17 16:42:11,2025-01-16 16:42:11,,20260713T053000Z-SPC30M
-NCR-24-0403,R24-02218,,first-piece dimension,10,first-piece,operator,first-piece dimension found,scrap,2024-12-18 16:32:58,2025-01-24 16:32:58,,20260713T053000Z-SPC30M
-NCR-24-0404,R24-01981,,burr,424,customer,operator,burr found,scrap,2024-12-19 00:00:00,2025-01-04 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0405,R24-02218,,scratch,458,press check,operator,scratch found,scrap,2024-12-19 10:14:30,2025-01-10 10:14:30,,20260713T053000Z-SPC30M
-NCR-24-0406,R24-02223,,first-piece dimension,29,first-piece,operator,first-piece dimension found,scrap,2024-12-19 12:48:02,2025-01-22 12:48:02,,20260713T053000Z-SPC30M
-NCR-24-0407,R24-02062,,dimension,583,customer,operator,customer complaint,scrap,2024-12-22 00:00:00,2025-01-06 00:00:00,,20260713T053000Z-SPC30M
-NCR-24-0408,R24-02237,,hole burr and size,8810,press check,,hole burr and size found,sort,2024-12-30 11:36:08,2025-01-02 11:36:08,,20260713T053000Z-SPC30M
-NCR-24-0409,R24-02243,,hole burr and size,420,press check,die,hole burr and size found,scrap,2024-12-30 22:36:55,2025-02-05 22:36:55,,20260713T053000Z-SPC30M
-NCR-25-0001,R25-00009,,missing or deformed hole,192,press check,die,missing or deformed hole found,scrap,2025-01-03 18:04:21,2025-01-19 18:04:21,,20260713T053000Z-SPC30M
-NCR-25-0002,R24-02136,,burr,428,customer,material,customer complaint,scrap,2025-01-06 00:00:00,2025-02-16 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0003,R25-00024,,scratch,383,press check,,scratch found,scrap,2025-01-07 08:58:12,2025-01-12 08:58:12,,20260713T053000Z-SPC30M
-NCR-25-0004,R25-00020,,dimension,88,press check,operator,dimension found,use as is,2025-01-07 09:35:52,2025-02-15 09:35:52,,20260713T053000Z-SPC30M
-NCR-25-0005,R25-00026,,dimension,446,press check,die,dimension found,use as is,2025-01-07 13:40:10,2025-02-02 13:40:10,,20260713T053000Z-SPC30M
-NCR-25-0006,R25-00040,,scratch,38,press check,,scratch found,scrap,2025-01-09 20:19:29,2025-02-03 20:19:29,,20260713T053000Z-SPC30M
-NCR-25-0007,R25-00040,C-38681-10,burr,17270,press check,method,burr found,rework,2025-01-10 16:35:06,2025-02-17 16:35:06,,20260713T053000Z-SPC30M
-NCR-25-0008,R25-00046,,missing or deformed hole,104,press check,gauge,missing or deformed hole found,scrap,2025-01-13 09:24:25,2025-01-18 09:24:25,,20260713T053000Z-SPC30M
-NCR-25-0009,R25-00061,,dimension,219,press check,die,dimension found,rework,2025-01-13 19:14:23,2025-02-11 19:14:23,,20260713T053000Z-SPC30M
-NCR-25-0010,R25-00059,,scratch,246,press check,operator,found at the press,use as is,2025-01-14 02:12:57,2025-01-31 02:12:57,,20260713T053000Z-SPC30M
-NCR-25-0011,R25-00046,,burr,43224,dock audit,material,burr found,rework,2025-01-15 14:57:48,2025-01-27 14:57:48,,20260713T053000Z-SPC30M
-NCR-25-0012,R25-00081,,first-piece dimension,12,first-piece,die,first-piece dimension found,scrap,2025-01-15 17:01:56,2025-02-08 17:01:56,,20260713T053000Z-SPC30M
-NCR-25-0013,R25-00077,C-28553-01,hole burr and size,776,press check,die,hole burr and size found,scrap,2025-01-15 20:01:57,2025-01-17 20:01:57,,20260713T053000Z-SPC30M
-NCR-25-0014,R25-00077,,flatness,249,press check,operator,found at the press,scrap,2025-01-16 01:42:43,2025-02-01 01:42:43,,20260713T053000Z-SPC30M
-NCR-25-0015,R25-00055,,burr,60849,dock audit,die,burr over the limit,rework,2025-01-18 07:41:14,2025-02-13 07:41:14,,20260713T053000Z-SPC30M
-NCR-25-0016,R25-00104,,flatness,709,press check,material,flatness found,scrap,2025-01-21 01:45:46,2025-03-02 01:45:46,,20260713T053000Z-SPC30M
-NCR-25-0017,R25-00114,,flatness,451,press check,operator,flatness found,use as is,2025-01-21 16:55:57,2025-02-08 16:55:57,,20260713T053000Z-SPC30M
-NCR-25-0018,R25-00119,,first-piece dimension,38,first-piece,die,first-piece dimension found,scrap,2025-01-21 22:45:52,2025-02-07 22:45:52,,20260713T053000Z-SPC30M
-NCR-25-0019,R25-00119,,scratch,695,press check,operator,scratch found,scrap,2025-01-22 10:51:59,2025-02-21 10:51:59,,20260713T053000Z-SPC30M
-NCR-25-0020,R25-00113,,flatness,725,press check,gauge,flatness found,rework,2025-01-22 15:39:38,2025-02-23 15:39:38,,20260713T053000Z-SPC30M
-NCR-25-0021,R25-00113,C-16483-06,burr,9539,press check,method,burr found,rework,2025-01-22 19:57:37,2025-02-18 19:57:37,,20260713T053000Z-SPC30M
-NCR-25-0022,R25-00122,,flatness,676,press check,operator,flatness found,rework,2025-01-22 21:07:23,2025-03-06 21:07:23,,20260713T053000Z-SPC30M
-NCR-25-0023,R25-00128,,first-piece dimension,9,first-piece,die,first-piece dimension found,scrap,2025-01-22 22:12:26,2025-02-25 22:12:26,,20260713T053000Z-SPC30M
-NCR-25-0024,R24-02186,,burr,1216,customer,operator,burr found,scrap,2025-01-26 00:00:00,2025-01-31 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0025,R24-02216,,dimension,587,customer,material,customer complaint,scrap,2025-01-26 00:00:00,2025-02-28 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0026,R25-00137,C-37321-01,hole burr and size,125,press check,die,punch worn,scrap,2025-01-27 06:00:29,2025-02-23 06:00:29,,20260713T053000Z-SPC30M
-NCR-25-0027,R25-00147,,first-piece dimension,8,first-piece,operator,first-piece dimension found,scrap,2025-01-27 10:18:41,2025-03-04 10:18:41,,20260713T053000Z-SPC30M
-NCR-25-0028,R25-00160,,first-piece dimension,52,first-piece,machine,first-piece dimension found,scrap,2025-01-28 14:51:56,2025-03-02 14:51:56,,20260713T053000Z-SPC30M
-NCR-25-0029,R25-00161,,first-piece dimension,59,first-piece,die,first-piece dimension found,scrap,2025-01-28 16:52:26,2025-03-05 16:52:26,,20260713T053000Z-SPC30M
-NCR-25-0030,R25-00156,,scratch,549,press check,die,scratch found,scrap,2025-01-29 01:45:30,2025-02-28 01:45:30,,20260713T053000Z-SPC30M
-NCR-25-0031,R25-00175,,flatness,84,press check,operator,flatness found,scrap,2025-01-30 09:33:47,2025-03-05 09:33:47,,20260713T053000Z-SPC30M
-NCR-25-0032,R25-00179,C-19387-11,burr,62911,press check,method,burr over the limit,rework,2025-01-31 18:28:33,2025-02-26 18:28:33,,20260713T053000Z-SPC30M
-NCR-25-0033,R25-00185,C-15051-05,burr,7985,press check,die,burr found,rework,2025-01-31 19:06:19,2025-03-02 19:06:19,,20260713T053000Z-SPC30M
-NCR-25-0034,R24-02237,,missing or deformed hole,697,customer,,missing or deformed hole found,scrap,2025-02-02 00:00:00,2025-02-25 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0035,R25-00187,,flatness,548,press check,method,flatness found,scrap,2025-02-02 20:51:52,2025-02-27 20:51:52,,20260713T053000Z-SPC30M
-NCR-25-0036,R25-00196,,scratch,196,press check,operator,scratch found,use as is,2025-02-04 07:31:38,2025-02-19 07:31:38,,20260713T053000Z-SPC30M
-NCR-25-0037,R25-00207,,first-piece dimension,11,first-piece,method,first-piece dimension found,scrap,2025-02-04 22:36:24,2025-02-15 22:36:24,,20260713T053000Z-SPC30M
-NCR-25-0038,R25-00195,,flatness,413,press check,die,flatness found,scrap,2025-02-04 22:52:57,2025-02-19 22:52:57,,20260713T053000Z-SPC30M
-NCR-25-0039,R25-00205,,flatness,295,press check,die,found at the press,scrap,2025-02-05 04:22:12,2025-02-10 04:22:12,,20260713T053000Z-SPC30M
-NCR-25-0040,R25-00204,,flatness,313,press check,die,flatness found,rework,2025-02-05 08:37:21,2025-03-20 08:37:21,,20260713T053000Z-SPC30M
-NCR-25-0041,R25-00197,,missing or deformed hole,740,press check,die,missing or deformed hole found,scrap,2025-02-05 18:04:30,2025-03-11 18:04:30,,20260713T053000Z-SPC30M
-NCR-25-0042,R25-00219,,dimension,81,press check,operator,dimension found,rework,2025-02-07 01:57:36,2025-03-02 01:57:36,,20260713T053000Z-SPC30M
-NCR-25-0043,R25-00231,,scratch,780,press check,,scratch found,scrap,2025-02-10 05:02:37,2025-02-24 05:02:37,,20260713T053000Z-SPC30M
-NCR-25-0044,R25-00234,,dimension,462,press check,operator,dimension found,rework,2025-02-10 08:25:47,2025-02-13 08:25:47,,20260713T053000Z-SPC30M
-NCR-25-0045,R25-00235,,mixed part,295,press check,die,mixed part found,use as is,2025-02-10 15:55:55,2025-03-25 15:55:55,,20260713T053000Z-SPC30M
-NCR-25-0046,R25-00237,,dimension,181,press check,die,dimension found,rework,2025-02-10 18:45:35,2025-03-04 18:45:35,,20260713T053000Z-SPC30M
-NCR-25-0047,R25-00239,,first-piece dimension,37,first-piece,,first-piece dimension found,scrap,2025-02-10 19:09:06,2025-03-10 19:09:06,,20260713T053000Z-SPC30M
-NCR-25-0048,R25-00244,,flatness,278,press check,operator,flatness found,scrap,2025-02-11 17:38:17,2025-02-27 17:38:17,,20260713T053000Z-SPC30M
-NCR-25-0049,R25-00247,,dimension,406,press check,,dimension found,use as is,2025-02-12 06:02:58,2025-02-15 06:02:58,,20260713T053000Z-SPC30M
-NCR-25-0050,R25-00250,,dimension,292,press check,,dimension found,use as is,2025-02-12 10:10:30,2025-03-12 10:10:30,,20260713T053000Z-SPC30M
-NCR-25-0051,R25-00253,,first-piece dimension,57,first-piece,material,first-piece dimension found,scrap,2025-02-12 11:25:07,2025-03-20 11:25:07,,20260713T053000Z-SPC30M
-NCR-25-0052,R25-00259,,first-piece dimension,50,first-piece,machine,first-piece out,scrap,2025-02-13 09:17:30,2025-03-27 09:17:30,,20260713T053000Z-SPC30M
-NCR-25-0053,R25-00262,,dimension,34,press check,die,found at the press,scrap,2025-02-13 22:09:50,2025-03-15 22:09:50,,20260713T053000Z-SPC30M
-NCR-25-0054,R25-00260,C-11333-07,burr,9308,press check,die,burr found,rework,2025-02-14 22:02:18,2025-03-12 22:02:18,,20260713T053000Z-SPC30M
-NCR-25-0055,R25-00268,,mixed part,36,press check,gauge,found at the press,use as is,2025-02-15 05:49:30,2025-02-21 05:49:30,,20260713T053000Z-SPC30M
-NCR-25-0056,R25-00278,,first-piece dimension,36,first-piece,operator,first-piece dimension found,scrap,2025-02-17 16:53:45,2025-03-27 16:53:45,,20260713T053000Z-SPC30M
-NCR-25-0057,R25-00286,C-11348-01,missing or deformed hole,815,press check,,punch chipped,scrap,2025-02-18 18:00:23,2025-02-27 18:00:23,,20260713T053000Z-SPC30M
-NCR-25-0058,R25-00294,,missing or deformed hole,4802,press check,,punch chipped,sort,2025-02-19 17:06:46,2025-02-21 17:06:46,,20260713T053000Z-SPC30M
-NCR-25-0059,R25-00293,,hole burr and size,910,press check,die,hole burr and size found,scrap,2025-02-19 17:49:27,2025-03-08 17:49:27,,20260713T053000Z-SPC30M
-NCR-25-0060,R25-00293,,dimension,623,press check,machine,dimension found,rework,2025-02-19 18:36:48,2025-03-28 18:36:48,,20260713T053000Z-SPC30M
-NCR-25-0061,R25-00300,,flatness,381,press check,operator,found at the press,scrap,2025-02-20 10:09:33,2025-02-23 10:09:33,,20260713T053000Z-SPC30M
-NCR-25-0062,R25-00197,,missing or deformed hole,763,customer,operator,missing or deformed hole found,scrap,2025-02-22 00:00:00,2025-03-13 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0063,R25-00324,C-16315-01,hole burr and size,5945,press check,die,hole burr and size found,sort,2025-02-25 13:00:06,2025-03-05 13:00:06,,20260713T053000Z-SPC30M
-NCR-25-0064,R25-00324,C-16315-08,burr,19996,press check,gauge,burr found,rework,2025-02-25 15:27:25,2025-03-27 15:27:25,,20260713T053000Z-SPC30M
-NCR-25-0065,R25-00332,,scratch,584,press check,operator,scratch found,scrap,2025-02-25 18:52:42,2025-04-05 18:52:42,,20260713T053000Z-SPC30M
-NCR-25-0066,R25-00341,,first-piece dimension,42,first-piece,gauge,first-piece out,scrap,2025-02-26 11:47:27,2025-03-23 11:47:27,,20260713T053000Z-SPC30M
-NCR-25-0067,R25-00339,,scratch,695,press check,die,scratch found,use as is,2025-02-27 01:57:16,2025-03-06 01:57:16,,20260713T053000Z-SPC30M
-NCR-25-0068,R25-00343,,hole burr and size,818,press check,die,hole burr and size found,scrap,2025-02-27 06:48:46,2025-04-02 06:48:46,,20260713T053000Z-SPC30M
-NCR-25-0069,R25-00343,C-11396-10,burr,52432,press check,die,burr over the limit,rework,2025-02-27 09:57:37,2025-03-23 09:57:37,,20260713T053000Z-SPC30M
-NCR-25-0070,R25-00354,,flatness,524,press check,machine,flatness found,scrap,2025-02-28 03:04:44,2025-04-01 03:04:44,,20260713T053000Z-SPC30M
-NCR-25-0071,R25-00352,C-16280-10,burr,55803,press check,machine,burr found,rework,2025-02-28 06:50:26,2025-03-27 06:50:26,,20260713T053000Z-SPC30M
-NCR-25-0072,R25-00361,,flatness,277,press check,operator,found at the press,rework,2025-03-01 18:00:37,2025-04-07 18:00:37,,20260713T053000Z-SPC30M
-NCR-25-0073,R25-00046,,burr,434,customer,,customer complaint,scrap,2025-03-02 00:00:00,2025-03-21 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0074,R25-00366,,missing or deformed hole,228,press check,,"punch chipped, noticed at the press",scrap,2025-03-03 07:37:52,2025-04-09 07:37:52,,20260713T053000Z-SPC30M
-NCR-25-0075,R25-00373,,missing or deformed hole,394,press check,die,missing or deformed hole found,scrap,2025-03-03 18:31:51,2025-04-08 18:31:51,,20260713T053000Z-SPC30M
-NCR-25-0076,R25-00379,,first-piece dimension,40,first-piece,die,first-piece dimension found,scrap,2025-03-03 22:51:33,2025-04-13 22:51:33,,20260713T053000Z-SPC30M
-NCR-25-0077,R25-00380,,scratch,218,press check,operator,found at the press,scrap,2025-03-05 01:51:32,2025-04-05 01:51:32,,20260713T053000Z-SPC30M
-NCR-25-0078,R25-00401,,scratch,536,press check,die,found at the press,scrap,2025-03-06 22:59:09,2025-04-06 22:59:09,,20260713T053000Z-SPC30M
-NCR-25-0079,R25-00402,,flatness,144,press check,machine,flatness found,use as is,2025-03-07 01:52:41,2025-03-21 01:52:41,,20260713T053000Z-SPC30M
-NCR-25-0080,R25-00413,,first-piece dimension,27,first-piece,method,first-piece dimension found,scrap,2025-03-07 16:44:06,2025-03-18 16:44:06,,20260713T053000Z-SPC30M
-NCR-25-0081,R25-00413,,scratch,60,press check,operator,found at the press,scrap,2025-03-09 11:24:40,2025-04-21 11:24:40,,20260713T053000Z-SPC30M
-NCR-25-0082,R25-00417,,dimension,423,press check,die,dimension found,rework,2025-03-10 03:37:41,2025-03-20 03:37:41,,20260713T053000Z-SPC30M
-NCR-25-0083,R25-00416,C-16315-08,burr,442,press check,die,burr found,rework,2025-03-10 20:03:32,2025-04-14 20:03:32,,20260713T053000Z-SPC30M
-NCR-25-0084,R25-00424,,mixed part,504,press check,,mixed part found,scrap,2025-03-11 02:08:16,2025-04-08 02:08:16,,20260713T053000Z-SPC30M
-NCR-25-0085,R25-00240,,mixed part,7808,customer,die,mixed part found,scrap,2025-03-13 00:00:00,2025-04-04 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0086,R25-00439,,flatness,504,press check,operator,found at the press,scrap,2025-03-13 03:22:14,2025-03-29 03:22:14,,20260713T053000Z-SPC30M
-NCR-25-0087,R25-00458,,flatness,378,press check,material,flatness found,scrap,2025-03-14 20:20:39,2025-04-25 20:20:39,,20260713T053000Z-SPC30M
-NCR-25-0088,R25-00463,,mixed part,159,press check,gauge,mixed part found,use as is,2025-03-16 03:41:14,2025-03-29 03:41:14,,20260713T053000Z-SPC30M
-NCR-25-0089,R25-00471,,mixed part,617,press check,method,found at the press,use as is,2025-03-17 17:10:37,2025-04-08 17:10:37,,20260713T053000Z-SPC30M
-NCR-25-0090,R25-00474,,scratch,246,press check,material,scratch found,scrap,2025-03-18 04:44:50,2025-03-31 04:44:50,,20260713T053000Z-SPC30M
-NCR-25-0091,R25-00472,,flatness,377,press check,operator,found at the press,scrap,2025-03-18 06:57:41,2025-04-30 06:57:41,,20260713T053000Z-SPC30M
-NCR-25-0092,R25-00472,C-16280-10,burr,28196,press check,die,burr found,rework,2025-03-18 10:00:40,2025-04-20 10:00:40,,20260713T053000Z-SPC30M
-NCR-25-0093,R25-00472,,missing or deformed hole,202,press check,die,"punch chipped, noticed at the press",scrap,2025-03-18 13:25:01,2025-03-29 13:25:01,,20260713T053000Z-SPC30M
-NCR-25-0094,R25-00481,,flatness,109,press check,operator,flatness found,rework,2025-03-18 17:32:14,2025-03-24 17:32:14,,20260713T053000Z-SPC30M
-NCR-25-0095,R25-00489,,first-piece dimension,9,first-piece,operator,first-piece dimension found,scrap,2025-03-19 09:59:53,2025-04-13 09:59:53,,20260713T053000Z-SPC30M
-NCR-25-0096,R25-00260,,burr,558,customer,operator,burr found,scrap,2025-03-20 00:00:00,2025-04-20 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0097,R25-00492,,hole burr and size,766,press check,method,hole burr and size found,scrap,2025-03-20 14:04:15,2025-04-10 14:04:15,,20260713T053000Z-SPC30M
-NCR-25-0098,R25-00506,,dimension,56,press check,die,dimension found,rework,2025-03-21 09:16:56,2025-03-23 09:16:56,,20260713T053000Z-SPC30M
-NCR-25-0099,R25-00514,,scratch,176,press check,operator,found at the press,scrap,2025-03-22 11:36:24,2025-04-06 11:36:24,,20260713T053000Z-SPC30M
-NCR-25-0100,R25-00508,,dimension,702,press check,die,dimension found,use as is,2025-03-23 17:33:04,2025-04-07 17:33:04,,20260713T053000Z-SPC30M
-NCR-25-0101,R25-00263,,formed dimension,4504,customer,machine,formed dimension found,scrap,2025-03-24 00:00:00,2025-04-27 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0102,R25-00515,,hole burr and size,384,press check,die,"punch chipped, noticed at the press",scrap,2025-03-24 09:13:57,2025-04-09 09:13:57,,20260713T053000Z-SPC30M
-NCR-25-0103,R25-00520,,flatness,637,press check,die,flatness found,scrap,2025-03-24 14:15:28,2025-05-02 14:15:28,,20260713T053000Z-SPC30M
-NCR-25-0104,R25-00524,,dimension,544,press check,,dimension found,use as is,2025-03-24 19:45:20,2025-04-04 19:45:20,,20260713T053000Z-SPC30M
-NCR-25-0105,R25-00526,,flatness,338,press check,operator,flatness found,use as is,2025-03-25 05:42:09,2025-04-11 05:42:09,,20260713T053000Z-SPC30M
-NCR-25-0106,R25-00525,,mixed part,706,press check,operator,mixed part found,scrap,2025-03-25 06:29:50,2025-04-05 06:29:50,,20260713T053000Z-SPC30M
-NCR-25-0107,R25-00530,,dimension,791,press check,gauge,dimension found,scrap,2025-03-25 16:00:12,2025-04-15 16:00:12,,20260713T053000Z-SPC30M
-NCR-25-0108,R25-00530,C-19387-10,burr,84478,press check,,burr found,rework,2025-03-25 16:00:26,2025-03-30 16:00:26,,20260713T053000Z-SPC30M
-NCR-25-0109,R25-00553,,scratch,96,press check,operator,found at the press,rework,2025-03-27 22:31:42,2025-05-07 22:31:42,,20260713T053000Z-SPC30M
-NCR-25-0110,R25-00563,,missing or deformed hole,2643,press check,material,punch chipped,sort,2025-03-28 21:41:06,2025-04-22 21:41:06,,20260713T053000Z-SPC30M
-NCR-25-0111,R25-00516,,burr,134472,dock audit,die,burr found,rework,2025-03-29 18:45:55,2025-04-27 18:45:55,,20260713T053000Z-SPC30M
-NCR-25-0112,R25-00571,,dimension,232,press check,operator,dimension found,scrap,2025-03-31 15:31:41,2025-04-03 15:31:41,,20260713T053000Z-SPC30M
-NCR-25-0113,R25-00579,C-35884-11,burr,45718,press check,method,burr found,rework,2025-04-01 18:03:06,2025-04-06 18:03:06,,20260713T053000Z-SPC30M
-NCR-25-0114,R25-00585,,scratch,596,press check,operator,scratch found,scrap,2025-04-01 18:03:46,2025-04-06 18:03:46,,20260713T053000Z-SPC30M
-NCR-25-0115,R25-00586,,first-piece dimension,41,first-piece,operator,first-piece dimension found,scrap,2025-04-01 18:48:39,2025-04-11 18:48:39,,20260713T053000Z-SPC30M
-NCR-25-0116,R25-00584,,hole burr and size,6912,press check,die,hole burr and size found,sort,2025-04-01 21:48:42,2025-04-13 21:48:42,,20260713T053000Z-SPC30M
-NCR-25-0117,R25-00605,,mixed part,393,press check,operator,mixed part found,scrap,2025-04-04 05:35:59,2025-05-15 05:35:59,,20260713T053000Z-SPC30M
-NCR-25-0118,R25-00602,C-19408-05,burr,19461,press check,die,burr found,rework,2025-04-04 12:27:13,2025-04-17 12:27:13,,20260713T053000Z-SPC30M
-NCR-25-0119,R25-00615,,hole burr and size,217,press check,die,hole burr and size found,scrap,2025-04-05 09:53:30,2025-05-11 09:53:30,,20260713T053000Z-SPC30M
-NCR-25-0120,R25-00303,,formed dimension,380,customer,,formed dimension found,scrap,2025-04-07 00:00:00,2025-04-13 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0121,R25-00623,,first-piece dimension,15,first-piece,operator,first-piece dimension found,scrap,2025-04-07 14:09:49,2025-05-17 14:09:49,,20260713T053000Z-SPC30M
-NCR-25-0122,R25-00624,,first-piece dimension,12,first-piece,operator,first-piece dimension found,scrap,2025-04-07 15:02:28,2025-05-08 15:02:28,,20260713T053000Z-SPC30M
-NCR-25-0123,R25-00621,,scratch,377,press check,gauge,scratch found,rework,2025-04-07 19:25:19,2025-05-11 19:25:19,,20260713T053000Z-SPC30M
-NCR-25-0124,R25-00625,,dimension,179,press check,method,found at the press,rework,2025-04-07 20:10:51,2025-05-21 20:10:51,,20260713T053000Z-SPC30M
-NCR-25-0125,R25-00492,,missing or deformed hole,509,customer,method,missing or deformed hole found,scrap,2025-04-08 00:00:00,2025-05-09 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0126,R25-00622,,flatness,633,press check,operator,flatness found,scrap,2025-04-08 11:03:13,2025-04-26 11:03:13,,20260713T053000Z-SPC30M
-NCR-25-0127,R25-00326,,scratch,372,customer,operator,scratch found,scrap,2025-04-09 00:00:00,2025-04-17 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0128,R25-00637,,dimension,613,press check,operator,found at the press,use as is,2025-04-09 14:05:02,2025-04-17 14:05:02,,20260713T053000Z-SPC30M
-NCR-25-0129,R25-00642,,mixed part,414,press check,machine,mixed part found,rework,2025-04-09 20:15:14,2025-05-11 20:15:14,,20260713T053000Z-SPC30M
-NCR-25-0130,R25-00656,,first-piece dimension,31,first-piece,operator,first-piece dimension found,scrap,2025-04-11 15:20:09,2025-05-03 15:20:09,,20260713T053000Z-SPC30M
-NCR-25-0131,R25-00656,,mixed part,520,press check,gauge,found at the press,scrap,2025-04-12 03:18:20,2025-05-02 03:18:20,,20260713T053000Z-SPC30M
-NCR-25-0132,R25-00662,,first-piece dimension,24,first-piece,gauge,first-piece dimension found,scrap,2025-04-12 06:55:20,2025-05-20 06:55:20,,20260713T053000Z-SPC30M
-NCR-25-0133,R25-00673,C-20415-10,burr,19592,press check,die,burr found,rework,2025-04-15 06:13:41,2025-04-26 06:13:41,,20260713T053000Z-SPC30M
-NCR-25-0134,R25-00678,,first-piece dimension,38,first-piece,machine,first-piece dimension found,scrap,2025-04-15 15:07:07,2025-05-24 15:07:07,,20260713T053000Z-SPC30M
-NCR-25-0135,R25-00557,,burr,290,customer,operator,burr found,scrap,2025-04-16 00:00:00,2025-05-25 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0136,R25-00684,,hole burr and size,181,press check,machine,hole burr and size found,scrap,2025-04-16 07:20:20,2025-05-20 07:20:20,,20260713T053000Z-SPC30M
-NCR-25-0137,R25-00696,,scratch,579,press check,operator,found at the press,rework,2025-04-18 06:32:17,2025-06-01 06:32:17,,20260713T053000Z-SPC30M
-NCR-25-0138,R25-00700,,hole burr and size,580,press check,die,"punch chipped, noticed at the press",scrap,2025-04-18 11:20:07,2025-04-24 11:20:07,,20260713T053000Z-SPC30M
-NCR-25-0139,R25-00695,,dimension,266,press check,,dimension found,rework,2025-04-18 12:29:01,2025-05-22 12:29:01,,20260713T053000Z-SPC30M
-NCR-25-0140,R25-00707,,scratch,562,press check,method,scratch found,rework,2025-04-20 06:17:28,2025-05-10 06:17:28,,20260713T053000Z-SPC30M
-NCR-25-0141,R25-00713,,scratch,720,press check,operator,found at the press,use as is,2025-04-22 03:32:33,2025-05-28 03:32:33,,20260713T053000Z-SPC30M
-NCR-25-0142,R25-00716,,flatness,207,press check,operator,found at the press,use as is,2025-04-22 04:25:33,2025-05-15 04:25:33,,20260713T053000Z-SPC30M
-NCR-25-0143,R25-00718,,first-piece dimension,27,first-piece,operator,first-piece dimension found,scrap,2025-04-22 06:21:51,2025-05-30 06:21:51,,20260713T053000Z-SPC30M
-NCR-25-0144,R25-00719,,scratch,300,press check,operator,scratch found,use as is,2025-04-23 01:03:59,2025-05-20 01:03:59,,20260713T053000Z-SPC30M
-NCR-25-0145,R25-00725,,scratch,49,press check,operator,scratch found,use as is,2025-04-23 11:30:27,2025-04-27 11:30:27,,20260713T053000Z-SPC30M
-NCR-25-0146,R25-00736,,dimension,159,press check,machine,dimension found,rework,2025-04-24 15:59:25,2025-04-30 15:59:25,,20260713T053000Z-SPC30M
-NCR-25-0147,R25-00738,,scratch,375,press check,operator,found at the press,scrap,2025-04-25 14:09:38,2025-06-06 14:09:38,,20260713T053000Z-SPC30M
-NCR-25-0148,R25-00747,,first-piece dimension,27,first-piece,operator,first-piece dimension found,scrap,2025-04-25 18:15:02,2025-05-06 18:15:02,,20260713T053000Z-SPC30M
-NCR-25-0149,R25-00436,,burr,326,customer,operator,burr found,scrap,2025-04-26 00:00:00,2025-05-06 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0150,R25-00483,,scratch,403,customer,die,scratch found,scrap,2025-04-26 00:00:00,2025-06-06 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0151,R25-00622,,scratch,1831,customer,machine,customer complaint,scrap,2025-04-26 00:00:00,2025-05-22 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0152,R25-00566,,packaging,1684,customer,die,customer complaint,scrap,2025-04-27 00:00:00,2025-06-07 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0153,R25-00754,,flatness,270,press check,operator,flatness found,scrap,2025-04-27 16:58:44,2025-05-16 16:58:44,,20260713T053000Z-SPC30M
-NCR-25-0154,R25-00756,,scratch,506,press check,die,scratch found,scrap,2025-04-29 01:03:54,2025-05-13 01:03:54,,20260713T053000Z-SPC30M
-NCR-25-0155,R25-00765,,dimension,701,press check,gauge,dimension found,scrap,2025-04-29 18:35:13,2025-06-09 18:35:13,,20260713T053000Z-SPC30M
-NCR-25-0156,R25-00766,,scratch,41,press check,gauge,scratch found,rework,2025-04-29 18:50:16,2025-05-10 18:50:16,,20260713T053000Z-SPC30M
-NCR-25-0157,R25-00787,,flatness,595,press check,method,flatness found,rework,2025-05-02 06:02:19,2025-06-02 06:02:19,,20260713T053000Z-SPC30M
-NCR-25-0158,R25-00790,,missing or deformed hole,410,press check,machine,"punch chipped, noticed at the press",scrap,2025-05-02 14:32:42,2025-05-06 14:32:42,,20260713T053000Z-SPC30M
-NCR-25-0159,R25-00516,,burr,598,customer,operator,burr found,scrap,2025-05-03 00:00:00,2025-06-12 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0160,R25-00797,,missing or deformed hole,335,press check,die,missing or deformed hole found,scrap,2025-05-06 10:00:47,2025-06-07 10:00:47,,20260713T053000Z-SPC30M
-NCR-25-0161,R25-00797,C-16483-07,burr,51204,press check,die,burr found,rework,2025-05-06 19:16:32,2025-05-13 19:16:32,,20260713T053000Z-SPC30M
-NCR-25-0162,R25-00831,,first-piece dimension,33,first-piece,method,first-piece dimension found,scrap,2025-05-09 13:26:50,2025-06-03 13:26:50,,20260713T053000Z-SPC30M
-NCR-25-0163,R25-00845,,first-piece dimension,45,first-piece,die,first-piece dimension found,scrap,2025-05-12 14:06:39,2025-06-23 14:06:39,,20260713T053000Z-SPC30M
-NCR-25-0164,R25-00844,,missing or deformed hole,236,press check,material,missing or deformed hole found,scrap,2025-05-12 15:01:34,2025-05-15 15:01:34,,20260713T053000Z-SPC30M
-NCR-25-0165,R25-00825,C-11333-08,burr,6567,press check,,burr found,rework,2025-05-12 17:59:39,2025-06-03 17:59:39,,20260713T053000Z-SPC30M
-NCR-25-0166,R25-00827,,burr,13119,dock audit,material,burr found,rework,2025-05-15 03:31:35,2025-05-26 03:31:35,,20260713T053000Z-SPC30M
-NCR-25-0167,R25-00869,,mixed part,762,press check,operator,mixed part found,scrap,2025-05-15 04:29:41,2025-06-04 04:29:41,,20260713T053000Z-SPC30M
-NCR-25-0168,R25-00869,C-14411-06,burr,38828,press check,die,burr over the limit,rework,2025-05-15 10:23:09,2025-05-23 10:23:09,,20260713T053000Z-SPC30M
-NCR-25-0169,R25-00878,,scratch,493,press check,operator,scratch found,use as is,2025-05-16 12:21:08,2025-06-29 12:21:08,,20260713T053000Z-SPC30M
-NCR-25-0170,R25-00872,C-19408-06,burr,52073,press check,die,burr over the limit,rework,2025-05-16 22:28:01,2025-06-27 22:28:01,,20260713T053000Z-SPC30M
-NCR-25-0171,R25-00578,,mixed part,1994,customer,die,mixed part found,scrap,2025-05-17 00:00:00,2025-06-14 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0172,R25-00890,,first-piece dimension,5,first-piece,method,first-piece out,scrap,2025-05-17 14:23:08,2025-06-21 14:23:08,,20260713T053000Z-SPC30M
-NCR-25-0173,R25-00639,,packaging,2319,customer,gauge,packaging found,scrap,2025-05-20 00:00:00,2025-07-02 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0174,R25-00896,,flatness,704,press check,operator,flatness found,scrap,2025-05-20 00:01:55,2025-06-18 00:01:55,,20260713T053000Z-SPC30M
-NCR-25-0175,R25-00899,,scratch,757,press check,gauge,found at the press,use as is,2025-05-20 05:20:48,2025-06-27 05:20:48,,20260713T053000Z-SPC30M
-NCR-25-0176,R25-00894,,dimension,42,press check,operator,dimension found,scrap,2025-05-20 12:17:06,2025-06-17 12:17:06,,20260713T053000Z-SPC30M
-NCR-25-0177,R25-00902,C-11396-01,missing or deformed hole,1332,press check,die,missing or deformed hole found,scrap,2025-05-20 16:27:31,2025-06-23 16:27:31,,20260713T053000Z-SPC30M
-NCR-25-0178,R25-00723,,mixed part,279,customer,machine,mixed part found,scrap,2025-05-21 00:00:00,2025-06-02 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0179,R25-00907,,dimension,29,press check,die,found at the press,rework,2025-05-21 04:43:40,2025-07-01 04:43:40,,20260713T053000Z-SPC30M
-NCR-25-0180,R25-00919,,dimension,618,press check,method,dimension found,rework,2025-05-22 07:46:36,2025-06-17 07:46:36,,20260713T053000Z-SPC30M
-NCR-25-0181,R25-00917,,mixed part,435,press check,operator,found at the press,rework,2025-05-22 13:50:33,2025-06-28 13:50:33,,20260713T053000Z-SPC30M
-NCR-25-0182,R25-00764,,formed dimension,305,customer,gauge,formed dimension found,scrap,2025-05-23 00:00:00,2025-06-27 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0183,R25-00936,,flatness,628,press check,die,found at the press,use as is,2025-05-27 03:53:11,2025-06-19 03:53:11,,20260713T053000Z-SPC30M
-NCR-25-0184,R25-00940,,scratch,327,press check,operator,scratch found,scrap,2025-05-27 04:11:19,2025-06-29 04:11:19,,20260713T053000Z-SPC30M
-NCR-25-0185,R25-00972,C-14393-01,hole burr and size,14856,press check,die,hole burr and size found,sort,2025-05-30 22:02:48,2025-07-10 22:02:48,,20260713T053000Z-SPC30M
-NCR-25-0186,R25-01016,,flatness,716,press check,method,flatness found,rework,2025-06-06 17:29:40,2025-07-17 17:29:40,,20260713T053000Z-SPC30M
-NCR-25-0187,R25-00825,,burr,537,customer,operator,burr found,scrap,2025-06-09 00:00:00,2025-06-24 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0188,R25-01034,,scratch,560,press check,operator,found at the press,scrap,2025-06-11 00:35:18,2025-06-19 00:35:18,,20260713T053000Z-SPC30M
-NCR-25-0189,R25-01042,,flatness,257,press check,die,found at the press,scrap,2025-06-11 17:15:51,2025-07-04 17:15:51,,20260713T053000Z-SPC30M
-NCR-25-0190,R25-01045,,mixed part,533,press check,material,mixed part found,scrap,2025-06-12 09:11:31,2025-06-14 09:11:31,,20260713T053000Z-SPC30M
-NCR-25-0191,R25-01049,,missing or deformed hole,602,press check,die,missing or deformed hole found,scrap,2025-06-12 16:52:08,2025-07-05 16:52:08,,20260713T053000Z-SPC30M
-NCR-25-0192,R25-01057,C-16483-06,burr,14434,press check,material,burr found,rework,2025-06-13 22:15:21,2025-06-25 22:15:21,,20260713T053000Z-SPC30M
-NCR-25-0193,R25-01053,,burr,9089,dock audit,die,burr over the limit,rework,2025-06-15 18:12:04,2025-07-07 18:12:04,,20260713T053000Z-SPC30M
-NCR-25-0194,R25-01066,,mixed part,185,press check,gauge,found at the press,scrap,2025-06-16 13:17:10,2025-07-21 13:17:10,,20260713T053000Z-SPC30M
-NCR-25-0195,R25-00972,,missing or deformed hole,1921,customer,gauge,missing or deformed hole found,scrap,2025-06-18 00:00:00,2025-07-17 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0196,R25-01089,,mixed part,759,press check,,mixed part found,scrap,2025-06-19 04:34:13,2025-06-25 04:34:13,,20260713T053000Z-SPC30M
-NCR-25-0197,R25-00802,,missing or deformed hole,402,customer,die,customer complaint,sort,2025-06-23 00:00:00,2025-08-06 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0198,R25-00802,,missing or deformed hole,402,customer,die,missing or deformed hole found,scrap,2025-06-23 00:00:00,2025-08-04 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0199,R25-01111,,first-piece dimension,8,first-piece,machine,first-piece out,scrap,2025-06-23 22:18:49,2025-07-28 22:18:49,,20260713T053000Z-SPC30M
-NCR-25-0200,R25-01120,,scratch,29,press check,die,found at the press,scrap,2025-06-25 03:57:12,2025-07-08 03:57:12,,20260713T053000Z-SPC30M
-NCR-25-0201,R25-01121,,flatness,361,press check,material,flatness found,scrap,2025-06-25 07:02:51,2025-07-11 07:02:51,,20260713T053000Z-SPC30M
-NCR-25-0202,R25-01122,,scratch,79,press check,operator,scratch found,scrap,2025-06-25 10:58:47,2025-07-25 10:58:47,,20260713T053000Z-SPC30M
-NCR-25-0203,R25-01128,,mixed part,353,press check,operator,mixed part found,use as is,2025-06-26 12:23:10,2025-07-26 12:23:10,,20260713T053000Z-SPC30M
-NCR-25-0204,R25-00857,,missing or deformed hole,244,customer,operator,missing or deformed hole found,scrap,2025-06-29 00:00:00,2025-07-18 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0205,R25-00957,,scratch,465,customer,die,scratch found,scrap,2025-06-30 00:00:00,2025-07-06 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0206,R25-01158,,mixed part,663,press check,method,mixed part found,scrap,2025-07-01 18:11:11,2025-08-05 18:11:11,,20260713T053000Z-SPC30M
-NCR-25-0207,R25-01065,,missing or deformed hole,384,customer,operator,customer complaint,scrap,2025-07-02 00:00:00,2025-07-07 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0208,R25-01166,,flatness,529,press check,,flatness found,use as is,2025-07-02 23:09:57,2025-07-09 23:09:57,,20260713T053000Z-SPC30M
-NCR-25-0209,R25-00872,,mixed part,4795,customer,operator,mixed part found,scrap,2025-07-06 00:00:00,2025-08-01 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0210,R25-01176,,mixed part,232,press check,method,found at the press,use as is,2025-07-06 07:25:56,2025-07-27 07:25:56,,20260713T053000Z-SPC30M
-NCR-25-0211,R25-00991,,missing or deformed hole,811,customer,,customer complaint,sort,2025-07-09 00:00:00,2025-07-26 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0212,R25-00991,,missing or deformed hole,811,customer,material,missing or deformed hole found,scrap,2025-07-09 00:00:00,2025-08-02 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0213,R25-01208,,flatness,132,press check,die,flatness found,scrap,2025-07-10 10:07:39,2025-08-14 10:07:39,,20260713T053000Z-SPC30M
-NCR-25-0214,R25-01221,,scratch,641,press check,operator,scratch found,scrap,2025-07-11 02:55:57,2025-08-17 02:55:57,,20260713T053000Z-SPC30M
-NCR-25-0215,R25-01228,,missing or deformed hole,1448,press check,die,"punch chipped, noticed at the press",scrap,2025-07-11 09:12:53,2025-07-17 09:12:53,,20260713T053000Z-SPC30M
-NCR-25-0216,R25-01221,C-19387-11,burr,75239,press check,die,burr over the limit,rework,2025-07-11 18:22:56,2025-08-05 18:22:56,,20260713T053000Z-SPC30M
-NCR-25-0217,R25-00995,,scratch,4012,customer,operator,customer complaint,scrap,2025-07-12 00:00:00,2025-08-16 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0218,R25-01231,,first-piece dimension,18,first-piece,gauge,first-piece dimension found,scrap,2025-07-14 07:23:52,2025-08-19 07:23:52,,20260713T053000Z-SPC30M
-NCR-25-0219,R25-01233,,scratch,353,press check,,scratch found,rework,2025-07-14 14:20:42,2025-08-01 14:20:42,,20260713T053000Z-SPC30M
-NCR-25-0220,R25-01239,,mixed part,52,press check,material,mixed part found,scrap,2025-07-15 03:53:00,2025-08-27 03:53:00,,20260713T053000Z-SPC30M
-NCR-25-0221,R25-01243,,scratch,362,press check,material,scratch found,use as is,2025-07-15 16:54:40,2025-08-23 16:54:40,,20260713T053000Z-SPC30M
-NCR-25-0222,R25-01034,,missing or deformed hole,454,customer,gauge,missing or deformed hole found,scrap,2025-07-17 00:00:00,2025-08-17 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0223,R25-01284,,dimension,107,press check,operator,dimension found,rework,2025-07-22 05:01:35,2025-08-12 05:01:35,,20260713T053000Z-SPC30M
-NCR-25-0224,R25-01293,,first-piece dimension,44,first-piece,material,first-piece dimension found,scrap,2025-07-23 12:25:41,2025-07-31 12:25:41,,20260713T053000Z-SPC30M
-NCR-25-0225,R25-01298,,mixed part,773,press check,die,mixed part found,rework,2025-07-24 07:26:53,2025-08-07 07:26:53,,20260713T053000Z-SPC30M
-NCR-25-0226,R25-01308,,dimension,45,press check,die,dimension found,use as is,2025-07-25 08:59:22,2025-08-01 08:59:22,,20260713T053000Z-SPC30M
-NCR-25-0227,R25-01045,,formed dimension,450,customer,,formed dimension found,scrap,2025-07-30 00:00:00,2025-08-29 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0228,R25-01350,,mixed part,59,press check,operator,found at the press,scrap,2025-08-01 12:46:37,2025-08-15 12:46:37,,20260713T053000Z-SPC30M
-NCR-25-0229,R25-01347,,flatness,708,press check,die,found at the press,rework,2025-08-01 14:27:08,2025-08-12 14:27:08,,20260713T053000Z-SPC30M
-NCR-25-0230,R25-01259,,mixed part,2297,customer,die,mixed part found,scrap,2025-08-03 00:00:00,2025-08-11 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0231,R25-01356,,first-piece dimension,59,first-piece,die,first-piece dimension found,scrap,2025-08-04 09:54:42,2025-09-04 09:54:42,,20260713T053000Z-SPC30M
-NCR-25-0232,R25-01353,,flatness,77,press check,operator,flatness found,rework,2025-08-05 08:17:48,2025-08-19 08:17:48,,20260713T053000Z-SPC30M
-NCR-25-0233,R25-01369,,mixed part,161,press check,,mixed part found,scrap,2025-08-06 12:58:35,2025-09-19 12:58:35,,20260713T053000Z-SPC30M
-NCR-25-0234,R25-01383,,hole burr and size,576,press check,die,"punch chipped, noticed at the press",scrap,2025-08-07 16:37:12,2025-09-08 16:37:12,,20260713T053000Z-SPC30M
-NCR-25-0235,R25-01385,,flatness,708,press check,operator,flatness found,rework,2025-08-07 17:40:13,2025-09-04 17:40:13,,20260713T053000Z-SPC30M
-NCR-25-0236,R25-01249,,formed dimension,620,customer,,formed dimension found,scrap,2025-08-10 00:00:00,2025-08-28 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0237,R25-01396,,mixed part,636,press check,die,found at the press,use as is,2025-08-12 02:09:12,2025-09-16 02:09:12,,20260713T053000Z-SPC30M
-NCR-25-0238,R25-01398,C-10531-09,burr,61982,press check,die,burr over the limit,rework,2025-08-12 10:02:50,2025-08-30 10:02:50,,20260713T053000Z-SPC30M
-NCR-25-0239,R25-01413,,scratch,478,press check,die,scratch found,scrap,2025-08-13 08:36:17,2025-08-15 08:36:17,,20260713T053000Z-SPC30M
-NCR-25-0240,R25-01416,,scratch,349,press check,operator,scratch found,use as is,2025-08-13 12:22:51,2025-09-05 12:22:51,,20260713T053000Z-SPC30M
-NCR-25-0241,R25-01412,,missing or deformed hole,487,press check,gauge,missing or deformed hole found,scrap,2025-08-13 13:36:00,2025-08-28 13:36:00,,20260713T053000Z-SPC30M
-NCR-25-0242,R25-01412,C-15731-10,burr,9892,press check,machine,burr found,rework,2025-08-13 15:01:20,2025-08-25 15:01:20,,20260713T053000Z-SPC30M
-NCR-25-0243,R25-01422,,dimension,212,press check,operator,found at the press,scrap,2025-08-14 05:12:30,2025-08-24 05:12:30,,20260713T053000Z-SPC30M
-NCR-25-0244,R25-01419,C-35884-01,missing or deformed hole,1695,press check,,missing or deformed hole found,sort,2025-08-14 11:00:35,2025-08-31 11:00:35,,20260713T053000Z-SPC30M
-NCR-25-0245,R25-01428,,flatness,136,press check,operator,found at the press,scrap,2025-08-14 20:21:18,2025-09-14 20:21:18,,20260713T053000Z-SPC30M
-NCR-25-0246,R25-01425,,dimension,619,press check,operator,dimension found,rework,2025-08-15 11:45:28,2025-09-08 11:45:28,,20260713T053000Z-SPC30M
-NCR-25-0247,R25-01439,,mixed part,616,press check,operator,mixed part found,scrap,2025-08-16 23:01:43,2025-09-16 23:01:43,,20260713T053000Z-SPC30M
-NCR-25-0248,R25-01311,,formed dimension,641,customer,,formed dimension found,scrap,2025-08-17 00:00:00,2025-09-21 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0249,R25-01323,,mixed part,418,customer,die,mixed part found,scrap,2025-08-19 00:00:00,2025-08-30 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0250,R25-01414,,burr,2506,dock audit,die,burr found,rework,2025-08-19 04:07:50,2025-09-29 04:07:50,,20260713T053000Z-SPC30M
-NCR-25-0251,R25-01423,,burr,18222,dock audit,die,burr found,rework,2025-08-19 14:03:21,2025-10-01 14:03:21,,20260713T053000Z-SPC30M
-NCR-25-0252,R25-01454,C-10030-06,burr,14758,press check,die,burr found,rework,2025-08-20 07:57:55,2025-08-23 07:57:55,,20260713T053000Z-SPC30M
-NCR-25-0253,R25-01469,,dimension,43,press check,method,found at the press,rework,2025-08-21 23:40:44,2025-09-14 23:40:44,,20260713T053000Z-SPC30M
-NCR-25-0254,R25-01485,,mixed part,136,press check,die,found at the press,scrap,2025-08-25 13:56:51,2025-09-07 13:56:51,,20260713T053000Z-SPC30M
-NCR-25-0255,R25-01261,,packaging,3434,customer,operator,customer complaint,scrap,2025-08-26 00:00:00,2025-09-03 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0256,R25-01497,,scratch,713,press check,operator,scratch found,scrap,2025-08-27 15:12:47,2025-09-24 15:12:47,,20260713T053000Z-SPC30M
-NCR-25-0257,R25-01510,,first-piece dimension,9,first-piece,gauge,first-piece out,scrap,2025-08-27 18:51:05,2025-10-10 18:51:05,,20260713T053000Z-SPC30M
-NCR-25-0258,R25-01506,,scratch,73,press check,operator,scratch found,rework,2025-08-27 19:04:21,2025-09-03 19:04:21,,20260713T053000Z-SPC30M
-NCR-25-0259,R25-01517,,missing or deformed hole,698,press check,die,missing or deformed hole found,scrap,2025-08-29 12:18:35,2025-10-04 12:18:35,,20260713T053000Z-SPC30M
-NCR-25-0260,R25-01526,,first-piece dimension,37,first-piece,die,first-piece dimension found,scrap,2025-08-29 17:41:12,2025-10-04 17:41:12,,20260713T053000Z-SPC30M
-NCR-25-0261,R25-01497,,burr,28700,dock audit,,burr found,rework,2025-08-30 11:24:15,2025-10-02 11:24:15,,20260713T053000Z-SPC30M
-NCR-25-0262,R25-01353,,formed dimension,749,customer,operator,formed dimension found,scrap,2025-09-01 00:00:00,2025-09-08 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0263,R25-01534,,mixed part,477,press check,die,found at the press,scrap,2025-09-02 17:40:20,2025-09-10 17:40:20,,20260713T053000Z-SPC30M
-NCR-25-0264,R25-01412,,burr,723,customer,,customer complaint,scrap,2025-09-03 00:00:00,2025-09-16 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0265,R25-01543,,mixed part,554,press check,method,found at the press,scrap,2025-09-03 16:50:33,2025-10-09 16:50:33,,20260713T053000Z-SPC30M
-NCR-25-0266,R25-01525,,burr,114919,dock audit,die,burr found,rework,2025-09-04 05:34:09,2025-10-02 05:34:09,,20260713T053000Z-SPC30M
-NCR-25-0267,R25-01548,,mixed part,551,press check,operator,mixed part found,use as is,2025-09-04 11:27:23,2025-10-08 11:27:23,,20260713T053000Z-SPC30M
-NCR-25-0268,R25-01552,C-37321-01,hole burr and size,576,press check,die,hole burr and size found,scrap,2025-09-04 19:03:44,2025-09-28 19:03:44,,20260713T053000Z-SPC30M
-NCR-25-0269,R25-01551,,mixed part,457,press check,operator,found at the press,use as is,2025-09-05 06:49:47,2025-09-24 06:49:47,,20260713T053000Z-SPC30M
-NCR-25-0270,R25-01556,C-11396-10,burr,20707,press check,die,burr found,rework,2025-09-05 10:14:24,2025-10-14 10:14:24,,20260713T053000Z-SPC30M
-NCR-25-0271,R25-01551,C-16467-07,burr,40436,press check,die,burr over the limit,rework,2025-09-05 15:02:21,2025-09-28 15:02:21,,20260713T053000Z-SPC30M
-NCR-25-0272,R25-01286,,scratch,379,customer,operator,customer complaint,scrap,2025-09-06 00:00:00,2025-10-05 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0273,R25-01325,,scratch,783,customer,operator,scratch found,scrap,2025-09-06 00:00:00,2025-09-22 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0274,R25-01539,,burr,7289,dock audit,die,burr found,rework,2025-09-08 04:30:52,2025-10-06 04:30:52,,20260713T053000Z-SPC30M
-NCR-25-0275,R25-01574,,missing or deformed hole,6203,press check,material,missing or deformed hole found,sort,2025-09-08 22:38:29,2025-09-12 22:38:29,,20260713T053000Z-SPC30M
-NCR-25-0276,R25-01576,C-17862-07,burr,11121,press check,method,burr over the limit,rework,2025-09-09 13:38:48,2025-09-23 13:38:48,,20260713T053000Z-SPC30M
-NCR-25-0277,R25-01587,,scratch,57,press check,die,scratch found,rework,2025-09-09 19:53:26,2025-10-07 19:53:26,,20260713T053000Z-SPC30M
-NCR-25-0278,R25-01580,C-16315-09,burr,10561,press check,die,burr found,rework,2025-09-10 10:20:30,2025-09-23 10:20:30,,20260713T053000Z-SPC30M
-NCR-25-0279,R25-01597,,first-piece dimension,47,first-piece,operator,first-piece dimension found,scrap,2025-09-10 21:00:18,2025-10-07 21:00:18,,20260713T053000Z-SPC30M
-NCR-25-0280,R25-01465,,missing or deformed hole,721,customer,die,missing or deformed hole found,scrap,2025-09-11 00:00:00,2025-09-18 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0281,R25-01593,,mixed part,43,press check,operator,mixed part found,use as is,2025-09-11 05:06:22,2025-09-27 05:06:22,,20260713T053000Z-SPC30M
-NCR-25-0282,R25-01599,,flatness,223,press check,operator,flatness found,scrap,2025-09-12 01:22:37,2025-10-22 01:22:37,,20260713T053000Z-SPC30M
-NCR-25-0283,R25-01605,,flatness,483,press check,operator,flatness found,scrap,2025-09-12 06:07:08,2025-10-05 06:07:08,,20260713T053000Z-SPC30M
-NCR-25-0284,R25-01599,,missing or deformed hole,58,press check,die,missing or deformed hole found,scrap,2025-09-12 06:33:02,2025-09-16 06:33:02,,20260713T053000Z-SPC30M
-NCR-25-0285,R25-01613,,dimension,704,press check,operator,dimension found,scrap,2025-09-14 10:05:17,2025-10-23 10:05:17,,20260713T053000Z-SPC30M
-NCR-25-0286,R25-01620,,missing or deformed hole,224,press check,gauge,"punch chipped, noticed at the press",scrap,2025-09-15 20:24:52,2025-09-30 20:24:52,,20260713T053000Z-SPC30M
-NCR-25-0287,R25-01623,,first-piece dimension,49,first-piece,operator,first-piece dimension found,scrap,2025-09-16 10:06:18,2025-10-28 10:06:18,,20260713T053000Z-SPC30M
-NCR-25-0288,R25-01629,,first-piece dimension,14,first-piece,material,first-piece dimension found,scrap,2025-09-16 19:58:21,2025-10-08 19:58:21,,20260713T053000Z-SPC30M
-NCR-25-0289,R25-01626,,missing or deformed hole,3297,press check,die,missing or deformed hole found,sort,2025-09-17 12:38:36,2025-10-17 12:38:36,,20260713T053000Z-SPC30M
-NCR-25-0290,R25-01634,,mixed part,131,press check,operator,mixed part found,scrap,2025-09-18 02:25:24,2025-10-22 02:25:24,,20260713T053000Z-SPC30M
-NCR-25-0291,R25-01638,,scratch,599,press check,die,scratch found,scrap,2025-09-18 10:34:22,2025-09-28 10:34:22,,20260713T053000Z-SPC30M
-NCR-25-0292,R25-01639,,flatness,420,press check,operator,flatness found,rework,2025-09-18 12:14:03,2025-10-01 12:14:03,,20260713T053000Z-SPC30M
-NCR-25-0293,R25-01644,,scratch,538,press check,machine,scratch found,rework,2025-09-19 08:18:37,2025-10-04 08:18:37,,20260713T053000Z-SPC30M
-NCR-25-0294,R25-01640,,flatness,102,press check,material,found at the press,scrap,2025-09-19 22:34:48,2025-10-19 22:34:48,,20260713T053000Z-SPC30M
-NCR-25-0295,R25-01657,,dimension,307,press check,operator,dimension found,rework,2025-09-20 11:21:28,2025-09-26 11:21:28,,20260713T053000Z-SPC30M
-NCR-25-0296,R25-01655,,mixed part,61,press check,operator,mixed part found,rework,2025-09-20 13:57:21,2025-10-30 13:57:21,,20260713T053000Z-SPC30M
-NCR-25-0297,R25-01659,,dimension,99,press check,die,dimension found,rework,2025-09-22 05:04:26,2025-11-02 05:04:26,,20260713T053000Z-SPC30M
-NCR-25-0298,R25-01666,,hole burr and size,786,press check,die,hole burr and size found,scrap,2025-09-23 08:02:43,2025-10-01 08:02:43,,20260713T053000Z-SPC30M
-NCR-25-0299,R25-01669,,flatness,751,press check,gauge,found at the press,scrap,2025-09-23 13:21:44,2025-10-18 13:21:44,,20260713T053000Z-SPC30M
-NCR-25-0300,R25-01693,C-11209-07,burr,27019,press check,die,burr found,rework,2025-09-26 19:36:26,2025-11-08 19:36:26,,20260713T053000Z-SPC30M
-NCR-25-0301,R25-01708,,mixed part,245,press check,operator,mixed part found,scrap,2025-09-29 23:09:37,2025-10-01 23:09:37,,20260713T053000Z-SPC30M
-NCR-25-0302,R25-01621,,formed dimension,431,customer,gauge,formed dimension found,scrap,2025-10-01 00:00:00,2025-10-10 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0303,R25-01724,,dimension,155,press check,method,dimension found,use as is,2025-10-01 14:55:29,2025-10-24 14:55:29,,20260713T053000Z-SPC30M
-NCR-25-0304,R25-01725,,missing or deformed hole,550,press check,die,missing or deformed hole found,scrap,2025-10-01 17:19:24,2025-11-02 17:19:24,,20260713T053000Z-SPC30M
-NCR-25-0305,R25-01733,,flatness,556,press check,method,flatness found,scrap,2025-10-02 17:48:33,2025-11-04 17:48:33,,20260713T053000Z-SPC30M
-NCR-25-0306,R25-01551,,burr,841,customer,die,burr found,scrap,2025-10-03 00:00:00,2025-11-06 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0307,R25-01525,,burr,408,customer,operator,customer complaint,scrap,2025-10-05 00:00:00,2025-11-11 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0308,R25-01757,,dimension,298,press check,,dimension found,use as is,2025-10-07 05:49:41,2025-10-15 05:49:41,,20260713T053000Z-SPC30M
-NCR-25-0309,R25-01776,,flatness,442,press check,,found at the press,rework,2025-10-08 23:33:04,2025-10-29 23:33:04,,20260713T053000Z-SPC30M
-NCR-25-0310,R25-01791,,scratch,754,press check,operator,scratch found,scrap,2025-10-10 16:10:19,2025-11-16 16:10:19,,20260713T053000Z-SPC30M
-NCR-25-0311,R25-01503,,formed dimension,423,customer,,customer complaint,scrap,2025-10-11 00:00:00,2025-10-25 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0312,R25-01794,,mixed part,441,press check,die,mixed part found,scrap,2025-10-11 02:57:56,2025-11-05 02:57:56,,20260713T053000Z-SPC30M
-NCR-25-0313,R25-01798,,scratch,711,press check,operator,scratch found,rework,2025-10-12 03:36:56,2025-11-10 03:36:56,,20260713T053000Z-SPC30M
-NCR-25-0314,R25-01800,,dimension,794,press check,operator,dimension found,rework,2025-10-13 14:22:03,2025-10-19 14:22:03,,20260713T053000Z-SPC30M
-NCR-25-0315,R25-01812,,mixed part,693,press check,operator,mixed part found,use as is,2025-10-14 20:01:39,2025-11-02 20:01:39,,20260713T053000Z-SPC30M
-NCR-25-0316,R25-01819,,scratch,125,press check,operator,scratch found,scrap,2025-10-15 15:12:34,2025-11-10 15:12:34,,20260713T053000Z-SPC30M
-NCR-25-0317,R25-01801,C-38681-10,burr,9489,press check,,burr found,rework,2025-10-15 17:01:20,2025-10-27 17:01:20,,20260713T053000Z-SPC30M
-NCR-25-0318,R25-01821,C-11348-01,hole burr and size,15983,press check,method,hole burr and size found,sort,2025-10-16 08:10:07,2025-11-29 08:10:07,,20260713T053000Z-SPC30M
-NCR-25-0319,R25-01671,,scratch,445,customer,machine,customer complaint,scrap,2025-10-17 00:00:00,2025-10-26 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0320,R25-01833,,first-piece dimension,45,first-piece,gauge,first-piece dimension found,scrap,2025-10-17 09:12:38,2025-11-29 09:12:38,,20260713T053000Z-SPC30M
-NCR-25-0321,R25-01838,,flatness,372,press check,gauge,flatness found,scrap,2025-10-18 21:56:59,2025-11-07 21:56:59,,20260713T053000Z-SPC30M
-NCR-25-0322,R25-01858,,scratch,403,press check,die,scratch found,rework,2025-10-22 01:25:50,2025-10-29 01:25:50,,20260713T053000Z-SPC30M
-NCR-25-0323,R25-01860,,mixed part,478,press check,gauge,mixed part found,scrap,2025-10-22 09:27:27,2025-11-01 09:27:27,,20260713T053000Z-SPC30M
-NCR-25-0324,R25-01862,,dimension,137,press check,machine,dimension found,scrap,2025-10-22 17:43:45,2025-10-27 17:43:45,,20260713T053000Z-SPC30M
-NCR-25-0325,R25-01873,,missing or deformed hole,334,press check,die,missing or deformed hole found,scrap,2025-10-24 08:27:11,2025-11-06 08:27:11,,20260713T053000Z-SPC30M
-NCR-25-0326,R25-01884,,flatness,99,press check,operator,found at the press,use as is,2025-10-25 08:55:59,2025-11-29 08:55:59,,20260713T053000Z-SPC30M
-NCR-25-0327,R25-01873,C-29540-01,hole burr and size,3144,press check,,hole burr and size found,sort,2025-10-25 14:03:28,2025-11-03 14:03:28,,20260713T053000Z-SPC30M
-NCR-25-0328,R25-01843,,burr,11035,dock audit,die,burr found,rework,2025-10-26 13:10:08,2025-12-05 13:10:08,,20260713T053000Z-SPC30M
-NCR-25-0329,R25-01854,,burr,16373,dock audit,die,burr found,rework,2025-10-26 14:52:00,2025-10-30 14:52:00,,20260713T053000Z-SPC30M
-NCR-25-0330,R25-01886,,scratch,22,press check,operator,scratch found,use as is,2025-10-27 06:07:17,2025-11-03 06:07:17,,20260713T053000Z-SPC30M
-NCR-25-0331,R25-01889,,flatness,429,press check,operator,flatness found,scrap,2025-10-27 13:56:41,2025-11-06 13:56:41,,20260713T053000Z-SPC30M
-NCR-25-0332,R25-01683,,missing or deformed hole,423,customer,die,missing or deformed hole found,scrap,2025-10-28 00:00:00,2025-12-01 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0333,R25-01896,,flatness,443,press check,,flatness found,use as is,2025-10-28 11:38:07,2025-12-01 11:38:07,,20260713T053000Z-SPC30M
-NCR-25-0334,R25-01907,,first-piece dimension,47,first-piece,die,first-piece dimension found,scrap,2025-10-29 12:46:22,2025-12-05 12:46:22,,20260713T053000Z-SPC30M
-NCR-25-0335,R25-01910,,dimension,395,press check,operator,found at the press,rework,2025-10-30 03:08:24,2025-11-29 03:08:24,,20260713T053000Z-SPC30M
-NCR-25-0336,R25-01912,,missing or deformed hole,980,press check,gauge,"punch chipped, noticed at the press",scrap,2025-10-30 12:17:40,2025-12-06 12:17:40,,20260713T053000Z-SPC30M
-NCR-25-0337,R25-01912,C-19454-10,burr,31144,press check,die,burr found,rework,2025-10-30 16:01:02,2025-11-26 16:01:02,,20260713T053000Z-SPC30M
-NCR-25-0338,R25-01904,C-11333-08,burr,100741,press check,machine,burr over the limit,rework,2025-10-31 09:02:44,2025-12-12 09:02:44,,20260713T053000Z-SPC30M
-NCR-25-0339,R25-01921,,hole burr and size,18160,press check,method,hole burr and size found,sort,2025-10-31 22:18:55,2025-11-12 22:18:55,,20260713T053000Z-SPC30M
-NCR-25-0340,R25-01656,,scratch,2182,customer,operator,scratch found,scrap,2025-11-01 00:00:00,2025-12-07 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0341,R25-01942,,first-piece dimension,48,first-piece,die,first-piece dimension found,scrap,2025-11-04 19:35:07,2025-12-11 19:35:07,,20260713T053000Z-SPC30M
-NCR-25-0342,R25-01936,,dimension,391,press check,material,found at the press,scrap,2025-11-05 03:36:57,2025-12-16 03:36:57,,20260713T053000Z-SPC30M
-NCR-25-0343,R25-01941,,dimension,612,press check,die,dimension found,use as is,2025-11-05 07:35:00,2025-12-17 07:35:00,,20260713T053000Z-SPC30M
-NCR-25-0344,R25-01943,,missing or deformed hole,1244,press check,die,missing or deformed hole found,scrap,2025-11-05 10:23:24,2025-12-11 10:23:24,,20260713T053000Z-SPC30M
-NCR-25-0345,R25-01939,C-29540-10,burr,8800,press check,die,burr found,rework,2025-11-06 10:10:42,2025-12-17 10:10:42,,20260713T053000Z-SPC30M
-NCR-25-0346,R25-01951,,scratch,630,press check,material,scratch found,rework,2025-11-06 13:36:27,2025-12-14 13:36:27,,20260713T053000Z-SPC30M
-NCR-25-0347,R25-01949,,missing or deformed hole,3165,press check,,missing or deformed hole found,sort,2025-11-07 07:43:40,2025-12-17 07:43:40,,20260713T053000Z-SPC30M
-NCR-25-0348,R25-01770,,mixed part,1776,customer,,mixed part found,scrap,2025-11-08 00:00:00,2025-12-22 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0349,R25-01784,,missing or deformed hole,433,customer,,missing or deformed hole found,scrap,2025-11-08 00:00:00,2025-12-20 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0350,R25-01962,,dimension,720,press check,gauge,found at the press,rework,2025-11-08 16:34:16,2025-12-05 16:34:16,,20260713T053000Z-SPC30M
-NCR-25-0351,R25-01960,C-37771-10,burr,8136,press check,die,burr over the limit,rework,2025-11-10 10:11:38,2025-11-28 10:11:38,,20260713T053000Z-SPC30M
-NCR-25-0352,R25-01970,,dimension,575,press check,machine,dimension found,use as is,2025-11-11 17:44:14,2025-12-22 17:44:14,,20260713T053000Z-SPC30M
-NCR-25-0353,R25-01973,C-11396-09,burr,5771,press check,die,burr found,rework,2025-11-12 14:02:12,2025-12-14 14:02:12,,20260713T053000Z-SPC30M
-NCR-25-0354,R25-01976,,mixed part,459,press check,die,mixed part found,scrap,2025-11-13 01:41:21,2025-11-15 01:41:21,,20260713T053000Z-SPC30M
-NCR-25-0355,R25-01987,,mixed part,223,press check,operator,found at the press,rework,2025-11-13 17:42:48,2025-12-17 17:42:48,,20260713T053000Z-SPC30M
-NCR-25-0356,R25-01989,,flatness,321,press check,operator,flatness found,rework,2025-11-14 07:31:36,2025-11-16 07:31:36,,20260713T053000Z-SPC30M
-NCR-25-0357,R25-02003,,flatness,658,press check,operator,found at the press,use as is,2025-11-15 13:11:51,2025-12-04 13:11:51,,20260713T053000Z-SPC30M
-NCR-25-0358,R25-01751,,dimension,389,customer,method,dimension found,scrap,2025-11-18 00:00:00,2025-12-08 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0359,R25-02014,,dimension,139,press check,operator,dimension found,scrap,2025-11-18 19:51:33,2025-12-25 19:51:33,,20260713T053000Z-SPC30M
-NCR-25-0360,R25-02020,,scratch,513,press check,method,found at the press,use as is,2025-11-19 04:01:24,2025-12-26 04:01:24,,20260713T053000Z-SPC30M
-NCR-25-0361,R25-02026,,flatness,454,press check,material,found at the press,scrap,2025-11-20 06:40:12,2025-12-28 06:40:12,,20260713T053000Z-SPC30M
-NCR-25-0362,R25-02037,,flatness,170,press check,operator,found at the press,rework,2025-11-22 07:46:24,2025-12-11 07:46:24,,20260713T053000Z-SPC30M
-NCR-25-0363,R25-02053,,dimension,253,press check,operator,dimension found,rework,2025-11-25 16:02:15,2025-12-19 16:02:15,,20260713T053000Z-SPC30M
-NCR-25-0364,R25-02061,,missing or deformed hole,440,press check,die,missing or deformed hole found,scrap,2025-11-26 13:03:32,2025-12-25 13:03:32,,20260713T053000Z-SPC30M
-NCR-25-0365,R25-02066,,first-piece dimension,54,first-piece,material,first-piece out,scrap,2025-11-26 16:04:10,2026-01-07 16:04:10,,20260713T053000Z-SPC30M
-NCR-25-0366,R25-02063,C-11333-07,burr,32812,press check,method,burr found,rework,2025-12-01 16:58:09,2025-12-20 16:58:09,,20260713T053000Z-SPC30M
-NCR-25-0367,R25-02080,,flatness,584,press check,method,flatness found,use as is,2025-12-02 18:26:23,2026-01-07 18:26:23,,20260713T053000Z-SPC30M
-NCR-25-0368,R25-02083,,flatness,771,press check,method,found at the press,rework,2025-12-03 18:55:52,2025-12-05 18:55:52,,20260713T053000Z-SPC30M
-NCR-25-0369,R25-02084,,flatness,488,press check,operator,flatness found,rework,2025-12-04 11:42:07,2025-12-10 11:42:07,,20260713T053000Z-SPC30M
-NCR-25-0370,R25-02093,,dimension,522,press check,machine,dimension found,scrap,2025-12-04 17:36:44,2026-01-10 17:36:44,,20260713T053000Z-SPC30M
-NCR-25-0371,R25-02041,,packaging,436,customer,operator,packaging found,scrap,2025-12-07 00:00:00,2025-12-21 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0372,R25-02103,C-14411-06,burr,55437,press check,die,burr found,rework,2025-12-08 10:02:23,2025-12-18 10:02:23,,20260713T053000Z-SPC30M
-NCR-25-0373,R25-02128,,first-piece dimension,12,first-piece,operator,first-piece dimension found,scrap,2025-12-10 15:34:12,2026-01-21 15:34:12,,20260713T053000Z-SPC30M
-NCR-25-0374,R25-02125,,flatness,129,press check,die,found at the press,rework,2025-12-11 01:55:57,2025-12-29 01:55:57,,20260713T053000Z-SPC30M
-NCR-25-0375,R25-02133,,mixed part,22,press check,operator,found at the press,use as is,2025-12-12 00:58:10,2026-01-18 00:58:10,,20260713T053000Z-SPC30M
-NCR-25-0376,R25-01979,,formed dimension,482,customer,operator,formed dimension found,scrap,2025-12-14 00:00:00,2025-12-31 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0377,R25-02143,,flatness,479,press check,material,flatness found,use as is,2025-12-15 01:47:24,2026-01-08 01:47:24,,20260713T053000Z-SPC30M
-NCR-25-0378,R25-02151,,hole burr and size,475,press check,die,hole burr and size found,scrap,2025-12-15 22:49:40,2025-12-28 22:49:40,,20260713T053000Z-SPC30M
-NCR-25-0379,R25-02153,,first-piece dimension,5,first-piece,operator,first-piece out,scrap,2025-12-16 07:03:43,2026-01-27 07:03:43,,20260713T053000Z-SPC30M
-NCR-25-0380,R25-02156,,first-piece dimension,11,first-piece,method,first-piece dimension found,scrap,2025-12-16 14:05:40,2025-12-20 14:05:40,,20260713T053000Z-SPC30M
-NCR-25-0381,R25-02157,,first-piece dimension,33,first-piece,machine,first-piece out,scrap,2025-12-16 14:26:58,2026-01-12 14:26:58,,20260713T053000Z-SPC30M
-NCR-25-0382,R25-02155,,scratch,73,press check,material,scratch found,rework,2025-12-16 14:54:50,2026-01-12 14:54:50,,20260713T053000Z-SPC30M
-NCR-25-0383,R25-02153,,flatness,721,press check,method,found at the press,use as is,2025-12-16 22:13:28,2025-12-20 22:13:28,,20260713T053000Z-SPC30M
-NCR-25-0384,R25-02163,,mixed part,747,press check,material,mixed part found,scrap,2025-12-17 07:42:12,2026-01-23 07:42:12,,20260713T053000Z-SPC30M
-NCR-25-0385,R25-01904,,burr,1129,customer,die,burr found,scrap,2025-12-18 00:00:00,2026-01-06 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0386,R25-02162,,missing or deformed hole,512,press check,material,missing or deformed hole found,scrap,2025-12-18 07:14:57,2026-01-07 07:14:57,,20260713T053000Z-SPC30M
-NCR-25-0387,R25-02183,,first-piece dimension,6,first-piece,die,first-piece dimension found,scrap,2025-12-19 11:31:45,2026-01-21 11:31:45,,20260713T053000Z-SPC30M
-NCR-25-0388,R25-02063,,burr,583,customer,operator,burr found,scrap,2025-12-26 00:00:00,2026-02-04 00:00:00,,20260713T053000Z-SPC30M
-NCR-25-0389,R25-02187,,dimension,721,press check,operator,dimension found,scrap,2025-12-28 07:20:52,2026-01-18 07:20:52,,20260713T053000Z-SPC30M
-NCR-25-0390,R25-02192,,scratch,442,press check,,scratch found,use as is,2025-12-30 05:53:29,2026-02-09 05:53:29,,20260713T053000Z-SPC30M
-NCR-25-0391,R25-02206,C-15609-07,burr,9483,press check,die,burr found,rework,2025-12-31 15:57:48,2026-01-17 15:57:48,,20260713T053000Z-SPC30M
-NCR-25-0392,R25-02206,,hole burr and size,3247,press check,die,hole burr and size found,sort,2025-12-31 20:13:36,2026-01-17 20:13:36,,20260713T053000Z-SPC30M
-NCR-26-0001,R25-02211,,dimension,76,press check,,found at the press,scrap,2026-01-01 04:07:23,2026-02-05 04:07:23,,20260713T053000Z-SPC30M
-NCR-26-0002,R25-02209,,dimension,166,press check,operator,dimension found,scrap,2026-01-01 21:23:35,2026-02-14 21:23:35,,20260713T053000Z-SPC30M
-NCR-26-0003,R25-02212,,mixed part,354,press check,operator,mixed part found,scrap,2026-01-02 13:09:54,2026-01-20 13:09:54,,20260713T053000Z-SPC30M
-NCR-26-0004,R25-02214,,missing or deformed hole,136,press check,die,"punch chipped, noticed at the press",scrap,2026-01-02 16:29:58,2026-01-05 16:29:58,,20260713T053000Z-SPC30M
-NCR-26-0005,R26-00003,C-16315-08,burr,3437,press check,die,burr found,rework,2026-01-02 21:03:13,2026-02-02 21:03:13,,20260713T053000Z-SPC30M
-NCR-26-0006,R26-00001,,flatness,40,press check,die,found at the press,scrap,2026-01-04 19:00:32,2026-01-21 19:00:32,,20260713T053000Z-SPC30M
-NCR-26-0007,R26-00018,,mixed part,732,press check,operator,mixed part found,use as is,2026-01-06 16:14:46,2026-01-11 16:14:46,,20260713T053000Z-SPC30M
-NCR-26-0008,R26-00031,,mixed part,288,press check,operator,mixed part found,scrap,2026-01-07 14:33:52,2026-02-11 14:33:52,,20260713T053000Z-SPC30M
-NCR-26-0009,R26-00034,,mixed part,227,press check,die,mixed part found,use as is,2026-01-07 17:28:55,2026-01-15 17:28:55,,20260713T053000Z-SPC30M
-NCR-26-0010,R26-00029,C-33230-01,hole burr and size,7183,press check,,hole burr and size found,sort,2026-01-07 20:01:31,2026-02-17 20:01:31,,20260713T053000Z-SPC30M
-NCR-26-0011,R26-00035,,scratch,69,press check,method,scratch found,scrap,2026-01-08 03:15:37,2026-01-17 03:15:37,,20260713T053000Z-SPC30M
-NCR-26-0012,R26-00004,,burr,2016,dock audit,machine,burr found,rework,2026-01-09 00:52:33,2026-02-02 00:52:33,,20260713T053000Z-SPC30M
-NCR-26-0013,R26-00049,,hole burr and size,386,press check,gauge,hole burr and size found,scrap,2026-01-09 14:02:37,2026-01-29 14:02:37,,20260713T053000Z-SPC30M
-NCR-26-0014,R26-00056,,scratch,117,press check,method,scratch found,scrap,2026-01-11 01:50:25,2026-01-19 01:50:25,,20260713T053000Z-SPC30M
-NCR-26-0015,R26-00060,,first-piece dimension,10,first-piece,gauge,first-piece out,scrap,2026-01-12 11:22:07,2026-02-05 11:22:07,,20260713T053000Z-SPC30M
-NCR-26-0016,R25-02065,,missing or deformed hole,538,customer,gauge,customer complaint,scrap,2026-01-13 00:00:00,2026-02-24 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0017,R26-00062,,mixed part,170,press check,machine,found at the press,rework,2026-01-13 03:32:06,2026-02-26 03:32:06,,20260713T053000Z-SPC30M
-NCR-26-0018,R26-00068,,first-piece dimension,27,first-piece,die,first-piece dimension found,scrap,2026-01-13 12:07:58,2026-01-21 12:07:58,,20260713T053000Z-SPC30M
-NCR-26-0019,R26-00079,,mixed part,96,press check,method,mixed part found,scrap,2026-01-14 20:11:21,2026-02-08 20:11:21,,20260713T053000Z-SPC30M
-NCR-26-0020,R26-00082,,mixed part,636,press check,operator,mixed part found,scrap,2026-01-14 23:49:21,2026-01-27 23:49:21,,20260713T053000Z-SPC30M
-NCR-26-0021,R26-00089,,hole burr and size,16276,press check,die,hole burr and size found,sort,2026-01-15 22:01:15,2026-02-08 22:01:15,,20260713T053000Z-SPC30M
-NCR-26-0022,R25-02072,,mixed part,768,customer,machine,mixed part found,scrap,2026-01-16 00:00:00,2026-02-05 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0023,R25-02194,,scratch,529,customer,operator,scratch found,scrap,2026-01-16 00:00:00,2026-01-24 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0024,R26-00091,,mixed part,168,press check,die,mixed part found,scrap,2026-01-16 12:00:07,2026-02-14 12:00:07,,20260713T053000Z-SPC30M
-NCR-26-0025,R26-00094,,flatness,152,press check,operator,flatness found,scrap,2026-01-16 13:39:40,2026-02-08 13:39:40,,20260713T053000Z-SPC30M
-NCR-26-0026,R25-02127,,formed dimension,488,customer,method,formed dimension found,scrap,2026-01-17 00:00:00,2026-01-27 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0027,R26-00102,,flatness,222,press check,gauge,flatness found,scrap,2026-01-17 10:23:59,2026-01-26 10:23:59,,20260713T053000Z-SPC30M
-NCR-26-0028,R26-00104,,mixed part,571,press check,method,mixed part found,scrap,2026-01-19 14:43:18,2026-02-14 14:43:18,,20260713T053000Z-SPC30M
-NCR-26-0029,R26-00110,,missing or deformed hole,138,press check,gauge,missing or deformed hole found,scrap,2026-01-20 10:18:15,2026-03-01 10:18:15,,20260713T053000Z-SPC30M
-NCR-26-0030,R26-00118,,dimension,165,press check,operator,dimension found,scrap,2026-01-21 04:07:13,2026-02-17 04:07:13,,20260713T053000Z-SPC30M
-NCR-26-0031,R26-00121,,dimension,458,press check,die,dimension found,rework,2026-01-21 12:43:27,2026-03-05 12:43:27,,20260713T053000Z-SPC30M
-NCR-26-0032,R26-00126,,hole burr and size,132,press check,die,hole burr and size found,scrap,2026-01-21 20:26:52,2026-02-09 20:26:52,,20260713T053000Z-SPC30M
-NCR-26-0033,R25-02201,,mixed part,808,customer,operator,mixed part found,scrap,2026-01-22 00:00:00,2026-03-01 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0034,R26-00122,,mixed part,60,press check,,found at the press,scrap,2026-01-22 01:54:25,2026-01-30 01:54:25,,20260713T053000Z-SPC30M
-NCR-26-0035,R25-02135,,mixed part,422,customer,operator,mixed part found,scrap,2026-01-24 00:00:00,2026-01-31 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0036,R26-00139,,mixed part,63,press check,operator,found at the press,scrap,2026-01-25 16:53:27,2026-03-03 16:53:27,,20260713T053000Z-SPC30M
-NCR-26-0037,R26-00149,,mixed part,108,press check,method,mixed part found,scrap,2026-01-27 02:30:25,2026-03-09 02:30:25,,20260713T053000Z-SPC30M
-NCR-26-0038,R26-00145,,missing or deformed hole,399,press check,die,missing or deformed hole found,scrap,2026-01-27 07:50:03,2026-03-04 07:50:03,,20260713T053000Z-SPC30M
-NCR-26-0039,R26-00156,C-26458-10,burr,42019,press check,material,burr found,rework,2026-01-27 18:02:43,2026-02-19 18:02:43,,20260713T053000Z-SPC30M
-NCR-26-0040,R26-00163,,missing or deformed hole,5334,press check,die,missing or deformed hole found,sort,2026-01-27 22:15:46,2026-02-16 22:15:46,,20260713T053000Z-SPC30M
-NCR-26-0041,R26-00164,,scratch,685,press check,,scratch found,scrap,2026-01-28 14:44:27,2026-02-19 14:44:27,,20260713T053000Z-SPC30M
-NCR-26-0042,R26-00162,,hole burr and size,644,press check,material,hole burr and size found,scrap,2026-01-28 21:09:30,2026-03-04 21:09:30,,20260713T053000Z-SPC30M
-NCR-26-0043,R26-00172,,flatness,492,press check,,flatness found,scrap,2026-01-28 23:46:22,2026-03-06 23:46:22,,20260713T053000Z-SPC30M
-NCR-26-0044,R26-00173,,missing or deformed hole,315,press check,machine,missing or deformed hole found,scrap,2026-01-29 09:36:18,2026-02-09 09:36:18,,20260713T053000Z-SPC30M
-NCR-26-0045,R26-00179,,flatness,262,press check,operator,found at the press,scrap,2026-01-29 15:36:32,2026-02-14 15:36:32,,20260713T053000Z-SPC30M
-NCR-26-0046,R25-02206,,burr,754,customer,operator,burr found,scrap,2026-01-30 00:00:00,2026-02-07 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0047,R26-00181,,scratch,639,press check,die,scratch found,scrap,2026-01-30 01:04:17,2026-02-01 01:04:17,,20260713T053000Z-SPC30M
-NCR-26-0048,R26-00198,,first-piece dimension,51,first-piece,operator,first-piece out,scrap,2026-02-02 20:29:52,2026-03-01 20:29:52,,20260713T053000Z-SPC30M
-NCR-26-0049,R26-00199,,dimension,454,press check,operator,dimension found,scrap,2026-02-03 08:05:24,2026-03-06 08:05:24,,20260713T053000Z-SPC30M
-NCR-26-0050,R25-02205,,formed dimension,2852,customer,operator,formed dimension found,scrap,2026-02-05 00:00:00,2026-03-01 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0051,R26-00077,,missing or deformed hole,684,customer,material,missing or deformed hole found,scrap,2026-02-05 00:00:00,2026-03-15 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0052,R26-00215,,mixed part,109,press check,operator,mixed part found,rework,2026-02-05 09:36:35,2026-02-10 09:36:35,,20260713T053000Z-SPC30M
-NCR-26-0053,R26-00227,,flatness,564,press check,method,flatness found,scrap,2026-02-07 07:28:46,2026-03-01 07:28:46,,20260713T053000Z-SPC30M
-NCR-26-0054,R26-00213,,burr,14461,dock audit,die,burr found,rework,2026-02-07 18:04:38,2026-03-04 18:04:38,,20260713T053000Z-SPC30M
-NCR-26-0055,R26-00244,,mixed part,198,press check,material,mixed part found,scrap,2026-02-10 22:43:10,2026-03-16 22:43:10,,20260713T053000Z-SPC30M
-NCR-26-0056,R26-00224,,burr,27514,dock audit,,burr over the limit,rework,2026-02-11 03:48:48,2026-03-17 03:48:48,,20260713T053000Z-SPC30M
-NCR-26-0057,R26-00243,,missing or deformed hole,258,press check,die,missing or deformed hole found,scrap,2026-02-11 13:06:51,2026-03-22 13:06:51,,20260713T053000Z-SPC30M
-NCR-26-0058,R26-00243,C-11333-07,burr,3740,press check,,burr found,rework,2026-02-11 15:27:31,2026-03-13 15:27:31,,20260713T053000Z-SPC30M
-NCR-26-0059,R26-00262,,first-piece dimension,20,first-piece,method,first-piece out,scrap,2026-02-12 10:15:40,2026-03-08 10:15:40,,20260713T053000Z-SPC30M
-NCR-26-0060,R26-00260,,mixed part,245,press check,operator,mixed part found,rework,2026-02-12 12:54:34,2026-02-27 12:54:34,,20260713T053000Z-SPC30M
-NCR-26-0061,R26-00270,,missing or deformed hole,181,press check,die,missing or deformed hole found,scrap,2026-02-16 06:29:42,2026-03-06 06:29:42,,20260713T053000Z-SPC30M
-NCR-26-0062,R26-00282,,dimension,353,press check,material,dimension found,scrap,2026-02-17 06:46:24,2026-02-26 06:46:24,,20260713T053000Z-SPC30M
-NCR-26-0063,R26-00284,,mixed part,512,press check,material,mixed part found,rework,2026-02-17 09:46:51,2026-03-27 09:46:51,,20260713T053000Z-SPC30M
-NCR-26-0064,R26-00288,,flatness,491,press check,,found at the press,scrap,2026-02-18 01:24:33,2026-03-07 01:24:33,,20260713T053000Z-SPC30M
-NCR-26-0065,R26-00293,,dimension,570,press check,material,dimension found,rework,2026-02-18 14:29:07,2026-02-25 14:29:07,,20260713T053000Z-SPC30M
-NCR-26-0066,R26-00313,C-12139-09,burr,30354,press check,die,burr found,rework,2026-02-20 18:00:03,2026-03-30 18:00:03,,20260713T053000Z-SPC30M
-NCR-26-0067,R26-00311,C-11209-06,burr,19580,press check,gauge,burr found,rework,2026-02-20 18:02:03,2026-04-02 18:02:03,,20260713T053000Z-SPC30M
-NCR-26-0068,R26-00314,C-15609-07,burr,54941,press check,die,burr found,rework,2026-02-23 11:15:57,2026-03-11 11:15:57,,20260713T053000Z-SPC30M
-NCR-26-0069,R26-00329,,first-piece dimension,44,first-piece,,first-piece dimension found,scrap,2026-02-23 20:24:44,2026-03-12 20:24:44,,20260713T053000Z-SPC30M
-NCR-26-0070,R26-00333,C-22485-08,burr,16532,press check,machine,burr found,rework,2026-02-24 13:24:07,2026-04-02 13:24:07,,20260713T053000Z-SPC30M
-NCR-26-0071,R26-00345,C-27389-01,hole burr and size,2326,press check,machine,punch worn,sort,2026-02-26 06:02:23,2026-04-05 06:02:23,,20260713T053000Z-SPC30M
-NCR-26-0072,R26-00243,,burr,1023,customer,operator,customer complaint,scrap,2026-02-27 00:00:00,2026-04-09 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0073,R26-00357,,flatness,135,press check,,flatness found,scrap,2026-02-27 02:12:56,2026-04-07 02:12:56,,20260713T053000Z-SPC30M
-NCR-26-0074,R26-00361,,dimension,456,press check,material,dimension found,rework,2026-02-27 07:49:10,2026-03-01 07:49:10,,20260713T053000Z-SPC30M
-NCR-26-0075,R26-00365,,mixed part,395,press check,operator,mixed part found,use as is,2026-02-28 15:03:28,2026-03-08 15:03:28,,20260713T053000Z-SPC30M
-NCR-26-0076,R26-00205,,mixed part,2711,customer,operator,mixed part found,scrap,2026-03-02 00:00:00,2026-04-06 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0077,R26-00370,C-11687-07,burr,10642,press check,,burr found,rework,2026-03-02 08:01:16,2026-03-21 08:01:16,,20260713T053000Z-SPC30M
-NCR-26-0078,R26-00374,,first-piece dimension,50,first-piece,operator,first-piece dimension found,scrap,2026-03-02 12:59:46,2026-03-30 12:59:46,,20260713T053000Z-SPC30M
-NCR-26-0079,R26-00374,,mixed part,195,press check,gauge,mixed part found,scrap,2026-03-02 18:42:10,2026-04-11 18:42:10,,20260713T053000Z-SPC30M
-NCR-26-0080,R26-00383,,first-piece dimension,16,first-piece,operator,first-piece dimension found,scrap,2026-03-03 12:13:06,2026-03-09 12:13:06,,20260713T053000Z-SPC30M
-NCR-26-0081,R26-00392,C-14026-03,missing or deformed hole,2784,press check,gauge,punch chipped,sort,2026-03-05 13:58:40,2026-03-20 13:58:40,,20260713T053000Z-SPC30M
-NCR-26-0082,R26-00398,,dimension,777,press check,die,found at the press,rework,2026-03-05 18:49:18,2026-03-12 18:49:18,,20260713T053000Z-SPC30M
-NCR-26-0083,R26-00395,,flatness,612,press check,material,flatness found,rework,2026-03-05 20:35:12,2026-04-13 20:35:12,,20260713T053000Z-SPC30M
-NCR-26-0084,R26-00406,C-37771-09,burr,50,press check,die,burr over the limit,rework,2026-03-06 16:03:08,2026-03-09 16:03:08,,20260713T053000Z-SPC30M
-NCR-26-0085,R26-00373,,burr,3548,dock audit,gauge,burr over the limit,rework,2026-03-08 00:30:26,2026-04-17 00:30:26,,20260713T053000Z-SPC30M
-NCR-26-0086,R26-00410,,dimension,531,press check,,found at the press,rework,2026-03-08 13:06:43,2026-03-22 13:06:43,,20260713T053000Z-SPC30M
-NCR-26-0087,R26-00233,,dimension,564,customer,gauge,dimension found,scrap,2026-03-13 00:00:00,2026-03-15 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0088,R26-00456,,first-piece dimension,23,first-piece,die,first-piece dimension found,scrap,2026-03-13 19:55:04,2026-04-13 19:55:04,,20260713T053000Z-SPC30M
-NCR-26-0089,R26-00455,,scratch,162,press check,,scratch found,scrap,2026-03-13 23:23:06,2026-03-19 23:23:06,,20260713T053000Z-SPC30M
-NCR-26-0090,R26-00257,,formed dimension,383,customer,die,formed dimension found,scrap,2026-03-15 00:00:00,2026-03-28 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0091,R26-00467,,first-piece dimension,36,first-piece,die,first-piece out,scrap,2026-03-16 20:24:56,2026-03-31 20:24:56,,20260713T053000Z-SPC30M
-NCR-26-0092,R26-00466,C-29540-10,burr,930,press check,die,burr found,rework,2026-03-17 10:02:15,2026-04-04 10:02:15,,20260713T053000Z-SPC30M
-NCR-26-0093,R26-00467,,missing or deformed hole,1188,press check,die,missing or deformed hole found,scrap,2026-03-17 18:16:03,2026-04-06 18:16:03,,20260713T053000Z-SPC30M
-NCR-26-0094,R26-00182,,packaging,704,customer,method,packaging found,scrap,2026-03-18 00:00:00,2026-04-28 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0095,R26-00481,C-10030-07,burr,27159,press check,die,burr over the limit,rework,2026-03-19 17:59:01,2026-04-23 17:59:01,,20260713T053000Z-SPC30M
-NCR-26-0096,R26-00496,,missing or deformed hole,852,press check,die,"punch chipped, noticed at the press",scrap,2026-03-20 20:16:33,2026-04-27 20:16:33,,20260713T053000Z-SPC30M
-NCR-26-0097,R26-00492,,hole burr and size,62,press check,die,hole burr and size found,scrap,2026-03-21 07:49:12,2026-03-26 07:49:12,,20260713T053000Z-SPC30M
-NCR-26-0098,R26-00496,,hole burr and size,2610,press check,,punch worn,sort,2026-03-23 11:35:44,2026-04-25 11:35:44,,20260713T053000Z-SPC30M
-NCR-26-0099,R26-00498,C-10531-08,burr,117968,press check,machine,burr found,rework,2026-03-23 19:58:03,2026-05-06 19:58:03,,20260713T053000Z-SPC30M
-NCR-26-0100,R26-00506,,mixed part,434,press check,operator,found at the press,use as is,2026-03-23 21:37:59,2026-03-30 21:37:59,,20260713T053000Z-SPC30M
-NCR-26-0101,R26-00520,C-14026-03,hole burr and size,328,press check,,punch worn,scrap,2026-03-25 14:28:59,2026-03-28 14:28:59,,20260713T053000Z-SPC30M
-NCR-26-0102,R26-00520,,mixed part,194,press check,material,mixed part found,scrap,2026-03-25 19:02:59,2026-04-13 19:02:59,,20260713T053000Z-SPC30M
-NCR-26-0103,R26-00523,,hole burr and size,5655,press check,die,punch worn,sort,2026-03-25 20:38:03,2026-04-05 20:38:03,,20260713T053000Z-SPC30M
-NCR-26-0104,R26-00523,C-11396-10,burr,17794,press check,,burr found,rework,2026-03-26 16:50:00,2026-05-06 16:50:00,,20260713T053000Z-SPC30M
-NCR-26-0105,R26-00549,,missing or deformed hole,3090,press check,die,missing or deformed hole found,sort,2026-03-31 10:00:11,2026-04-29 10:00:11,,20260713T053000Z-SPC30M
-NCR-26-0106,R26-00560,,first-piece dimension,43,first-piece,operator,first-piece out,scrap,2026-03-31 17:24:41,2026-04-06 17:24:41,,20260713T053000Z-SPC30M
-NCR-26-0107,R26-00564,,mixed part,609,press check,die,found at the press,rework,2026-04-01 08:26:01,2026-04-25 08:26:01,,20260713T053000Z-SPC30M
-NCR-26-0108,R26-00567,,scratch,568,press check,die,scratch found,scrap,2026-04-01 18:36:17,2026-04-17 18:36:17,,20260713T053000Z-SPC30M
-NCR-26-0109,R26-00566,C-16483-06,burr,4132,press check,die,burr found,rework,2026-04-01 21:59:41,2026-05-06 21:59:41,,20260713T053000Z-SPC30M
-NCR-26-0110,R26-00561,C-29540-09,hole burr and size,1146,press check,method,hole burr and size found,scrap,2026-04-02 06:30:04,2026-05-05 06:30:04,,20260713T053000Z-SPC30M
-NCR-26-0111,R26-00568,,mixed part,127,press check,method,mixed part found,use as is,2026-04-02 12:44:48,2026-05-08 12:44:48,,20260713T053000Z-SPC30M
-NCR-26-0112,R26-00583,C-19604-09,burr,7745,press check,die,burr found,rework,2026-04-03 18:03:11,2026-04-13 18:03:11,,20260713T053000Z-SPC30M
-NCR-26-0113,R26-00314,,burr,701,customer,machine,burr found,scrap,2026-04-05 00:00:00,2026-05-18 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0114,R26-00587,,dimension,514,press check,operator,found at the press,scrap,2026-04-05 13:54:54,2026-05-02 13:54:54,,20260713T053000Z-SPC30M
-NCR-26-0115,R26-00585,,scratch,69,press check,die,scratch found,scrap,2026-04-06 00:51:38,2026-05-12 00:51:38,,20260713T053000Z-SPC30M
-NCR-26-0116,R26-00595,,scratch,725,press check,operator,scratch found,use as is,2026-04-06 13:54:28,2026-04-20 13:54:28,,20260713T053000Z-SPC30M
-NCR-26-0117,R26-00591,,mixed part,739,press check,operator,mixed part found,scrap,2026-04-07 04:36:58,2026-04-14 04:36:58,,20260713T053000Z-SPC30M
-NCR-26-0118,R26-00607,,dimension,556,press check,machine,found at the press,scrap,2026-04-07 23:02:03,2026-04-12 23:02:03,,20260713T053000Z-SPC30M
-NCR-26-0119,R26-00313,,burr,2708,customer,operator,burr found,scrap,2026-04-08 00:00:00,2026-04-22 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0120,R26-00400,,dimension,6268,customer,,dimension found,scrap,2026-04-08 00:00:00,2026-05-02 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0121,R26-00454,,burr,536,customer,die,customer complaint,scrap,2026-04-08 00:00:00,2026-05-17 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0122,R26-00370,,burr,599,customer,operator,customer complaint,scrap,2026-04-09 00:00:00,2026-05-11 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0123,R26-00618,,scratch,787,press check,gauge,scratch found,scrap,2026-04-09 01:15:47,2026-05-10 01:15:47,,20260713T053000Z-SPC30M
-NCR-26-0124,R26-00615,,dimension,419,press check,die,found at the press,scrap,2026-04-09 06:14:49,2026-05-01 06:14:49,,20260713T053000Z-SPC30M
-NCR-26-0125,R26-00623,,mixed part,124,press check,operator,found at the press,scrap,2026-04-10 07:09:22,2026-04-23 07:09:22,,20260713T053000Z-SPC30M
-NCR-26-0126,R26-00630,,scratch,89,press check,operator,found at the press,rework,2026-04-10 17:19:52,2026-05-17 17:19:52,,20260713T053000Z-SPC30M
-NCR-26-0127,R26-00498,,burr,546,customer,operator,burr found,scrap,2026-04-11 00:00:00,2026-04-29 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0128,R26-00634,,mixed part,417,press check,machine,mixed part found,scrap,2026-04-12 03:23:41,2026-05-04 03:23:41,,20260713T053000Z-SPC30M
-NCR-26-0129,R26-00636,,first-piece dimension,54,first-piece,machine,first-piece dimension found,scrap,2026-04-13 07:36:12,2026-05-01 07:36:12,,20260713T053000Z-SPC30M
-NCR-26-0130,R26-00648,C-14411-06,burr,11817,press check,material,burr found,rework,2026-04-15 08:34:16,2026-04-18 08:34:16,,20260713T053000Z-SPC30M
-NCR-26-0131,R26-00657,,scratch,122,press check,operator,scratch found,rework,2026-04-16 09:58:24,2026-04-21 09:58:24,,20260713T053000Z-SPC30M
-NCR-26-0132,R26-00676,,first-piece dimension,19,first-piece,method,first-piece dimension found,scrap,2026-04-17 22:55:52,2026-05-21 22:55:52,,20260713T053000Z-SPC30M
-NCR-26-0133,R26-00677,,scratch,714,press check,operator,scratch found,scrap,2026-04-18 10:42:19,2026-04-24 10:42:19,,20260713T053000Z-SPC30M
-NCR-26-0134,R26-00541,,missing or deformed hole,563,customer,operator,missing or deformed hole found,scrap,2026-04-20 00:00:00,2026-05-29 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0135,R26-00680,,first-piece dimension,52,first-piece,method,first-piece out,scrap,2026-04-20 09:26:58,2026-05-05 09:26:58,,20260713T053000Z-SPC30M
-NCR-26-0136,R26-00430,,mixed part,346,customer,method,customer complaint,scrap,2026-04-21 00:00:00,2026-05-08 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0137,R26-00467,,dimension,426,customer,die,dimension found,scrap,2026-04-21 00:00:00,2026-04-24 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0138,R26-00690,,first-piece dimension,51,first-piece,operator,first-piece dimension found,scrap,2026-04-21 06:56:23,2026-04-29 06:56:23,,20260713T053000Z-SPC30M
-NCR-26-0139,R26-00708,,first-piece dimension,19,first-piece,gauge,first-piece dimension found,scrap,2026-04-22 20:36:23,2026-05-20 20:36:23,,20260713T053000Z-SPC30M
-NCR-26-0140,R26-00715,,mixed part,509,press check,operator,mixed part found,scrap,2026-04-23 20:25:55,2026-05-24 20:25:55,,20260713T053000Z-SPC30M
-NCR-26-0141,R26-00716,,mixed part,341,press check,operator,mixed part found,scrap,2026-04-24 13:27:53,2026-05-27 13:27:53,,20260713T053000Z-SPC30M
-NCR-26-0142,R26-00742,,flatness,288,press check,,flatness found,rework,2026-04-28 16:48:18,2026-05-23 16:48:18,,20260713T053000Z-SPC30M
-NCR-26-0143,R26-00764,C-19604-09,burr,8059,press check,machine,burr over the limit,rework,2026-05-01 14:00:21,2026-06-02 14:00:21,,20260713T053000Z-SPC30M
-NCR-26-0144,R26-00778,,first-piece dimension,5,first-piece,die,first-piece dimension found,scrap,2026-05-04 09:02:20,2026-05-15 09:02:20,,20260713T053000Z-SPC30M
-NCR-26-0145,R26-00778,,scratch,340,press check,operator,scratch found,rework,2026-05-04 17:13:22,2026-05-06 17:13:22,,20260713T053000Z-SPC30M
-NCR-26-0146,R26-00785,,mixed part,707,press check,operator,mixed part found,scrap,2026-05-05 05:24:18,2026-05-18 05:24:18,,20260713T053000Z-SPC30M
-NCR-26-0147,R26-00787,C-20415-01,missing or deformed hole,3887,press check,die,missing or deformed hole found,sort,2026-05-05 12:02:56,2026-05-24 12:02:56,,20260713T053000Z-SPC30M
-NCR-26-0148,R26-00789,,dimension,169,press check,die,dimension found,rework,2026-05-05 15:29:29,2026-05-17 15:29:29,,20260713T053000Z-SPC30M
-NCR-26-0149,R26-00799,C-16280-10,burr,26804,press check,material,burr over the limit,rework,2026-05-06 12:16:17,2026-05-16 12:16:17,,20260713T053000Z-SPC30M
-NCR-26-0150,R26-00794,,flatness,55,press check,operator,flatness found,scrap,2026-05-06 14:00:46,2026-05-14 14:00:46,,20260713T053000Z-SPC30M
-NCR-26-0151,R26-00799,,missing or deformed hole,428,press check,gauge,"punch chipped, noticed at the press",scrap,2026-05-06 20:21:06,2026-05-21 20:21:06,,20260713T053000Z-SPC30M
-NCR-26-0152,R26-00797,,dimension,365,press check,method,found at the press,scrap,2026-05-06 21:41:29,2026-06-12 21:41:29,,20260713T053000Z-SPC30M
-NCR-26-0153,R26-00801,,scratch,122,press check,operator,scratch found,rework,2026-05-07 04:21:37,2026-06-18 04:21:37,,20260713T053000Z-SPC30M
-NCR-26-0154,R26-00803,,flatness,444,press check,operator,flatness found,rework,2026-05-07 11:30:37,2026-06-12 11:30:37,,20260713T053000Z-SPC30M
-NCR-26-0155,R26-00803,,hole burr and size,128,press check,method,hole burr and size found,scrap,2026-05-07 12:55:05,2026-05-26 12:55:05,,20260713T053000Z-SPC30M
-NCR-26-0156,R26-00805,,flatness,117,press check,die,found at the press,scrap,2026-05-07 20:02:24,2026-05-16 20:02:24,,20260713T053000Z-SPC30M
-NCR-26-0157,R26-00809,,scratch,372,press check,method,scratch found,rework,2026-05-08 09:02:22,2026-05-23 09:02:22,,20260713T053000Z-SPC30M
-NCR-26-0158,R26-00819,C-14507-07,burr,4101,press check,,burr found,rework,2026-05-08 19:58:46,2026-06-04 19:58:46,,20260713T053000Z-SPC30M
-NCR-26-0159,R26-00534,,missing or deformed hole,498,customer,,missing or deformed hole found,scrap,2026-05-10 00:00:00,2026-05-15 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0160,R26-00824,C-11860-10,burr,1905,press check,die,burr found,rework,2026-05-11 21:55:47,2026-06-24 21:55:47,,20260713T053000Z-SPC30M
-NCR-26-0161,R26-00839,,flatness,751,press check,die,flatness found,scrap,2026-05-13 12:28:12,2026-06-16 12:28:12,,20260713T053000Z-SPC30M
-NCR-26-0162,R26-00843,,dimension,754,press check,gauge,dimension found,rework,2026-05-13 21:33:11,2026-05-28 21:33:11,,20260713T053000Z-SPC30M
-NCR-26-0163,R26-00844,,scratch,113,press check,method,found at the press,scrap,2026-05-14 06:49:19,2026-06-27 06:49:19,,20260713T053000Z-SPC30M
-NCR-26-0164,R26-00853,,missing or deformed hole,184,press check,die,missing or deformed hole found,scrap,2026-05-15 08:38:34,2026-05-17 08:38:34,,20260713T053000Z-SPC30M
-NCR-26-0165,R26-00853,C-16483-06,burr,900,press check,material,burr over the limit,rework,2026-05-15 20:10:13,2026-05-27 20:10:13,,20260713T053000Z-SPC30M
-NCR-26-0166,R26-00875,,flatness,394,press check,gauge,flatness found,scrap,2026-05-20 16:28:10,2026-06-07 16:28:10,,20260713T053000Z-SPC30M
-NCR-26-0167,R26-00885,,first-piece dimension,15,first-piece,die,first-piece dimension found,scrap,2026-05-21 06:34:33,2026-06-01 06:34:33,,20260713T053000Z-SPC30M
-NCR-26-0168,R26-00894,,dimension,737,press check,die,dimension found,scrap,2026-05-21 23:38:30,2026-05-29 23:38:30,,20260713T053000Z-SPC30M
-NCR-26-0169,R26-00899,,mixed part,266,press check,operator,mixed part found,rework,2026-05-22 21:19:00,,,20260713T053000Z-SPC30M
-NCR-26-0170,R26-00896,,scratch,739,press check,die,scratch found,use as is,2026-05-22 21:45:14,2026-06-21 21:45:14,,20260713T053000Z-SPC30M
-NCR-26-0171,R26-00902,,flatness,503,press check,operator,flatness found,scrap,2026-05-26 04:54:00,2026-05-31 04:54:00,,20260713T053000Z-SPC30M
-NCR-26-0172,R26-00926,,first-piece dimension,32,first-piece,operator,first-piece dimension found,scrap,2026-05-27 22:01:55,2026-06-17 22:01:55,,20260713T053000Z-SPC30M
-NCR-26-0173,R26-00932,C-10372-01,hole burr and size,13479,press check,die,hole burr and size found,sort,2026-05-29 18:02:35,2026-06-25 18:02:35,,20260713T053000Z-SPC30M
-NCR-26-0174,R26-00940,C-16315-08,burr,5673,press check,die,burr found,rework,2026-05-29 19:27:50,,,20260713T053000Z-SPC30M
-NCR-26-0175,R26-00952,,first-piece dimension,21,first-piece,operator,first-piece dimension found,scrap,2026-06-01 12:48:27,,,20260713T053000Z-SPC30M
-NCR-26-0176,R26-00799,,burr,3483,customer,operator,burr found,scrap,2026-06-02 00:00:00,,,20260713T053000Z-SPC30M
-NCR-26-0177,R26-00956,,scratch,46,press check,material,found at the press,use as is,2026-06-02 07:54:11,2026-06-11 07:54:11,,20260713T053000Z-SPC30M
-NCR-26-0178,R26-00960,,flatness,63,press check,operator,flatness found,scrap,2026-06-02 16:34:54,,,20260713T053000Z-SPC30M
-NCR-26-0179,R26-00970,,scratch,455,press check,gauge,scratch found,scrap,2026-06-04 03:46:58,,,20260713T053000Z-SPC30M
-NCR-26-0180,R26-00966,C-26125-07,burr,4149,press check,die,burr over the limit,rework,2026-06-04 06:00:33,,,20260713T053000Z-SPC30M
-NCR-26-0181,R26-00977,,dimension,738,press check,,found at the press,scrap,2026-06-04 13:52:56,2026-06-09 13:52:56,,20260713T053000Z-SPC30M
-NCR-26-0182,R26-00987,,dimension,646,press check,die,found at the press,scrap,2026-06-06 16:28:24,2026-06-23 16:28:24,,20260713T053000Z-SPC30M
-NCR-26-0183,R26-00995,,mixed part,172,press check,gauge,mixed part found,scrap,2026-06-08 19:26:57,2026-06-21 19:26:57,,20260713T053000Z-SPC30M
-NCR-26-0184,R26-00997,,first-piece dimension,9,first-piece,gauge,first-piece dimension found,scrap,2026-06-08 20:01:14,2026-06-28 20:01:14,,20260713T053000Z-SPC30M
-NCR-26-0185,R26-01012,,first-piece dimension,22,first-piece,method,first-piece out,scrap,2026-06-10 08:45:14,2026-06-22 08:45:14,,20260713T053000Z-SPC30M
-NCR-26-0186,R26-01010,C-19387-11,burr,28328,press check,die,burr found,rework,2026-06-10 22:20:19,2026-06-22 22:20:19,,20260713T053000Z-SPC30M
-NCR-26-0187,R26-01009,,dimension,760,press check,gauge,dimension found,use as is,2026-06-11 03:11:47,,,20260713T053000Z-SPC30M
-NCR-26-0188,R26-00763,,burr,2104,customer,operator,customer complaint,scrap,2026-06-12 00:00:00,,,20260713T053000Z-SPC30M
-NCR-26-0189,R26-01031,,mixed part,669,press check,operator,mixed part found,scrap,2026-06-14 12:11:10,,,20260713T053000Z-SPC30M
-NCR-26-0190,R26-01026,,dimension,754,press check,die,found at the press,rework,2026-06-14 19:55:11,,,20260713T053000Z-SPC30M
-NCR-26-0191,R26-01043,,dimension,480,press check,machine,dimension found,scrap,2026-06-17 07:18:11,2026-06-22 07:18:11,,20260713T053000Z-SPC30M
-NCR-26-0192,R26-01052,,scratch,90,press check,operator,scratch found,rework,2026-06-18 04:41:41,,,20260713T053000Z-SPC30M
-NCR-26-0193,R26-01057,,scratch,235,press check,material,scratch found,use as is,2026-06-18 12:38:43,2026-06-30 12:38:43,,20260713T053000Z-SPC30M
-NCR-26-0194,R26-01015,,burr,10965,dock audit,material,burr found,rework,2026-06-19 05:24:47,2026-06-29 05:24:47,,20260713T053000Z-SPC30M
-NCR-26-0195,R26-00952,,dimension,391,customer,operator,dimension found,scrap,2026-06-20 00:00:00,2026-06-22 00:00:00,,20260713T053000Z-SPC30M
-NCR-26-0196,R26-01072,,hole burr and size,5137,press check,method,punch worn,sort,2026-06-22 10:52:03,,,20260713T053000Z-SPC30M
-NCR-26-0197,R26-01085,,first-piece dimension,51,first-piece,die,first-piece dimension found,scrap,2026-06-22 20:01:05,,,20260713T053000Z-SPC30M
-NCR-26-0198,R26-01094,,mixed part,73,press check,gauge,mixed part found,use as is,2026-06-24 05:58:56,,,20260713T053000Z-SPC30M
-NCR-26-0199,R26-01113,,flatness,786,press check,operator,found at the press,scrap,2026-06-26 03:16:50,,,20260713T053000Z-SPC30M
-NCR-26-0200,R26-01117,,mixed part,71,press check,operator,mixed part found,scrap,2026-06-26 16:27:47,,,20260713T053000Z-SPC30M
-NCR-26-0201,R26-01072,,burr,14643,dock audit,die,burr found,rework,2026-06-26 18:32:29,,,20260713T053000Z-SPC30M
-NCR-26-0202,R26-01122,,first-piece dimension,53,first-piece,gauge,first-piece dimension found,scrap,2026-06-26 22:38:40,,,20260713T053000Z-SPC30M
-NCR-26-0203,R26-01122,,mixed part,367,press check,,mixed part found,scrap,2026-06-28 19:43:10,,,20260713T053000Z-SPC30M
-NCR-26-0204,R26-01121,C-11209-06,burr,37314,press check,die,burr found,rework,2026-06-29 16:03:16,,,20260713T053000Z-SPC30M
-NCR-26-0205,R26-01132,,scratch,103,press check,die,scratch found,scrap,2026-06-30 01:46:58,,,20260713T053000Z-SPC30M
+NCR-25-0001,R25-01154,C-10372-01,first-piece dimension,108,first-piece,die,first piece held: missing hole or slug,scrap,2025-07-01 10:54:30,2025-07-02 10:54:30,,20260713T053000Z-SPC12M
+NCR-25-0002,R25-01161,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-07-03 18:11:01,2025-07-19 18:11:01,,20260713T053000Z-SPC12M
+NCR-25-0003,R25-01172,,scratch,143,press check,operator,found at the press,rework,2025-07-09 00:39:35,2025-07-18 00:39:35,,20260713T053000Z-SPC12M
+NCR-25-0004,R25-01190,C-39057-01,first-piece dimension,32,first-piece,die,first piece held: missing hole or slug,scrap,2025-07-09 10:26:54,2025-07-12 10:26:54,,20260713T053000Z-SPC12M
+NCR-25-0005,R25-01248,,mixed part,185,press check,method,found at the press,rework,2025-07-20 06:58:20,2025-08-08 06:58:20,,20260713T053000Z-SPC12M
+NCR-25-0006,R25-01254,C-23247-03,first-piece dimension,10,first-piece,die,first piece held: hole position,scrap,2025-07-21 11:22:52,2025-07-22 11:22:52,,20260713T053000Z-SPC12M
+NCR-25-0007,R25-01258,C-31103-08,first-piece dimension,66,first-piece,die,first piece held: formed out of tolerance,scrap,2025-07-21 19:40:28,2025-07-24 19:40:28,,20260713T053000Z-SPC12M
+NCR-25-0008,R25-01264,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-07-22 17:44:29,2025-07-29 17:44:29,,20260713T053000Z-SPC12M
+NCR-25-0009,R25-01270,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-07-24 14:13:22,2025-07-28 14:13:22,,20260713T053000Z-SPC12M
+NCR-25-0010,R25-01282,C-22722-07,first-piece dimension,39,first-piece,die,first piece held: formed out of tolerance,scrap,2025-07-25 07:52:54,2025-08-03 07:52:54,,20260713T053000Z-SPC12M
+NCR-25-0011,R25-01293,,missing or deformed hole,22,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-07-28 18:56:15,2025-08-12 18:56:15,,20260713T053000Z-SPC12M
+NCR-25-0012,R25-01310,C-34169-03,first-piece dimension,27,first-piece,method,first piece held: other,scrap,2025-07-29 18:11:04,2025-08-09 18:11:04,,20260713T053000Z-SPC12M
+NCR-25-0013,R25-01310,,packaging,151,press check,material,found at the press,scrap,2025-07-30 05:56:20,2025-08-09 05:56:20,,20260713T053000Z-SPC12M
+NCR-25-0014,R25-01323,C-24561-08,first-piece dimension,33,first-piece,method,first piece held: other,scrap,2025-07-31 20:17:38,2025-08-01 20:17:38,,20260713T053000Z-SPC12M
+NCR-25-0015,R25-01327,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-08-01 11:58:05,2025-08-11 11:58:05,CA-25-001,20260713T053000Z-SPC12M
+NCR-25-0016,R25-01337,C-36457-06,first-piece dimension,13,first-piece,die,first piece held: formed out of tolerance,scrap,2025-08-04 07:44:37,2025-08-20 07:44:37,,20260713T053000Z-SPC12M
+NCR-25-0017,R25-01365,C-10030-05,first-piece dimension,50,first-piece,die,first piece held: formed out of tolerance,scrap,2025-08-07 07:15:31,2025-08-13 07:15:31,,20260713T053000Z-SPC12M
+NCR-25-0018,R25-01371,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-08-07 16:54:21,2025-08-20 16:54:21,,20260713T053000Z-SPC12M
+NCR-25-0019,R25-01380,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-08-11 10:27:27,2025-08-19 10:27:27,,20260713T053000Z-SPC12M
+NCR-25-0020,R25-01384,C-37465-04,first-piece dimension,35,first-piece,die,first piece held: formed out of tolerance,scrap,2025-08-11 12:31:02,2025-08-20 12:31:02,,20260713T053000Z-SPC12M
+NCR-25-0021,R25-01408,,mixed part,104,press check,operator,found at the press,scrap,2025-08-14 06:00:09,2025-08-27 06:00:09,,20260713T053000Z-SPC12M
+NCR-25-0022,R25-01414,,missing or deformed hole,4,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-08-14 15:55:24,2025-08-27 15:55:24,,20260713T053000Z-SPC12M
+NCR-25-0023,R25-01423,C-19113-03,first-piece dimension,19,first-piece,die,first piece held: hole position,scrap,2025-08-15 12:24:47,2025-08-23 12:24:47,,20260713T053000Z-SPC12M
+NCR-25-0024,R25-01436,C-14494-02,first-piece dimension,36,first-piece,die,first piece held: missing hole or slug,scrap,2025-08-19 08:50:35,2025-08-31 08:50:35,,20260713T053000Z-SPC12M
+NCR-25-0025,R25-01468,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-08-25 06:08:52,2025-08-31 06:08:52,,20260713T053000Z-SPC12M
+NCR-25-0026,R25-01487,C-22722-07,first-piece dimension,21,first-piece,die,first piece held: formed out of tolerance,scrap,2025-08-26 16:02:11,2025-09-08 16:02:11,,20260713T053000Z-SPC12M
+NCR-25-0027,R25-01519,,missing or deformed hole,56,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-09-03 09:37:33,2025-09-17 09:37:33,,20260713T053000Z-SPC12M
+NCR-25-0028,R25-01536,C-14026-09,first-piece dimension,36,first-piece,method,first piece held: other,scrap,2025-09-04 13:18:44,2025-09-07 13:18:44,,20260713T053000Z-SPC12M
+NCR-25-0029,R25-01552,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-09-09 09:41:24,2025-09-13 09:41:24,,20260713T053000Z-SPC12M
+NCR-25-0030,R25-01571,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-09-10 17:23:19,2025-09-19 17:23:19,,20260713T053000Z-SPC12M
+NCR-25-0031,R25-01571,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-09-10 18:44:25,2025-09-13 18:44:25,,20260713T053000Z-SPC12M
+NCR-25-0032,R25-01576,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-09-12 08:34:27,2025-09-21 08:34:27,,20260713T053000Z-SPC12M
+NCR-25-0033,R25-01590,C-28553-02,first-piece dimension,13,first-piece,die,first piece held: hole position,scrap,2025-09-12 16:38:23,2025-09-18 16:38:23,,20260713T053000Z-SPC12M
+NCR-25-0034,R25-01621,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-09-17 21:35:30,2025-09-27 21:35:30,CA-25-002,20260713T053000Z-SPC12M
+NCR-25-0035,R25-01627,C-25815-07,first-piece dimension,44,first-piece,die,first piece held: burr,scrap,2025-09-18 13:53:59,2025-09-23 13:53:59,,20260713T053000Z-SPC12M
+NCR-25-0036,R25-01655,C-11396-07,first-piece dimension,50,first-piece,die,first piece held: formed out of tolerance,scrap,2025-09-23 13:52:26,2025-10-04 13:52:26,,20260713T053000Z-SPC12M
+NCR-25-0037,R25-01672,C-10531-06,first-piece dimension,16,first-piece,die,first piece held: formed out of tolerance,scrap,2025-09-25 07:12:03,2025-10-06 07:12:03,,20260713T053000Z-SPC12M
+NCR-25-0038,R25-01695,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-09-30 18:32:13,2025-10-12 18:32:13,,20260713T053000Z-SPC12M
+NCR-25-0039,R25-01710,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-10-01 13:56:06,2025-10-12 13:56:06,,20260713T053000Z-SPC12M
+NCR-25-0040,R25-01718,C-26775-08,first-piece dimension,33,first-piece,die,first piece held: formed out of tolerance,scrap,2025-10-02 11:04:33,2025-10-12 11:04:33,,20260713T053000Z-SPC12M
+NCR-25-0041,R25-01778,C-16291-07,first-piece dimension,46,first-piece,die,first piece held: formed out of tolerance,scrap,2025-10-10 11:24:39,2025-10-25 11:24:39,,20260713T053000Z-SPC12M
+NCR-25-0042,R25-01785,C-23926-06,first-piece dimension,34,first-piece,die,first piece held: formed out of tolerance,scrap,2025-10-11 08:33:57,2025-10-25 08:33:57,,20260713T053000Z-SPC12M
+NCR-25-0043,R25-01786,C-32929-03,first-piece dimension,31,first-piece,die,first piece held: formed out of tolerance,scrap,2025-10-11 13:41:56,2025-10-26 13:41:56,,20260713T053000Z-SPC12M
+NCR-25-0044,R25-01814,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-10-16 21:58:16,2025-10-31 21:58:16,,20260713T053000Z-SPC12M
+NCR-25-0045,R25-01818,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-10-17 11:48:47,2025-10-18 11:48:47,,20260713T053000Z-SPC12M
+NCR-25-0046,R25-01879,,mixed part,298,press check,material,found at the press,rework,2025-10-25 15:51:47,2025-11-09 15:51:47,,20260713T053000Z-SPC12M
+NCR-25-0047,R25-01884,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-10-27 20:29:04,2025-10-28 20:29:04,,20260713T053000Z-SPC12M
+NCR-25-0048,R25-01887,,missing or deformed hole,4,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-10-28 06:07:11,2025-11-10 06:07:11,,20260713T053000Z-SPC12M
+NCR-25-0049,R25-01913,C-27778-05,first-piece dimension,31,first-piece,method,first piece held: other,scrap,2025-10-31 07:19:55,2025-11-07 07:19:55,,20260713T053000Z-SPC12M
+NCR-25-0050,R25-01918,C-22722-05,first-piece dimension,18,first-piece,die,first piece held: hole position,scrap,2025-10-31 14:35:45,2025-11-01 14:35:45,,20260713T053000Z-SPC12M
+NCR-25-0051,R25-01943,,missing or deformed hole,80,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-11-05 14:28:40,2025-11-20 14:28:40,,20260713T053000Z-SPC12M
+NCR-25-0052,R25-01965,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-11-07 16:46:54,2025-11-08 16:46:54,,20260713T053000Z-SPC12M
+NCR-25-0053,R25-02000,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-11-14 12:48:08,2025-11-18 12:48:08,,20260713T053000Z-SPC12M
+NCR-25-0054,R25-02013,C-29313-08,first-piece dimension,24,first-piece,die,first piece held: formed out of tolerance,scrap,2025-11-17 07:41:36,2025-12-02 07:41:36,,20260713T053000Z-SPC12M
+NCR-25-0055,R25-02026,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-11-19 13:37:34,2025-11-28 13:37:34,,20260713T053000Z-SPC12M
+NCR-25-0056,R25-02035,,missing or deformed hole,53,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-11-20 13:13:05,2025-11-30 13:13:05,,20260713T053000Z-SPC12M
+NCR-25-0057,R25-02039,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-11-21 09:22:05,2025-11-30 09:22:05,,20260713T053000Z-SPC12M
+NCR-25-0058,R25-02051,C-14849-03,first-piece dimension,42,first-piece,die,first piece held: formed out of tolerance,scrap,2025-11-24 12:01:56,2025-12-09 12:01:56,,20260713T053000Z-SPC12M
+NCR-25-0059,R25-02065,C-19408-03,first-piece dimension,34,first-piece,die,first piece held: formed out of tolerance,scrap,2025-11-26 06:38:35,2025-12-07 06:38:35,,20260713T053000Z-SPC12M
+NCR-25-0060,R25-02063,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-11-26 08:53:11,2025-12-03 08:53:11,,20260713T053000Z-SPC12M
+NCR-25-0061,R25-02104,C-11348-05,first-piece dimension,36,first-piece,die,first piece held: formed out of tolerance,scrap,2025-12-04 07:45:49,2025-12-19 07:45:49,,20260713T053000Z-SPC12M
+NCR-25-0062,R25-02135,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-12-09 18:53:49,2025-12-21 18:53:49,CA-25-003,20260713T053000Z-SPC12M
+NCR-25-0063,R25-02155,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-12-11 19:15:51,2025-12-12 19:15:51,CA-25-004,20260713T053000Z-SPC12M
+NCR-25-0064,R25-02153,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-12-11 21:30:59,2025-12-17 21:30:59,,20260713T053000Z-SPC12M
+NCR-25-0065,R25-02167,C-36526-01,first-piece dimension,14,first-piece,die,first piece held: missing hole or slug,scrap,2025-12-15 13:06:59,2026-01-01 13:06:59,,20260713T053000Z-SPC12M
+NCR-25-0066,R25-02192,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-12-18 18:34:37,2025-12-19 18:34:37,,20260713T053000Z-SPC12M
+NCR-25-0067,R25-02199,C-23012-05,first-piece dimension,28,first-piece,die,first piece held: formed out of tolerance,scrap,2025-12-18 21:37:49,2025-12-27 21:37:49,,20260713T053000Z-SPC12M
+NCR-25-0068,R25-02203,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2025-12-29 20:06:26,2026-01-04 20:06:26,,20260713T053000Z-SPC12M
+NCR-25-0069,R25-02222,C-26720-05,first-piece dimension,25,first-piece,method,first piece held: other,scrap,2025-12-31 07:42:04,2026-01-03 07:42:04,,20260713T053000Z-SPC12M
+NCR-26-0001,R26-00014,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-01-05 18:10:33,2026-01-15 18:10:33,,20260713T053000Z-SPC12M
+NCR-26-0002,R26-00042,C-22485-02,first-piece dimension,17,first-piece,die,first piece held: hole position,scrap,2026-01-07 14:34:07,2026-01-14 14:34:07,,20260713T053000Z-SPC12M
+NCR-26-0003,R26-00043,C-22043-04,first-piece dimension,19,first-piece,die,first piece held: formed out of tolerance,scrap,2026-01-07 16:24:26,2026-01-21 16:24:26,,20260713T053000Z-SPC12M
+NCR-26-0004,R26-00059,C-20320-05,first-piece dimension,68,first-piece,die,first piece held: hole position,scrap,2026-01-09 09:55:32,2026-01-28 09:55:32,,20260713T053000Z-SPC12M
+NCR-26-0005,R26-00060,C-13708-05,first-piece dimension,46,first-piece,method,first piece held: other,scrap,2026-01-09 11:05:56,2026-01-17 11:05:56,,20260713T053000Z-SPC12M
+NCR-26-0006,R26-00064,C-22488-03,first-piece dimension,26,first-piece,die,first piece held: hole position,scrap,2026-01-09 21:03:20,2026-01-24 21:03:20,,20260713T053000Z-SPC12M
+NCR-26-0007,R26-00091,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-01-15 12:14:13,2026-01-18 12:14:13,,20260713T053000Z-SPC12M
+NCR-26-0008,R26-00098,C-22558-07,first-piece dimension,11,first-piece,die,first piece held: formed out of tolerance,scrap,2026-01-16 09:48:26,2026-02-02 09:48:26,,20260713T053000Z-SPC12M
+NCR-26-0009,R26-00101,C-24884-06,first-piece dimension,50,first-piece,die,first piece held: formed out of tolerance,scrap,2026-01-16 17:39:49,2026-01-29 17:39:49,,20260713T053000Z-SPC12M
+NCR-26-0010,R26-00136,,packaging,264,press check,method,found at the press,scrap,2026-01-25 15:51:43,2026-02-12 15:51:43,,20260713T053000Z-SPC12M
+NCR-26-0011,R26-00200,C-16315-04,first-piece dimension,35,first-piece,die,first piece held: hole position,scrap,2026-02-03 17:34:55,2026-02-15 17:34:55,,20260713T053000Z-SPC12M
+NCR-26-0012,R26-00210,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-02-05 08:28:51,2026-02-12 08:28:51,,20260713T053000Z-SPC12M
+NCR-26-0013,R26-00218,C-27389-08,first-piece dimension,29,first-piece,method,first piece held: other,scrap,2026-02-05 22:56:43,2026-02-11 22:56:43,,20260713T053000Z-SPC12M
+NCR-26-0014,R26-00226,C-37465-03,first-piece dimension,11,first-piece,die,first piece held: formed out of tolerance,scrap,2026-02-09 08:59:30,2026-02-24 08:59:30,,20260713T053000Z-SPC12M
+NCR-26-0015,R26-00237,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-02-11 13:02:41,2026-03-01 13:02:41,,20260713T053000Z-SPC12M
+NCR-26-0016,R26-00272,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-02-16 16:25:47,2026-02-28 16:25:47,,20260713T053000Z-SPC12M
+NCR-26-0017,R26-00305,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-02-20 16:59:54,2026-03-04 16:59:54,,20260713T053000Z-SPC12M
+NCR-26-0018,R26-00381,C-38248-05,first-piece dimension,18,first-piece,method,first piece held: other,scrap,2026-03-04 19:24:05,2026-03-22 19:24:05,,20260713T053000Z-SPC12M
+NCR-26-0019,R26-00389,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-03-05 18:50:44,2026-03-18 18:50:44,,20260713T053000Z-SPC12M
+NCR-26-0020,R26-00391,C-22488-09,first-piece dimension,20,first-piece,die,first piece held: burr,scrap,2026-03-05 19:04:48,2026-03-10 19:04:48,,20260713T053000Z-SPC12M
+NCR-26-0021,R26-00398,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-03-07 09:42:29,2026-03-16 09:42:29,,20260713T053000Z-SPC12M
+NCR-26-0022,R26-00395,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-03-09 06:38:44,2026-03-19 06:38:44,CA-26-001,20260713T053000Z-SPC12M
+NCR-26-0023,R26-00453,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-03-16 13:22:39,2026-04-01 13:22:39,,20260713T053000Z-SPC12M
+NCR-26-0024,R26-00502,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-03-24 15:59:26,2026-04-11 15:59:26,,20260713T053000Z-SPC12M
+NCR-26-0025,R26-00514,C-20893-04,first-piece dimension,6,first-piece,die,first piece held: formed out of tolerance,scrap,2026-03-24 18:44:08,2026-04-07 18:44:08,,20260713T053000Z-SPC12M
+NCR-26-0026,R26-00516,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-03-25 14:43:23,2026-04-10 14:43:23,,20260713T053000Z-SPC12M
+NCR-26-0027,R26-00532,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-03-27 08:58:41,2026-04-13 08:58:41,CA-26-002,20260713T053000Z-SPC12M
+NCR-26-0028,R26-00529,,missing or deformed hole,64,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-03-27 11:32:42,2026-03-31 11:32:42,,20260713T053000Z-SPC12M
+NCR-26-0029,R26-00539,C-35987-03,first-piece dimension,20,first-piece,die,first piece held: hole position,scrap,2026-03-27 15:46:30,2026-04-03 15:46:30,,20260713T053000Z-SPC12M
+NCR-26-0030,R26-00540,C-38681-07,first-piece dimension,26,first-piece,die,first piece held: formed out of tolerance,scrap,2026-03-27 19:05:49,2026-04-14 19:05:49,,20260713T053000Z-SPC12M
+NCR-26-0031,R26-00540,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-03-28 13:32:50,2026-04-02 13:32:50,CA-26-003,20260713T053000Z-SPC12M
+NCR-26-0032,R26-00547,C-26514-03,first-piece dimension,31,first-piece,die,first piece held: formed out of tolerance,scrap,2026-03-30 08:10:12,2026-04-09 08:10:12,,20260713T053000Z-SPC12M
+NCR-26-0033,R26-00556,C-12409-03,first-piece dimension,112,first-piece,die,first piece held: missing hole or slug,scrap,2026-03-31 08:04:53,2026-04-14 08:04:53,,20260713T053000Z-SPC12M
+NCR-26-0034,R26-00555,C-22617-03,first-piece dimension,18,first-piece,die,first piece held: hole position,scrap,2026-03-31 08:22:04,2026-04-09 08:22:04,,20260713T053000Z-SPC12M
+NCR-26-0035,R26-00561,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-04-01 10:03:12,2026-04-17 10:03:12,,20260713T053000Z-SPC12M
+NCR-26-0036,R26-00570,C-31103-07,dimension,1546,press check,die,strip misfeed,sort,2026-04-02 16:58:09,2026-04-09 16:58:09,CA-26-004,20260713T053000Z-SPC12M
+NCR-26-0037,R26-00573,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-04-02 21:55:24,2026-04-18 21:55:24,CA-26-005,20260713T053000Z-SPC12M
+NCR-26-0038,R26-00584,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-04-06 06:41:53,2026-04-07 06:41:53,,20260713T053000Z-SPC12M
+NCR-26-0039,R26-00588,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-04-06 08:24:45,2026-04-19 08:24:45,,20260713T053000Z-SPC12M
+NCR-26-0040,R26-00590,,mixed part,231,press check,operator,found at the press,rework,2026-04-06 23:27:44,2026-04-12 23:27:44,,20260713T053000Z-SPC12M
+NCR-26-0041,R26-00626,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-04-10 13:01:29,2026-04-24 13:01:29,,20260713T053000Z-SPC12M
+NCR-26-0042,R26-00629,C-35914-05,first-piece dimension,16,first-piece,method,first piece held: other,scrap,2026-04-10 18:01:23,2026-04-13 18:01:23,,20260713T053000Z-SPC12M
+NCR-26-0043,R26-00636,C-23068-05,measurement,419,press check,gauge,gauge zero,use as is,2026-04-13 09:02:12,2026-04-19 09:02:12,CA-26-006,20260713T053000Z-SPC12M
+NCR-26-0044,R26-00639,,mixed part,138,press check,material,found at the press,rework,2026-04-13 18:44:33,2026-04-25 18:44:33,,20260713T053000Z-SPC12M
+NCR-26-0045,R26-00644,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-04-14 17:23:40,2026-04-27 17:23:40,,20260713T053000Z-SPC12M
+NCR-26-0046,R26-00662,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-04-16 13:01:59,2026-05-05 13:01:59,,20260713T053000Z-SPC12M
+NCR-26-0047,R26-00720,C-19700-02,first-piece dimension,42,first-piece,die,first piece held: hole position,scrap,2026-04-24 11:49:15,2026-05-11 11:49:15,,20260713T053000Z-SPC12M
+NCR-26-0048,R26-00732,,packaging,292,press check,method,found at the press,scrap,2026-04-25 20:50:21,2026-04-29 20:50:21,,20260713T053000Z-SPC12M
+NCR-26-0049,R26-00735,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-04-27 18:26:10,2026-04-30 18:26:10,CA-26-007,20260713T053000Z-SPC12M
+NCR-26-0050,R26-00739,C-28761-07,first-piece dimension,15,first-piece,method,first piece held: other,scrap,2026-04-27 19:13:09,2026-05-07 19:13:09,,20260713T053000Z-SPC12M
+NCR-26-0051,R26-00751,C-16233-08,first-piece dimension,78,first-piece,die,first piece held: formed out of tolerance,scrap,2026-04-29 06:57:44,2026-05-03 06:57:44,,20260713T053000Z-SPC12M
+NCR-26-0052,R26-00766,C-28187-04,dimension,2968,press check,die,lubricant,sort,2026-05-01 09:59:49,2026-05-14 09:59:49,CA-26-008,20260713T053000Z-SPC12M
+NCR-26-0053,R26-00757,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-05-01 14:40:00,2026-05-16 14:40:00,,20260713T053000Z-SPC12M
+NCR-26-0054,R26-00781,C-11209-05,first-piece dimension,50,first-piece,die,first piece held: formed out of tolerance,scrap,2026-05-04 10:33:25,2026-05-12 10:33:25,,20260713T053000Z-SPC12M
+NCR-26-0055,R26-00786,C-35811-05,first-piece dimension,39,first-piece,die,first piece held: burr,scrap,2026-05-04 17:02:08,2026-05-18 17:02:08,,20260713T053000Z-SPC12M
+NCR-26-0056,R26-00796,C-10030-05,first-piece dimension,62,first-piece,method,first piece held: other,scrap,2026-05-05 22:58:21,2026-05-21 22:58:21,,20260713T053000Z-SPC12M
+NCR-26-0057,R26-00798,C-24560-06,first-piece dimension,14,first-piece,die,first piece held: formed out of tolerance,scrap,2026-05-06 08:22:44,2026-05-21 08:22:44,,20260713T053000Z-SPC12M
+NCR-26-0058,R26-00801,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-05-07 08:27:49,2026-05-23 08:27:49,,20260713T053000Z-SPC12M
+NCR-26-0059,R26-00802,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-05-08 08:39:45,2026-05-21 08:39:45,,20260713T053000Z-SPC12M
+NCR-26-0060,R26-00826,,missing or deformed hole,88,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-05-12 07:28:14,2026-05-28 07:28:14,CA-26-009,20260713T053000Z-SPC12M
+NCR-26-0061,R26-00828,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-05-12 16:26:49,2026-05-26 16:26:49,,20260713T053000Z-SPC12M
+NCR-26-0062,R26-00828,,missing or deformed hole,116,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-05-12 17:33:12,2026-05-25 17:33:12,,20260713T053000Z-SPC12M
+NCR-26-0063,R26-00828,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-05-12 18:45:20,2026-05-14 18:45:20,,20260713T053000Z-SPC12M
+NCR-26-0064,R26-00838,C-16602-01,first-piece dimension,26,first-piece,die,first piece held: missing hole or slug,scrap,2026-05-13 09:47:17,2026-05-16 09:47:17,,20260713T053000Z-SPC12M
+NCR-26-0065,R26-00820,,missing or deformed hole,70,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-05-13 10:55:47,2026-05-17 10:55:47,CA-26-010,20260713T053000Z-SPC12M
+NCR-26-0066,R26-00844,C-29313-05,first-piece dimension,27,first-piece,die,first piece held: hole position,scrap,2026-05-13 16:38:10,2026-05-20 16:38:10,,20260713T053000Z-SPC12M
+NCR-26-0067,R26-00837,,mixed part,81,press check,method,found at the press,rework,2026-05-13 20:32:09,2026-05-21 20:32:09,,20260713T053000Z-SPC12M
+NCR-26-0068,R26-00855,C-35811-04,dimension,494,press check,die,slug pulling,sort,2026-05-15 18:08:08,2026-05-24 18:08:08,CA-26-011,20260713T053000Z-SPC12M
+NCR-26-0069,R26-00867,C-20417-01,"chart signal, no nonconforming parts",210,press check,method,sharpening logged at the wrong count,use as is,2026-05-16 13:19:53,2026-05-31 13:19:53,CA-26-012,20260713T053000Z-SPC12M
+NCR-26-0070,R26-00870,C-11209-06,first-piece dimension,14,first-piece,die,first piece held: burr,scrap,2026-05-18 12:12:21,2026-05-29 12:12:21,,20260713T053000Z-SPC12M
+NCR-26-0071,R26-00873,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-05-18 21:20:10,2026-05-26 21:20:10,,20260713T053000Z-SPC12M
+NCR-26-0072,R26-00880,C-29717-07,first-piece dimension,39,first-piece,die,first piece held: formed out of tolerance,scrap,2026-05-19 10:46:50,2026-05-24 10:46:50,,20260713T053000Z-SPC12M
+NCR-26-0073,R26-00888,C-29717-09,first-piece dimension,30,first-piece,die,first piece held: burr,scrap,2026-05-20 10:17:57,2026-05-22 10:17:57,,20260713T053000Z-SPC12M
+NCR-26-0074,R26-00896,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-05-21 09:29:59,2026-05-23 09:29:59,,20260713T053000Z-SPC12M
+NCR-26-0075,R26-00897,C-24764-03,first-piece dimension,37,first-piece,die,first piece held: hole position,scrap,2026-05-21 12:42:04,2026-05-25 12:42:04,,20260713T053000Z-SPC12M
+NCR-26-0076,R26-00928,C-29540-02,first-piece dimension,32,first-piece,die,first piece held: hole position,scrap,2026-05-27 12:33:39,2026-06-08 12:33:39,,20260713T053000Z-SPC12M
+NCR-26-0077,R26-00920,C-15731-07,formed dimension,715,press check,material,soft coil,sort,2026-05-27 12:58:21,2026-05-30 12:58:21,CA-26-013,20260713T053000Z-SPC12M
+NCR-26-0078,R26-00938,C-14026-08,dimension,317,press check,die,level after the rebuild,sort,2026-05-28 13:01:07,2026-05-29 13:01:07,CA-26-014,20260713T053000Z-SPC12M
+NCR-26-0079,R26-00938,C-14026-03,measurement,317,press check,gauge,fixture drift,use as is,2026-05-28 13:31:42,2026-06-12 13:31:42,CA-26-015,20260713T053000Z-SPC12M
+NCR-26-0080,R26-00936,,missing or deformed hole,23,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-05-28 15:51:41,2026-06-10 15:51:41,,20260713T053000Z-SPC12M
+NCR-26-0081,R26-00956,,missing or deformed hole,2,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-06-01 13:41:03,2026-06-11 13:41:03,,20260713T053000Z-SPC12M
+NCR-26-0082,R26-00985,C-22268-02,dimension,1268,press check,die,strip misfeed,sort,2026-06-05 12:04:49,2026-06-12 12:04:49,CA-26-016,20260713T053000Z-SPC12M
+NCR-26-0083,R26-01002,C-37771-04,first-piece dimension,22,first-piece,die,first piece held: formed out of tolerance; after the die repair of the day before,scrap,2026-06-09 07:16:20,2026-06-21 07:16:20,,20260713T053000Z-SPC12M
+NCR-26-0084,R26-01001,C-27163-06,first-piece dimension,21,first-piece,die,first piece held: formed out of tolerance,scrap,2026-06-09 07:46:19,2026-06-11 07:46:19,,20260713T053000Z-SPC12M
+NCR-26-0085,R26-00998,C-16291-03,dimension,1550,press check,die,slug pulling,sort,2026-06-09 12:08:58,2026-06-17 12:08:58,CA-26-017,20260713T053000Z-SPC12M
+NCR-26-0086,R26-01002,,packaging,222,press check,material,found at the press,rework,2026-06-10 09:59:39,2026-06-26 09:59:39,,20260713T053000Z-SPC12M
+NCR-26-0087,R26-01019,C-30054-05,first-piece dimension,22,first-piece,die,first piece held: formed out of tolerance,scrap,2026-06-11 10:20:43,2026-06-22 10:20:43,,20260713T053000Z-SPC12M
+NCR-26-0088,R26-01019,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-06-11 16:24:39,2026-06-26 16:24:39,,20260713T053000Z-SPC12M
+NCR-26-0089,R26-01042,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-06-16 09:35:26,2026-06-23 09:35:26,,20260713T053000Z-SPC12M
+NCR-26-0090,R26-01066,C-14026-08,dimension,1047,press check,die,level after the rebuild,sort,2026-06-18 20:02:14,2026-06-27 20:02:14,CA-26-018,20260713T053000Z-SPC12M
+NCR-26-0091,R26-01119,C-26775-05,first-piece dimension,15,first-piece,die,first piece held: hole position,scrap,2026-06-26 08:04:36,2026-06-27 08:04:36,,20260713T053000Z-SPC12M
+NCR-26-0092,R26-01136,,missing or deformed hole,1,per-stroke monitor,die,punch chipped; parts since the stop scrapped at the press,scrap,2026-06-30 10:53:00,,,20260713T053000Z-SPC12M

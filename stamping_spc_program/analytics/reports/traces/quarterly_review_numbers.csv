@@ -1,0 +1,194 @@
+section,value_as_printed,read_from,value_in_the_text
+1. Summary,1.23,"mart_signal_rates with the expected rate: observed over expected, quarter",1.23
+1. Summary,93,mart_capability: critical characteristics at or above 1.33,93
+1. Summary,100,mart_capability: critical characteristics,100
+1. Summary,19,mart_first_piece_approvals.held,19
+1. Summary,583,mart_first_piece_approvals: run starts,583
+1. Summary,3.80,"observed per 100, quarter",3.80
+1. Summary,3.08,"expected per 100, quarter",3.08
+1. Summary,418,"mart_signals: assignable-cause alarms, quarter",418
+1. Summary,21,mart_signals: runs with an assignable cause,21
+1. Summary,1.51,"mart_capability.ppk, formed, median",1.51
+1. Summary,1.64,"mart_capability.ppk, hole position, median",1.64
+1. Summary,1.63,"mart_capability.ppk, hole diameter, median",1.63
+1. Summary,1.81,"mart_capability.ppk, flatness, median",1.81
+1. Summary,0,"mart_charts_in_force with mart_gauge_quarter_end: variable charts fed by a gauge past due, away or without a study",0
+1. Summary,897,mart_charts_in_force: variable charts,897
+1. Summary,16,mart_charts_in_force.restudy_scheduled: gauges,16
+1. Summary,19,mart_first_piece_approvals.held,19
+1. Summary,583,mart_first_piece_approvals: run starts,583
+1. Summary,62,"mart_first_piece_approvals.minutes_to_release, held, median",62
+1. Summary,10:55,mart_per_stroke_stops.stopped_at,10:55
+1. Summary,"239,498",mart_per_stroke_stops.stop_stroke_no,"239,498"
+1. Summary,34,mart_parts_exposed.strokes_exposed_per_stroke_charts,34
+1. Summary,11:55,mart_per_stroke_stops.cleared_at,11:55
+1. Summary,27 May,"mart_signals.raised_at, soft coil",27 May
+1. Summary,36.6,mart_coil_change_points.certificate_hardness_hrb,36.6
+1. Summary,40.2,"stg_erp__coils.certificate_hardness_hrb, C110 0.99 mm, median",40.2
+1. Summary,30,mart_signals: fixture drift alarms,30
+1. Summary,2 June,mart_fixture_verifications.verification_date,2 June
+1. Summary,0.019,mart_fixture_verifications.master_deviation_mm,0.019
+1. Summary,0.016,mart_fixture_verifications.tolerance_mm,0.016
+1. Summary,16.7,"mart_gauge_studies.pct_grr_of_tolerance, restudy",16.7
+1. Summary,18 June,"stg_calibration__calibrations.done, rebuild",18 June
+1. Summary,5.3,"mart_gauge_studies.pct_grr_of_tolerance, after rebuild",5.3
+1. Summary,14 April,mart_operator_kappa.study_date,14 April
+1. Summary,0.66,mart_operator_kappa.kappa,0.66
+1. Summary,28 April,mart_operator_kappa.study_date,28 April
+1. Summary,0.83,mart_operator_kappa.kappa,0.83
+1. Summary,16 May,"mart_signals.raised_at, wrong count",16 May
+1. Summary,9 June,mart_first_piece_approvals.first_piece_at,9 June
+1. Summary,44,mart_first_piece_approvals.minutes_to_release,44
+1. Summary,six,"mart_signals: further assignable causes, runs",Six
+1. Summary,two,"slug pulling, runs",two
+1. Summary,two,"strip misfeed, runs",two
+1. Summary,one,"lubricant, runs",one
+1. Summary,one,"gauge zero, runs",one
+2. Signals and reaction,1.23,"observed over expected, quarter",1.23
+2. Signals and reaction,418,mart_signals: assignable-cause alarms,418
+2. Signals and reaction,3,"mart_signals.minutes_to_acknowledge, assignable, median",3
+2. Signals and reaction,2,"mart_signals.minutes_to_close, assignable, median, hours",2
+2. Signals and reaction,"4,066","mart_signals: alarms, quarter","4,066"
+2. Signals and reaction,"3,120",mart_signals: subgroups with an alarm,"3,120"
+2. Signals and reaction,"3,648",mart_signals: no cause found,"3,648"
+2. Signals and reaction,24,"mart_signals.minutes_to_close, no cause found, median",24
+2. Signals and reaction,1.42,"observed over expected, X-bar and R, quarter",1.42
+2. Signals and reaction,0.92,"observed over expected, three-way, quarter",0.92
+2. Signals and reaction,2.19,"observed over expected, tool-wear, quarter",2.19
+2. Signals and reaction,PR-04,press with the highest observed rate,PR-04
+2. Signals and reaction,5.27,"observed per 100, PR-04",5.27
+2. Signals and reaction,3.16,"expected per 100, PR-04",3.16
+2. Signals and reaction,PR-08 and PR-10,presses observed below expected,PR-08 and PR-10
+2. Signals and reaction,356,mart_signals: level after sharpening,356
+2. Signals and reaction,12,mart_signals: runs with level after sharpening,12
+2. Signals and reaction,484,"mart_signals: family alarms, quarter",484
+2. Signals and reaction,54,mart_signals: family alarms with an assignable cause,54
+2. Signals and reaction,30,mart_signals: fixture drift alarms,30
+2. Signals and reaction,23,"mart_signals: level after the rebuild, family",23
+2. Signals and reaction,28 May,"mart_limit_verifications.event_date, P-14026 rebuild",28 May
+2. Signals and reaction,30 June,"mart_limit_verifications.verified_at, P-14026",30 June
+2. Signals and reaction,430,"mart_signals: family alarms, no cause found",430
+3. Limits governance,53,mart_limit_recalculations.limit_sets_in_quarter,53
+3. Limits governance,21,"rebuild, quarter",21
+3. Limits governance,20,"tool-wear re-fit, quarter",20
+3. Limits governance,9,"failed verification, quarter",9
+3. Limits governance,3,"annual review, quarter",3
+3. Limits governance,339,"mart_limit_verifications: verifications after a sharpening, quarter",339
+3. Limits governance,10,"failed after a sharpening, quarter",10
+3. Limits governance,30,"three-way verifications after a rebuild, quarter",30
+3. Limits governance,3,"three-way failed, quarter",3
+3. Limits governance,P-14026,"mart_limit_verifications.part_id, three-way failures",P-14026
+3. Limits governance,30 June,mart_limit_verifications.verified_at,30 June
+3. Limits governance,16,mart_charts_in_force.in_baseline,16
+3. Limits governance,12,"in baseline, X-bar and R",12
+3. Limits governance,4,"in baseline, three-way",4
+3. Limits governance,1 December 2025,mart_charts_in_force.baseline_started,1 December 2025
+3. Limits governance,21,mart_charts_in_force.baseline_subgroups_so_far,21
+4. Capability,93,critical at or above 1.33,93
+4. Capability,100,critical characteristics,100
+4. Capability,1.51,formed Ppk median,1.51
+4. Capability,1.41,"formed Ppk, 25th percentile",1.41
+4. Capability,1.59,"formed Ppk, 75th percentile",1.59
+4. Capability,1.64,hole position Ppk median,1.64
+4. Capability,1.63,hole diameter Ppk median,1.63
+4. Capability,1.81,flatness Ppu median,1.81
+4. Capability,0.09,"formed Cpk less Ppk, median",0.09
+4. Capability,0.38,"hole diameter Cpk less Ppk, median",0.38
+4. Capability,11,mart_capability: family at or above 1.33,11
+4. Capability,13,mart_capability: family characteristics,13
+4. Capability,ten,family with the interval clear of 1.33,ten
+4. Capability,1.30,"mart_capability.ppk_low, C-15731-03",1.30
+4. Capability,two,family below 1.33,Two
+4. Capability,1.30,"ppk, C-15731-05",1.30
+4. Capability,1.22,"ppk_low, C-15731-05",1.22
+4. Capability,1.38,"ppk_high, C-15731-05",1.38
+4. Capability,1.23,"ppk, C-15731-06",1.23
+4. Capability,1.15,"ppk_low, C-15731-06",1.15
+4. Capability,1.31,"ppk_high, C-15731-06",1.31
+4. Capability,seven,mart_capability: under 1.33,seven
+4. Capability,six,formed under 1.33,six
+4. Capability,7,"share_between_coils, formed under 1.33, lowest",7
+4. Capability,31,"share_between_coils, formed under 1.33, highest",31
+4. Capability,13.5%,"mart_variance_components.share_between_coils, formed, median",13.5%
+4. Capability,1.32,"ppk, C-39736-01",1.32
+4. Capability,2.12,"cpk, C-39736-01",2.12
+5. Measurement gating,897,mart_charts_in_force: variable charts with a study,897
+5. Measurement gating,897,variable charts,897
+5. Measurement gating,66,mart_gauge_studies: studies in the quarter,66
+5. Measurement gating,52,studies on check fixtures,52
+5. Measurement gating,59,under 10%,59
+5. Measurement gating,7,10% to 30%,7
+5. Measurement gating,six,mart_gauge_studies: 10% to 30% with a restudy date,six
+5. Measurement gating,F-14026,mart_gauge_studies: 10% to 30% without a restudy date,F-14026
+5. Measurement gating,180,check fixtures on file,180
+5. Measurement gating,164,fixtures under 10%,164
+5. Measurement gating,16,fixtures at 10% to 30%,16
+5. Measurement gating,30,fixture drift alarms,30
+5. Measurement gating,four,days from the last drift alarm to the failed verification,four
+5. Measurement gating,16.7,restudy %GRR,16.7
+5. Measurement gating,4,restudy ndc,4
+5. Measurement gating,5.3,after-rebuild %GRR,5.3
+5. Measurement gating,15,after-rebuild ndc,15
+5. Measurement gating,"1,052","mart_fixture_verifications: passes, quarter","1,052"
+5. Measurement gating,24,mart_operator_kappa: operators,24
+5. Measurement gating,0.78,"latest kappa, lowest",0.78
+5. Measurement gating,0.89,"latest kappa, highest",0.89
+5. Measurement gating,0.82,"latest kappa, median",0.82
+5. Measurement gating,0.66,"kappa, 14 April",0.66
+5. Measurement gating,0.83,"kappa, 28 April",0.83
+5. Measurement gating,261,"mart_measurement_subgroups.subgroups_on_gauge_away, quarter",261
+5. Measurement gating,0.27%,share of the quarter,0.27%
+5. Measurement gating,89,int_characteristic_history with int_gauge_status: on runs begun on or before the removal day,89
+5. Measurement gating,172,the rest,172
+5. Measurement gating,1,"days after the removal, fewest",1
+5. Measurement gating,15,"days after the removal, most",15
+6. Dies and per-stroke monitoring,69,"mart_sharpenings: on time, quarter",69
+6. Dies and per-stroke monitoring,76,mart_sharpenings: quarter,76
+6. Dies and per-stroke monitoring,90.8%,"mart_sharpenings.burr_peak_share_of_limit, highest",90.8%
+6. Dies and per-stroke monitoring,seven,late sharpenings,seven
+6. Dies and per-stroke monitoring,1,"late overrun, smallest",1
+6. Dies and per-stroke monitoring,9,"late overrun, largest",9
+6. Dies and per-stroke monitoring,87%,"share of the due count, high-speed, median",87%
+6. Dies and per-stroke monitoring,96%,"share of the due count, medium, median",96%
+6. Dies and per-stroke monitoring,139,"mart_per_stroke_stops: stops, quarter",139
+6. Dies and per-stroke monitoring,23.2,"mart_per_stroke_stop_rates.strokes, quarter, millions",23.2
+6. Dies and per-stroke monitoring,68,"slug pulling, quarter",68
+6. Dies and per-stroke monitoring,23,"chipped punch, quarter",23
+6. Dies and per-stroke monitoring,21,"worn punch, quarter",21
+6. Dies and per-stroke monitoring,27,"nothing found, quarter",27
+6. Dies and per-stroke monitoring,1.16,"nothing found per million strokes, quarter",1.16
+6. Dies and per-stroke monitoring,18,"nothing found, PR-03, quarter",18
+6. Dies and per-stroke monitoring,27,"nothing found, quarter",27
+6. Dies and per-stroke monitoring,3.78,"nothing found per million, PR-03, quarter",3.78
+6. Dies and per-stroke monitoring,1.02,"nothing found per million, plant, the year",1.02
+6. Dies and per-stroke monitoring,0,"mart_parts_exposed: median strokes, quarter",0
+6. Dies and per-stroke monitoring,31,"mart_parts_exposed: 90th percentile strokes, quarter",31
+6. Dies and per-stroke monitoring,44,mart_punch_replacements: quarter,44
+6. Dies and per-stroke monitoring,19,"chipped, channel share",19
+6. Dies and per-stroke monitoring,4,"chipped, EWMA",4
+6. Dies and per-stroke monitoring,17,"worn, EWMA",17
+6. Dies and per-stroke monitoring,4,"worn, channel share",4
+7. First-piece approvals and recording,19,held,19
+7. First-piece approvals and recording,583,run starts,583
+7. First-piece approvals and recording,3.3%,held share,3.3%
+7. First-piece approvals and recording,62,"held, median minutes",62
+7. First-piece approvals and recording,12,"passed, median minutes",12
+7. First-piece approvals and recording,8,held on formed height,8
+7. First-piece approvals and recording,4,held on hole-to-edge,4
+7. First-piece approvals and recording,3,held on burr height,3
+7. First-piece approvals and recording,2,held on bend angle,2
+7. First-piece approvals and recording,1,held on hole diameter,1
+7. First-piece approvals and recording,1,held on hole-to-hole,1
+7. First-piece approvals and recording,R26-00796,"longest hold, run",R26-00796
+7. First-piece approvals and recording,PR-01,"longest hold, press",PR-01
+7. First-piece approvals and recording,5 May,"longest hold, date",5 May
+7. First-piece approvals and recording,470,"longest hold, minutes",470
+7. First-piece approvals and recording,78,"second longest hold, minutes",78
+7. First-piece approvals and recording,97.9%,"planned checks recorded, days",97.9%
+7. First-piece approvals and recording,96.9%,"planned checks recorded, nights",96.9%
+7. First-piece approvals and recording,95.5%,"lowest press and shift, to the tenth of a point below",95.5%
+7. First-piece approvals and recording,1.50%,late entries,1.50%
+7. First-piece approvals and recording,one,median minutes to entry,one
+Appendix,15,int_run_shots: runs starting on the day their sharpening is logged,15
+Appendix,"1,399",int_run_shots: runs with a shot count,"1,399"
+Appendix,92,int_run_shots with int_sharpening_intervals: runs spanning a logged sharpening date,92
