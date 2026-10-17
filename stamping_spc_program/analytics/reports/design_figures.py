@@ -287,26 +287,25 @@ def stops_by_finding(t, order, charts):
     return S.save(f, "d1_stops_by_finding_and_chart", "Stops by the per-stroke charts, by finding and chart")
 
 
-def signals_vs_expectation(f2, bands, cc_obs, cc_exp, cc_int):
-    """f2: chart, observed per 100, expected per 100, ratio. Grouped bars per chart type with the design band (the observed
-    rate the band allows) shaded behind the pair and the ratio above it; the coil-change chart on its own panel in signals
-    a year, its 95% interval shaded."""
-    f, (ax, bx) = S.fig(h=3.8, ncols=2, gridspec_kw={"width_ratios": [3, 1.15], "wspace": 0.35})
-    w = 0.36
+def signals_by_class(f2, bands):
+    """f2: cls, observed per 100, expected per 100, ratio, in page order. Grouped bars per class with the design band (the
+    observed rate the band allows) shaded behind the pair and the ratio above it; a column whose ratio is outside its band
+    sits on the warning tint, as a body-table row would; a fifth column for sheared edges carries no bar."""
+    f, ax = S.fig(h=3.8)
+    w = 0.36; shaded = False
     for i, r in f2.reset_index(drop=True).iterrows():
-        lo, hi = bands[r.chart]; e = r["expected per 100"]; o = r["observed per 100"]
+        lo, hi = bands[r.cls]; e = float(r["expected per 100"]); o = float(r["observed per 100"])
+        if not lo <= r.ratio <= hi:
+            ax.axvspan(i - 0.47, i + 0.47, color="#FBEBD3", zorder=0, linewidth=0, label=None if shaded else "Outside its band"); shaded = True
         ax.fill_between([i - 0.45, i + 0.45], e * lo, e * hi, color=S.LIGHT_BLUE, alpha=0.35, linewidth=0, label="Design band" if i == 0 else None)
-        ax.bar(i - w / 2, o, width=w, color=S.BRAND_BLUE, label="Observed" if i == 0 else None)
-        ax.bar(i + w / 2, e, width=w, color="white", edgecolor=S.BRAND_BLUE, linewidth=1.4, label="Expected" if i == 0 else None)
+        ax.bar(i - w / 2, S.sig(o), width=w, color=S.BRAND_BLUE, label="Observed" if i == 0 else None)
+        ax.bar(i + w / 2, S.sig(e), width=w, color="white", edgecolor=S.BRAND_BLUE, linewidth=1.4, label="Expected" if i == 0 else None)
         ax.text(i, max(o, e * hi) + 0.15, f"{r.ratio:.2f}x", ha="center", va="bottom", fontsize=9.5, fontweight="bold")
-    ax.set_xticks(range(len(f2))); ax.set_xticklabels(f2["chart"]); ax.set_ylabel("Signals per 100 routine subgroups")
+    k = len(f2)
+    ax.text(k, 0.25, "no limits in\nthe export;\nsee text", ha="center", va="bottom", fontsize=8.5, color=S.DARK_GREY, linespacing=1.3)
+    ax.set_xticks(range(k + 1)); ax.set_xticklabels([CLASS_LABEL[c].replace(" characteristics", "\ncharacteristics") for c in list(f2["cls"]) + ["sheared edges"]])
+    ax.set_xlim(-0.6, k + 0.6); ax.set_ylabel("Signals per 100 routine subgroups")
     ax.set_ylim(0, max(f2["observed per 100"].max(), (f2["expected per 100"] * 1.5).max()) * 1.25)
-    ax.legend(frameon=False, fontsize=8.5, loc="upper left", ncol=3)
-    lo, hi = cc_int
-    bx.fill_between([-0.45, 0.45], cc_exp * lo, cc_exp * hi, color=S.LIGHT_BLUE, alpha=0.35, linewidth=0, label="95% interval")
-    bx.bar(-w / 2, cc_obs, width=w, color=S.BRAND_BLUE); bx.bar(w / 2, cc_exp, width=w, color="white", edgecolor=S.BRAND_BLUE, linewidth=1.4)
-    bx.text(0, max(cc_obs, cc_exp * hi) + 0.6, f"{cc_obs / cc_exp:.2f}x", ha="center", va="bottom", fontsize=9.5, fontweight="bold")
-    bx.set_xticks([0]); bx.set_xticklabels(["coil-change"]); bx.set_xlim(-0.8, 0.8); bx.set_ylabel("Signals in the year")
-    bx.set_ylim(0, cc_exp * hi * 1.25); bx.legend(frameon=False, fontsize=8.5, loc="upper left")
-    return S.save(f, "d1_signals_against_expectation", "Signals against expectation by chart type")
+    ax.legend(frameon=False, fontsize=8.5, loc="upper right", ncol=3)
+    return S.save(f, "d1_signals_against_expectation_by_class", "Signals against expectation by characteristic class")
 

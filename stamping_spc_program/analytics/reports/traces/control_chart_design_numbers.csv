@@ -2,6 +2,11 @@ section,value_as_printed,read_from,value_in_the_text
 1. Summary,"1,380",mart_charts_in_force: charts,"1,380"
 1. Summary,11,mart_charts_in_force: presses,11
 1. Summary,five,"mart_charts_in_force: characteristic classes, by characteristic type",five
+1. Summary,399,"mart_charts_in_force: three-way, formed",399
+1. Summary,23,mart_charts_in_force: tool-wear (regression) charts,23
+1. Summary,474,mart_charts_in_force: X-bar and R,474
+1. Summary,483,mart_charts_in_force: p,483
+1. Summary,one,"mart_charts_in_force: three-way, hole position",one
 Figure 1,399,"mart_charts_in_force: charts, formed",
 Figure 1,399,"mart_charts_in_force: measured charts, formed",
 Figure 1,0,"mart_charts_in_force: attribute charts, formed",
@@ -17,19 +22,6 @@ Figure 1,0,"mart_charts_in_force: attribute charts, flatness",
 Figure 1,180,"mart_charts_in_force: charts, sheared edges",
 Figure 1,0,"mart_charts_in_force: measured charts, sheared edges",
 Figure 1,180,"mart_charts_in_force: attribute charts, sheared edges",
-1. Summary,133,"mart_signal_rates with the expected rate per chart: false alarms per week, plant",133
-1. Summary,3.1,"false alarms per 100 routine subgroups, plant",3.1
-1. Summary,"4,236","mart_signal_rates.routine_subgroups per week, plant","4,236"
-1. Summary,1.30,"observed over expected, X-bar and R",1.30
-1. Summary,0.83,"observed over expected, three-way",0.83
-1. Summary,1.79,"observed over expected, tool-wear",1.79
-1. Summary,1.30,"observed over expected, X-bar and R",1.30
-1. Summary,0.83,"observed over expected, three-way",0.83
-1. Summary,1.79,"observed over expected, tool-wear",1.79
-1. Summary,133,"false alarms per week as designed, plant",133
-1. Summary,"4,236","routine subgroups per week, plant","4,236"
-1. Summary,93,mart_per_stroke_stops: nothing found,93
-1. Summary,1.02,mart_per_stroke_stop_rates: nothing found per million strokes,1.02
 1. Summary,"1,657",mart_signals: routine alarms with an assignable cause,"1,657"
 1. Summary,58,mart_signals: runs with a routine assignable-cause alarm,58
 1. Summary,"1,620","mart_signals: level after sharpening or rebuild, on a limit set whose verification failed","1,620"
@@ -61,44 +53,68 @@ Figure 1,180,"mart_charts_in_force: attribute charts, sheared edges",
 1. Summary,427,"mart_per_stroke_stops: stops, as alarms",427
 1. Summary,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
 1. Summary,27,mart_signals: coil-change signals closed as no cause found,27
-Figure 2,4.50,"observed per 100, X-bar and R",
-Figure 2,3.47,"expected per 100, X-bar and R",
-Figure 2,1.30,"observed over expected, X-bar and R",
-Figure 2,2.36,"observed per 100, three-way",
-Figure 2,2.86,"expected per 100, three-way",
-Figure 2,0.83,"observed over expected, three-way",
-Figure 2,4.35,"observed per 100, tool-wear",
-Figure 2,2.43,"expected per 100, tool-wear",
-Figure 2,1.79,"observed over expected, tool-wear",
-Figure 2,18,coil-change signals on points with six or more coils,
-Figure 2,12.1,"coil-change expected signals, Monte Carlo",
-Figure 2,1.49,coil-change observed over expected,
-Figure 2,0.88 to 2.35,coil-change 95% interval,
-1. Summary,30,mart_chart_changes.from_value,30
-1. Summary,20,mart_chart_changes.to_value,20
-1. Summary,8 December 2025,mart_chart_changes.changed_on,8 December 2025
-1. Summary,PR-10,mart_chart_changes.press_id,PR-10
-1. Summary,9 March 2026,mart_chart_changes.changed_on,9 March 2026
-1. Summary,35.2%,mart_chart_changes.evidence_value,35.2%
+1. Summary,1.32,"observed over expected, cut geometry (X-bar and R)",
+1. Summary,0.88,"observed over expected, flatness (X-bar and R)",
+1. Summary,0.83,"observed over expected, formed (three-way)",0.83
+1. Summary,1.79,"observed over expected, hole diameter (regression)",1.79
+1. Summary,0.88,"observed over expected, flatness",0.88
+1. Summary,"5,738","mart_signal_rates.subgroups_in_scope, flatness","5,738"
+1. Summary,0.75,"Poisson interval on flatness signals over expectation, low",
+1. Summary,1.02,"Poisson interval on flatness signals over expectation, high",
+1. Summary,483,mart_charts_in_force: p charts,483
+1. Summary,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
+1. Summary,"219,535","stg_spc__subgroups.pieces, burr checks, in the year","219,535"
+1. Summary,0.12%,burr checks: nonconforming share,0.12%
+1. Summary,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",
+1. Summary,"324,225","stg_spc__subgroups.pieces, pin checks, in the year",
+Figure 2,2.36,"observed per 100, formed",
+Figure 2,2.86,"expected per 100, formed",
+Figure 2,0.83,"observed over expected, formed",
+Figure 2,4.58,"observed per 100, cut geometry",
+Figure 2,3.47,"expected per 100, cut geometry",
+Figure 2,1.32,"observed over expected, cut geometry",
+Figure 2,4.35,"observed per 100, hole diameter",
+Figure 2,2.43,"expected per 100, hole diameter",
+Figure 2,1.79,"observed over expected, hole diameter",
+Figure 2,3.05,"observed per 100, flatness",
+Figure 2,3.47,"expected per 100, flatness",
+Figure 2,0.88,"observed over expected, flatness",
+1. Summary,133,"false alarms per week as designed, plant",133
+1. Summary,3.1,"false alarms per 100 routine subgroups, plant",3.1
+1. Summary,"4,236","routine subgroups per week, plant","4,236"
+1. Summary,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
+1. Summary,23.7,"expected false alarms per week, PR-03",23.7
+1. Summary,750,"routine subgroups per week, PR-03",750
+1. Summary,12.9,"expected false alarms per week, median press",12.9
+Figure 3,16.0,"expected false alarms per week, PR-01",
+Figure 3,15.3,"expected false alarms per week, PR-02",
+Figure 3,23.7,"expected false alarms per week, PR-03",
+Figure 3,15.6,"expected false alarms per week, PR-04",
+Figure 3,6.5,"expected false alarms per week, PR-05",
+Figure 3,15.3,"expected false alarms per week, PR-06",
+Figure 3,6.5,"expected false alarms per week, PR-07",
+Figure 3,7.5,"expected false alarms per week, PR-08",
+Figure 3,12.9,"expected false alarms per week, PR-09",
+Figure 3,7.0,"expected false alarms per week, PR-10",
+Figure 3,7.0,"expected false alarms per week, PR-11",
+Figure 3,750 subgroups a week,"routine subgroups per week, PR-03",
 1. Summary,23,mart_limit_sets: three-way annual-review sets below the coil-change minimum,23
 1. Summary,45,mart_limit_sets: three-way sets at the annual review,45
-1. Summary,1.79,mart_signal_rates with the expected rate: tool-wear observed over expected,1.79
-1. Summary,0.83,mart_signal_rates with the expected rate: three-way observed over expected,0.83
 2. The charts in force and how they are run,897,mart_charts_in_force: variable charts,897
 2. The charts in force and how they are run,825,mart_charts_in_force.study_basis: this gauge,825
 2. The charts in force and how they are run,72,mart_charts_in_force.study_basis: gauge type at the press,72
 2. The charts in force and how they are run,16,mart_charts_in_force.in_baseline,16
-Figure 3,138,"mart_charts_in_force: charts, PR-01",
-Figure 3,127,"mart_charts_in_force: charts, PR-02",
-Figure 3,80,"mart_charts_in_force: charts, PR-03",
-Figure 3,139,"mart_charts_in_force: charts, PR-04",
-Figure 3,148,"mart_charts_in_force: charts, PR-05",
-Figure 3,83,"mart_charts_in_force: charts, PR-06",
-Figure 3,139,"mart_charts_in_force: charts, PR-07",
-Figure 3,151,"mart_charts_in_force: charts, PR-08",
-Figure 3,83,"mart_charts_in_force: charts, PR-09",
-Figure 3,146,"mart_charts_in_force: charts, PR-10",
-Figure 3,146,"mart_charts_in_force: charts, PR-11",
+Figure 4,138,"mart_charts_in_force: charts, PR-01",
+Figure 4,127,"mart_charts_in_force: charts, PR-02",
+Figure 4,80,"mart_charts_in_force: charts, PR-03",
+Figure 4,139,"mart_charts_in_force: charts, PR-04",
+Figure 4,148,"mart_charts_in_force: charts, PR-05",
+Figure 4,83,"mart_charts_in_force: charts, PR-06",
+Figure 4,139,"mart_charts_in_force: charts, PR-07",
+Figure 4,151,"mart_charts_in_force: charts, PR-08",
+Figure 4,83,"mart_charts_in_force: charts, PR-09",
+Figure 4,146,"mart_charts_in_force: charts, PR-10",
+Figure 4,146,"mart_charts_in_force: charts, PR-11",
 2. The charts in force and how they are run,25,mart_chart_design.baseline_subgroups,25
 2. The charts in force and how they are run,25,mart_chart_design.verification_subgroups,25
 2. The charts in force and how they are run,"1,216",mart_limit_sets: limit sets,"1,216"
@@ -114,6 +130,12 @@ Figure 3,146,"mart_charts_in_force: charts, PR-11",
 2. The charts in force and how they are run,94,"mart_phase1_baselines.screened_subgroups, total",94
 2. The charts in force and how they are run,64,mart_phase1_baselines: baselines with a subgroup screened,64
 2. The charts in force and how they are run,92.9%,"mart_phase1_baselines.normal_at_5pct, share",92.9%
+2. The charts in force and how they are run,30,mart_chart_changes.from_value,30
+2. The charts in force and how they are run,20,mart_chart_changes.to_value,20
+2. The charts in force and how they are run,8 December 2025,mart_chart_changes.changed_on,8 December 2025
+2. The charts in force and how they are run,PR-10,mart_chart_changes.press_id,PR-10
+2. The charts in force and how they are run,9 March 2026,mart_chart_changes.changed_on,9 March 2026
+2. The charts in force and how they are run,35.2%,mart_chart_changes.evidence_value,35.2%
 2. The charts in force and how they are run,15,int_run_shots: runs starting on the day their sharpening is logged,15
 2. The charts in force and how they are run,"1,399",int_run_shots: runs with a shot count,"1,399"
 2. The charts in force and how they are run,92,int_run_shots with int_sharpening_intervals: runs spanning a logged sharpening date,92
@@ -125,8 +147,8 @@ Figure 3,146,"mart_charts_in_force: charts, PR-11",
 2. The charts in force and how they are run,17 August 2026,"mart_charts_in_force.restudy_due, F-11333",17 August 2026
 2. The charts in force and how they are run,5.3,"mart_charts_in_force.pct_grr_of_tolerance, F-14026",5.3
 2. The charts in force and how they are run,6.0,"mart_charts_in_force.pct_grr_of_tolerance, F-15731",6.0
-Figure 5,restudy 17 August 2026,"mart_charts_in_force.restudy_due, F-11333",
-Figure 5,"after rebuild, 17 June 2026","mart_charts_in_force.study_date, F-14026",
+Figure 6,restudy 17 August 2026,"mart_charts_in_force.restudy_due, F-11333",
+Figure 6,"after rebuild, 17 June 2026","mart_charts_in_force.study_date, F-14026",
 3. How the charts performed,370,"analytics.chart_performance.arl_rules, rule 1, known",370
 3. How the charts performed,92,"arl_rules, rules 1 to 4, known",92
 3. How the charts performed,9,"arl_rules, rules 1 to 4 at 1 sigma",9
@@ -180,34 +202,22 @@ Figure 5,"after rebuild, 17 June 2026","mart_charts_in_force.study_date, F-14026
 3. How the charts performed,four,stg_erp__coils: most coils in a lot,four
 3. How the charts performed,76%,analytics.chart_performance.coil_change: lot share of coil variance,76%
 3. How the charts performed,ten,mart_signals less mart_coil_change_points: signals on points with fewer than six coils on record,ten
-Figure 7,0.52,"mart_signal_rates.signals_rule_1, X-bar and R, per 100",
-Figure 7,0.27,"flag_rate_rules, rule 1, known",
-Figure 7,0.57,"mart_signal_rates.signals_rule_2, X-bar and R, per 100",
-Figure 7,0.20,"flag_rate_rules, rule 2, known",
-Figure 7,1.39,"mart_signal_rates.signals_rule_3, X-bar and R, per 100",
-Figure 7,0.45,"flag_rate_rules, rule 3, known",
-Figure 7,2.09,"mart_signal_rates.signals_rule_4, X-bar and R, per 100",
-Figure 7,0.78,"flag_rate_rules, rule 4, known",
-Figure 7,0.37,"mart_signal_rates.signals_rule_1, tool-wear, per 100",
-Figure 7,0.27,"flag_rate_rules, rule 1, known",
-Figure 7,0.48,"mart_signal_rates.signals_rule_2, tool-wear, per 100",
-Figure 7,0.20,"flag_rate_rules, rule 2, known",
-Figure 7,1.20,"mart_signal_rates.signals_rule_3, tool-wear, per 100",
-Figure 7,0.45,"flag_rate_rules, rule 3, known",
-Figure 7,2.37,"mart_signal_rates.signals_rule_4, tool-wear, per 100",
-Figure 7,0.78,"flag_rate_rules, rule 4, known",
-Figure 9,16.0,"expected false alarms per week, PR-01",
-Figure 9,15.3,"expected false alarms per week, PR-02",
-Figure 9,23.7,"expected false alarms per week, PR-03",
-Figure 9,15.6,"expected false alarms per week, PR-04",
-Figure 9,6.5,"expected false alarms per week, PR-05",
-Figure 9,15.3,"expected false alarms per week, PR-06",
-Figure 9,6.5,"expected false alarms per week, PR-07",
-Figure 9,7.5,"expected false alarms per week, PR-08",
-Figure 9,12.9,"expected false alarms per week, PR-09",
-Figure 9,7.0,"expected false alarms per week, PR-10",
-Figure 9,7.0,"expected false alarms per week, PR-11",
-Figure 9,750 subgroups a week,"routine subgroups per week, PR-03",
+Figure 8,0.52,"mart_signal_rates.signals_rule_1, X-bar and R, per 100",
+Figure 8,0.27,"flag_rate_rules, rule 1, known",
+Figure 8,0.57,"mart_signal_rates.signals_rule_2, X-bar and R, per 100",
+Figure 8,0.20,"flag_rate_rules, rule 2, known",
+Figure 8,1.39,"mart_signal_rates.signals_rule_3, X-bar and R, per 100",
+Figure 8,0.45,"flag_rate_rules, rule 3, known",
+Figure 8,2.09,"mart_signal_rates.signals_rule_4, X-bar and R, per 100",
+Figure 8,0.78,"flag_rate_rules, rule 4, known",
+Figure 8,0.37,"mart_signal_rates.signals_rule_1, tool-wear, per 100",
+Figure 8,0.27,"flag_rate_rules, rule 1, known",
+Figure 8,0.48,"mart_signal_rates.signals_rule_2, tool-wear, per 100",
+Figure 8,0.20,"flag_rate_rules, rule 2, known",
+Figure 8,1.20,"mart_signal_rates.signals_rule_3, tool-wear, per 100",
+Figure 8,0.45,"flag_rate_rules, rule 3, known",
+Figure 8,2.37,"mart_signal_rates.signals_rule_4, tool-wear, per 100",
+Figure 8,0.78,"flag_rate_rules, rule 4, known",
 3. How the charts performed,PR-01,"mart_signal_rates: press furthest above expectation, by difference",PR-01
 3. How the charts performed,PR-09,"mart_signal_rates: press furthest above expectation, by ratio",PR-09
 3. How the charts performed,3.91,"observed per 100, PR-01",3.91
