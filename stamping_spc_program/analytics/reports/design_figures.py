@@ -55,14 +55,14 @@ def phase1_baseline(b, centre, ucl, lcl, ucl_r):
     return S.save(f, "d1_phase1_baseline_c11333_02", "Phase I baseline after a rebuild, C-11333-02")
 
 
-TRIGGER_COLOURS = {"rebuild": S.BRAND_BLUE, "failed verification": S.RED, "tool-wear re-fit": S.ACCENT, "annual review": S.AMBER, "repair": S.GREY, "chart change": S.GREEN}
+TRIGGER_COLOURS = {"rebuild": S.BRAND_BLUE, "annual review": S.AMBER, "tool-wear re-fit": S.ACCENT, "failed verification": S.RED, "repair": S.GREY, "chart change": S.GREEN}
 
 
 def recalculations(by_month):
     f, ax = S.fig(h=3.8)
     months = list(by_month["issued_month"]); bottom = np.zeros(len(months))
     for t in [c for c in TRIGGER_COLOURS if c in by_month.columns]:
-        v = by_month[t].values.astype(float); ax.bar(range(len(months)), v, bottom=bottom, color=TRIGGER_COLOURS[t], label=t, width=0.7); bottom += v
+        v = by_month[t].values.astype(float); ax.bar(range(len(months)), v, bottom=bottom, color=TRIGGER_COLOURS[t], label=f"{t} ({int(v.sum())})", width=0.7); bottom += v
     ax.set_xticks(range(len(months))); ax.set_xticklabels([pd.Timestamp(m + "-01").strftime("%b %Y") for m in months], rotation=45, ha="right")
     ax.set_ylabel("New limit sets"); ax.legend(frameon=False, ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.14))
     return S.save(f, "d1_recalculations_by_month_and_trigger", "Recalculations by month and trigger")
@@ -90,11 +90,13 @@ def arl_curves(f6):
     return S.save(f, "d1_arl_curves_by_chart_type", "ARL curves by chart type")
 
 
-def arl_autocorrelation(f7, lo, hi):
+def arl_autocorrelation(f7, lo, hi, med=None):
     f, ax = S.fig(h=3.8)
     ax.axvspan(lo, hi, color=S.LIGHT_BLUE, alpha=0.4, label="Measured, 10th to 90th percentile")
     ax.plot(f7["phi"], S.sig(f7["rule 1"]), color=S.BRAND_BLUE, marker="o", markersize=3, label="Rule 1")
     ax.plot(f7["phi"], S.sig(f7["rules 1 to 4"]), color=S.AMBER, marker="o", markersize=3, label="Rules 1 to 4")
+    if med is not None:
+        ax.axvline(med, color=S.DARK_GREY, linestyle=":", linewidth=1.2, label=f"Measured median ({med:.2f})")
     ax.set_yscale("log"); ax.set_xlabel("Lag-1 autocorrelation of subgroup means"); ax.set_ylabel("In-control ARL (subgroups)")
     ax.legend(frameon=False)
     return S.save(f, "d1_in_control_arl_against_autocorrelation", "In-control ARL against lag-1 autocorrelation")
@@ -138,9 +140,145 @@ def stop_13_may(st, ew, lim, shares):
 def parts_exposed(px):
     f, ax = S.fig(h=4.0, grid="x")
     y = np.arange(len(px))
-    ax.barh(y, S.sig(px["hourly_up_to"]), height=0.55, color=S.AMBER, label="Parts made in an hour at the realised stroke rate")
+    ax.barh(y, S.sig(px["hourly_up_to"]), height=0.55, color=S.AMBER, label="Hourly check: parts made in an hour at the realised stroke rate")
     for i, r in px.reset_index(drop=True).iterrows():
         ax.text(1.2, i, f"per-stroke charts: {r.per_stroke_median_parts:,.0f} part{'' if round(r.per_stroke_median_parts) == 1 else 's'}", va="center", ha="left", fontsize=8.5, color="white")
     ax.set_xscale("log"); ax.set_xlim(1, px["hourly_up_to"].max() * 2); ax.set_yticks(y); ax.set_yticklabels(px["press_id"]); ax.invert_yaxis()
     ax.set_xlabel("Parts per chipped punch, median (log scale)"); ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, 1.12), fontsize=9)
     return S.save(f, "d1_parts_exposed_by_press", "Parts exposed per chipped punch by press")
+
+
+# ── the restructured page's new figures ───────────────────────────────────────
+CLASS_COLOURS = {"formed": S.BRAND_BLUE, "hole position": S.ACCENT, "attribute": S.LIGHT_BLUE, "length and width": S.GREEN, "flatness": S.GREY, "hole diameter": S.AMBER}
+CLASS_LABEL = {"formed": "formed", "hole position": "hole position", "attribute": "attribute checks", "length and width": "length and width", "flatness": "flatness", "hole diameter": "hole diameter"}
+
+
+def charts_by_class(rows):
+    """rows: characteristic_class, charts, chart_label, in page order."""
+    f, ax = S.fig(h=3.4, grid="x")
+    y = np.arange(len(rows))
+    ax.barh(y, rows["charts"], color=[CLASS_COLOURS[c] for c in rows["characteristic_class"]], height=0.6)
+    for i, r in rows.reset_index(drop=True).iterrows():
+        ax.text(r.charts + 8, i, f"{r.charts:,}  {r.chart_label}", va="center", fontsize=9)
+    ax.set_yticks(y); ax.set_yticklabels([CLASS_LABEL[c] for c in rows["characteristic_class"]]); ax.invert_yaxis()
+    ax.set_xlim(0, rows["charts"].max() * 1.6); ax.set_xlabel("Charts in force at 30 June 2026")
+    return S.save(f, "d1_charts_in_force_by_class", "Charts in force by characteristic class")
+
+
+def false_alarm_load(load, median, label_press, label_text):
+    f, ax = S.fig(h=3.6)
+    x = np.arange(len(load))
+    ax.bar(x, S.sig(load["alarms_per_week"]), color=[S.BRAND_BLUE if p == label_press else S.ACCENT for p in load["press_id"]], width=0.65)
+    ax.axhline(median, color=S.AMBER, linestyle="--", linewidth=1.2, label=f"Plant median, {median:.1f} a week")
+    i = list(load["press_id"]).index(label_press)
+    ax.text(i, load["alarms_per_week"].iloc[i] + 0.5, label_text, ha="center", va="bottom", fontsize=8.5)
+    ax.set_xticks(x); ax.set_xticklabels(load["press_id"]); ax.set_ylabel("Expected false alarms a week"); ax.legend(frameon=False, loc="upper right")
+    ax.set_ylim(0, load["alarms_per_week"].max() * 1.2)
+    return S.save(f, "d1_false_alarm_load_by_press", "False-alarm load as designed, per press per week")
+
+
+def charts_by_press_and_class(pw, order):
+    f, ax = S.fig(h=4.2, grid="x")
+    y = np.arange(len(pw)); left = np.zeros(len(pw))
+    for c in order:
+        v = pw[c].values.astype(float); ax.barh(y, v, left=left, color=CLASS_COLOURS[c], label=CLASS_LABEL[c], height=0.65); left += v
+    for i, t in enumerate(left):
+        ax.text(t + 2, i, f"{int(t)}", va="center", fontsize=9)
+    ax.set_yticks(y); ax.set_yticklabels(pw["press_id"]); ax.invert_yaxis(); ax.set_xlim(0, left.max() * 1.1); ax.set_xlabel("Charts in force at 30 June 2026")
+    ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, 1.18), fontsize=9)
+    return S.save(f, "d1_charts_in_force_by_press_and_class", "Charts in force by press and class")
+
+
+def fixture_grr(rows):
+    """rows: gauge_id, pct, label; in page order."""
+    f, ax = S.fig(h=2.6, grid="x")
+    y = np.arange(len(rows))
+    ax.barh(y, rows["pct"], color=[S.AMBER if v >= 10 else S.BRAND_BLUE for v in rows["pct"]], height=0.55)
+    ax.axvline(10, color=S.AMBER, linestyle="--", linewidth=1.2, label="10%"); ax.axvline(30, color=S.RED, linestyle="--", linewidth=1.2, label="30%")
+    for i, r in rows.reset_index(drop=True).iterrows():
+        ax.text(r.pct + 0.4, i, f"{r.pct:.1f}%" + (f"  {r.label}" if r.label else ""), va="center", fontsize=9)
+    ax.set_yticks(y); ax.set_yticklabels(rows["gauge_id"]); ax.invert_yaxis(); ax.set_xlim(0, 32); ax.set_xlabel("%GRR of tolerance, latest study")
+    ax.legend(frameon=False, loc="lower right", fontsize=9)
+    return S.save(f, "d1_family_fixture_grr", "Gauge R&R of the family's fixtures")
+
+
+def signals_by_rule(rr):
+    f, axes = S.fig(h=3.6, ncols=2, sharey=True)
+    for ax, chart in zip(axes, ("X-bar and R", "tool-wear")):
+        g = rr[rr["chart"] == chart]; x = np.arange(4); w = 0.38
+        ax.bar(x - w / 2, S.sig(g["obs"]), width=w, color=S.BRAND_BLUE, label="Observed per 100")
+        ax.bar(x + w / 2, S.sig(g["exp"]), width=w, facecolor="none", edgecolor=S.BRAND_BLUE, linewidth=1.4, label="Expected, known parameters")
+        ax.set_xticks(x); ax.set_xticklabels([f"rule {r}" for r in g["rule"]]); ax.set_title(chart, fontsize=11)
+    axes[0].set_ylabel("Signals per 100 routine subgroups"); axes[0].legend(frameon=False, loc="upper left", fontsize=9)
+    return S.save(f, "d1_signals_by_rule_long_held_limits", "Signals by rule on long-held limits")
+
+
+def family_between_coil(fam, med_formed, med_hp):
+    """fam: characteristic_id, characteristic_class, value (between-coil share; the trend share on the hole diameter).
+    One row per characteristic, grouped by class and ordered by share within the class, labelled by id."""
+    order = ["formed", "hole position", "length and width", "hole diameter"]
+    d = fam.assign(k=fam["characteristic_class"].map(order.index)).sort_values(["k", "value", "characteristic_id"]).reset_index(drop=True)
+    f, ax = S.fig(h=5.6, grid="x")
+    y, labels, prev = [], [], None
+    pos = 0.0
+    for _, r in d.iterrows():
+        if prev is not None and r.k != prev:
+            pos += 0.6
+        y.append(pos); pos += 1; prev = r.k
+        labels.append(r.characteristic_id + ("  (wear-trend share)" if r.characteristic_class == "hole diameter" else ""))
+    d["y"] = y
+    for cls in order:
+        g = d[d["characteristic_class"] == cls]
+        if len(g):
+            ax.hlines(g["y"], 0, g["value"] * 100, color=S.GREY, linewidth=0.8, zorder=1)
+            ax.scatter(g["value"] * 100, g["y"], s=40, color=CLASS_COLOURS[cls], zorder=3, label=CLASS_LABEL[cls])
+    ax.axvline(med_formed * 100, color=CLASS_COLOURS["formed"], linestyle="--", linewidth=1, label=f"formed class median ({med_formed * 100:.1f}%)")
+    ax.axvline(med_hp * 100, color=CLASS_COLOURS["hole position"], linestyle="--", linewidth=1, label=f"hole-position class median ({med_hp * 100:.1f}%)")
+    ax.set_yticks(d["y"]); ax.set_yticklabels(labels, fontsize=8); ax.invert_yaxis()
+    ax.set_xlim(left=0); ax.set_xlabel("Between-coil share of the routine record's variance (%)")
+    ax.legend(frameon=False, fontsize=8, loc="upper right")
+    return S.save(f, "d1_family_between_coil_share", "Between-coil share of variance by family characteristic")
+
+
+def three_way_designs(alts):
+    """alts: label, value, in_force; in page order."""
+    f, ax = S.fig(h=2.8, grid="x")
+    y = np.arange(len(alts))
+    for i, r in alts.reset_index(drop=True).iterrows():
+        ax.barh(i, r.value, height=0.55, color=S.BRAND_BLUE if r.in_force else "none", edgecolor=S.BRAND_BLUE, linewidth=1.4)
+        ax.text(r.value * 1.12, i, (f"{r.value:.2f}" if r.value < 10 else f"{r.value:.1f}") + ("  design in force" if r.in_force else ""), va="center", fontsize=9)
+    ax.set_xscale("log"); ax.set_xlim(0.1, 100); ax.set_yticks(y); ax.set_yticklabels(alts["label"]); ax.invert_yaxis()
+    ax.set_xlabel("In-control false alarms per 100 points (log scale)")
+    return S.save(f, "d1_three_way_design_false_alarms", "False alarms per 100 points by three-way design")
+
+
+def wear_rate_by_die(ws, lo, hi, label_id):
+    f, ax = S.fig(h=5.4, grid="x")
+    d = ws.sort_values(["rate", "characteristic_id"]).reset_index(drop=True); y = np.arange(len(d))
+    ax.axvspan(lo, hi, color=S.LIGHT_BLUE, alpha=0.25, label=f"Plant range {lo:.3f} to {hi:.3f}")
+    ax.hlines(y, 0.0, S.sig(d["rate"]), color=S.GREY, linewidth=1)
+    for i, r in d.iterrows():
+        single = int(r.intervals) == 1
+        ax.scatter(r.rate, i, s=30 * int(r.intervals), facecolors="none" if single else S.AMBER, edgecolors=S.AMBER, linewidths=1.5, zorder=3)
+        ax.text(r.rate + 0.00025, i, f"{int(r.intervals)}", va="center", fontsize=8)
+    ax.set_yticks(y); ax.set_yticklabels([c + ("  (Figure 15)" if c == label_id else "") for c in d["characteristic_id"]], fontsize=8.5)
+    ax.set_xlim(0.003, 0.011); ax.set_xlabel("Wear rate, mm per 100,000 shots (marker area: qualifying intervals; hollow: one interval)")
+    ax.legend(frameon=False, loc="lower right", fontsize=9)
+    return S.save(f, "d1_wear_rate_by_die", "Hole diameter wear rate by die")
+
+
+def stops_by_finding(t, order, charts):
+    f, ax = S.fig(h=3.0, grid="x")
+    y = np.arange(len(order)); left = np.zeros(len(order))
+    for ch_, colour in zip(charts, (S.BRAND_BLUE, S.AMBER, S.GREY)):
+        v = np.array([t.get((fd, ch_), 0) for fd in order], dtype=float)
+        ax.barh(y, v, left=left, color=colour, label=ch_, height=0.6)
+        for i, (l_, vv) in enumerate(zip(left, v)):
+            if vv >= 8:
+                ax.text(l_ + vv / 2, i, f"{int(vv)}", va="center", ha="center", fontsize=8.5, color="white")
+        left += v
+    for i, tot in enumerate(left):
+        ax.text(tot + 3, i, f"{int(tot)}", va="center", fontsize=9)
+    ax.set_yticks(y); ax.set_yticklabels(order); ax.invert_yaxis(); ax.set_xlim(0, left.max() * 1.12); ax.set_xlabel("Stops in the year")
+    ax.legend(frameon=False, ncol=3, loc="lower right", fontsize=9)
+    return S.save(f, "d1_stops_by_finding_and_chart", "Stops by the per-stroke charts, by finding and chart")

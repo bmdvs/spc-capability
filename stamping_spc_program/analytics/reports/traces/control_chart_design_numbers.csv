@@ -1,8 +1,4 @@
 section,value_as_printed,read_from,value_in_the_text
-1. Summary,49.7%,"mart_variance_components.incoming_coil_share, formed, median",49.7%
-1. Summary,36.2%,"mart_variance_components.trend_share, hole diameter, median",36.2%
-1. Summary,97.4%,"mart_variance_components.share_within, hole position, median",97.4%
-1. Summary,97.5%,"mart_variance_components.share_within, flatness, median",97.5%
 1. Summary,"1,380",mart_charts_in_force: charts,"1,380"
 1. Summary,11,mart_charts_in_force: presses,11
 1. Summary,399,"mart_charts_in_force: three-way, formed",399
@@ -11,172 +7,283 @@ section,value_as_printed,read_from,value_in_the_text
 1. Summary,483,mart_charts_in_force: p,483
 1. Summary,one,"mart_charts_in_force: three-way, hole position",one
 1. Summary,180,stg_spc__characteristics: chart none,180
+1. Summary,133,"mart_signal_rates with the expected rate per chart: false alarms per week, plant",133
+1. Summary,3.1,"false alarms per 100 routine subgroups, plant",3.1
+1. Summary,"4,236","mart_signal_rates.routine_subgroups per week, plant","4,236"
+1. Summary,1.30,"observed over expected, X-bar and R",1.30
+1. Summary,0.83,"observed over expected, three-way",0.83
+1. Summary,1.79,"observed over expected, tool-wear",1.79
 1. Summary,30,mart_chart_changes.from_value,30
 1. Summary,20,mart_chart_changes.to_value,20
 1. Summary,8 December 2025,mart_chart_changes.changed_on,8 December 2025
 1. Summary,PR-10,mart_chart_changes.press_id,PR-10
 1. Summary,9 March 2026,mart_chart_changes.changed_on,9 March 2026
 1. Summary,35.2%,mart_chart_changes.evidence_value,35.2%
-1. Summary,133,"mart_signal_rates with the expected rate per chart: false alarms per week, plant",133
-1. Summary,3.1,"false alarms per 100 routine subgroups, plant",3.1
-1. Summary,"4,236","mart_signal_rates.routine_subgroups per week, plant","4,236"
-1. Summary,23.7,"false alarms per week, PR-03",23.7
-1. Summary,750,"routine subgroups per week, PR-03",750
-1. Summary,12.9,"false alarms per week, median press",12.9
 1. Summary,23,mart_limit_sets: three-way annual-review sets below the coil-change minimum,23
 1. Summary,45,mart_limit_sets: three-way sets at the annual review,45
 1. Summary,1.79,mart_signal_rates with the expected rate: tool-wear observed over expected,1.79
 1. Summary,0.83,mart_signal_rates with the expected rate: three-way observed over expected,0.83
-2. Variance structure by characteristic class,80.0%,"mart_variance_components.share_within, formed",80.0%
-2. Variance structure by characteristic class,5.2%,"mart_variance_components.share_between_subgroups_in_coil, formed",5.2%
-2. Variance structure by characteristic class,13.5%,"mart_variance_components.share_between_coils, formed",13.5%
-2. Variance structure by characteristic class,49.7%,"mart_variance_components.incoming_coil_share, formed",49.7%
-2. Variance structure by characteristic class,36.2%,"mart_variance_components.trend_share, hole diameter",36.2%
-2. Variance structure by characteristic class,56.1%,"mart_variance_components.trend_within_share, hole diameter",56.1%
-2. Variance structure by characteristic class,97.4%,"mart_variance_components.share_within, hole position",97.4%
-2. Variance structure by characteristic class,0.8%,"mart_variance_components.share_between_coils, hole position",0.8%
-2. Variance structure by characteristic class,97.5%,"mart_variance_components.share_within, flatness",97.5%
-2. Variance structure by characteristic class,242,mart_coil_fit: characteristics,242
-2. Variance structure by characteristic class,0.82,"mart_coil_fit.r_squared, median",0.82
-2. Variance structure by characteristic class,3.2%,"mart_coil_fit.residual_sigma_share_of_tolerance, median",3.2%
-2. Variance structure by characteristic class,10.1%,"mart_coil_fit.coil_means_sigma_share_of_tolerance, median",10.1%
-2. Variance structure by characteristic class,C-11333-05,mart_coil_fit: family characteristic with R squared nearest the plant median,C-11333-05
-2. Variance structure by characteristic class,2.73,mart_coil_fit.per_mm_thickness,2.73
-2. Variance structure by characteristic class,-0.0094,mart_coil_fit.per_hrb,-0.0094
-2. Variance structure by characteristic class,0.814,mart_coil_fit.r_squared,0.814
-2. Variance structure by characteristic class,20,mart_coil_fit.coil_change_subgroups,20
-2. Variance structure by characteristic class,9,mart_coil_fit.coils,9
-2. Variance structure by characteristic class,3.2%,mart_coil_fit.residual_sigma_share_of_tolerance,3.2%
-2. Variance structure by characteristic class,9.3%,mart_coil_fit.coil_means_sigma_share_of_tolerance,9.3%
-2. Variance structure by characteristic class,20,mart_variance_components: family variable characteristics,20
-2. Variance structure by characteristic class,7,"mart_variance_components.share_between_coils, family formed, lowest",7
-2. Variance structure by characteristic class,31,"mart_variance_components.share_between_coils, family formed, highest",31
-2. Variance structure by characteristic class,22,"mart_variance_components.incoming_coil_share, family, lowest",22
-2. Variance structure by characteristic class,52,"mart_variance_components.incoming_coil_share, family, highest",52
-2. Variance structure by characteristic class,0,"mart_variance_components.share_between_coils, family hole position and width, lowest",0
-2. Variance structure by characteristic class,6,"mart_variance_components.share_between_coils, family hole position and width, highest",6
-2. Variance structure by characteristic class,23.5%,"mart_variance_components.trend_share, C-15731-02",23.5%
-3. Limit setting and governance,"1,216",mart_limit_sets: limit sets,"1,216"
-3. Limit setting and governance,897,mart_limit_sets: charts,897
-3. Limit setting and governance,855,mart_limit_sets.trigger: baseline before the record,855
-3. Limit setting and governance,171,mart_limit_sets.trigger: rebuild,171
-3. Limit setting and governance,77,mart_limit_sets.trigger: tool-wear re-fit,77
-3. Limit setting and governance,74,mart_limit_sets.trigger: annual review,74
-3. Limit setting and governance,39,mart_limit_sets.trigger: failed verification,39
-3. Limit setting and governance,244,mart_phase1_baselines: baselines,244
-3. Limit setting and governance,199,mart_phase1_baselines: X-bar and R,199
-3. Limit setting and governance,45,mart_phase1_baselines: three-way,45
-3. Limit setting and governance,25,mart_chart_design.baseline_subgroups,25
-3. Limit setting and governance,94,"mart_phase1_baselines.screened_subgroups, total",94
-3. Limit setting and governance,64,mart_phase1_baselines: baselines with a subgroup screened,64
-3. Limit setting and governance,92.9%,"mart_phase1_baselines.normal_at_5pct, share",92.9%
-3. Limit setting and governance,9 May 2026,int_die_event_timeline: rebuild of D-1333-C,9 May 2026
-3. Limit setting and governance,25,mart_phase1_baseline_subgroups: subgroups,25
-3. Limit setting and governance,24.381,mart_phase1_baseline_subgroups.lcl_mean,24.381
-3. Limit setting and governance,24.435,mart_phase1_baseline_subgroups.ucl_mean,24.435
-3. Limit setting and governance,0.0988,mart_phase1_baseline_subgroups.ucl_range,0.0988
-3. Limit setting and governance,0.53,mart_phase1_baselines.anderson_darling,0.53
-3. Limit setting and governance,0.73,mart_phase1_baselines.anderson_darling_critical_5pct,0.73
-3. Limit setting and governance,18,mart_phase1_baseline_subgroups: screened subgroup,18
-3. Limit setting and governance,0.106,"mart_phase1_baseline_subgroups.subgroup_range, screened",0.106
-3. Limit setting and governance,0.002,mart_phase1_baseline_subgroups: largest move of the mean limits without the screened subgroup,0.002
-3. Limit setting and governance,0.005,mart_phase1_baseline_subgroups: move of the range limit without the screened subgroup,0.005
-3. Limit setting and governance,25,mart_chart_design.verification_subgroups,25
-3. Limit setting and governance,1.5,mart_chart_design.verification_mean_within_sigma,1.5
-3. Limit setting and governance,two,mart_chart_design.verification_formed_coil_changes,two
-3. Limit setting and governance,"1,100",mart_limit_verifications: X-bar and R after sharpening,"1,100"
-3. Limit setting and governance,34,mart_limit_verifications: X-bar and R failed,34
-3. Limit setting and governance,3.1%,X-bar and R failure rate,3.1%
-3. Limit setting and governance,67,mart_limit_verifications: tool-wear,67
-3. Limit setting and governance,2,mart_limit_verifications: tool-wear failed,2
-3. Limit setting and governance,3.0%,tool-wear failure rate,3.0%
-3. Limit setting and governance,141,mart_limit_verifications: three-way after a rebuild,141
-3. Limit setting and governance,3,mart_limit_verifications: three-way failed,3
-3. Limit setting and governance,2.1%,three-way failure rate,2.1%
-3. Limit setting and governance,33,mart_limit_verifications: sharpenings with a failure on an X-bar and R or tool-wear chart,33
-3. Limit setting and governance,408,mart_limit_verifications: sharpenings,408
-3. Limit setting and governance,8.1%,share of sharpenings failed,8.1%
-3. Limit setting and governance,0.21,"mart_limit_verifications.mean_offset_sigma, passes, median absolute",0.21
-3. Limit setting and governance,19,mart_limit_verifications: passes at 1.0 to 1.5 sigma,19
-3. Limit setting and governance,"1,269",mart_limit_verifications: passes,"1,269"
-3. Limit setting and governance,0.001,"analytics.chart_performance: false-failure rate of the mean criterion, limits from 25 subgroups",0.001
-3. Limit setting and governance,319,mart_limit_recalculations: limit sets in the year,319
-3. Limit setting and governance,146,mart_limit_recalculations: rebuild,146
-3. Limit setting and governance,74,mart_limit_recalculations: annual review,74
-3. Limit setting and governance,65,mart_limit_recalculations: tool-wear re-fit,65
-3. Limit setting and governance,34,mart_limit_recalculations: failed verification,34
-3. Limit setting and governance,71,"mart_limit_recalculations: annual review, January to March",71
-3. Limit setting and governance,74,mart_limit_recalculations: annual review,74
-3. Limit setting and governance,23,mart_limit_sets: three-way annual-review sets below the minimum,23
-3. Limit setting and governance,45,mart_limit_sets: three-way annual-review sets,45
-3. Limit setting and governance,one,"mart_limit_sets.coil_changes_spanned, lowest",one
-3. Limit setting and governance,nine,"mart_limit_sets.coil_changes_spanned, highest",nine
-3. Limit setting and governance,50,"mart_limit_sets.subgroups_used, lowest",50
-3. Limit setting and governance,978,"mart_limit_sets.subgroups_used, highest",978
-3. Limit setting and governance,27 May 2026,"mart_limit_sets.effective_from, C-15731-02 in force",27 May 2026
-3. Limit setting and governance,0.0058,mart_limit_sets.slope_per_100k_shots,0.0058
-3. Limit setting and governance,9.4555,mart_limit_sets.centre_line,9.4555
-3. Limit setting and governance,0.0060,mart_limit_sets.sigma_of_means times 3,0.0060
-3. Limit setting and governance,ten,mart_limit_sets: C-15731-02 sets in force in the year,ten
-3. Limit setting and governance,eight,mart_limit_sets: C-15731-02 re-fits in force in the year,eight
-3. Limit setting and governance,one,mart_limit_sets: C-15731-02 re-fits issued before July 2025,one
-3. Limit setting and governance,June 2025,"mart_limit_sets.effective_from, set in force on 1 July 2025",June 2025
-3. Limit setting and governance,one,mart_limit_sets: C-15731-02 failed verification,one
-3. Limit setting and governance,1 May 2026,mart_wear_points.sharpening_date,1 May 2026
-3. Limit setting and governance,0.0041,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, lowest",0.0041
-3. Limit setting and governance,0.0100,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, highest",0.0100
-3. Limit setting and governance,19,mart_wear_slopes: characteristics,19
-3. Limit setting and governance,six,mart_wear_slopes.qualifying_intervals equal to 1,Six
-3. Limit setting and governance,15,int_run_shots: runs starting on the day their sharpening is logged,15
-3. Limit setting and governance,"1,399",int_run_shots: runs with a shot count,"1,399"
-3. Limit setting and governance,92,int_run_shots with int_sharpening_intervals: runs spanning a logged sharpening date,92
-4. Chart performance,370,"analytics.chart_performance.arl_rules, rule 1, known",370
-4. Chart performance,92,"arl_rules, rules 1 to 4, known",92
-4. Chart performance,9,"arl_rules, rules 1 to 4 at 1 sigma",9
-4. Chart performance,44,"arl_rules, rule 1 at 1 sigma",44
-4. Chart performance,407,"expected_arl_xbar, rule 1, baseline 25",407
-4. Chart performance,74,"expected_arl_xbar, rules 1 to 4, baseline 25",74
-4. Chart performance,39.1%,"mart_variance_components: residual coil share of the variance of formed subgroup means, median",39.1%
-4. Chart performance,1.57,"coil_block_rate, rule 1, moving-range limits",1.57
-4. Chart performance,20.5,"coil_block_rate, rules 1 to 4, moving-range limits",20.5
-4. Chart performance,0.27,"coil_block_rate, rule 1, limits in force",0.27
-4. Chart performance,0.46,"range_rate, known",0.46
-4. Chart performance,0.92,"moving-range rule 1 rate, independent means",0.92
-4. Chart performance,-0.07,"mart_variance_components.lag_1_autocorrelation_within_coil, median",-0.07
-4. Chart performance,-0.19,"lag-1, 10th percentile",-0.19
-4. Chart performance,0.02,"lag-1, 90th percentile",0.02
-4. Chart performance,92,"arl_rules, rules 1 to 4, independent",92
-4. Chart performance,109,arl_ar1_rules at the measured median,109
-4. Chart performance,1.30,"observed over expected, X-bar and R",1.30
-4. Chart performance,0.83,"observed over expected, three-way",0.83
-4. Chart performance,1.79,"observed over expected, tool-wear",1.79
-4. Chart performance,1.39,"mart_signal_rates.signals_rule_3, X-bar and R, per 100",1.39
-4. Chart performance,2.09,"mart_signal_rates.signals_rule_4, X-bar and R, per 100",2.09
-4. Chart performance,0.45,"flag_rate_rules, rule 3, known",0.45
-4. Chart performance,0.78,"flag_rate_rules, rule 4, known",0.78
-4. Chart performance,1.20,"mart_signal_rates.signals_rule_3, tool-wear, per 100",1.20
-4. Chart performance,2.37,"mart_signal_rates.signals_rule_4, tool-wear, per 100",2.37
-4. Chart performance,14,mart_limit_verifications: X-bar and R and tool-wear passes at 1.0 to 1.5 sigma,14
-4. Chart performance,"1,131",mart_limit_verifications: X-bar and R and tool-wear passes,"1,131"
-4. Chart performance,18,mart_coil_change_points: rule 1 signals on points with limits,18
-4. Chart performance,"2,292",mart_coil_change_points: points with limits,"2,292"
-4. Chart performance,12.1,"analytics.chart_performance.coil_change: expected signals, Monte Carlo",12.1
-4. Chart performance,1.49,"observed over expected, coil-change chart",1.49
-4. Chart performance,0.88,"Poisson interval, low",0.88
-4. Chart performance,2.35,"Poisson interval, high",2.35
-4. Chart performance,one,stg_erp__coils: fewest coils in a lot,one
-4. Chart performance,four,stg_erp__coils: most coils in a lot,four
-4. Chart performance,76%,analytics.chart_performance.coil_change: lot share of coil variance,76%
-4. Chart performance,PR-01,"mart_signal_rates: press furthest above expectation, by difference",PR-01
-4. Chart performance,PR-09,"mart_signal_rates: press furthest above expectation, by ratio",PR-09
-4. Chart performance,3.91,"observed per 100, PR-01",3.91
-4. Chart performance,3.18,"expected per 100, PR-01",3.18
-4. Chart performance,3.46,"observed per 100, PR-09",3.46
-4. Chart performance,2.81,"expected per 100, PR-09",2.81
-4. Chart performance,PR-10,mart_signal_rates: press furthest below expectation,PR-10
-4. Chart performance,2.60,"observed per 100, that press",2.60
-4. Chart performance,3.26,"expected per 100, that press",3.26
-4. Chart performance,0.7,"bound on the gap between observed and expected per 100, the other eight presses (largest 0.61)",0.7
+Figure 1,399,"mart_charts_in_force: charts, formed",
+Figure 1,369,"mart_charts_in_force: charts, hole position",
+Figure 1,483,"mart_charts_in_force: charts, attribute",
+Figure 1,74,"mart_charts_in_force: charts, length and width",
+Figure 1,32,"mart_charts_in_force: charts, flatness",
+Figure 1,23,"mart_charts_in_force: charts, hole diameter",
+Figure 2,16.0,"expected false alarms per week, PR-01",
+Figure 2,15.3,"expected false alarms per week, PR-02",
+Figure 2,23.7,"expected false alarms per week, PR-03",
+Figure 2,15.6,"expected false alarms per week, PR-04",
+Figure 2,6.5,"expected false alarms per week, PR-05",
+Figure 2,15.3,"expected false alarms per week, PR-06",
+Figure 2,6.5,"expected false alarms per week, PR-07",
+Figure 2,7.5,"expected false alarms per week, PR-08",
+Figure 2,12.9,"expected false alarms per week, PR-09",
+Figure 2,7.0,"expected false alarms per week, PR-10",
+Figure 2,7.0,"expected false alarms per week, PR-11",
+Figure 2,750 subgroups a week,"routine subgroups per week, PR-03",
+2. The charts in force and how they are run,897,mart_charts_in_force: variable charts,897
+2. The charts in force and how they are run,825,mart_charts_in_force.study_basis: this gauge,825
+2. The charts in force and how they are run,72,mart_charts_in_force.study_basis: gauge type at the press,72
+2. The charts in force and how they are run,16,mart_charts_in_force.in_baseline,16
+Figure 3,138,"mart_charts_in_force: charts, PR-01",
+Figure 3,127,"mart_charts_in_force: charts, PR-02",
+Figure 3,80,"mart_charts_in_force: charts, PR-03",
+Figure 3,139,"mart_charts_in_force: charts, PR-04",
+Figure 3,148,"mart_charts_in_force: charts, PR-05",
+Figure 3,83,"mart_charts_in_force: charts, PR-06",
+Figure 3,139,"mart_charts_in_force: charts, PR-07",
+Figure 3,151,"mart_charts_in_force: charts, PR-08",
+Figure 3,83,"mart_charts_in_force: charts, PR-09",
+Figure 3,146,"mart_charts_in_force: charts, PR-10",
+Figure 3,146,"mart_charts_in_force: charts, PR-11",
+2. The charts in force and how they are run,25,mart_chart_design.baseline_subgroups,25
+2. The charts in force and how they are run,25,mart_chart_design.verification_subgroups,25
+2. The charts in force and how they are run,"1,216",mart_limit_sets: limit sets,"1,216"
+2. The charts in force and how they are run,897,mart_limit_sets: charts,897
+2. The charts in force and how they are run,319,mart_limit_recalculations: limit sets in the year,319
+2. The charts in force and how they are run,146,mart_limit_recalculations: rebuild,146
+2. The charts in force and how they are run,74,mart_limit_recalculations: annual review,74
+2. The charts in force and how they are run,65,mart_limit_recalculations: tool-wear re-fit,65
+2. The charts in force and how they are run,34,mart_limit_recalculations: failed verification,34
+2. The charts in force and how they are run,244,mart_phase1_baselines: baselines,244
+2. The charts in force and how they are run,199,mart_phase1_baselines: X-bar and R,199
+2. The charts in force and how they are run,45,mart_phase1_baselines: three-way,45
+2. The charts in force and how they are run,94,"mart_phase1_baselines.screened_subgroups, total",94
+2. The charts in force and how they are run,64,mart_phase1_baselines: baselines with a subgroup screened,64
+2. The charts in force and how they are run,92.9%,"mart_phase1_baselines.normal_at_5pct, share",92.9%
+2. The charts in force and how they are run,15,int_run_shots: runs starting on the day their sharpening is logged,15
+2. The charts in force and how they are run,"1,399",int_run_shots: runs with a shot count,"1,399"
+2. The charts in force and how they are run,92,int_run_shots with int_sharpening_intervals: runs spanning a logged sharpening date,92
+2. The charts in force and how they are run,27,mart_charts_in_force: family characteristics with a chart,27
+2. The charts in force and how they are run,20,mart_charts_in_force: family variable charts,20
+2. The charts in force and how they are run,7,mart_charts_in_force: family p charts,7
+2. The charts in force and how they are run,16.3,"mart_charts_in_force.pct_grr_of_tolerance, F-11333",16.3
+2. The charts in force and how they are run,5 May 2026,"mart_charts_in_force.study_date, F-11333",5 May 2026
+2. The charts in force and how they are run,17 August 2026,"mart_charts_in_force.restudy_due, F-11333",17 August 2026
+2. The charts in force and how they are run,5.3,"mart_charts_in_force.pct_grr_of_tolerance, F-14026",5.3
+2. The charts in force and how they are run,6.0,"mart_charts_in_force.pct_grr_of_tolerance, F-15731",6.0
+Figure 5,restudy 17 August 2026,"mart_charts_in_force.restudy_due, F-11333",
+Figure 5,"after rebuild, 17 June 2026","mart_charts_in_force.study_date, F-14026",
+3. How the charts performed,370,"analytics.chart_performance.arl_rules, rule 1, known",370
+3. How the charts performed,92,"arl_rules, rules 1 to 4, known",92
+3. How the charts performed,9,"arl_rules, rules 1 to 4 at 1 sigma",9
+3. How the charts performed,44,"arl_rules, rule 1 at 1 sigma",44
+3. How the charts performed,407,"expected_arl_xbar, rule 1, baseline 25",407
+3. How the charts performed,74,"expected_arl_xbar, rules 1 to 4, baseline 25",74
+3. How the charts performed,five,"arl_rules: rule 1 over rules 1 to 4 at 1 sigma, rounded",five
+3. How the charts performed,four,"arl_rules: rule 1 over rules 1 to 4 in control, rounded",four
+3. How the charts performed,"1,308",mart_limit_verifications: verifications,"1,308"
+3. How the charts performed,"1,100",mart_limit_verifications: X-bar and R after sharpening,"1,100"
+3. How the charts performed,34,mart_limit_verifications: X-bar and R failed,34
+3. How the charts performed,3.1%,X-bar and R failure rate,3.1%
+3. How the charts performed,67,mart_limit_verifications: tool-wear,67
+3. How the charts performed,2,mart_limit_verifications: tool-wear failed,2
+3. How the charts performed,3.0%,tool-wear failure rate,3.0%
+3. How the charts performed,141,mart_limit_verifications: three-way after a rebuild,141
+3. How the charts performed,3,mart_limit_verifications: three-way failed,3
+3. How the charts performed,2.1%,three-way failure rate,2.1%
+3. How the charts performed,33,mart_limit_verifications: sharpenings with a failure on an X-bar and R or tool-wear chart,33
+3. How the charts performed,408,mart_limit_verifications: sharpenings,408
+3. How the charts performed,8.1%,share of sharpenings failed,8.1%
+3. How the charts performed,0.21,"mart_limit_verifications.mean_offset_sigma, passes, median absolute",0.21
+3. How the charts performed,19,mart_limit_verifications: passes at 1.0 to 1.5 sigma,19
+3. How the charts performed,"1,269",mart_limit_verifications: passes,"1,269"
+3. How the charts performed,0.001,"analytics.chart_performance: false-failure rate of the mean criterion, limits from 25 subgroups",0.001
+3. How the charts performed,3%,mart_limit_verifications: share of verifications failed,3%
+3. How the charts performed,8%,"share of sharpenings failed, rounded",8%
+3. How the charts performed,1.30,"observed over expected, X-bar and R",1.30
+3. How the charts performed,0.83,"observed over expected, three-way",0.83
+3. How the charts performed,1.79,"observed over expected, tool-wear",1.79
+3. How the charts performed,1.39,"mart_signal_rates.signals_rule_3, X-bar and R, per 100",1.39
+3. How the charts performed,2.09,"mart_signal_rates.signals_rule_4, X-bar and R, per 100",2.09
+3. How the charts performed,0.45,"flag_rate_rules, rule 3, known",0.45
+3. How the charts performed,0.78,"flag_rate_rules, rule 4, known",0.78
+3. How the charts performed,1.20,"mart_signal_rates.signals_rule_3, tool-wear, per 100",1.20
+3. How the charts performed,2.37,"mart_signal_rates.signals_rule_4, tool-wear, per 100",2.37
+3. How the charts performed,14,mart_limit_verifications: X-bar and R and tool-wear passes at 1.0 to 1.5 sigma,14
+3. How the charts performed,"1,131",mart_limit_verifications: X-bar and R and tool-wear passes,"1,131"
+3. How the charts performed,18,mart_coil_change_points: rule 1 signals on points with limits,18
+3. How the charts performed,"2,292",mart_coil_change_points: points with limits,"2,292"
+3. How the charts performed,12.1,"analytics.chart_performance.coil_change: expected signals, Monte Carlo",12.1
+3. How the charts performed,1.49,"observed over expected, coil-change chart",1.49
+3. How the charts performed,0.88,"Poisson interval, low",0.88
+3. How the charts performed,2.35,"Poisson interval, high",2.35
+3. How the charts performed,one,stg_erp__coils: fewest coils in a lot,one
+3. How the charts performed,four,stg_erp__coils: most coils in a lot,four
+3. How the charts performed,76%,analytics.chart_performance.coil_change: lot share of coil variance,76%
+Figure 7,0.52,"mart_signal_rates.signals_rule_1, X-bar and R, per 100",
+Figure 7,0.27,"flag_rate_rules, rule 1, known",
+Figure 7,0.57,"mart_signal_rates.signals_rule_2, X-bar and R, per 100",
+Figure 7,0.20,"flag_rate_rules, rule 2, known",
+Figure 7,1.39,"mart_signal_rates.signals_rule_3, X-bar and R, per 100",
+Figure 7,0.45,"flag_rate_rules, rule 3, known",
+Figure 7,2.09,"mart_signal_rates.signals_rule_4, X-bar and R, per 100",
+Figure 7,0.78,"flag_rate_rules, rule 4, known",
+Figure 7,0.37,"mart_signal_rates.signals_rule_1, tool-wear, per 100",
+Figure 7,0.27,"flag_rate_rules, rule 1, known",
+Figure 7,0.48,"mart_signal_rates.signals_rule_2, tool-wear, per 100",
+Figure 7,0.20,"flag_rate_rules, rule 2, known",
+Figure 7,1.20,"mart_signal_rates.signals_rule_3, tool-wear, per 100",
+Figure 7,0.45,"flag_rate_rules, rule 3, known",
+Figure 7,2.37,"mart_signal_rates.signals_rule_4, tool-wear, per 100",
+Figure 7,0.78,"flag_rate_rules, rule 4, known",
+3. How the charts performed,PR-01,"mart_signal_rates: press furthest above expectation, by difference",PR-01
+3. How the charts performed,PR-09,"mart_signal_rates: press furthest above expectation, by ratio",PR-09
+3. How the charts performed,3.91,"observed per 100, PR-01",3.91
+3. How the charts performed,3.18,"expected per 100, PR-01",3.18
+3. How the charts performed,3.46,"observed per 100, PR-09",3.46
+3. How the charts performed,2.81,"expected per 100, PR-09",2.81
+3. How the charts performed,PR-10,mart_signal_rates: press furthest below expectation,PR-10
+3. How the charts performed,2.60,"observed per 100, that press",2.60
+3. How the charts performed,3.26,"expected per 100, that press",3.26
+3. How the charts performed,0.7,"bound on the gap between observed and expected per 100, the other eight presses (largest 0.61)",0.7
+3. How the charts performed,-0.07,"mart_variance_components.lag_1_autocorrelation_within_coil, median",-0.07
+3. How the charts performed,-0.19,"lag-1, 10th percentile",-0.19
+3. How the charts performed,0.02,"lag-1, 90th percentile",0.02
+3. How the charts performed,92,"arl_rules, rules 1 to 4, independent",92
+3. How the charts performed,109,arl_ar1_rules at the measured median,109
+3. How the charts performed,23,mart_limit_sets: three-way annual-review sets below the minimum,23
+3. How the charts performed,45,mart_limit_sets: three-way annual-review sets,45
+3. How the charts performed,one,"mart_limit_sets.coil_changes_spanned, lowest",one
+3. How the charts performed,nine,"mart_limit_sets.coil_changes_spanned, highest",nine
+3. How the charts performed,50,"mart_limit_sets.subgroups_used, lowest",50
+3. How the charts performed,978,"mart_limit_sets.subgroups_used, highest",978
+4. Variance structure and chart design,80.0%,"mart_variance_components.share_within, formed",80.0%
+4. Variance structure and chart design,5.2%,"mart_variance_components.share_between_subgroups_in_coil, formed",5.2%
+4. Variance structure and chart design,13.5%,"mart_variance_components.share_between_coils, formed",13.5%
+4. Variance structure and chart design,49.7%,"mart_variance_components.incoming_coil_share, formed, median",49.7%
+4. Variance structure and chart design,36.2%,"mart_variance_components.trend_share, hole diameter, median",36.2%
+4. Variance structure and chart design,56.1%,"mart_variance_components.trend_within_share, hole diameter",56.1%
+4. Variance structure and chart design,97.4%,"mart_variance_components.share_within, hole position, median",97.4%
+4. Variance structure and chart design,0.8%,"mart_variance_components.share_between_coils, hole position",0.8%
+4. Variance structure and chart design,97.5%,"mart_variance_components.share_within, flatness, median",97.5%
+Figure 10,0.1%,"mart_variance_components.share_between_intervals, largest class median (bound)",
+4. Variance structure and chart design,7,"mart_variance_components.share_between_coils, family formed, lowest",7
+4. Variance structure and chart design,31,"mart_variance_components.share_between_coils, family formed, highest",31
+4. Variance structure and chart design,22,"mart_variance_components.incoming_coil_share, family, lowest",22
+4. Variance structure and chart design,52,"mart_variance_components.incoming_coil_share, family, highest",52
+4. Variance structure and chart design,0,"mart_variance_components.share_between_coils, family hole position and width, lowest",0
+4. Variance structure and chart design,6,"mart_variance_components.share_between_coils, family hole position and width, highest",6
+4. Variance structure and chart design,23.5%,"mart_variance_components.trend_share, C-15731-02",23.5%
+Figure 11,0.8%,"mart_variance_components.share_between_coils, C-11333-02",
+Figure 11,0.8%,"mart_variance_components.share_between_coils, C-11333-03",
+Figure 11,10.5%,"mart_variance_components.share_between_coils, C-11333-04",
+Figure 11,8.4%,"mart_variance_components.share_between_coils, C-11333-05",
+Figure 11,26.2%,"mart_variance_components.share_between_coils, C-11333-06",
+Figure 11,5.5%,"mart_variance_components.share_between_coils, C-14026-03",
+Figure 11,4.1%,"mart_variance_components.share_between_coils, C-14026-04",
+Figure 11,14.0%,"mart_variance_components.share_between_coils, C-14026-05",
+Figure 11,8.9%,"mart_variance_components.share_between_coils, C-14026-06",
+Figure 11,7.8%,"mart_variance_components.share_between_coils, C-14026-07",
+Figure 11,12.7%,"mart_variance_components.share_between_coils, C-14026-08",
+Figure 11,5.0%,"mart_variance_components.share_between_coils, C-14026-09",
+Figure 11,23.5%,"mart_variance_components.trend_share, C-15731-02",
+Figure 11,0.0%,"mart_variance_components.share_between_coils, C-15731-03",
+Figure 11,3.9%,"mart_variance_components.share_between_coils, C-15731-04",
+Figure 11,7.3%,"mart_variance_components.share_between_coils, C-15731-05",
+Figure 11,31.3%,"mart_variance_components.share_between_coils, C-15731-06",
+Figure 11,14.5%,"mart_variance_components.share_between_coils, C-15731-07",
+Figure 11,26.6%,"mart_variance_components.share_between_coils, C-15731-08",
+Figure 11,19.3%,"mart_variance_components.share_between_coils, C-15731-09",
+4. Variance structure and chart design,242,mart_coil_fit: characteristics,242
+4. Variance structure and chart design,0.82,"mart_coil_fit.r_squared, median",0.82
+4. Variance structure and chart design,3.2%,"mart_coil_fit.residual_sigma_share_of_tolerance, median",3.2%
+4. Variance structure and chart design,10.1%,"mart_coil_fit.coil_means_sigma_share_of_tolerance, median",10.1%
+4. Variance structure and chart design,C-11333-05,mart_coil_fit: family characteristic with R squared nearest the plant median,C-11333-05
+4. Variance structure and chart design,2.73,mart_coil_fit.per_mm_thickness,2.73
+4. Variance structure and chart design,-0.0094,mart_coil_fit.per_hrb,-0.0094
+4. Variance structure and chart design,0.814,mart_coil_fit.r_squared,0.814
+4. Variance structure and chart design,20,mart_coil_fit.coil_change_subgroups,20
+4. Variance structure and chart design,9,mart_coil_fit.coils,9
+4. Variance structure and chart design,39.1%,"mart_variance_components: residual coil share of the variance of formed subgroup means, median",39.1%
+4. Variance structure and chart design,1.57,"coil_block_rate, rule 1, moving-range limits",1.57
+4. Variance structure and chart design,20.5,"coil_block_rate, rules 1 to 4, moving-range limits",20.5
+4. Variance structure and chart design,0.27,"coil_block_rate, rule 1, limits in force",0.27
+4. Variance structure and chart design,0.46,"range_rate, known",0.46
+4. Variance structure and chart design,0.92,"moving-range rule 1 rate, independent means",0.92
+Figure 13,0.27,"coil_block_rate, rule 1, sd-of-means limits",
+Figure 13,1.57,"coil_block_rate, rule 1, moving-range limits",
+Figure 13,17.4,"coil_block_rate, rules 1 to 4, sd-of-means limits",
+Figure 13,20.5,"coil_block_rate, rules 1 to 4, moving-range limits",
+4. Variance structure and chart design,9 May 2026,int_die_event_timeline: rebuild of D-1333-C,9 May 2026
+4. Variance structure and chart design,25,mart_phase1_baseline_subgroups: subgroups,25
+4. Variance structure and chart design,24.381,mart_phase1_baseline_subgroups.lcl_mean,24.381
+4. Variance structure and chart design,24.435,mart_phase1_baseline_subgroups.ucl_mean,24.435
+4. Variance structure and chart design,0.0988,mart_phase1_baseline_subgroups.ucl_range,0.0988
+4. Variance structure and chart design,0.53,mart_phase1_baselines.anderson_darling,0.53
+4. Variance structure and chart design,0.73,mart_phase1_baselines.anderson_darling_critical_5pct,0.73
+4. Variance structure and chart design,18,mart_phase1_baseline_subgroups: screened subgroup,18
+4. Variance structure and chart design,0.106,"mart_phase1_baseline_subgroups.subgroup_range, screened",0.106
+4. Variance structure and chart design,0.002,mart_phase1_baseline_subgroups: largest move of the mean limits without the screened subgroup,0.002
+4. Variance structure and chart design,0.005,mart_phase1_baseline_subgroups: move of the range limit without the screened subgroup,0.005
+4. Variance structure and chart design,27 May 2026,"mart_limit_sets.effective_from, C-15731-02 in force",27 May 2026
+4. Variance structure and chart design,0.0058,mart_limit_sets.slope_per_100k_shots,0.0058
+4. Variance structure and chart design,9.4555,mart_limit_sets.centre_line,9.4555
+4. Variance structure and chart design,0.0060,mart_limit_sets.sigma_of_means times 3,0.0060
+4. Variance structure and chart design,ten,mart_limit_sets: C-15731-02 sets in force in the year,ten
+4. Variance structure and chart design,0.0041,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, lowest",0.0041
+4. Variance structure and chart design,0.0100,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, highest",0.0100
+4. Variance structure and chart design,19,mart_wear_slopes: characteristics,19
+4. Variance structure and chart design,six,mart_wear_slopes.qualifying_intervals equal to 1,six
+4. Variance structure and chart design,1 May 2026,mart_wear_points.sharpening_date,1 May 2026
+Figure 16,0.0041,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-32929-01",
+Figure 16,1,"mart_wear_slopes.qualifying_intervals, C-32929-01",
+Figure 16,0.0042,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-12836-01",
+Figure 16,6,"mart_wear_slopes.qualifying_intervals, C-12836-01",
+Figure 16,0.0051,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-39736-01",
+Figure 16,1,"mart_wear_slopes.qualifying_intervals, C-39736-01",
+Figure 16,0.0051,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-15731-02",
+Figure 16,8,"mart_wear_slopes.qualifying_intervals, C-15731-02",
+Figure 16,0.0054,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-22617-01",
+Figure 16,3,"mart_wear_slopes.qualifying_intervals, C-22617-01",
+Figure 16,0.0056,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-20417-01",
+Figure 16,5,"mart_wear_slopes.qualifying_intervals, C-20417-01",
+Figure 16,0.0056,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-22558-01",
+Figure 16,2,"mart_wear_slopes.qualifying_intervals, C-22558-01",
+Figure 16,0.0060,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-35987-01",
+Figure 16,1,"mart_wear_slopes.qualifying_intervals, C-35987-01",
+Figure 16,0.0064,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-13459-04",
+Figure 16,3,"mart_wear_slopes.qualifying_intervals, C-13459-04",
+Figure 16,0.0067,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-37329-02",
+Figure 16,3,"mart_wear_slopes.qualifying_intervals, C-37329-02",
+Figure 16,0.0073,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-11687-01",
+Figure 16,9,"mart_wear_slopes.qualifying_intervals, C-11687-01",
+Figure 16,0.0075,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-16291-02",
+Figure 16,4,"mart_wear_slopes.qualifying_intervals, C-16291-02",
+Figure 16,0.0076,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-15609-01",
+Figure 16,7,"mart_wear_slopes.qualifying_intervals, C-15609-01",
+Figure 16,0.0077,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-16315-02",
+Figure 16,6,"mart_wear_slopes.qualifying_intervals, C-16315-02",
+Figure 16,0.0078,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-29540-01",
+Figure 16,1,"mart_wear_slopes.qualifying_intervals, C-29540-01",
+Figure 16,0.0084,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-22043-02",
+Figure 16,1,"mart_wear_slopes.qualifying_intervals, C-22043-02",
+Figure 16,0.0086,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-31540-02",
+Figure 16,1,"mart_wear_slopes.qualifying_intervals, C-31540-02",
+Figure 16,0.0095,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-28553-01",
+Figure 16,3,"mart_wear_slopes.qualifying_intervals, C-28553-01",
+Figure 16,0.0100,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-31102-01",
+Figure 16,2,"mart_wear_slopes.qualifying_intervals, C-31102-01",
 5. Per-stroke monitoring design,"11,773","mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03, median","11,773"
 5. Per-stroke monitoring design,0.02,mart_chart_design.ewma_lambda,0.02
 5. Per-stroke monitoring design,5.5,mart_chart_design.ewma_L,5.5
@@ -212,20 +319,17 @@ section,value_as_printed,read_from,value_in_the_text
 5. Per-stroke monitoring design,0,"mart_parts_exposed: channel share, median strokes",0
 5. Per-stroke monitoring design,4,mart_parts_exposed: EWMA stops with strokes kept,4
 5. Per-stroke monitoring design,27,mart_parts_exposed: channel-share stops with strokes kept,27
+Figure 18,8,"mart_per_stroke_stops: chipped punch, EWMA on the total",
+Figure 18,63,"mart_per_stroke_stops: chipped punch, channel share",
+Figure 18,82,"mart_per_stroke_stops: nothing found, EWMA on the total",
+Figure 18,11,"mart_per_stroke_stops: nothing found, channel share",
+Figure 18,274,"mart_per_stroke_stops: slug pulling, channel share",
+Figure 18,71,"mart_per_stroke_stops: worn punch, EWMA on the total",
+Figure 18,1,"mart_per_stroke_stops: worn punch, both",
+Figure 18,10,"mart_per_stroke_stops: worn punch, channel share",
 5. Per-stroke monitoring design,"239,498",mart_per_stroke_stops.stop_stroke_no,"239,498"
 5. Per-stroke monitoring design,34,"mart_parts_exposed.strokes_exposed_per_stroke_charts, the 13 May stop",34
 5. Per-stroke monitoring design,11:55,mart_per_stroke_stops.cleared_at,11:55
 5. Per-stroke monitoring design,no,"mart_parts_exposed.parts_exposed_per_stroke_charts, median",no
 5. Per-stroke monitoring design,"6,499","mart_parts_exposed.parts_exposed_hourly_check_up_to, median","6,499"
 5. Per-stroke monitoring design,"11,773","mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03","11,773"
-6. The charts in force,825,mart_charts_in_force.study_basis: this gauge,825
-6. The charts in force,72,mart_charts_in_force.study_basis: gauge type at the press,72
-6. The charts in force,16,mart_charts_in_force.in_baseline,16
-6. The charts in force,27,mart_charts_in_force: family characteristics with a chart,27
-6. The charts in force,20,mart_charts_in_force: family variable charts,20
-6. The charts in force,7,mart_charts_in_force: family p charts,7
-6. The charts in force,16.3,"mart_charts_in_force.pct_grr_of_tolerance, F-11333",16.3
-6. The charts in force,5 May 2026,"mart_charts_in_force.study_date, F-11333",5 May 2026
-6. The charts in force,17 August 2026,"mart_charts_in_force.restudy_due, F-11333",17 August 2026
-6. The charts in force,5.3,"mart_charts_in_force.pct_grr_of_tolerance, F-14026",5.3
-6. The charts in force,6.0,"mart_charts_in_force.pct_grr_of_tolerance, F-15731",6.0
