@@ -5,7 +5,7 @@ import pandas as pd
 
 from analytics.style import style as S
 
-CLASS_ORDER = ["formed", "hole diameter", "hole position", "flatness"]
+CLASS_ORDER = ["formed", "hole diameter", "cut geometry", "flatness"]
 COMPONENTS = [("share_within", "Within subgroup", S.BRAND_BLUE), ("share_between_subgroups_in_coil", "Between subgroups in a coil", S.ACCENT),
               ("share_between_coils", "Between coils", S.AMBER), ("share_between_intervals", "Between sharpening intervals", S.GREY)]
 
@@ -18,7 +18,7 @@ def variance_components(fig1):
         v = S.sig(d[col].values * 100)
         ax.barh(range(len(d)), v, left=left, color=colour, label=label, height=0.6)
         left += v
-    ax.set_yticks(range(len(d))); ax.set_yticklabels(d.index); ax.invert_yaxis()
+    ax.set_yticks(range(len(d))); ax.set_yticklabels([CLASS_LABEL[c] for c in d.index]); ax.invert_yaxis()
     ax.set_xlim(0, 100); ax.set_xlabel("Share of variance, median across characteristics (%)")
     ax.legend(ncol=2, frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.22))
     return S.save(f, "d1_variance_components_by_class", "Variance components by characteristic class")
@@ -149,20 +149,23 @@ def parts_exposed(px):
 
 
 # ── the restructured page's new figures ───────────────────────────────────────
-CLASS_COLOURS = {"formed": S.BRAND_BLUE, "hole position": S.ACCENT, "attribute": S.LIGHT_BLUE, "length and width": S.GREEN, "flatness": S.GREY, "hole diameter": S.AMBER}
-CLASS_LABEL = {"formed": "formed", "hole position": "hole position", "attribute": "attribute checks", "length and width": "length and width", "flatness": "flatness", "hole diameter": "hole diameter"}
+CLASS_COLOURS = {"formed": S.BRAND_BLUE, "cut geometry": S.ACCENT, "hole diameter": S.AMBER, "flatness": S.GREY, "sheared edges": S.GREEN}
+CLASS_LABEL = {"formed": "Formed characteristics", "cut geometry": "Cut geometry", "hole diameter": "Hole diameter", "flatness": "Flatness", "sheared edges": "Sheared edges"}
 
 
 def charts_by_class(rows):
-    """rows: characteristic_class, charts, chart_label, in page order."""
-    f, ax = S.fig(h=3.4, grid="x")
-    y = np.arange(len(rows))
-    ax.barh(y, rows["charts"], color=[CLASS_COLOURS[c] for c in rows["characteristic_class"]], height=0.6)
+    """rows: characteristic_class, measured, attribute, chart_label; in page order. Stacked columns, measured below
+    attribute, the total on top with the chart types in parentheses below it."""
+    f, ax = S.fig(h=3.9)
+    x = np.arange(len(rows)); tot = (rows["measured"] + rows["attribute"]).values
+    ax.bar(x, rows["measured"], width=0.6, color=S.BRAND_BLUE, label="Measured (variable) charts")
+    ax.bar(x, rows["attribute"], bottom=rows["measured"], width=0.6, color=S.LIGHT_BLUE, label="Attribute charts")
     for i, r in rows.reset_index(drop=True).iterrows():
-        ax.text(r.charts + 8, i, f"{r.charts:,}  {r.chart_label}", va="center", fontsize=9)
-    ax.set_yticks(y); ax.set_yticklabels([CLASS_LABEL[c] for c in rows["characteristic_class"]]); ax.invert_yaxis()
-    ax.set_xlim(0, rows["charts"].max() * 1.6); ax.set_xlabel("Charts in force at 30 June 2026")
-    return S.save(f, "d1_charts_in_force_by_class", "Charts in force by characteristic class")
+        ax.text(i, tot[i] + tot.max() * 0.02, f"{tot[i]:,}\n({r.chart_label})", ha="center", va="bottom", fontsize=8.5, linespacing=1.3)
+    ax.set_xticks(x); ax.set_xticklabels([CLASS_LABEL[c].replace(" characteristics", "\ncharacteristics") for c in rows["characteristic_class"]])
+    ax.set_ylim(0, tot.max() * 1.3); ax.set_ylabel("Active SPC charts")
+    ax.legend(frameon=False, loc="upper right", fontsize=9)
+    return S.save(f, "d1_charts_in_force_by_class", "Active SPC charts by characteristic class")
 
 
 def false_alarm_load(load, median, label_press, label_text):
@@ -216,7 +219,7 @@ def signals_by_rule(rr):
 def family_between_coil(fam, med_formed, med_hp):
     """fam: characteristic_id, characteristic_class, value (between-coil share; the trend share on the hole diameter).
     One row per characteristic, grouped by class and ordered by share within the class, labelled by id."""
-    order = ["formed", "hole position", "length and width", "hole diameter"]
+    order = ["formed", "cut geometry", "hole diameter"]
     d = fam.assign(k=fam["characteristic_class"].map(order.index)).sort_values(["k", "value", "characteristic_id"]).reset_index(drop=True)
     f, ax = S.fig(h=5.6, grid="x")
     y, labels, prev = [], [], None
@@ -233,7 +236,7 @@ def family_between_coil(fam, med_formed, med_hp):
             ax.hlines(g["y"], 0, g["value"] * 100, color=S.GREY, linewidth=0.8, zorder=1)
             ax.scatter(g["value"] * 100, g["y"], s=40, color=CLASS_COLOURS[cls], zorder=3, label=CLASS_LABEL[cls])
     ax.axvline(med_formed * 100, color=CLASS_COLOURS["formed"], linestyle="--", linewidth=1, label=f"formed class median ({med_formed * 100:.1f}%)")
-    ax.axvline(med_hp * 100, color=CLASS_COLOURS["hole position"], linestyle="--", linewidth=1, label=f"hole-position class median ({med_hp * 100:.1f}%)")
+    ax.axvline(med_hp * 100, color=CLASS_COLOURS["cut geometry"], linestyle="--", linewidth=1, label=f"cut geometry class median ({med_hp * 100:.1f}%)")
     ax.set_yticks(d["y"]); ax.set_yticklabels(labels, fontsize=8); ax.invert_yaxis()
     ax.set_xlim(left=0); ax.set_xlabel("Between-coil share of the routine record's variance (%)")
     ax.legend(frameon=False, fontsize=8, loc="upper right")

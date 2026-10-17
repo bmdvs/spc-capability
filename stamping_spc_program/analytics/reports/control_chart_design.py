@@ -13,7 +13,19 @@ from analytics.reports.page import DAY, F0, F1, F2, F4, P1, Page
 from analytics.style import style as S
 
 WEEKS = ((pd.Timestamp("2026-06-30") - pd.Timestamp("2025-07-01")).days + 1) / 7
-WARN_TINT = "#FBEBD3"          # the page's warning tint, for a body-table row outside its design range
+WARN_TINT = "#FBEBD3"
+# The page's characteristic classes, by characteristic type: the attribute checks fall in with what they check (burr
+# against the limit sample under sheared edges, hole diameter by pin under hole diameter).
+REPORT_CLASS = {"formed height": "formed", "bend angle": "formed", "hole-to-edge": "cut geometry", "hole-to-hole": "cut geometry", "length": "cut geometry",
+                "width": "cut geometry", "hole diameter": "hole diameter", "flatness": "flatness", "burr height": "sheared edges"}
+CLASS_ORDER = ["formed", "cut geometry", "hole diameter", "flatness", "sheared edges"]
+CHART_NAME = {"three-way (I-MR-R)": "three-way", "Xbar-R": "X-bar and R", "tool-wear": "tool-wear", "p": "p chart"}
+
+
+def report_class(df):
+    out = df.assign(characteristic_class=df["characteristic_type"].map(REPORT_CLASS))
+    assert out["characteristic_class"].notna().all(), "a characteristic type without a class"
+    return out          # the page's warning tint, for a body-table row outside its design range
 
 
 def expected_rate(chart, n, cache={}):
@@ -31,15 +43,14 @@ def build():
 
     # ── read once ────────────────────────────────────────────────────────────
     design = query("select parameter, value from marts.mart_chart_design order by parameter").set_index("parameter")["value"]
-    cif = query("select * from marts.mart_charts_in_force order by characteristic_id")
-    vc = query("select * from marts.mart_variance_components order by characteristic_id")
+    cif = report_class(query("select * from marts.mart_charts_in_force order by characteristic_id"))
+    vc = report_class(query("select * from marts.mart_variance_components order by characteristic_id"))
     ls = query("select * from marts.mart_limit_sets order by characteristic_id, effective_from, limit_set_id")
     sr = query("select * from marts.mart_signal_rates where period = 'record' order by characteristic_id, press_id, chart, baseline_subgroups")
     sr["expected_rate"] = [expected_rate(c, b) for c, b in zip(sr["chart"], sr["baseline_subgroups"])]
     sr["es"] = sr["expected_rate"] * sr["subgroups_in_scope"]
     crit = vc[vc["critical"] | (vc["characteristic_class"] == "flatness")]
     med = crit.groupby("characteristic_class")[["share_within", "share_between_subgroups_in_coil", "share_between_coils", "share_between_intervals", "incoming_coil_share", "trend_share", "trend_within_share"]].median()
-    cls_n = cif.groupby("chart_type").size()
     ch = query("select * from marts.mart_chart_changes order by changed_on").set_index("characteristic_id")
     load = sr.groupby("press_id").agg(routine_subgroups=("routine_subgroups", "sum")).reset_index()
     load["expected_signals"] = sr.assign(e=sr["expected_rate"] * sr["routine_subgroups"]).groupby("press_id")["e"].sum().values
@@ -52,15 +63,23 @@ def build():
     rw["below_coil_change_minimum"] = rw["below_coil_change_minimum"].fillna(False).astype(bool)
     tot_w = load["alarms_per_week"].sum(); sub_w = load["per_week"].sum(); p3 = load.set_index("press_id").loc["PR-03"]
     n_none = int(query("select count(*) n from staging.stg_spc__characteristics where chart_type = 'none'")["n"].iloc[0])
-    three_formed = int(cif[(cif["chart_type"] == "three-way (I-MR-R)") & (cif["characteristic_class"] == "formed")].shape[0])
-    three_hp = int(cif[(cif["chart_type"] == "three-way (I-MR-R)") & (cif["characteristic_class"] == "hole position")].shape[0])
 
     # ═══════════════ 1. Summary
     pg.h2("summary", "1. Summary")
-    pg.p(f"Every chart in force fits the variation it controls, and the year's record confirms the chart selection on all four characteristic classes. At 30 June 2026 there are {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} charts in force on "
-         f"{n(cif['press_id'].nunique(), 'mart_charts_in_force: presses', was='11')} presses: {n(three_formed, 'mart_charts_in_force: three-way, formed', was='399')} three-way charts on formed heights and bend angles, {n(int(cls_n.get('tool-wear', 0)), 'mart_charts_in_force: tool-wear', was='23')} tool-wear charts on hole diameters, "
-         f"{n(int(cls_n.get('Xbar-R', 0)), 'mart_charts_in_force: X-bar and R', was='474')} X-bar and R charts on hole position, length, width and flatness, {n(int(cls_n.get('p', 0)), 'mart_charts_in_force: p', was='483')} p charts on the attribute checks, and "
-         f"{wd(three_hp, 'mart_charts_in_force: three-way, hole position', was='one')} three-way chart on a hole position. Burr height on the laboratory gauge is controlled by the sharpening count on {n(n_none, 'stg_spc__characteristics: chart none', was='180')} characteristics and carries no chart.")
+    pg.p(f"As of June 30th 2026, there are {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} active SPC charts on {n(cif['press_id'].nunique(), 'mart_charts_in_force: presses', was='11')} presses. The charts correspond to the "
+         f"{wd(cif['characteristic_class'].nunique(), 'mart_charts_in_force: characteristic classes, by characteristic type', was='five')} characteristic classes: formed heights and bend angles, cut geometry (hole position and part length and width), hole diameter, flatness, and sheared edges.")
+    f1 = []
+    for c in CLASS_ORDER:
+        g = cif[cif["characteristic_class"] == c]
+        f1.append({"characteristic_class": c, "measured": int((g["data_type"] == "variable").sum()), "attribute": int((g["data_type"] == "attribute").sum()),
+                   "chart_label": ", ".join(CHART_NAME[t] for t in g["chart_type"].value_counts().sort_index().sort_values(ascending=False, kind="stable").index)})
+    f1 = pd.DataFrame(f1)
+    for r in f1.itertuples():
+        pg.figval(1, f"{r.measured + r.attribute:,}", f"mart_charts_in_force: charts, {r.characteristic_class}")
+        pg.figval(1, f"{r.measured:,}", f"mart_charts_in_force: measured charts, {r.characteristic_class}")
+        pg.figval(1, f"{r.attribute:,}", f"mart_charts_in_force: attribute charts, {r.characteristic_class}")
+    pg.figure(FIG.charts_by_class(f1), "Figure 1: Active SPC Charts by Characteristic Class",
+              f"{len(cif):,} charts on {cif['press_id'].nunique()} presses, measured and attribute by class; {n_none} burr characteristics on the sharpening count carry no chart. The one three-way chart on a hole position (C-34479-05) is counted with cut geometry.")
     pg.p(f"The charts as designed raise {n(tot_w, 'mart_signal_rates with the expected rate per chart: false alarms per week, plant', was='133')} false alarms a week across the plant, {n(100 * tot_w / sub_w, 'false alarms per 100 routine subgroups, plant', '{:.1f}', was='3.1')} per 100 routine subgroups on "
          f"{n(sub_w, 'mart_signal_rates.routine_subgroups per week, plant', was='4,236')} subgroups a week. In the year they ran at {n(scope.at['X-bar and R', 'ratio'], 'observed over expected, X-bar and R', '{:.2f}', was='1.30')} times that rate on X-bar and R charts, "
          f"{n(scope.at['three-way', 'ratio'], 'observed over expected, three-way', '{:.2f}', was='0.83')} on three-way charts and {n(scope.at['tool-wear', 'ratio'], 'observed over expected, tool-wear', '{:.2f}', was='1.79')} on tool-wear charts, each for a reason the record shows.")
@@ -74,13 +93,6 @@ def build():
     pg.ul([f"<strong>{n(int(rw['below_coil_change_minimum'].sum()), 'mart_limit_sets: three-way annual-review sets below the coil-change minimum', was='23')} of the {n(len(rw), 'mart_limit_sets: three-way sets at the annual review', was='45')} three-way limit sets issued at the annual review span fewer than ten coil changes.</strong> The review computed them on a trailing window rather than the baseline rule. They are re-issued as ten coil changes accrue.",
            f"<strong>Tool-wear charts signal at {n(scope.at['tool-wear', 'ratio'], 'mart_signal_rates with the expected rate: tool-wear observed over expected', '{:.2f}', was='1.79')} times their expected false-alarm rate</strong> on rules 3 and 4, from small level changes at sharpening that pass verification and from the regression line held between verifications. The verification criterion and the re-fit trigger are the recommendations of Section 3.",
            f"<strong>Three-way charts signal at {n(scope.at['three-way', 'ratio'], 'mart_signal_rates with the expected rate: three-way observed over expected', '{:.2f}', was='0.83')} of expectation</strong>, because their individuals limits carry the residual coil offset left after centring. This is the design working as intended, and the shortfall is the price of it."])
-    by_cls = cif.groupby("characteristic_class").size()
-    f1 = pd.DataFrame([{"characteristic_class": c, "charts": int(by_cls.get(c, 0)), "chart_label": lab} for c, lab in (
-        ("formed", "three-way"), ("hole position", "X-bar and R, with one three-way"), ("attribute", "p chart"), ("length and width", "X-bar and R"), ("flatness", "X-bar and R"), ("hole diameter", "tool-wear"))])
-    for r in f1.itertuples():
-        pg.figval(1, f"{r.charts:,}", f"mart_charts_in_force: charts, {r.characteristic_class}")
-    pg.figure(FIG.charts_by_class(f1), "Figure 1: Charts in force at 30 June 2026, by characteristic class",
-              f"{len(cif):,} charts on {cif['press_id'].nunique()} presses; {n_none} burr characteristics on the sharpening count carry no chart. The one three-way chart on a hole position (C-34479-05) is counted with hole position.")
     for r in load.itertuples():
         pg.figval(2, f"{r.alarms_per_week:.1f}", f"expected false alarms per week, {r.press_id}")
     pg.figure(FIG.false_alarm_load(load, float(load["alarms_per_week"].median()), "PR-03", pg.figval(2, f"{p3.per_week:,.0f} subgroups a week", "routine subgroups per week, PR-03")),
@@ -90,10 +102,10 @@ def build():
     # ═══════════════ 2. The charts in force and how they are run
     pg.h2("in-force", "2. The charts in force and how they are run")
     var = cif[cif["data_type"] == "variable"]; vb = var["study_basis"].value_counts()
-    pg.p(f"Each class runs on the chart its variation calls for, and every variable chart runs on a gauge in gating status. Formed heights and bend angles run on three-way charts with a coil-change chart beside them; hole diameters on tool-wear charts with limits sloped on shots since sharpening; hole position, length, width and flatness on X-bar and R; the burr and pin checks on p charts. "
+    pg.p(f"Each class runs on the chart its variation calls for, and every variable chart runs on a gauge in gating status. Formed heights and bend angles run on three-way charts with a coil-change chart beside them; hole diameters on tool-wear charts with limits sloped on shots since sharpening; cut geometry and flatness on X-bar and R; sheared edges and the pin checks on hole diameters on p charts. "
          f"All {n(len(var), 'mart_charts_in_force: variable charts', was='897')} variable charts have a current calibration and a gauge study on file, {n(vb.get('this gauge', 0), 'mart_charts_in_force.study_basis: this gauge', was='825')} on the gauge itself and {n(vb.get('gauge type at the press', 0), 'mart_charts_in_force.study_basis: gauge type at the press', was='72')} through the study of the gauge type at the press. "
          f"{n(int(cif['in_baseline'].sum()), 'mart_charts_in_force.in_baseline', was='16')} charts are in a baseline and {'none' if int(cif['past_trigger'].sum()) == 0 else n(int(cif['past_trigger'].sum()), 'mart_charts_in_force.past_trigger')} is past its recalculation trigger.")
-    order = ["formed", "hole position", "attribute", "length and width", "flatness", "hole diameter"]
+    order = CLASS_ORDER
     pw = cif.pivot_table(index="press_id", columns="characteristic_class", values="characteristic_id", aggfunc="count", fill_value=0).reset_index()
     for c in order:
         if c not in pw:
@@ -215,25 +227,25 @@ def build():
 
     # ═══════════════ 4. Variance structure and chart design
     pg.h2("variance", "4. Variance structure and chart design")
-    pg.p("The chart for each class follows from where its variance lies, and the four classes differ enough that no one chart serves them all.")
+    pg.p("The chart for each class follows from where its variance lies, and the four measured classes differ enough that no one chart serves them all.")
     pg.ul([f"<strong>Formed height and bend angle:</strong> {pct(med.at['formed', 'share_within'], 'mart_variance_components.share_within, formed', was='80.0%')} of the routine variance lies within the subgroup after centring, {pct(med.at['formed', 'share_between_subgroups_in_coil'], 'mart_variance_components.share_between_subgroups_in_coil, formed', was='5.2%')} between subgroups within a coil, and "
            f"{pct(med.at['formed', 'share_between_coils'], 'mart_variance_components.share_between_coils, formed', was='13.5%')} is the residual coil offset that centring leaves. Before centring, {pct(med.at['formed', 'incoming_coil_share'], 'mart_variance_components.incoming_coil_share, formed, median', was='49.7%')} of the incoming variance on coil-change subgroups lies between coils.",
            f"<strong>Hole diameter:</strong> {pct(med.at['hole diameter', 'trend_share'], 'mart_variance_components.trend_share, hole diameter, median', was='36.2%')} of the variance is the wear trend over a sharpening interval; {pct(med.at['hole diameter', 'trend_within_share'], 'mart_variance_components.trend_within_share, hole diameter', was='56.1%')} lies within the subgroup about the trend.",
-           f"<strong>Hole position, length and width:</strong> {pct(med.at['hole position', 'share_within'], 'mart_variance_components.share_within, hole position, median', was='97.4%')} within the subgroup, {pct(med.at['hole position', 'share_between_coils'], 'mart_variance_components.share_between_coils, hole position', was='0.8%')} between coils.",
+           f"<strong>Cut geometry:</strong> {pct(med.at['cut geometry', 'share_within'], 'mart_variance_components.share_within, cut geometry, median', was='97.4%')} within the subgroup, {pct(med.at['cut geometry', 'share_between_coils'], 'mart_variance_components.share_between_coils, cut geometry', was='0.8%')} between coils.",
            f"<strong>Flatness:</strong> {pct(med.at['flatness', 'share_within'], 'mart_variance_components.share_within, flatness, median', was='97.5%')} within the subgroup."])
     bi = float(med["share_between_intervals"].max())
     pg.figure(FIG.variance_components(med.reset_index()), "Figure 10: Variance components by class",
               f"Each bar is one class: the median share of variance in each component across its critical characteristics (all flatness characteristics) with 60 routine subgroups or more in the year, nested by the method of moments. Between-interval shares are under {pg.figval(10, '0.1%' if bi < 0.001 else f'{bi * 100:.1f}%', 'mart_variance_components.share_between_intervals, largest class median (bound)')} on every class; the wear on hole diameters is the trend share.")
-    ff = fam[fam["characteristic_class"] == "formed"]; fh = fam[fam["characteristic_class"].isin(["hole position", "length and width"])]; fhd = fam[fam["characteristic_class"] == "hole diameter"].iloc[0]
+    ff = fam[fam["characteristic_class"] == "formed"]; fh = fam[fam["characteristic_class"] == "cut geometry"]; fhd = fam[fam["characteristic_class"] == "hole diameter"].iloc[0]
     pg.p(f"The family's characteristics show the same structure one at a time: the formed heights and bend angles carry between-coil shares of {n(100 * ff['share_between_coils'].min(), 'mart_variance_components.share_between_coils, family formed, lowest', '{:.0f}', was='7')}% to "
          f"{n(100 * ff['share_between_coils'].max(), 'mart_variance_components.share_between_coils, family formed, highest', '{:.0f}', was='31')}% on the routine record and {n(100 * ff['incoming_coil_share'].min(), 'mart_variance_components.incoming_coil_share, family, lowest', '{:.0f}', was='22')}% to "
-         f"{n(100 * ff['incoming_coil_share'].max(), 'mart_variance_components.incoming_coil_share, family, highest', '{:.0f}', was='52')}% incoming, the hole positions {n(100 * fh['share_between_coils'].min(), 'mart_variance_components.share_between_coils, family hole position and width, lowest', '{:.0f}', was='0')}% to "
+         f"{n(100 * ff['incoming_coil_share'].max(), 'mart_variance_components.incoming_coil_share, family, highest', '{:.0f}', was='52')}% incoming, the cut geometry characteristics {n(100 * fh['share_between_coils'].min(), 'mart_variance_components.share_between_coils, family hole position and width, lowest', '{:.0f}', was='0')}% to "
          f"{n(100 * fh['share_between_coils'].max(), 'mart_variance_components.share_between_coils, family hole position and width, highest', '{:.0f}', was='6')}%, and the one variable hole diameter, {fhd.characteristic_id}, a {pct(fhd.trend_share, 'mart_variance_components.trend_share, C-15731-02', was='23.5%')} wear trend.")
     f11 = fam[["characteristic_id", "characteristic_class"]].copy(); f11["value"] = np.where(fam["characteristic_class"] == "hole diameter", fam["trend_share"], fam["share_between_coils"])
     for r in f11.itertuples():
         pg.figval(11, f"{r.value * 100:.1f}%", f"mart_variance_components.{'trend_share' if r.characteristic_class == 'hole diameter' else 'share_between_coils'}, {r.characteristic_id}")
-    pg.figure(FIG.family_between_coil(f11, float(med.at["formed", "share_between_coils"]), float(med.at["hole position", "share_between_coils"])), "Figure 11: Between-coil share of variance by family characteristic",
-              "One row per family variable characteristic, labelled by id: its between-coil share of the routine record's variance, coloured by class, against the plant's formed and hole-position class medians. C-15731-02, the one variable hole diameter, is shown at its wear-trend share.")
+    pg.figure(FIG.family_between_coil(f11, float(med.at["formed", "share_between_coils"]), float(med.at["cut geometry", "share_between_coils"])), "Figure 11: Between-coil share of variance by family characteristic",
+              "One row per family variable characteristic, labelled by id: its between-coil share of the routine record's variance, coloured by class, against the plant's formed and cut geometry class medians. C-15731-02, the one variable hole diameter, is shown at its wear-trend share.")
     cf = query("select * from marts.mart_coil_fit order by characteristic_id")
     rmed = float(cf["r_squared"].median()); fc = cf[cf["family_part"] & (cf["coil_change_subgroups"] >= 20)].copy(); fc["d"] = (fc["r_squared"] - rmed).abs(); pick = fc.sort_values(["d", "characteristic_id"]).iloc[0]
     pg.p(f"<strong>The coil effect and centring.</strong> The coil effect on formed characteristics is predictable from the coil certificate, which is why centring at the coil change removes it. Across {n(len(cf), 'mart_coil_fit: characteristics', was='242')} formed characteristics, thickness and hardness on the certificate explain the coil means with a median R squared of "
@@ -360,7 +372,7 @@ def build():
     t6["plan"] = t6["reaction_plan_signals"].fillna(""); t6["basis_"] = t6["study_basis"].fillna("")
     pg.table("A1. The family's charts in force at 30 June 2026", t6, {"characteristic_id": "Characteristic", "chart_type": "Chart", "limits": "Limits basis and date", "status": "Status", "gauge_id": "Gauge", "basis_": "Study basis", "study": "Study",
                                                                        "grr": "%GRR", "restudy": "Restudy due", "freq": "Check, minutes", "plan": "Reaction plan", "coil-change chart": "Coil-change chart"},
-             {"%GRR": F1, "Check, minutes": F0}, note="The p charts on attribute checks carry no limit set of this kind. A hand gauge is covered by the latest study of its type at its press.")
+             {"%GRR": F1, "Check, minutes": F0}, note="The p charts carry no limit set of this kind. A hand gauge is covered by the latest study of its type at its press.")
     pg.table("A2. The family's characteristics: variance components, chart and gauge", fam,
              {"characteristic_id": "Characteristic", "characteristic_name": "Name", "routine_subgroups": "Routine subgroups", "coils": "Coils", "share_within": "Within", "share_between_subgroups_in_coil": "Between subgroups in a coil", "share_between_coils": "Between coils",
               "share_between_intervals": "Between intervals", "incoming_coil_share": "Incoming coil share", "trend_share": "Wear trend", "chart_type": "Chart", "gauge_id": "Gauge", "gauge_type": "Gauge type"},
