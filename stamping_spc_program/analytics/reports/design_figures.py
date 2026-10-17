@@ -255,7 +255,7 @@ def three_way_designs(alts):
     return S.save(f, "d1_three_way_design_false_alarms", "False alarms per 100 points by three-way design")
 
 
-def wear_rate_by_die(ws, lo, hi, label_id):
+def wear_rate_by_die(ws, lo, hi, label_id, label_ref):
     f, ax = S.fig(h=5.4, grid="x")
     d = ws.sort_values(["rate", "characteristic_id"]).reset_index(drop=True); y = np.arange(len(d))
     ax.axvspan(lo, hi, color=S.LIGHT_BLUE, alpha=0.25, label=f"Plant range {lo:.3f} to {hi:.3f}")
@@ -264,7 +264,7 @@ def wear_rate_by_die(ws, lo, hi, label_id):
         single = int(r.intervals) == 1
         ax.scatter(r.rate, i, s=30 * int(r.intervals), facecolors="none" if single else S.AMBER, edgecolors=S.AMBER, linewidths=1.5, zorder=3)
         ax.text(r.rate + 0.00025, i, f"{int(r.intervals)}", va="center", fontsize=8)
-    ax.set_yticks(y); ax.set_yticklabels([c + ("  (Figure 15)" if c == label_id else "") for c in d["characteristic_id"]], fontsize=8.5)
+    ax.set_yticks(y); ax.set_yticklabels([c + ("  " + label_ref if c == label_id else "") for c in d["characteristic_id"]], fontsize=8.5)
     ax.set_xlim(0.003, 0.011); ax.set_xlabel("Wear rate, mm per 100,000 shots (marker area: qualifying intervals; hollow: one interval)")
     ax.legend(frameon=False, loc="lower right", fontsize=9)
     return S.save(f, "d1_wear_rate_by_die", "Hole diameter wear rate by die")
@@ -285,3 +285,28 @@ def stops_by_finding(t, order, charts):
     ax.set_yticks(y); ax.set_yticklabels(order); ax.invert_yaxis(); ax.set_xlim(0, left.max() * 1.12); ax.set_xlabel("Stops in the year")
     ax.legend(frameon=False, ncol=3, loc="lower right", fontsize=9)
     return S.save(f, "d1_stops_by_finding_and_chart", "Stops by the per-stroke charts, by finding and chart")
+
+
+def signals_vs_expectation(f2, bands, cc_obs, cc_exp, cc_int):
+    """f2: chart, observed per 100, expected per 100, ratio. Grouped bars per chart type with the design band (the observed
+    rate the band allows) shaded behind the pair and the ratio above it; the coil-change chart on its own panel in signals
+    a year, its 95% interval shaded."""
+    f, (ax, bx) = S.fig(h=3.8, ncols=2, gridspec_kw={"width_ratios": [3, 1.15], "wspace": 0.35})
+    w = 0.36
+    for i, r in f2.reset_index(drop=True).iterrows():
+        lo, hi = bands[r.chart]; e = r["expected per 100"]; o = r["observed per 100"]
+        ax.fill_between([i - 0.45, i + 0.45], e * lo, e * hi, color=S.LIGHT_BLUE, alpha=0.35, linewidth=0, label="Design band" if i == 0 else None)
+        ax.bar(i - w / 2, o, width=w, color=S.BRAND_BLUE, label="Observed" if i == 0 else None)
+        ax.bar(i + w / 2, e, width=w, color="white", edgecolor=S.BRAND_BLUE, linewidth=1.4, label="Expected" if i == 0 else None)
+        ax.text(i, max(o, e * hi) + 0.15, f"{r.ratio:.2f}x", ha="center", va="bottom", fontsize=9.5, fontweight="bold")
+    ax.set_xticks(range(len(f2))); ax.set_xticklabels(f2["chart"]); ax.set_ylabel("Signals per 100 routine subgroups")
+    ax.set_ylim(0, max(f2["observed per 100"].max(), (f2["expected per 100"] * 1.5).max()) * 1.25)
+    ax.legend(frameon=False, fontsize=8.5, loc="upper left", ncol=3)
+    lo, hi = cc_int
+    bx.fill_between([-0.45, 0.45], cc_exp * lo, cc_exp * hi, color=S.LIGHT_BLUE, alpha=0.35, linewidth=0, label="95% interval")
+    bx.bar(-w / 2, cc_obs, width=w, color=S.BRAND_BLUE); bx.bar(w / 2, cc_exp, width=w, color="white", edgecolor=S.BRAND_BLUE, linewidth=1.4)
+    bx.text(0, max(cc_obs, cc_exp * hi) + 0.6, f"{cc_obs / cc_exp:.2f}x", ha="center", va="bottom", fontsize=9.5, fontweight="bold")
+    bx.set_xticks([0]); bx.set_xticklabels(["coil-change"]); bx.set_xlim(-0.8, 0.8); bx.set_ylabel("Signals in the year")
+    bx.set_ylim(0, cc_exp * hi * 1.25); bx.legend(frameon=False, fontsize=8.5, loc="upper left")
+    return S.save(f, "d1_signals_against_expectation", "Signals against expectation by chart type")
+

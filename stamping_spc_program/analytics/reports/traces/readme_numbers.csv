@@ -7,7 +7,7 @@ burr_share,80%,80%,mart_chart_design.sharpening_burr_share_of_limit
 incoming,49.7%,49.7%,"docs/reports/control_chart_design.html: mart_variance_components.incoming_coil_share, formed, median"
 formed_within,80.0%,80.0%,"docs/reports/control_chart_design.html: mart_variance_components.share_within, formed"
 trend,36.2%,36.2%,"docs/reports/control_chart_design.html: mart_variance_components.trend_share, hole diameter, median"
-hp_within,97.4%,97.4%,"docs/reports/control_chart_design.html: mart_variance_components.share_within, hole position, median"
+hp_within,97.4%,97.4%,"docs/reports/control_chart_design.html: mart_variance_components.share_within, cut geometry, median"
 fl_within,97.5%,97.5%,"docs/reports/control_chart_design.html: mart_variance_components.share_within, flatness, median"
 r2,0.82,0.82,"docs/reports/control_chart_design.html: mart_coil_fit.r_squared, median"
 resid,3.2%,3.2%,"docs/reports/control_chart_design.html: mart_coil_fit.residual_sigma_share_of_tolerance, median"

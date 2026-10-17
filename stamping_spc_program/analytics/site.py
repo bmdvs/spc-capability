@@ -157,7 +157,7 @@ def build():
     v("burr_share", f"{design['sharpening_burr_share_of_limit'] * 100:.0f}%", "80%", "mart_chart_design.sharpening_burr_share_of_limit")
     for key, p, label, was in [
         ("incoming", D1, "mart_variance_components.incoming_coil_share, formed, median", "49.7%"), ("formed_within", D1, "mart_variance_components.share_within, formed", "80.0%"),
-        ("trend", D1, "mart_variance_components.trend_share, hole diameter, median", "36.2%"), ("hp_within", D1, "mart_variance_components.share_within, hole position, median", "97.4%"),
+        ("trend", D1, "mart_variance_components.trend_share, hole diameter, median", "36.2%"), ("hp_within", D1, "mart_variance_components.share_within, cut geometry, median", "97.4%"),
         ("fl_within", D1, "mart_variance_components.share_within, flatness, median", "97.5%"), ("r2", D1, "mart_coil_fit.r_squared, median", "0.82"),
         ("resid", D1, "mart_coil_fit.residual_sigma_share_of_tolerance, median", "3.2%"), ("spread", D1, "mart_coil_fit.coil_means_sigma_share_of_tolerance, median", "10.1%"),
         ("baselines", D1, "mart_phase1_baselines: baselines", "244"), ("sharp_fail", D1, "share of sharpenings failed", "8.1%"),
