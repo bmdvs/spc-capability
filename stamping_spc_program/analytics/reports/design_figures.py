@@ -5,7 +5,7 @@ import pandas as pd
 
 from analytics.style import style as S
 
-CLASS_ORDER = ["formed", "hole diameter", "hole position", "flatness"]
+CLASS_ORDER = ["formed", "hole diameter", "cut geometry", "flatness"]
 COMPONENTS = [("share_within", "Within subgroup", S.BRAND_BLUE), ("share_between_subgroups_in_coil", "Between subgroups in a coil", S.ACCENT),
               ("share_between_coils", "Between coils", S.AMBER), ("share_between_intervals", "Between sharpening intervals", S.GREY)]
 
@@ -18,7 +18,7 @@ def variance_components(fig1):
         v = S.sig(d[col].values * 100)
         ax.barh(range(len(d)), v, left=left, color=colour, label=label, height=0.6)
         left += v
-    ax.set_yticks(range(len(d))); ax.set_yticklabels(d.index); ax.invert_yaxis()
+    ax.set_yticks(range(len(d))); ax.set_yticklabels([CLASS_LABEL[c] for c in d.index]); ax.invert_yaxis()
     ax.set_xlim(0, 100); ax.set_xlabel("Share of variance, median across characteristics (%)")
     ax.legend(ncol=2, frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.22))
     return S.save(f, "d1_variance_components_by_class", "Variance components by characteristic class")
@@ -55,7 +55,7 @@ def phase1_baseline(b, centre, ucl, lcl, ucl_r):
     return S.save(f, "d1_phase1_baseline_c11333_02", "Phase I baseline after a rebuild, C-11333-02")
 
 
-TRIGGER_COLOURS = {"rebuild": S.BRAND_BLUE, "annual review": S.AMBER, "tool-wear re-fit": S.ACCENT, "failed verification": S.RED, "repair": S.GREY, "chart change": S.GREEN}
+TRIGGER_COLOURS = {"rebuild": S.BRAND_BLUE, "annual review": S.AMBER, "regression re-fit": S.ACCENT, "failed verification": S.RED, "repair": S.GREY, "chart change": S.GREEN}
 
 
 def recalculations(by_month):
@@ -78,7 +78,7 @@ def tool_wear_chart(g, centre, slope_per_100k, half_width, usl, lsl):
     ax.plot(xs, line - half_width, color=S.RED, linestyle="--", linewidth=1)
     ax.set_xlabel("Shots since sharpening (thousands)"); ax.set_ylabel("Hole diameter (mm)")
     ax.legend(frameon=False, fontsize=9, loc="upper left")
-    return S.save(f, "d1_tool_wear_chart_c15731_02", "The tool-wear chart on C-15731-02")
+    return S.save(f, "d1_tool_wear_chart_c15731_02", "The regression chart on C-15731-02")
 
 
 def arl_curves(f6):
@@ -149,20 +149,23 @@ def parts_exposed(px):
 
 
 # ── the restructured page's new figures ───────────────────────────────────────
-CLASS_COLOURS = {"formed": S.BRAND_BLUE, "hole position": S.ACCENT, "attribute": S.LIGHT_BLUE, "length and width": S.GREEN, "flatness": S.GREY, "hole diameter": S.AMBER}
-CLASS_LABEL = {"formed": "formed", "hole position": "hole position", "attribute": "attribute checks", "length and width": "length and width", "flatness": "flatness", "hole diameter": "hole diameter"}
+CLASS_COLOURS = {"formed": S.BRAND_BLUE, "cut geometry": S.ACCENT, "hole diameter": S.AMBER, "flatness": S.GREY, "sheared edges": S.GREEN}
+CLASS_LABEL = {"formed": "Formed characteristics", "cut geometry": "Cut geometry", "hole diameter": "Hole diameter", "flatness": "Flatness", "sheared edges": "Sheared edges"}
 
 
 def charts_by_class(rows):
-    """rows: characteristic_class, charts, chart_label, in page order."""
-    f, ax = S.fig(h=3.4, grid="x")
-    y = np.arange(len(rows))
-    ax.barh(y, rows["charts"], color=[CLASS_COLOURS[c] for c in rows["characteristic_class"]], height=0.6)
+    """rows: characteristic_class, measured, attribute, chart_label; in page order. Stacked columns, measured below
+    attribute, the total on top with the chart types in parentheses below it."""
+    f, ax = S.fig(h=3.9)
+    x = np.arange(len(rows)); tot = (rows["measured"] + rows["attribute"]).values
+    ax.bar(x, rows["measured"], width=0.6, color=S.BRAND_BLUE, label="Measured (variable) charts")
+    ax.bar(x, rows["attribute"], bottom=rows["measured"], width=0.6, color=S.LIGHT_BLUE, label="Attribute charts")
     for i, r in rows.reset_index(drop=True).iterrows():
-        ax.text(r.charts + 8, i, f"{r.charts:,}  {r.chart_label}", va="center", fontsize=9)
-    ax.set_yticks(y); ax.set_yticklabels([CLASS_LABEL[c] for c in rows["characteristic_class"]]); ax.invert_yaxis()
-    ax.set_xlim(0, rows["charts"].max() * 1.6); ax.set_xlabel("Charts in force at 30 June 2026")
-    return S.save(f, "d1_charts_in_force_by_class", "Charts in force by characteristic class")
+        ax.text(i, tot[i] + tot.max() * 0.02, f"{tot[i]:,}\n({r.chart_label})", ha="center", va="bottom", fontsize=8.5, linespacing=1.3)
+    ax.set_xticks(x); ax.set_xticklabels([CLASS_LABEL[c].replace(" characteristics", "\ncharacteristics") for c in rows["characteristic_class"]])
+    ax.set_ylim(0, tot.max() * 1.3); ax.set_ylabel("Active SPC charts")
+    ax.legend(frameon=False, loc="upper right", fontsize=9)
+    return S.save(f, "d1_charts_in_force_by_class", "Active SPC charts by characteristic class")
 
 
 def false_alarm_load(load, median, label_press, label_text):
@@ -204,7 +207,7 @@ def fixture_grr(rows):
 
 def signals_by_rule(rr):
     f, axes = S.fig(h=3.6, ncols=2, sharey=True)
-    for ax, chart in zip(axes, ("X-bar and R", "tool-wear")):
+    for ax, chart in zip(axes, ("X-bar and R", "regression")):
         g = rr[rr["chart"] == chart]; x = np.arange(4); w = 0.38
         ax.bar(x - w / 2, S.sig(g["obs"]), width=w, color=S.BRAND_BLUE, label="Observed per 100")
         ax.bar(x + w / 2, S.sig(g["exp"]), width=w, facecolor="none", edgecolor=S.BRAND_BLUE, linewidth=1.4, label="Expected, known parameters")
@@ -216,7 +219,7 @@ def signals_by_rule(rr):
 def family_between_coil(fam, med_formed, med_hp):
     """fam: characteristic_id, characteristic_class, value (between-coil share; the trend share on the hole diameter).
     One row per characteristic, grouped by class and ordered by share within the class, labelled by id."""
-    order = ["formed", "hole position", "length and width", "hole diameter"]
+    order = ["formed", "cut geometry", "hole diameter"]
     d = fam.assign(k=fam["characteristic_class"].map(order.index)).sort_values(["k", "value", "characteristic_id"]).reset_index(drop=True)
     f, ax = S.fig(h=5.6, grid="x")
     y, labels, prev = [], [], None
@@ -233,7 +236,7 @@ def family_between_coil(fam, med_formed, med_hp):
             ax.hlines(g["y"], 0, g["value"] * 100, color=S.GREY, linewidth=0.8, zorder=1)
             ax.scatter(g["value"] * 100, g["y"], s=40, color=CLASS_COLOURS[cls], zorder=3, label=CLASS_LABEL[cls])
     ax.axvline(med_formed * 100, color=CLASS_COLOURS["formed"], linestyle="--", linewidth=1, label=f"formed class median ({med_formed * 100:.1f}%)")
-    ax.axvline(med_hp * 100, color=CLASS_COLOURS["hole position"], linestyle="--", linewidth=1, label=f"hole-position class median ({med_hp * 100:.1f}%)")
+    ax.axvline(med_hp * 100, color=CLASS_COLOURS["cut geometry"], linestyle="--", linewidth=1, label=f"cut geometry class median ({med_hp * 100:.1f}%)")
     ax.set_yticks(d["y"]); ax.set_yticklabels(labels, fontsize=8); ax.invert_yaxis()
     ax.set_xlim(left=0); ax.set_xlabel("Between-coil share of the routine record's variance (%)")
     ax.legend(frameon=False, fontsize=8, loc="upper right")
@@ -252,7 +255,7 @@ def three_way_designs(alts):
     return S.save(f, "d1_three_way_design_false_alarms", "False alarms per 100 points by three-way design")
 
 
-def wear_rate_by_die(ws, lo, hi, label_id):
+def wear_rate_by_die(ws, lo, hi, label_id, label_ref):
     f, ax = S.fig(h=5.4, grid="x")
     d = ws.sort_values(["rate", "characteristic_id"]).reset_index(drop=True); y = np.arange(len(d))
     ax.axvspan(lo, hi, color=S.LIGHT_BLUE, alpha=0.25, label=f"Plant range {lo:.3f} to {hi:.3f}")
@@ -261,13 +264,13 @@ def wear_rate_by_die(ws, lo, hi, label_id):
         single = int(r.intervals) == 1
         ax.scatter(r.rate, i, s=30 * int(r.intervals), facecolors="none" if single else S.AMBER, edgecolors=S.AMBER, linewidths=1.5, zorder=3)
         ax.text(r.rate + 0.00025, i, f"{int(r.intervals)}", va="center", fontsize=8)
-    ax.set_yticks(y); ax.set_yticklabels([c + ("  (Figure 15)" if c == label_id else "") for c in d["characteristic_id"]], fontsize=8.5)
+    ax.set_yticks(y); ax.set_yticklabels([c + ("  " + label_ref if c == label_id else "") for c in d["characteristic_id"]], fontsize=8.5)
     ax.set_xlim(0.003, 0.011); ax.set_xlabel("Wear rate, mm per 100,000 shots (marker area: qualifying intervals; hollow: one interval)")
     ax.legend(frameon=False, loc="lower right", fontsize=9)
     return S.save(f, "d1_wear_rate_by_die", "Hole diameter wear rate by die")
 
 
-def stops_by_finding(t, order, charts):
+def stops_by_finding(t, order, charts, name="d1_stops_by_finding_and_chart", alt="Stops by the per-stroke charts, by finding and chart", legend_above=False):
     f, ax = S.fig(h=3.0, grid="x")
     y = np.arange(len(order)); left = np.zeros(len(order))
     for ch_, colour in zip(charts, (S.BRAND_BLUE, S.AMBER, S.GREY)):
@@ -280,5 +283,78 @@ def stops_by_finding(t, order, charts):
     for i, tot in enumerate(left):
         ax.text(tot + 3, i, f"{int(tot)}", va="center", fontsize=9)
     ax.set_yticks(y); ax.set_yticklabels(order); ax.invert_yaxis(); ax.set_xlim(0, left.max() * 1.12); ax.set_xlabel("Stops in the year")
-    ax.legend(frameon=False, ncol=3, loc="lower right", fontsize=9)
-    return S.save(f, "d1_stops_by_finding_and_chart", "Stops by the per-stroke charts, by finding and chart")
+    ax.legend(frameon=False, ncol=3, fontsize=9, **({"loc": "lower center", "bbox_to_anchor": (0.5, 1.0)} if legend_above else {"loc": "lower right"}))
+    return S.save(f, name, alt)
+
+
+def signals_by_class(f2, bands):
+    """f2: cls, observed per 100, expected per 100, ratio, in page order. Grouped bars per class with the design band (the
+    observed rate the band allows) shaded behind the pair and the ratio above it; a column whose ratio is outside its band
+    sits on the warning tint, as a body-table row would; a fifth column for sheared edges carries no bar."""
+    f, ax = S.fig(h=3.8)
+    w = 0.36; shaded = False
+    for i, r in f2.reset_index(drop=True).iterrows():
+        lo, hi = bands[r.cls]; e = float(r["expected per 100"]); o = float(r["observed per 100"])
+        if not lo <= r.ratio <= hi:
+            ax.axvspan(i - 0.47, i + 0.47, color="#FBEBD3", zorder=0, linewidth=0, label=None if shaded else "Outside its band"); shaded = True
+        ax.fill_between([i - 0.45, i + 0.45], e * lo, e * hi, color=S.LIGHT_BLUE, alpha=0.35, linewidth=0, label="Design band" if i == 0 else None)
+        ax.bar(i - w / 2, S.sig(o), width=w, color=S.BRAND_BLUE, label="Observed" if i == 0 else None)
+        ax.bar(i + w / 2, S.sig(e), width=w, color="white", edgecolor=S.BRAND_BLUE, linewidth=1.4, label="Expected" if i == 0 else None)
+        ax.text(i, max(o, e * hi) + 0.15, f"{r.ratio:.2f}x", ha="center", va="bottom", fontsize=9.5, fontweight="bold")
+    k = len(f2)
+    ax.text(k, 0.25, "no limits in\nthe export;\nsee text", ha="center", va="bottom", fontsize=8.5, color=S.DARK_GREY, linespacing=1.3)
+    ax.set_xticks(range(k + 1)); ax.set_xticklabels([CLASS_LABEL[c].replace(" characteristics", "\ncharacteristics") for c in list(f2["cls"]) + ["sheared edges"]])
+    ax.set_xlim(-0.6, k + 0.6); ax.set_ylabel("Signals per 100 routine subgroups")
+    ax.set_ylim(0, max(f2["observed per 100"].max(), (f2["expected per 100"] * 1.5).max()) * 1.25)
+    ax.legend(frameon=False, fontsize=8.5, loc="upper right", ncol=3)
+    return S.save(f, "d1_signals_against_expectation_by_class", "Signals against expectation by characteristic class")
+
+
+def family_signals(ff2, bands):
+    """ff2: cls, observed per 100, expected per 100, ratio, lo, hi; the classes then a total. Grouped bars with the design
+    band shaded behind each class's pair, a class outside its band on the warning tint, the ratio above each pair and its
+    95% interval as a whisker on the observed bar."""
+    f, ax = S.fig(h=3.8)
+    w = 0.36; shaded = False
+    for i, r in ff2.reset_index(drop=True).iterrows():
+        e = float(r["expected per 100"]); o = float(r["observed per 100"])
+        if r.cls in bands:
+            lo, hi = bands[r.cls]
+            if not lo <= r.ratio <= hi:
+                ax.axvspan(i - 0.47, i + 0.47, color="#FBEBD3", zorder=0, linewidth=0, label=None if shaded else "Outside its band"); shaded = True
+            ax.fill_between([i - 0.45, i + 0.45], e * lo, e * hi, color=S.LIGHT_BLUE, alpha=0.35, linewidth=0, label="Design band" if i == 0 else None)
+        ax.bar(i - w / 2, S.sig(o), width=w, color=S.BRAND_BLUE, label="Observed" if i == 0 else None)
+        ax.errorbar(i - w / 2, o, yerr=[[o - e * r.lo], [e * r.hi - o]], color=S.DARK_GREY, capsize=4, linewidth=1.2, label="95% interval" if i == 0 else None)
+        ax.bar(i + w / 2, S.sig(e), width=w, color="white", edgecolor=S.BRAND_BLUE, linewidth=1.4, label="Expected" if i == 0 else None)
+        top = max(e * r.hi, e * bands.get(r.cls, (0, 0))[1])
+        ax.text(i, top + 0.15, f"{r.ratio:.2f}x", ha="center", va="bottom", fontsize=9.5, fontweight="bold")
+    labels = [CLASS_LABEL.get(c, "Total").replace(" characteristics", "\ncharacteristics") for c in ff2["cls"]]
+    ax.set_xticks(range(len(ff2))); ax.set_xticklabels(labels); ax.set_ylabel("Signals per 100 routine subgroups")
+    ax.set_ylim(0, float((ff2["expected per 100"] * ff2["hi"]).max()) * 1.3)
+    ax.legend(frameon=False, fontsize=8, loc="upper right", ncol=3)
+    return S.save(f, "d1_family_signals_against_expectation", "The family's signals against expectation by class")
+
+
+def plant_family_ratios(pf, bands):
+    """pf: cls, scope (plant or family), ratio, lo, hi. Per class the plant's and the family's observed-over-expected
+    ratio as columns with the 95% interval as a whisker, the class's design band shaded behind both, the ratio above
+    each column; a class the family does not chart has the plant column only."""
+    f, ax = S.fig(h=3.8)
+    classes = list(dict.fromkeys(pf["cls"])); w = 0.34
+    for i, c in enumerate(classes):
+        lo, hi = bands[c]
+        ax.fill_between([i - 0.45, i + 0.45], lo, hi, color=S.LIGHT_BLUE, alpha=0.35, linewidth=0, label="Design band" if i == 0 else None)
+        for j, (scope, colour) in enumerate((("plant", S.BRAND_BLUE), ("family", S.AMBER))):
+            g = pf[(pf["cls"] == c) & (pf["scope"] == scope)]
+            if not len(g):
+                continue
+            r = g.iloc[0]; x = i + (j - 0.5) * w
+            ax.bar(x, S.sig(r.ratio), width=w * 0.92, color=colour, label=("Plant" if scope == "plant" else "Family") if i == 0 else None)
+            ax.errorbar(x, r.ratio, yerr=[[r.ratio - r.lo], [r.hi - r.ratio]], color=S.DARK_GREY, capsize=3, linewidth=1.1, label="95% interval" if i == 0 and scope == "plant" else None)
+            ax.text(x, r.hi + 0.06, f"{r.ratio:.2f}", ha="center", va="bottom", fontsize=8.5, fontweight="bold")
+    ax.axhline(1.0, color=S.GREY, linewidth=0.8, linestyle=":")
+    ax.set_xticks(range(len(classes))); ax.set_xticklabels([CLASS_LABEL[c].replace(" characteristics", "\ncharacteristics") for c in classes])
+    ax.set_ylabel("Observed over expected signals"); ax.set_ylim(0, float(pf["hi"].max()) * 1.18)
+    ax.legend(frameon=False, fontsize=8.5, loc="upper left", ncol=2)
+    return S.save(f, "d1_signals_against_expectation_plant_and_family", "Signals against expectation by characteristic class, plant and family")
+
