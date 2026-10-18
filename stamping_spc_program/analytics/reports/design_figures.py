@@ -55,7 +55,7 @@ def phase1_baseline(b, centre, ucl, lcl, ucl_r):
     return S.save(f, "d1_phase1_baseline_c11333_02", "Phase I baseline after a rebuild, C-11333-02")
 
 
-TRIGGER_COLOURS = {"rebuild": S.BRAND_BLUE, "annual review": S.AMBER, "tool-wear re-fit": S.ACCENT, "failed verification": S.RED, "repair": S.GREY, "chart change": S.GREEN}
+TRIGGER_COLOURS = {"rebuild": S.BRAND_BLUE, "annual review": S.AMBER, "regression re-fit": S.ACCENT, "failed verification": S.RED, "repair": S.GREY, "chart change": S.GREEN}
 
 
 def recalculations(by_month):
@@ -78,7 +78,7 @@ def tool_wear_chart(g, centre, slope_per_100k, half_width, usl, lsl):
     ax.plot(xs, line - half_width, color=S.RED, linestyle="--", linewidth=1)
     ax.set_xlabel("Shots since sharpening (thousands)"); ax.set_ylabel("Hole diameter (mm)")
     ax.legend(frameon=False, fontsize=9, loc="upper left")
-    return S.save(f, "d1_tool_wear_chart_c15731_02", "The tool-wear chart on C-15731-02")
+    return S.save(f, "d1_tool_wear_chart_c15731_02", "The regression chart on C-15731-02")
 
 
 def arl_curves(f6):
@@ -207,7 +207,7 @@ def fixture_grr(rows):
 
 def signals_by_rule(rr):
     f, axes = S.fig(h=3.6, ncols=2, sharey=True)
-    for ax, chart in zip(axes, ("X-bar and R", "tool-wear")):
+    for ax, chart in zip(axes, ("X-bar and R", "regression")):
         g = rr[rr["chart"] == chart]; x = np.arange(4); w = 0.38
         ax.bar(x - w / 2, S.sig(g["obs"]), width=w, color=S.BRAND_BLUE, label="Observed per 100")
         ax.bar(x + w / 2, S.sig(g["exp"]), width=w, facecolor="none", edgecolor=S.BRAND_BLUE, linewidth=1.4, label="Expected, known parameters")
@@ -270,7 +270,7 @@ def wear_rate_by_die(ws, lo, hi, label_id, label_ref):
     return S.save(f, "d1_wear_rate_by_die", "Hole diameter wear rate by die")
 
 
-def stops_by_finding(t, order, charts):
+def stops_by_finding(t, order, charts, name="d1_stops_by_finding_and_chart", alt="Stops by the per-stroke charts, by finding and chart", legend_above=False):
     f, ax = S.fig(h=3.0, grid="x")
     y = np.arange(len(order)); left = np.zeros(len(order))
     for ch_, colour in zip(charts, (S.BRAND_BLUE, S.AMBER, S.GREY)):
@@ -283,8 +283,8 @@ def stops_by_finding(t, order, charts):
     for i, tot in enumerate(left):
         ax.text(tot + 3, i, f"{int(tot)}", va="center", fontsize=9)
     ax.set_yticks(y); ax.set_yticklabels(order); ax.invert_yaxis(); ax.set_xlim(0, left.max() * 1.12); ax.set_xlabel("Stops in the year")
-    ax.legend(frameon=False, ncol=3, loc="lower right", fontsize=9)
-    return S.save(f, "d1_stops_by_finding_and_chart", "Stops by the per-stroke charts, by finding and chart")
+    ax.legend(frameon=False, ncol=3, fontsize=9, **({"loc": "lower center", "bbox_to_anchor": (0.5, 1.0)} if legend_above else {"loc": "lower right"}))
+    return S.save(f, name, alt)
 
 
 def signals_by_class(f2, bands):
@@ -308,4 +308,53 @@ def signals_by_class(f2, bands):
     ax.set_ylim(0, max(f2["observed per 100"].max(), (f2["expected per 100"] * 1.5).max()) * 1.25)
     ax.legend(frameon=False, fontsize=8.5, loc="upper right", ncol=3)
     return S.save(f, "d1_signals_against_expectation_by_class", "Signals against expectation by characteristic class")
+
+
+def family_signals(ff2, bands):
+    """ff2: cls, observed per 100, expected per 100, ratio, lo, hi; the classes then a total. Grouped bars with the design
+    band shaded behind each class's pair, a class outside its band on the warning tint, the ratio above each pair and its
+    95% interval as a whisker on the observed bar."""
+    f, ax = S.fig(h=3.8)
+    w = 0.36; shaded = False
+    for i, r in ff2.reset_index(drop=True).iterrows():
+        e = float(r["expected per 100"]); o = float(r["observed per 100"])
+        if r.cls in bands:
+            lo, hi = bands[r.cls]
+            if not lo <= r.ratio <= hi:
+                ax.axvspan(i - 0.47, i + 0.47, color="#FBEBD3", zorder=0, linewidth=0, label=None if shaded else "Outside its band"); shaded = True
+            ax.fill_between([i - 0.45, i + 0.45], e * lo, e * hi, color=S.LIGHT_BLUE, alpha=0.35, linewidth=0, label="Design band" if i == 0 else None)
+        ax.bar(i - w / 2, S.sig(o), width=w, color=S.BRAND_BLUE, label="Observed" if i == 0 else None)
+        ax.errorbar(i - w / 2, o, yerr=[[o - e * r.lo], [e * r.hi - o]], color=S.DARK_GREY, capsize=4, linewidth=1.2, label="95% interval" if i == 0 else None)
+        ax.bar(i + w / 2, S.sig(e), width=w, color="white", edgecolor=S.BRAND_BLUE, linewidth=1.4, label="Expected" if i == 0 else None)
+        top = max(e * r.hi, e * bands.get(r.cls, (0, 0))[1])
+        ax.text(i, top + 0.15, f"{r.ratio:.2f}x", ha="center", va="bottom", fontsize=9.5, fontweight="bold")
+    labels = [CLASS_LABEL.get(c, "Total").replace(" characteristics", "\ncharacteristics") for c in ff2["cls"]]
+    ax.set_xticks(range(len(ff2))); ax.set_xticklabels(labels); ax.set_ylabel("Signals per 100 routine subgroups")
+    ax.set_ylim(0, float((ff2["expected per 100"] * ff2["hi"]).max()) * 1.3)
+    ax.legend(frameon=False, fontsize=8, loc="upper right", ncol=3)
+    return S.save(f, "d1_family_signals_against_expectation", "The family's signals against expectation by class")
+
+
+def plant_family_ratios(pf, bands):
+    """pf: cls, scope (plant or family), ratio, lo, hi. Per class the plant's and the family's observed-over-expected
+    ratio as columns with the 95% interval as a whisker, the class's design band shaded behind both, the ratio above
+    each column; a class the family does not chart has the plant column only."""
+    f, ax = S.fig(h=3.8)
+    classes = list(dict.fromkeys(pf["cls"])); w = 0.34
+    for i, c in enumerate(classes):
+        lo, hi = bands[c]
+        ax.fill_between([i - 0.45, i + 0.45], lo, hi, color=S.LIGHT_BLUE, alpha=0.35, linewidth=0, label="Design band" if i == 0 else None)
+        for j, (scope, colour) in enumerate((("plant", S.BRAND_BLUE), ("family", S.AMBER))):
+            g = pf[(pf["cls"] == c) & (pf["scope"] == scope)]
+            if not len(g):
+                continue
+            r = g.iloc[0]; x = i + (j - 0.5) * w
+            ax.bar(x, S.sig(r.ratio), width=w * 0.92, color=colour, label=("Plant" if scope == "plant" else "Family") if i == 0 else None)
+            ax.errorbar(x, r.ratio, yerr=[[r.ratio - r.lo], [r.hi - r.ratio]], color=S.DARK_GREY, capsize=3, linewidth=1.1, label="95% interval" if i == 0 and scope == "plant" else None)
+            ax.text(x, r.hi + 0.06, f"{r.ratio:.2f}", ha="center", va="bottom", fontsize=8.5, fontweight="bold")
+    ax.axhline(1.0, color=S.GREY, linewidth=0.8, linestyle=":")
+    ax.set_xticks(range(len(classes))); ax.set_xticklabels([CLASS_LABEL[c].replace(" characteristics", "\ncharacteristics") for c in classes])
+    ax.set_ylabel("Observed over expected signals"); ax.set_ylim(0, float(pf["hi"].max()) * 1.18)
+    ax.legend(frameon=False, fontsize=8.5, loc="upper left", ncol=2)
+    return S.save(f, "d1_signals_against_expectation_plant_and_family", "Signals against expectation by characteristic class, plant and family")
 
