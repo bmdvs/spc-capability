@@ -144,14 +144,27 @@ def expected_observed_by_press(bp):
     return S.save(f, "d1_expected_against_observed_by_press", "Expected against observed false alarms by press")
 
 
-def ewma_arl1(f9, marker):
+def ewma_arl1(f9, marker, stops=None):
+    """The EWMA's ARL1 against the step in the total for three lambda values; with stops (total_shift_at_onset,
+    strokes_exposed_per_stroke_charts, chart), each kept chipped-punch stop at its measured shift and strokes to the stop,
+    a stop on the stroke of the break drawn on the floor of the axis."""
     f, ax = S.fig(h=4.0)
     cols = [c for c in f9.columns if c != "shift_value"]
     for c, colour in zip(cols, (S.BRAND_BLUE, S.ACCENT, S.AMBER)):
         ax.plot(f9["shift_value"] * 100, S.sig(f9[c]), marker="o", markersize=3, color=colour, label=c)
     ax.axvline(marker * 100, color=S.RED, linestyle=":", linewidth=1.2, label="Chipped punch, median shift")
-    ax.set_yscale("log"); ax.set_xlabel("Step in the per-stroke total (% of the total)"); ax.set_ylabel("ARL to signal (strokes)")
-    ax.legend(frameon=False)
+    ax.set_yscale("log")
+    if stops is not None and len(stops):
+        floor = 0.6
+        for chart, mk, colour, lab in (("EWMA on the total", "D", S.RED, "Chipped punch stopped by the EWMA"), ("channel share", "s", S.GREEN, "Chipped punch stopped by the channel-share chart")):
+            g = stops[stops["chart"] == chart]
+            if len(g):
+                yv = np.where(g["strokes_exposed_per_stroke_charts"] > 0, g["strokes_exposed_per_stroke_charts"], floor)
+                ax.scatter(S.sig(-100 * g["total_shift_at_onset"]), yv, marker=mk, s=22, facecolor="none", edgecolor=colour, linewidth=1.1, label=lab, zorder=4)
+        lo, hi = ax.get_ylim(); ax.set_ylim(floor * 0.8, hi)
+        ax.set_yticks([floor, 1, 10, 100, 1000]); ax.set_yticklabels(["0", "1", "10", "100", "1,000"])
+    ax.set_xlabel("Step in the per-stroke total (% of the total)"); ax.set_ylabel("Strokes to signal")
+    ax.legend(frameon=False, fontsize=8.5, loc="upper right")
     return S.save(f, "d1_ewma_arl1_against_shift", "EWMA ARL1 against shift size")
 
 
@@ -436,19 +449,26 @@ def program_by_class(pv, parts, min_label=12):
 
 
 def flagged_bars(rows, name, labels=("Special cause", "No assignable cause")):
-    """rows: group, a (special cause), b (no assignable cause). One 100% stacked horizontal bar per group, counts in the
-    segments, the total at the bar's end."""
-    f, ax = S.fig(h=3.2, grid="x")
-    y = np.arange(len(rows)); tot = (rows["a"] + rows["b"]).values.astype(float); fa = np.where(tot > 0, rows["a"] / tot, 0); fb_ = 1 - fa
-    ax.barh(y, 100 * fa, color=S.BRAND_BLUE, height=0.6, label=labels[0]); ax.barh(y, 100 * fb_, left=100 * fa, color=S.LIGHT_BLUE, height=0.6, label=labels[1])
-    for i, r in rows.reset_index(drop=True).iterrows():
-        if r.a > 0:
-            ax.text(100 * fa[i] / 2, i, f"{int(r.a):,}", ha="center", va="center", fontsize=8.5, color="white")
-        if r.b > 0:
-            ax.text(100 * fa[i] + 100 * fb_[i] / 2, i, f"{int(r.b):,}", ha="center", va="center", fontsize=8.5, color=S.TEXT)
+    """rows: group, a (special cause), b (no assignable cause), and optionally o (follow-on signals, between the two). One
+    100% stacked horizontal bar per group, counts in the segments, the total at the bar's end."""
+    f, ax = S.fig(h=0.75 * len(rows) + 1.4, grid="x")
+    rows = rows.reset_index(drop=True); has_o = "o" in rows and len(labels) == 3
+    y = np.arange(len(rows)); tot = (rows["a"] + (rows["o"] if has_o else 0) + rows["b"]).values.astype(float)
+    segs = [("a", S.BRAND_BLUE, "white")] + ([("o", S.ACCENT, "white")] if has_o else []) + [("b", S.LIGHT_BLUE, S.TEXT)]
+    left = np.zeros(len(rows))
+    for (col, colour, tc), lab in zip(segs, labels if has_o else (labels[0], labels[-1])):
+        w = np.where(tot > 0, 100 * rows[col].values / tot, 0)
+        ax.barh(y, w, left=left, color=colour, height=0.6, label=lab)
+        for i in range(len(rows)):
+            if rows.at[i, col] > 0 and w[i] >= 3:
+                ax.text(left[i] + w[i] / 2, i, f"{int(rows.at[i, col]):,}", ha="center", va="center", fontsize=8.5, color=tc)
+            elif rows.at[i, col] > 0:
+                ax.text(left[i] + w[i] / 2, i - 0.34, f"{int(rows.at[i, col]):,}", ha="center", va="bottom", fontsize=8.5, color=S.TEXT)
+        left += w
+    for i in range(len(rows)):
         ax.text(102, i, f"{int(tot[i]):,}", va="center", fontsize=9)
     ax.set_yticks(y); ax.set_yticklabels(rows["group"]); ax.invert_yaxis(); ax.set_xlim(0, 112); ax.set_xlabel("Share of what was flagged (%)")
-    ax.legend(frameon=False, ncol=2, loc="upper center", bbox_to_anchor=(0.45, -0.2), fontsize=9)
+    ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.45, -0.28), fontsize=9)
     return S.save(f, name, "What the charts flagged in the year")
 
 
@@ -511,4 +531,74 @@ def kappa_latest(lq):
     ax.set_xticks(range(len(d))); ax.set_xticklabels(d["operator_id"], rotation=90, fontsize=7.5)
     ax.set_ylim(0.6, 1.0); ax.set_ylabel("Kappa, latest qualification")
     return S.save(f, "d1_burr_check_kappa", "Burr-check operator kappa")
+
+
+RULE_COLOURS = {1: S.BRAND_BLUE, 2: S.ACCENT, 3: S.AMBER, 4: S.GREEN}
+
+
+def rules_found(rr, tw3, overall):
+    """rr: row, yield, y_lo, y_hi, first_det, f_lo, f_hi, events (rules 1 to 4 on X-bar and regression charts); tw3: row,
+    yield, y_lo, y_hi, events (three-way rows, yield panel only). Two panels sharing the rows: the yield with its 95% interval
+    and a dashed line at the overall yield; the share of events first signalled by each rule. Hollow dots rest on fewer than
+    five events."""
+    f, (a1, a2) = S.fig(h=3.6, ncols=2, sharey=True, grid="x")
+    ys = list(range(len(rr))); yt = [len(rr) + 0.6 + i for i in range(len(tw3))]
+    for i, r in rr.reset_index(drop=True).iterrows():
+        fill = RULE_COLOURS[int(r.row.split()[-1])] if r.events >= 5 else "white"
+        a1.errorbar(100 * r["yield"], i, xerr=[[100 * (r["yield"] - r.y_lo)], [100 * (r.y_hi - r["yield"])]], fmt="o", color=RULE_COLOURS[int(r.row.split()[-1])], mfc=fill, capsize=3, markersize=6)
+        a2.errorbar(100 * r.first_det, i, xerr=[[100 * (r.first_det - r.f_lo)], [100 * (r.f_hi - r.first_det)]], fmt="o", color=RULE_COLOURS[int(r.row.split()[-1])], mfc=fill, capsize=3, markersize=6)
+    for y, r in zip(yt, tw3.itertuples()):
+        fill = S.DARK_GREY if r.events >= 5 else "white"
+        a1.errorbar(100 * r._4, y, xerr=[[100 * (r._4 - r.y_lo)], [100 * (r.y_hi - r._4)]], fmt="o", color=S.DARK_GREY, mfc=fill, capsize=3, markersize=6)
+    a1.axvline(100 * overall, color=S.GREY, linestyle="--", linewidth=1)
+    a1.set_yticks(ys + yt); a1.set_yticklabels(list(rr["row"]) + list(tw3["row"])); a1.invert_yaxis()
+    a1.set_xlabel("Signals with a cause, first signals only (%)"); a1.set_xlim(0, None)
+    a2.set_xlabel("Special-cause events first signalled (%)"); a2.set_xlim(0, 100)
+    return S.save(f, "d1_rules_found_the_causes", "Which rules found the causes")
+
+
+def run_length_with_level_changes(f6, lc):
+    """Run length against shift at known parameters for rule 1, X-bar rules 1 to 4 and the three-way chart (all three
+    panels), each labelled at its end with its values at 0 and 1 sigma marked; one dot per level change at its estimated
+    shift and subgroups to the first signal, coloured by the rule that fired first."""
+    f, ax = S.fig(h=4.2)
+    for col, lab, colour, dy_end, dy0 in (("X-bar rule 1", "Rule 1", S.BRAND_BLUE, 9, 3), ("X-bar rules 1 to 4", "X-bar rules 1 to 4", S.ACCENT, -9, 3), ("three-way all three charts", "Three-way, all three charts", S.RED, 0, -10)):
+        ax.plot(f6["shift"], S.sig(f6[col]), color=colour, linewidth=1.4)
+        for x in (0.0, 1.0):
+            v = float(f6.loc[np.isclose(f6["shift"], x), col].iloc[0])
+            ax.scatter([x], [v], color=colour, s=18, zorder=3)
+            ax.annotate(f"{v:,.0f}", (x, v), xytext=(5, dy0 if x == 0 else 3), textcoords="offset points", fontsize=8, color=colour)
+        last = f6.iloc[-1]
+        ax.annotate(lab, (last["shift"], last[col]), xytext=(5, dy_end), textcoords="offset points", fontsize=8.5, color=colour, va="center")
+    for rule in sorted(lc["rule"].unique()):
+        g = lc[lc["rule"] == rule]
+        ax.scatter(S.sig(g["shift"]), S.sig(g["delay"]), s=24, color=RULE_COLOURS[int(rule)], edgecolor="white", linewidth=0.5, zorder=4, label=f"First signal on rule {int(rule)}")
+    ax.set_yscale("log"); ax.set_xlim(0, float(f6["shift"].max()) * 1.3)
+    ax.set_yticks([1, 10, 100]); ax.set_yticklabels(["1", "10", "100"])
+    ax.set_xlabel("Shift in the mean (sigmas of the plotted mean)"); ax.set_ylabel("Run length (subgroups)")
+    ax.legend(frameon=False, fontsize=8.5, loc="upper right", title="Level changes", title_fontsize=8.5)
+    return S.save(f, "d1_run_length_with_level_changes", "Run length against shift, with the year's level changes")
+
+
+SEG_COLOURS = {"Within subgroup": S.BRAND_BLUE, "Between subgroups": S.ACCENT, "Between coils": S.AMBER, "Tool wear": S.GREEN}
+
+
+def variance_bars(rows, name, title, label_all=True):
+    """rows: (bar label, [(segment, share)]). Short stacked horizontal bars of variance shares; data labels on every segment
+    of 3% or more, or on the within-subgroup segment only when label_all is False."""
+    f, ax = S.fig(h=0.62 * len(rows) + 1.25, grid="x")
+    seen = set()
+    for i, (lab, segs) in enumerate(rows):
+        left = 0.0
+        for seg, v in segs:
+            w = 100 * float(v)
+            ax.barh(i, S.sig(w), left=left, color=SEG_COLOURS[seg], height=0.55, label=None if seg in seen else seg); seen.add(seg)
+            if (label_all and w >= 3) or (not label_all and seg == "Within subgroup"):
+                ax.text(left + w / 2, i, f"{w:.1f}%", ha="center", va="center", fontsize=8.5, color="white" if seg in ("Within subgroup", "Between subgroups", "Tool wear") else S.TEXT)
+            left += w
+    ax.set_yticks(range(len(rows))); ax.set_yticklabels([r[0] for r in rows]); ax.invert_yaxis()
+    ax.set_xlim(0, 100); ax.set_xlabel("Share of variance, median across characteristics (%)")
+    hs, ls_ = ax.get_legend_handles_labels(); order = [ls_.index(k) for k in SEG_COLOURS if k in ls_]
+    ax.legend([hs[i] for i in order], [ls_[i] for i in order], frameon=False, ncol=4, loc="upper center", bbox_to_anchor=(0.45, -0.42 if len(rows) == 1 else -0.3), fontsize=8.5)
+    return S.save(f, name, title)
 
