@@ -430,7 +430,7 @@ def build():
     for r in ws.itertuples():
         pg.figval(17, f"{r.rate:.4f}", f"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, {r.characteristic_id}")
         pg.figval(17, f"{int(r.intervals)}", f"mart_wear_slopes.qualifying_intervals, {r.characteristic_id}")
-    pg.figure(FIG.wear_rate_by_die(ws, 0.004, 0.010, "C-15731-02", f"(Figure {REGRESSION_FIGURE})"), "Figure 17: Hole diameter wear rate by die, with the intervals behind each rate",
+    pg.figure(FIG.wear_rate_by_die(ws, 0.004, 0.010, "C-15731-02", "(3.2)"), "Figure 17: Hole diameter wear rate by die, with the intervals behind each rate",
               "Each charted hole diameter's wear rate: the median slope of subgroup means on shots since sharpening over its intervals of 15 subgroups or more spanning 20,000 shots. Marker area is the number of qualifying intervals (written beside it); hollow markers rest on one interval. The plant range, 0.004 to 0.010 mm per 100,000 shots, is shaded.")
 
     # ═══════════════ 5. Per-stroke monitoring design
@@ -736,9 +736,9 @@ def build():
         for col in ("ratio", "lo", "hi"):
             pg.figval(100, f"{getattr(r_, col):.2f}", f"observed over expected{'' if col == 'ratio' else ', 95% interval ' + ('low' if col == 'lo' else 'high')}, {r_.scope}, {r_.cls}")
     pg.figure(FIG.plant_family_ratios(pf, {"formed": (0.9, 1.4), "cut geometry": (0.9, 1.4), "hole diameter": (0.9, 1.5), "flatness": (0.9, 1.4)}), "Figure 100: Signals against expectation by characteristic class, plant and family",
-              "Plant: 2.3, {FIG:Signals against expectation by characteristic class}; family: 3.3, {FIG:The family's signals against expectation by class}.")
+              "Plant: 2.3; family: 3.3.")
     entries[keys[-1]] = pg.body[-1]; order.append(keys[-1])
-    order.append(new(f"<p>The variance structure is the one each chart assumes on every measured class ({{FIG:Variance components by class}}), and the family's characteristics show it one at a time ({{FIG:Between-coil share of variance by family characteristic}}). "
+    order.append(new(f"<p>The variance structure is the one each chart assumes on every measured class (2.2), and the family's characteristics show it one at a time (3.2). "
                      f"The design load is {n(tot_w, 'false alarms per week as designed, plant', was='133')} false alarms a week across the plant; verification of limits held across {n(len(shp), 'mart_limit_verifications: sharpenings', was='408')} sharpenings failed on "
                      f"{pct(shp.mean(), 'share of sharpenings failed', was='8.1%')}, each a real level change. PR-03's per-stroke charts stopped it {n(len(s3), 'mart_per_stroke_stops: PR-03 stops', was='97')} times with the chipped punches caught at a median "
                      f"{n(pe3['strokes_exposed_per_stroke_charts'].median(), 'mart_parts_exposed: PR-03 chipped punches, median strokes from onset', was='0')} strokes from the onset; its nothing-found rate, {n(sr3.nf / (sr3.s / 1e6), 'mart_per_stroke_stop_rates: PR-03 nothing found per million strokes', '{:.2f}', was='2.21')} per million strokes against "
@@ -766,10 +766,6 @@ def build():
     tot_p = cpp + presses.set_index("press_id")["per_stroke_charts"]
     ld = load.set_index("press_id"); light = ld["per_week"].idxmin()
     assert ld["per_week"].idxmax() == "PR-03" and cpp.idxmin() == "PR-03"
-    four = ld.loc[["PR-06", "PR-09", "PR-02", "PR-04"], "per_week"]
-    assert four.max() / four.min() < 1.15 and pp_["PR-06"] == pp_["PR-09"], "PR-06 and PR-09 not about as many as PR-02 and PR-04"
-    rl = query("select press_id, median(epoch(actual_end) - epoch(actual_start)) / 3600 h from intermediate.int_run_shots where cast(actual_start as date) between '2025-07-01' and '2026-06-30' group by 1").set_index("press_id")["h"]
-    assert min(rl["PR-06"], rl["PR-09"]) > max(rl["PR-02"], rl["PR-04"]), "PR-06 and PR-09 runs are not the longer ones"
     p3_running = int(query("select count(distinct part_id) n from intermediate.int_characteristic_history where in_record and subgroup_type = 'routine' and press_id = 'PR-03'")["n"].iloc[0])
     freq = cif.groupby("press_group")["frequency_minutes"].unique()
     assert len(freq["high_speed"]) == 1 and len(freq["medium"]) == 1
@@ -778,45 +774,54 @@ def build():
     assert pg_.index[0] == "automotive" and pg_.index[-1] == "HVAC"
     famprog = parts_[parts_["part_id"].isin(["P-11333", "P-15731", "P-14026"])].groupby("program")["part_id"].apply(lambda x: ", ".join(sorted(x)))
     famtxt = " and ".join(f"{k_} ({v_})" for k_, v_ in famprog.sort_index().items())
+    ORD21 = ["cut geometry", "formed", "hole diameter", "sheared edges", "flatness"]
+    LBL21 = {"cut geometry": "X-bar and R", "formed": "three-way", "hole diameter": "regression, p chart", "sheared edges": "p chart", "flatness": "X-bar and R", "press tonnage": "EWMA, channel share"}
+    nvar, natt = int((cif["data_type"] == "variable").sum()), int((cif["data_type"] == "attribute").sum())
+    assert set(cif.loc[cif["data_type"] == "attribute", "characteristic_class"]) == {"hole diameter", "sheared edges"}
+    run_parts = query("select press_id, count(distinct part_id) n from intermediate.int_run_shots where cast(actual_start as date) between '2025-07-01' and '2026-06-30' group by 1").set_index("press_id")["n"]
+    assert all(run_parts[p_] == pp_[p_] == 10 for p_ in ("PR-03", "PR-06", "PR-09")), "PR-03, PR-06 or PR-09 ran a part not its own"
+    hrs = query("select press_id, sum(epoch(actual_end) - epoch(actual_start)) / 3600 h from intermediate.int_run_shots where cast(actual_start as date) between '2025-07-01' and '2026-06-30' group by 1").set_index("press_id")["h"]
+    hs_other = [p_ for p_ in grp.index if grp.at[p_, "press_group"] == "high_speed" and p_ != "PR-03"]
     o21 = [h(2, "chart-summary", "2. SPC Chart Summary"), h(3, "overview", "2.1 Overview")]
-    o21.append(new(f"<p>At 30 June 2026 there are {n(len(cif) + n_ps, 'mart_charts_in_force with stg_erp__presses: active charts', was='1,427')} active SPC charts on {n(cif['press_id'].nunique(), 'mart_charts_in_force: presses', was='11')} presses: "
-                   f"{n(len(cif), 'mart_charts_in_force: charts', was='1,380')} on part characteristics and {n(n_ps, 'stg_erp__presses: per-stroke charts at 30 June 2026', was='47')} on press tonnage. The {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} correspond to the "
-                   f"{wd(cif['characteristic_class'].nunique(), 'mart_charts_in_force: characteristic classes, by characteristic type', was='five')} characteristic classes: formed heights and bend angles, cut geometry (hole position and part length and width), hole diameter, flatness, and sheared edges. "
-                   f"By chart type: {n(int(((cif['chart_type'] == 'three-way (I-MR-R)') & (cif['characteristic_class'] == 'formed')).sum()), 'mart_charts_in_force: three-way, formed', was='399')} three-way charts, {n(int(ctn.get('tool-wear', 0)), 'mart_charts_in_force: tool-wear (regression) charts', was='23')} regression charts, "
-                   f"{n(int(ctn.get('Xbar-R', 0)), 'mart_charts_in_force: X-bar and R', was='474')} X-bar and R charts, {n(int(ctn.get('p', 0)), 'mart_charts_in_force: p', was='483')} p charts and "
-                   f"{wd(int(((cif['chart_type'] == 'three-way (I-MR-R)') & (cif['characteristic_class'] == 'cut geometry')).sum()), 'mart_charts_in_force: three-way, hole position', was='one')} three-way chart on a hole position. "
-                   f"The chart profile is close to uniform across the {n(len(parts_), 'stg_erp__parts: active parts', was='180')} active parts: every part carries at least one formed height, cut geometry, a hole diameter and a sheared-edge check, about "
-                   f"{wd(per_part, 'mart_charts_in_force: charts per active part, rounded', was='eight')} charts a part, and flatness is charted on the {n(flat_parts['part_id'].nunique(), 'mart_charts_in_force: parts with a flatness chart', was='27')} parts with a flatness requirement. "
-                   f"Burr height on the laboratory gauge is controlled by the sharpening count on {n(n_none, 'stg_spc__characteristics: chart none', was='180')} characteristics and carries no chart. "
-                   f"The {n(n_ps, 'stg_erp__presses: per-stroke charts at 30 June 2026', was='47')} tonnage charts are an EWMA on the per-stroke total on each press and a residual chart on each load channel's share of it, read on every stroke by the press monitor: "
-                   f"{wd(1 + 2, 'stg_erp__presses: per-stroke charts on a two-channel press', was='three')} on each two-channel high-speed press and {wd(1 + 4, 'stg_erp__presses: per-stroke charts on a four-channel press', was='five')} on each four-channel medium press. "
-                   "They catch what no subgroup check can see on the stroke: a chipped or worn punch and slug pulling. Section 2 covers the plant; Section 3 follows the C110 family on PR-03 through the same headings.</p>"))
-    o21.append(B["fig_classes"])
-    o21.append(new(f"<p>A press's chart count follows its part count, not its size or speed. Each part is assigned to one press, presses carry {n(pp_.min(), 'stg_erp__parts: fewest active parts on a press', was='10')} to {n(pp_.max(), 'stg_erp__parts: most active parts on a press', was='20')} parts, and at about "
-                   f"{wd(per_part, 'mart_charts_in_force: charts per active part, rounded', was='eight')} charts a part the bars run from {n(tot_p.min(), 'mart_charts_in_force with stg_erp__presses: fewest charts on a press, tonnage included', was='83')} to {n(tot_p.max(), 'mart_charts_in_force with stg_erp__presses: most charts on a press, tonnage included', was='156')}, "
-                   f"{wd(presses['per_stroke_charts'].min(), 'stg_erp__presses: fewest per-stroke charts on a press', was='three')} to {wd(presses['per_stroke_charts'].max(), 'stg_erp__presses: most per-stroke charts on a press', was='five')} of each being the tonnage charts. "
-                   f"PR-03, PR-06 and PR-09 carry the fewest parts ({n(pp_['PR-03'], 'stg_erp__parts: active parts, PR-03', was='10')}, {n(pp_['PR-06'], 'stg_erp__parts: active parts, PR-06')} and {n(pp_['PR-09'], 'stg_erp__parts: active parts, PR-09')}) and so the fewest charts; "
-                   f"PR-03 is a high-speed press and the other two are medium presses, so the count says nothing about press type. A press's flatness share follows which of the {n(flat_parts['part_id'].nunique(), 'mart_charts_in_force: parts with a flatness chart', was='27')} flatness parts it runs: "
-                   f"PR-02 runs {n(flat_parts.loc[flat_parts['primary_press'] == 'PR-02', 'part_id'].nunique(), 'mart_charts_in_force with stg_erp__parts: flatness parts on PR-02')} of them. The tonnage charts are three or five a press by the monitor's channel count.</p>"))
-    o21.append(B["fig_press_class"])
-    o21.append(new(f"<p>The subgroup load falls where the presses run, not where the charts are. A chart collects subgroups only while its part is on the press, at the check frequency of the press: every {n(freq['high_speed'][0], 'mart_charts_in_force.frequency_minutes, high-speed presses', was='30')} minutes on the high-speed presses and every "
-                   f"{n(freq['medium'][0], 'mart_charts_in_force.frequency_minutes, medium presses', was='60')} on the medium ones. PR-03, with the fewest charts, carries the heaviest load, {n(ld.at['PR-03', 'per_week'], 'routine subgroups per week, PR-03', was='750')} routine subgroups a week on "
-                   f"{n(p3_running, 'int_characteristic_history: parts with routine subgroups on PR-03 in the year')} running parts, against a plant total of {n(ld['per_week'].sum(), 'routine subgroups per week, plant', was='4,236')}; the lightest is {txt(light, 'mart_signal_rates: press with the lightest subgroup load')} at "
-                   f"{n(ld.at[light, 'per_week'], 'routine subgroups per week, lightest press')}. "
-                   f"PR-06 and PR-09, medium presses checked hourly, carry about as many subgroups ({n(ld.at['PR-06', 'per_week'], 'routine subgroups per week, PR-06', was='508')} and {n(ld.at['PR-09', 'per_week'], 'routine subgroups per week, PR-09', was='455')}) as the half-hourly PR-02 and PR-04 "
-                   f"({n(ld.at['PR-02', 'per_week'], 'routine subgroups per week, PR-02', was='478')} and {n(ld.at['PR-04', 'per_week'], 'routine subgroups per week, PR-04', was='479')}), because their {wd(pp_['PR-06'], 'stg_erp__parts: active parts, PR-06 and PR-09', was='ten')} parts run long. This load is the denominator of the false-alarm figures in 2.3.</p>"))
-    fq = cif.groupby("press_id")["frequency_minutes"].first()
-    for pr_, r_ in ld.iterrows():
-        pg.figval(106, f"{r_.per_week:,.0f}", f"routine subgroups per week, {pr_}")
-    pg.figure(FIG.subgroups_by_press(ld.reset_index(), fq, ld["per_week"].sum()), "Figure 106: Routine subgroups per week by press")
+    o21.append(new(f"<p>As of June 2026, there are {n(len(cif) + n_ps, 'mart_charts_in_force with stg_erp__presses: active charts', was='1,427')} active SPC charts across the {n(cif['press_id'].nunique(), 'mart_charts_in_force: presses', was='11')} presses. "
+                   f"{n(len(cif), 'mart_charts_in_force: charts', was='1,380')} are on part characteristics in {wd(cif['characteristic_class'].nunique(), 'mart_charts_in_force: characteristic classes, by characteristic type', was='five')} classes: cut geometry (hole position and part length and width), formed characteristics (formed heights and bend angles), hole diameter, sheared edges, and flatness. "
+                   f"{n(nvar, 'mart_charts_in_force: variable charts', was='897')} ({pct(nvar / len(cif), 'mart_charts_in_force: variable share of charts', 0, was='65%')}) of these are variable charts, plotting dimensions read off a gauge; "
+                   f"{n(natt, 'mart_charts_in_force: attribute charts', was='483')} ({pct(natt / len(cif), 'mart_charts_in_force: attribute share of charts', 0, was='35%')}) are attribute charts, tallying pass/fail pin checks on hole diameters and burr checks on sheared edges. "
+                   f"The other {n(n_ps, 'stg_erp__presses: per-stroke charts at 30 June 2026', was='47')} charts are on press tonnage: an EWMA on each press's per-stroke total and a chart on each load channel's share of it.</p>"))
+    f21 = []
+    for c_ in ORD21:
+        g_ = cif[cif["characteristic_class"] == c_]
+        f21.append({"characteristic_class": c_, "measured": int((g_["data_type"] == "variable").sum()), "attribute": int((g_["data_type"] == "attribute").sum()), "chart_label": LBL21[c_]})
+    f21.append({"characteristic_class": "press tonnage", "measured": n_ps, "attribute": 0, "chart_label": LBL21["press tonnage"]})
+    f21 = pd.DataFrame(f21)
+    for r_ in f21.itertuples():
+        pg.figval(108, f"{r_.measured + r_.attribute:,}", f"active charts, {r_.characteristic_class}"); pg.figval(108, f"{r_.measured:,}", f"variable charts, {r_.characteristic_class}")
+    pg.figure(FIG.charts_by_class(f21), "Figure 108: Active SPC charts by control target")
     entries[keys[-1]] = pg.body[-1]; o21.append(keys[-1])
-    o21.append(new(f"<p>The shop's parts fall into {wd(len(pg_), 'stg_erp__parts: programs', was='six')} programs in the ERP part master, and because the chart profile per part is nearly uniform the program split reads as a part split: automotive is the largest at "
-                   f"{n(pg_.at['automotive', 'parts'], 'stg_erp__parts: active parts, automotive', was='48')} parts and {n(pg_.at['automotive', 'charts'], 'mart_charts_in_force: charts, automotive', was='373')} charts, HVAC the smallest at {n(pg_.at['HVAC', 'parts'], 'stg_erp__parts: active parts, HVAC', was='12')} and "
-                   f"{n(pg_.at['HVAC', 'charts'], 'mart_charts_in_force: charts, HVAC', was='90')}. The C110 family sits in {txt(famtxt, 'stg_erp__parts.program, the family parts')}.</p>"))
-    pv = prog.pivot_table(index="program", columns="characteristic_class", values="characteristic_id", aggfunc="count", fill_value=0).reindex(index=pg_.index, columns=CLASS_ORDER, fill_value=0)
+    o21.append(new(f"<p>Each SPC chart belongs to one characteristic on an individual part, and each part carries an average of {n(per_part, 'mart_charts_in_force: charts per active part', '{:.0f}', was='8')} charts. The shop's parts fall into "
+                   f"{wd(len(pg_), 'stg_erp__parts: programs', was='six')} programs. Automotive is the largest at {n(pg_.at['automotive', 'parts'], 'stg_erp__parts: active parts, automotive', was='48')} parts and {n(pg_.at['automotive', 'charts'], 'mart_charts_in_force: charts, automotive', was='373')} charts, HVAC the smallest at "
+                   f"{n(pg_.at['HVAC', 'parts'], 'stg_erp__parts: active parts, HVAC', was='12')} and {n(pg_.at['HVAC', 'charts'], 'mart_charts_in_force: charts, HVAC', was='90')}. The C110 family, detailed in Section 3, sits in "
+                   f"{txt(famtxt, 'stg_erp__parts.program, the family parts', was='appliance (P-15731) and automotive (P-11333, P-14026)')}.</p>"))
+    pv = prog.pivot_table(index="program", columns="characteristic_class", values="characteristic_id", aggfunc="count", fill_value=0).reindex(index=pg_.index, columns=ORD21, fill_value=0)
     for pr_, r_ in pg_.iterrows():
-        pg.figval(107, f"{int(r_.charts)}", f"mart_charts_in_force: charts, {pr_}"); pg.figval(107, f"{int(r_.parts)}", f"stg_erp__parts: active parts, {pr_}")
-    pg.figure(FIG.program_by_class(pv, pg_["parts"]), "Figure 107: Active SPC charts by program and characteristic class")
+        pg.figval(109, f"{int(r_.charts)}", f"mart_charts_in_force: charts, {pr_}"); pg.figval(109, f"{int(r_.parts)}", f"stg_erp__parts: active parts, {pr_}")
+    pg.figure(FIG.program_by_class(pv, pg_["parts"]), "Figure 109: Active SPC charts by program and control target")
+    entries[keys[-1]] = pg.body[-1]; o21.append(keys[-1])
+    o21.append(new(f"<p>Each part is assigned to one press. Presses carry up to {n(pp_.max(), 'stg_erp__parts: most active parts on a press', was='20')} parts each, with PR-03, PR-06 and PR-09 being dedicated presses that run only their "
+                   f"{wd(pp_['PR-03'], 'stg_erp__parts: active parts, PR-03, PR-06 and PR-09', was='ten')} assigned parts. Each press carries {wd(presses['per_stroke_charts'].min(), 'stg_erp__presses: fewest per-stroke charts on a press', was='three')} or "
+                   f"{wd(presses['per_stroke_charts'].max(), 'stg_erp__presses: most per-stroke charts on a press', was='five')} tonnage charts, one for its total and one for each load channel.</p>"))
+    pw2 = cif.pivot_table(index="press_id", columns="characteristic_class", values="characteristic_id", aggfunc="count", fill_value=0).reindex(columns=ORD21, fill_value=0).reset_index()
+    pw2["press tonnage"] = pw2["press_id"].map(presses.set_index("press_id")["per_stroke_charts"]).astype(int)
+    for _, r_ in pw2.iterrows():
+        pg.figval(110, f"{int(sum(r_[c_] for c_ in ORD21) + r_['press tonnage'])}", f"mart_charts_in_force with stg_erp__presses: charts, {r_['press_id']}")
+    pg.figure(FIG.charts_by_press_and_class(pw2, ORD21 + ["press tonnage"], {"press tonnage": "Press Tonnage"}), "Figure 110: Active SPC charts by press and control target")
+    entries[keys[-1]] = pg.body[-1]; o21.append(keys[-1])
+    o21.append(new(f"<p>Each chart collects subgroup measurements only while its part is running. The frequency of measurements differs by press: every {n(freq['high_speed'][0], 'mart_charts_in_force.frequency_minutes, high-speed presses', was='30')} minutes on the high-speed presses and every "
+                   f"{n(freq['medium'][0], 'mart_charts_in_force.frequency_minutes, medium presses', was='60')} on the others. PR-03 produces {n(ld.at['PR-03', 'per_week'], 'routine subgroups per week, PR-03', was='750')} subgroup measurements a week "
+                   f"({pct(ld.at['PR-03', 'per_week'] / ld['per_week'].sum(), 'routine subgroups per week, PR-03 share of the plant', 0, was='18%')} of total) because it has {pct(hrs['PR-03'] / hrs[hs_other].mean() - 1, 'int_run_shots: PR-03 running hours over the mean of the other high-speed presses, less one', 0)} more running hours a week than the other high-speed presses.</p>"))
+    for pr_, r_ in ld.iterrows():
+        pg.figval(111, f"{r_.per_week:,.0f}", f"routine subgroups per week, {pr_}")
+    pg.figure(FIG.subgroups_by_press(ld.reset_index(), set(grp.index[grp["press_group"] == "high_speed"]), ld["per_week"].sum()), "Figure 111: Subgroup Measurements per week by press")
     entries[keys[-1]] = pg.body[-1]; o21.append(keys[-1])
     o21.append(B["s2_open"])
     order += o21
@@ -1013,7 +1018,7 @@ def build():
     assert len(used) == len(order), "a block placed twice"
     dropped = {k for k in keys if k < appendix_key and k not in used}
     exhibits = {k for k in dropped if "chart-title'>" in entries[k]}
-    assert exhibits == {B["tab_arl"], B["tab_obs"]}, [entries[k][:90] for k in exhibits]
+    assert exhibits == {B["tab_arl"], B["tab_obs"], B["fig_classes"], B["fig_press_class"]}, [entries[k][:90] for k in exhibits]
     rows = [(r, k) for r, k in pg.trace if k not in dropped]
     label, pos = {}, {}
     cur = ""
@@ -1042,6 +1047,12 @@ def build():
         return f"{'Figure' if kind == 'FIG' else 'Table'} {hits.pop()}"
     pg.body = [re.sub(r"\{(FIG|TAB):([^}]+)\}", resolve, blk) for blk in pg.body]
     assert not any("{FIG:" in blk or "{TAB:" in blk for blk in pg.body)
+    ftitle = {}
+    for blk in pg.body:
+        for m_ in re.finditer(r"chart-title'>Figure (\d+): ([^<]+)</div>", blk):
+            ftitle[int(m_.group(1))] = m_.group(2)
+    pg.body = [re.sub(r"(chart-title'>)Figure \d+: ", r"\1", blk) for blk in pg.body]
+    pg.trace = [((f"Figure: {ftitle[int(t[0].split()[1])]}" if re.fullmatch(r"Figure \d+", t[0]) else t[0]),) + tuple(t[1:]) for t in pg.trace]
     toc = [("exec-summary", "1. Executive Summary"), ("chart-summary", "2. SPC Chart Summary"), ("overview", "2.1 Overview", "sub"), ("design", "2.2 Chart design", "sub"), ("performance", "2.3 Performance", "sub"),
            ("family", "3. Part Family"), ("family-overview", "3.1 Overview", "sub"), ("family-design", "3.2 Chart design", "sub"), ("family-performance", "3.3 Performance", "sub"), ("appendix", "Appendix")]
     html = S.report_shell("Control Chart Design", "Revalidation on the July 2025 to June 2026 record", "July 2026", "\n".join(pg.body), toc)
