@@ -570,7 +570,7 @@ def build():
          "events": n(f_lvl_r["run_id"].nunique(), 'mart_signals: runs, family level after the rebuild', was='2') + " runs", "alarms": n(len(f_lvl_r), 'mart_signals: alarms, family level after the rebuild', was='23')},
         {"what": "Soft coil on C-15731-07", "chart": "coil-change", "events": n(len(f_soft), 'mart_signals: coils, family soft coil', was='1') + " coil", "alarms": n(len(f_soft), 'mart_signals: alarms, family soft coil', was='1')}])
     pg.body_table("Table 105: Special causes caught on the family in the year", t5f, {"what": "What was caught", "chart": "Chart", "events": "Events", "alarms": "Alarms"}, bold_cols=("Events",),
-                  caption=f"The family's 20 measured charts and coil-change chart, 1 July 2025 to 30 June 2026; {n(int((~frt['assignable_cause']).sum()), 'mart_signals: family routine alarms closed as no cause found', was='657')} routine alarms closed as no cause found.")
+                  caption=f"The family's 20 measured charts and coil-change chart, 1 July 2025 to 30 June 2026; {n(int((~frt['assignable_cause']).sum()), 'mart_signals: family routine alarms closed as no cause found', was='657')} routine alarms had no assignable cause.")
     cg_ = fsr[fsr["cls"] == "cut geometry"]
     kn = {r: A.flag_rate_rules(A.zone_probs(), (r,)) * cg_["subgroups_in_scope"].sum() for r in (1, 2, 3, 4)}
     ex = {r: cg_[f"signals_rule_{r}"].sum() - kn[r] for r in (1, 2, 3, 4)}
@@ -718,7 +718,7 @@ def build():
                      f"{n(len(cif), 'mart_charts_in_force: charts', was='1,380')} on part characteristics and {n(n_ps, 'stg_erp__presses: per-stroke charts at 30 June 2026', was='47')} on press tonnage, "
                      f"{n(n_sub, 'stg_spc__subgroups: subgroups in the year', was='379,677')} subgroups and {n(sr_st.s / 1e6, 'mart_per_stroke_stop_rates.strokes, the year, millions', '{:.1f}', was='90.9')} million production strokes. "
                      "It asks three questions of the charts, in the order of Section 2: what is charted and on what chart type; how each chart's type and limits follow from where its variation lies and how the limits are set, held and verified; and whether each chart signalled when the process changed and stayed quiet when it did not. The per-stroke tonnage charts are taken through the same three questions alongside the characteristic charts. "
-                     "Performance is tested by comparing each chart's signals with the false-alarm rate its own rules and baseline size predict, on intervals with no special cause, so a chart type on the wrong variance structure shows as a rate far from expectation. "
+                     "Performance is tested by comparing each chart's signals with the rate its own rules and baseline size predict on an unchanged process, on intervals with no special cause, so a chart type on the wrong variance structure shows as a rate far from expectation. "
                      "Variation is tested by decomposing each class into within-subgroup, between-subgroup, between-coil and wear components and checking the chart type against where the variance lies.</p>"))
     order.append(new(f"<p>Section 3 asks the same three questions of one part family, the three C110 copper parts on PR-03: {n(len(fam_cif), 'mart_charts_in_force: family charts', was='27')} charts on {wd(fam_cif['die_id'].nunique(), 'mart_charts_in_force: family dies', was='three')} dies and "
                      f"{wd(int(fam_cif.loc[fam_cif['gauge_type'] == 'check fixture', 'gauge_id'].nunique()), 'mart_charts_in_force: family check fixtures', was='three')} check fixtures. The plant is reported at summary level because {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} charts cannot be shown one at a time; "
@@ -742,7 +742,7 @@ def build():
               "Plant: 2.3; family: 3.3.")
     entries[keys[-1]] = pg.body[-1]; order.append(keys[-1])
     order.append(new(f"<p>The variance structure is the one each chart assumes on every measured class (2.2), and the family's characteristics show it one at a time (3.2). "
-                     f"The design load is {n(tot_w, 'false alarms per week as designed, plant', was='133')} false alarms a week across the plant; verification of limits held across {n(len(shp), 'mart_limit_verifications: sharpenings', was='408')} sharpenings failed on "
+                     f"Verification of limits held across {n(len(shp), 'mart_limit_verifications: sharpenings', was='408')} sharpenings failed on "
                      f"{pct(shp.mean(), 'share of sharpenings failed', was='8.1%')}, each a real level change. PR-03's per-stroke charts stopped it {n(len(s3), 'mart_per_stroke_stops: PR-03 stops', was='97')} times with the chipped punches caught at a median "
                      f"{n(pe3['strokes_exposed_per_stroke_charts'].median(), 'mart_parts_exposed: PR-03 chipped punches, median strokes from onset', was='0')} strokes from the onset; its nothing-found rate, {n(sr3.nf / (sr3.s / 1e6), 'mart_per_stroke_stop_rates: PR-03 nothing found per million strokes', '{:.2f}', was='2.21')} per million strokes against "
                      f"{n(sr_st.nf / (sr_st.s / 1e6), 'mart_per_stroke_stop_rates: nothing found per million strokes', '{:.2f}', was='1.02')} for the plant, is the one family figure outside the plant's pattern.</p>"))
@@ -971,28 +971,81 @@ def build():
                  f"{wd(below['coil_changes_spanned'].min(), 'mart_limit_sets.coil_changes_spanned, lowest', was='one')} to {wd(below['coil_changes_spanned'].max(), 'mart_limit_sets.coil_changes_spanned, highest', was='nine')} coil changes, because the review computed on a trailing window of "
                  f"{n(below['subgroups_used'].min(), 'mart_limit_sets.subgroups_used, lowest', was='50')} to {n(below['subgroups_used'].max(), 'mart_limit_sets.subgroups_used, highest', was='978')} subgroups rather than the ten-coil baseline rule. Their centre lines are sound; their limits understate the coil offset. They are re-issued as ten coil changes accrue."))
     # ═══ 2.3 Performance
-    o23 = [h(3, "performance", "2.3 Performance"), P("A chart has two jobs, and the year's record tests both: signal when the process changed, and stay quiet when it did not.")]
-    o23.append(P(f"<strong>What the charts caught.</strong> Every special cause in the record was caught by the chart designed for it, and every alarm was closed by 30 June. A signal closes either as no cause found, a false alarm, or with the cause, which SPC calls a special cause. "
-                 f"{n(len(ac), 'mart_signals: routine alarms with an assignable cause', was='1,657')} routine alarms on {n(ac['run_id'].nunique(), 'mart_signals: runs with a routine assignable-cause alarm', was='58')} runs closed with a cause, "
-                 f"{n(len(lvl), 'mart_signals: level after sharpening or rebuild, on a limit set whose verification failed', was='1,620')} of them on {n(lvl['run_id'].nunique(), 'mart_signals: runs with a level-change alarm', was='53')} runs where a die came back from sharpening or rebuild at a new level and its verification failed; "
-                 f"the coil-change chart caught the {wd(len(soft), 'mart_signals: coil-change chart, assignable cause', was='one')} soft coil; the regression chart on {txt(wc['press_id'].iloc[0], 'mart_signals.press_id, sharpening logged at the wrong count', was='PR-06')} caught a sharpening logged at the wrong count; "
-                 f"the per-stroke charts stopped the presses on {n(n_slug, 'mart_per_stroke_stops: slug pulling', was='274')} slug pulls, {n(n_worn, 'mart_per_stroke_stops: worn punch', was='82')} worn punches and {n(n_chip, 'mart_per_stroke_stops: chipped punch', was='71')} chipped punches, the chipped punches at a median "
-                 f"{n(pe_all['strokes_exposed_per_stroke_charts'].median(), 'mart_parts_exposed.strokes_exposed_per_stroke_charts, median', was='0')} strokes after the onset."))
-    t_ = entries[B["tab_special"]]; i_ = t_.index('<div class="caption">'); j_ = t_.index("events are distinct runs, stops or coils. ", i_)
-    entries[B["tab_special"]] = t_[:i_] + '<div class="caption">' + t_[j_ + len("events are distinct runs, stops or coils. "):]
+    # special-cause runs: a run with an assignable cause on any characteristic chart, or a tonnage stop with a finding
+    st_find = stops[stops["finding_class"] != "nothing found"]
+    sc_runs = set(sig.loc[sig["assignable_cause"], "run_id"]) | set(st_find["run_id"])
+    RR = [f"r{i_}" for i_ in range(1, 6)]
+    hv = query(f"""select subgroup_id, characteristic_id, part_id, run_id, characteristic_type, usl, lsl, alarm_raised, {', '.join(RR)} from intermediate.int_characteristic_history
+                   where in_record and subgroup_type = 'routine' and data_type = 'variable' and chart_type <> 'none'""")
+    hv["cls"] = hv["characteristic_type"].map(REPORT_CLASS); assert hv["cls"].notna().all() and "sheared edges" not in set(hv["cls"])
+    xv = hv[RR].values.astype(float); mv_ = np.isfinite(xv)
+    hv["n_meas"] = mv_.sum(1); hv["n_oot"] = (np.where(mv_, xv > hv["usl"].values[:, None], False) | np.where(mv_ & hv["lsl"].notna().values[:, None], xv < hv["lsl"].values[:, None], False)).sum(1)
+    hv["sc"] = hv["run_id"].isin(sc_runs)
+    av = query("""select s.run_id, c.part_id, c.characteristic_type, s.attribute_count, s.pieces from staging.stg_spc__subgroups s join marts.mart_charts_in_force c using (characteristic_id)
+                  where c.chart_type = 'p' and s.sample_time >= '2025-07-01' and s.sample_time < '2026-07-01'""")
+    av["sc"] = av["run_id"].isin(sc_runs); av["attribute_count"] = av["attribute_count"].fillna(0)
+    ncr = query("select * from marts.mart_nonconformances where opened >= '2025-07-01' and opened < '2026-07-01' order by ncr_id")
+    ncr_free = ncr[~ncr["run_id"].isin(sc_runs)]
+    has_returns = bool(len(query("select table_name from information_schema.tables where table_name ilike '%return%' or table_name ilike '%complaint%'")))
+    assert not has_returns
+    ev = {"lvl": lvl["run_id"].nunique(), "fx": fx["run_id"].nunique(), "oth": oth["run_id"].nunique(), "soft": len(soft), "wc": len(wc), "stops": len(st_find)}
+    N_ev = int(sum(ev.values()))
+    cap_q = query("select under_1_33 from marts.mart_capability c join staging.stg_spc__characteristics k using (characteristic_id) where c.period = 'quarter' and k.critical")
+    o23 = [h(3, "performance", "2.3 Performance")]
+    o23.append(P(f"A chart has two jobs: signal when the process has changed, and stay quiet when it has not. A reading can trigger three things. A signal is a point beyond a control limit, or a run-rule pattern, saying the process may have changed. "
+                 "A special cause is a change found behind a signal that calls for a fix to the process. An out-of-tolerance piece is a part beyond the drawing's limits, contained whatever the chart shows. "
+                 "Control limits come from the process's own variation and sit well inside the tolerance on a capable process, so most signals arrive while the parts are still good. "
+                 f"Whether the processes are good enough for the drawing is a capability question, reported quarterly in the <a href=\"spc_quarterly_review_2026_q2.html\">SPC Quarterly Review</a>: in April to June 2026, "
+                 f"{n(int((~cap_q['under_1_33']).sum()), 'mart_capability: critical characteristics at or above 1.33, quarter', was='93')} of {n(len(cap_q), 'mart_capability: critical characteristics, quarter', was='100')} critical characteristics ran above Ppk 1.33."))
+    # 1. flagged
+    o23.append(H4("What the charts flagged"))
+    n_oot = int(hv["n_oot"].sum()); n_meas = int(hv["n_meas"].sum()); n_oot_sc = int(hv.loc[hv["sc"], "n_oot"].sum())
+    att_sc = int(av.loc[av["sc"], "attribute_count"].sum()); att_all = int(av["attribute_count"].sum())
+    o23.append(P(f"In the year the routine characteristic charts raised {n(len(rt_), 'mart_signals: routine signals in the year', was='12,156')} signals, the coil-change chart {n(len(ccs), 'mart_signals: coil-change chart, rule 1 signals in the year', was='28')}, and the tonnage charts stopped the presses "
+                 f"{n(len(stops), 'mart_per_stroke_stops: stops in the year', was='520')} times. {n(n_oot, 'int_characteristic_history: routine readings outside tolerance, variable charts')} measured pieces fell outside tolerance, and the attribute checks failed "
+                 f"{n(bu.nonconforming, 'stg_spc__subgroups.attribute_count, burr checks, in the year', was='268')} pieces on burr and {n(pi.nonconforming, 'stg_spc__subgroups.attribute_count, pin checks, in the year', was='278')} on pins. "
+                 f"Most signals had no assignable cause, as the design expects; {n(N_ev, 'special-cause events: level-change runs, fixture-drift run, other-cause runs, soft coil, wrong count, tonnage stops with a finding')} events led to a special cause."))
+    fl_rows = pd.DataFrame([
+        {"group": "Routine characteristic charts", "a": len(ac), "b": int((~rt_["assignable_cause"]).sum())},
+        {"group": "Coil-change chart", "a": len(soft), "b": cc_ncf},
+        {"group": "Tonnage charts", "a": len(st_find), "b": int((stops["finding_class"] == "nothing found").sum())},
+        {"group": "Measured pieces outside tolerance", "a": n_oot_sc, "b": n_oot - n_oot_sc},
+        {"group": "Attribute fails", "a": att_sc, "b": att_all - att_sc}])
+    for r_ in fl_rows.itertuples():
+        pg.figval(130, f"{r_.a:,}", f"what the charts flagged: {r_.group}, special cause"); pg.figval(130, f"{r_.b:,}", f"what the charts flagged: {r_.group}, no assignable cause")
+    pg.figure(FIG.flagged_bars(fl_rows, "d1_charts_flagged_plant"), "Figure 130: What the charts flagged in the year", "For tonnage stops, special cause means a finding; for pieces, a piece on a run with a special cause."); entries[keys[-1]] = pg.body[-1]; o23.append(keys[-1])
+    # 2. special causes
+    o23.append(H4("Signals with a special cause"))
+    nf_fp = ncr_free[ncr_free["detected_at"] == "first-piece"]; fp_by = nf_fp["cause_code"].value_counts()
+    o23.append(P(f"{n(N_ev, 'special-cause events: level-change runs, fixture-drift run, other-cause runs, soft coil, wrong count, tonnage stops with a finding')} events in the year were traced to a special cause, each by the chart designed for it: on the routine charts, "
+                 f"{n(ev['lvl'], 'mart_signals: runs with a level-change alarm', was='53')} runs where a die came back from sharpening or rebuild at a new level and its verification failed, {wd(ev['fx'], 'mart_signals: runs, fixture drift', was='one')} drifting fixture (F-14026), and "
+                 f"{n(ev['oth'], 'mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant', was='6')} runs with a strip misfeed, slug pull, gauge zero or lubricant fault; the coil-change chart's soft coil on C-15731-07; the regression chart's sharpening logged at the wrong count on PR-06; "
+                 f"and {n(ev['stops'], 'mart_per_stroke_stops: stops on slug pulling, worn and chipped punches', was='427')} tonnage stops on slug pulls, worn punches and chipped punches. Every alarm was closed by 30 June. "
+                 f"The record carries no customer returns. Of the {n(len(ncr), 'mart_nonconformances: nonconformances in the year')} nonconformances in the year, the {n(len(ncr_free), 'mart_nonconformances: nonconformances on runs with no special cause')} on runs with no special cause were caught by controls the charts are not built for: "
+                 f"{n(len(nf_fp), 'mart_nonconformances: first-piece holds on runs with no special cause')} at first-piece approval, before production began, and {n(int(ncr_free['defect_code'].isin(['mixed part', 'packaging']).sum()), 'mart_nonconformances: mixed parts and packaging on runs with no special cause')} mixed-part and packaging errors at the press check."))
+    assert set(ncr_free.loc[ncr_free["defect_code"].isin(["mixed part", "packaging"]), "detected_at"]) == {"press check"} and set(nf_fp["cause_code"]) <= {"die", "method"}
+    assert len(nf_fp) + int((ncr_free["defect_code"] == "mixed part").sum()) + int((ncr_free["defect_code"] == "packaging").sum()) == len(ncr_free), "a nonconformance outside the three groups"
+    t_ = entries[B["tab_special"]]; i_ = t_.index('<div class="caption">'); j_ = t_.index("</div>", i_)
+    entries[B["tab_special"]] = t_[:i_] + f'<div class="caption">{n(int((~rt_["assignable_cause"]).sum()), "mart_signals: routine alarms closed as no cause found", was="10,499")} routine signals and {n(cc_ncf, "mart_signals: coil-change signals closed as no cause found", was="27")} coil-change signals had no assignable cause.' + t_[j_:]
     o23.append(B["tab_special"])
-    o23.append(P(f"<strong>What the charts cost.</strong> The price of the rules in force is {n(tot_w, 'false alarms per week as designed, plant', was='133')} false alarms a week across the plant, {n(100 * tot_w / sub_w, 'false alarms per 100 routine subgroups, plant', '{:.1f}', was='3.1')} per 100 routine subgroups, "
-                 f"and the load falls where the subgroups are: PR-03 carries {n(p3.alarms_per_week, 'expected false alarms per week, PR-03', '{:.1f}', was='23.7')} a week on its {n(p3.per_week, 'routine subgroups per week, PR-03', was='750')} subgroups against a plant median of "
-                 f"{n(float(load['alarms_per_week'].median()), 'expected false alarms per week, median press', '{:.1f}', was='12.9')}."))
+    # 3. no assignable cause
+    o23.append(H4("Signals with no assignable cause"))
+    o23.append(P(f"{n(int((~rt_['assignable_cause']).sum()), 'mart_signals: routine alarms closed as no cause found', was='10,499')} routine signals, {n(cc_ncf, 'mart_signals: coil-change signals closed as no cause found', was='27')} coil-change signals and "
+                 f"{n(int((stops['finding_class'] == 'nothing found').sum()), 'mart_per_stroke_stops: nothing found', was='93')} tonnage stops closed with nothing found. They are the cost of the design: a point from an unchanged process crosses a three-sigma limit by chance about once in "
+                 f"{n(a_r1_0, 'analytics.chart_performance.arl_rules, rule 1, known', was='370')}, and the run rules add more, so a stable plant still signals. The parts behind them are almost always good, since the control limits sit inside the tolerance, "
+                 "and the right response is to look, then leave the process alone; adjusting a process that has not changed adds variation."))
+    o23.append(P(f"The design expects {n(tot_w, 'signals with no assignable cause expected a week by design, plant', was='133')} such signals a week across the plant, {n(100 * tot_w / sub_w, 'signals expected per 100 routine subgroups, plant', '{:.1f}', was='3.1')} per 100 routine subgroups, and they fall where the subgroups are: PR-03 expects "
+                 f"{n(p3.alarms_per_week, 'signals expected per week by design, PR-03', '{:.1f}', was='23.7')} a week on its {n(p3.per_week, 'routine subgroups per week, PR-03', was='750')} subgroups against a plant median of {n(float(load['alarms_per_week'].median()), 'signals expected per week by design, median press', '{:.1f}', was='12.9')}."))
+    entries[B["fig_load"]] = entries[B["fig_load"]].replace("False-alarm load as designed, per press per week", "Signals with no assignable cause expected by design, per press per week")
     cap(B["fig_load"]); o23.append(B["fig_load"])
-    o23.append(P(f"That price was chosen. Under rule 1 alone an X-bar chart signals once in {n(a_r1_0, 'analytics.chart_performance.arl_rules, rule 1, known', was='370')} in-control subgroups and catches a one-sigma shift in {n(a_r1_1, 'arl_rules, rule 1 at 1 sigma', was='44')}; with rules 1 to 4 it signals once in "
+    o23.append(P(f"The rules set that rate. Under rule 1 alone an X-bar chart signals once in {n(a_r1_0, 'analytics.chart_performance.arl_rules, rule 1, known', was='370')} in-control subgroups and catches a one-sigma shift in {n(a_r1_1, 'arl_rules, rule 1 at 1 sigma', was='44')}; with rules 1 to 4 it signals once in "
                  f"{n(a_r14_0, 'arl_rules, rules 1 to 4, known', was='92')} and catches the shift in {n(a_r14_1, 'arl_rules, rules 1 to 4 at 1 sigma', was='9')}. Limits estimated from 25 subgroups move both figures, to {n(A.expected_arl_xbar(25, 0, (1,)), 'expected_arl_xbar, rule 1, baseline 25', was='407')} and "
                  f"{n(A.expected_arl_xbar(25, 0, (1, 2, 3, 4)), 'expected_arl_xbar, rules 1 to 4, baseline 25', was='74')}. The three-way chart's curve sits above the X-bar chart's at small shifts, which is the detection cost of carrying the coil offset in its limits."))
     assert all(A.three_way_arl(sh_) > A.arl_rules(sh_, (1, 2, 3, 4)) for sh_ in (0.25, 0.5, 0.75, 1.0, 1.5)), "the three-way curve is not above the X-bar rules 1 to 4 curve at small shifts"
     cap(B["fig_arl"]); o23.append(B["fig_arl"])
     o23.append(P(f"<strong>Observed against expected.</strong> On charts with no special cause in the interval, the year's signals ran close to the design rate on every class, and the departures have reasons the record shows. Cut geometry ran at "
                  f"{n(byc.at['cut geometry', 'ratio'], 'observed over expected, cut geometry (X-bar and R)', '{:.2f}', was='1.32')} times expectation and flatness at {n(flat.ratio, 'observed over expected, flatness', '{:.2f}', was='0.88')}, inside chance at {n(flat.subgroups, 'mart_signal_rates.subgroups_in_scope, flatness', was='5,738')} subgroups "
-                 f"({n(f_lo, 'Poisson interval on flatness signals over expectation, low', '{:.2f}', was='0.75')} to {n(f_hi, 'Poisson interval on flatness signals over expectation, high', '{:.2f}', was='1.02')}). Hole diameter ran at {n(byc.at['hole diameter', 'ratio'], 'observed over expected, hole diameter (regression)', '{:.2f}', was='1.79')} and formed heights at "
+                 f"({n(f_lo, 'Poisson interval on flatness signals over expectation, low', '{:.2f}', was='0.75')} to {n(f_hi, 'Poisson interval on flatness signals over expectation, high', '{:.2f}', was='1.02')}). Hole diameter ran at {n(byc.at['hole diameter', 'ratio'], 'observed over expected, hole diameter (regression)', '{:.2f}', was='1.79')} and formed characteristics at "
                  f"{n(byc.at['formed', 'ratio'], 'observed over expected, formed (three-way)', '{:.2f}', was='0.83')}, both beyond chance: the regression charts signal on level changes at sharpening of up to 1.5 sigma that pass verification and then run under the old line, and the three-way charts carry the residual coil offset in their limits by design, so rule 1 signals less often than an independent process would. "
                  f"The {n(int((cif['chart_type'] == 'p').sum()), 'mart_charts_in_force: p charts', was='483')} p charts are outside the comparison: the export carries their counts but no limits or alarm flags. The burr checks recorded {n(bu.nonconforming, 'stg_spc__subgroups.attribute_count, burr checks, in the year', was='268')} nonconforming pieces in "
                  f"{n(bu.checked, 'stg_spc__subgroups.pieces, burr checks, in the year', was='219,535')} and the pin checks {n(pi.nonconforming, 'stg_spc__subgroups.attribute_count, pin checks, in the year', was='278')} in {n(pi.checked, 'stg_spc__subgroups.pieces, pin checks, in the year', was='324,225')}."))
@@ -1006,28 +1059,54 @@ def build():
                  f"{n(int((lv['mean_offset_sigma'].abs() >= 1).sum()), 'mart_limit_verifications: X-bar and R and tool-wear passes at 1.0 to 1.5 sigma', was='14')} of {n(len(lv), 'mart_limit_verifications: X-bar and R and tool-wear passes', was='1,131')} verification passes on these charts lie between 1.0 and 1.5 sigma."))
     cap(B["fig_rules"]); o23.append(B["fig_rules"])
     edit(B["bypress"], " per 100 of expectation.", " per 100."); o23.append(B["bypress"])
+    entries[B["fig_press_obs"]] = entries[B["fig_press_obs"]].replace("Expected against observed false alarms by press", "Expected against observed signals by press")
     cap(B["fig_press_obs"]); o23.append(B["fig_press_obs"])
     o23.append(P(f"Subgroup means within a coil carry a median lag-1 autocorrelation of {n(mp, 'mart_variance_components.lag_1_autocorrelation_within_coil, median', '{:.2f}', was='-0.07')} (10th to 90th percentile {n(lo, 'lag-1, 10th percentile', '{:.2f}', was='-0.19')} to {n(hi, 'lag-1, 90th percentile', '{:.2f}', was='0.02')}). "
                  f"Across that range the in-control ARL under rules 1 to 4 runs from {n(A.arl_ar1_rules(lo, (1, 2, 3, 4), per_zone=3), 'arl_ar1_rules at the 10th percentile', was='142')} to {n(A.arl_ar1_rules(hi, (1, 2, 3, 4), per_zone=3), 'arl_ar1_rules at the 90th percentile', was='87')}, "
                  f"{n(A.arl_ar1_rules(mp, (1, 2, 3, 4), per_zone=3), 'arl_ar1_rules at the measured median', was='109')} at the median against {n(a_r14_0, 'arl_rules, rules 1 to 4, independent', was='92')} with none, and rule 1 does not move, so the limits need no adjustment for it."))
     cap(B["fig_autocorr"]); o23.append(B["fig_autocorr"])
-    o23.append(P(f"The coil-change chart raised {n(len(ccs), 'mart_signals: coil-change chart, rule 1 signals in the year', was='28')} rule 1 signals in the year, {n(cc_ncf, 'mart_signals: coil-change chart, no cause found', was='27')} closed as no cause found and {wd(len(soft), 'mart_signals: coil-change chart, assignable cause', was='one')} the soft coil on "
+    o23.append(P(f"The coil-change chart raised {n(len(ccs), 'mart_signals: coil-change chart, rule 1 signals in the year', was='28')} rule 1 signals in the year, {n(cc_ncf, 'mart_signals: coil-change chart, no cause found', was='27')} with no assignable cause and {wd(len(soft), 'mart_signals: coil-change chart, assignable cause', was='one')} the soft coil on "
                  f"{txt(soft['characteristic_id'].iloc[0], 'mart_signals.characteristic_id, soft coil', was='C-15731-07')} on {txt(DAY(soft['raised_at'].iloc[0]), 'mart_signals.raised_at, soft coil', was='27 May 2026')}. On the {n(len(ccp), 'mart_coil_change_points: points with six or more coils on record', was='2,292')} points with six or more coils on record it raised "
                  f"{n(cobs, 'mart_coil_change_points: rule 1 signals on points with six or more coils', was='18')} against {n(cexp, 'analytics.chart_performance.coil_change: expected signals, Monte Carlo', '{:.1f}', was='12.1')} expected ({n(cobs / cexp, 'observed over expected, coil-change chart', '{:.2f}', was='1.49')} times, interval "
                  f"{n(clo, 'Poisson interval, low', '{:.2f}', was='0.88')} to {n(chi, 'Poisson interval, high', '{:.2f}', was='2.35')}); the expectation is above the independent rate because coils arrive in lots of "
                  f"{wd(int(query('select min(k) n from (select coil_lot, count(*) k from staging.stg_erp__coils group by 1)')['n'].iloc[0]), 'stg_erp__coils: fewest coils in a lot', was='one')} to {wd(int(query('select max(k) n from (select coil_lot, count(*) k from staging.stg_erp__coils group by 1)')['n'].iloc[0]), 'stg_erp__coils: most coils in a lot', was='four')} that share "
                  f"{pct(cc['lot_share'], 'analytics.chart_performance.coil_change: lot share of coil variance', 0, was='76%')} of the coil variance, and the other {wd(len(ccs) - cobs, 'mart_signals less mart_coil_change_points: signals on points with fewer than six coils on record', was='ten')} signals sit on points whose limits rest on coils before the record."))
-    o23.append(P(f"<strong>Per-stroke charts.</strong> They catch a chipped punch on the stroke, where an hourly check would pass up to {n(p3x.hourly_up_to, 'mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03, median', was='11,773')} parts on PR-03 before seeing it. A chipped punch drops the total by a median "
-                 f"{pct(shift_tot, 'mart_parts_exposed.total_shift_at_onset, median', 2, was='3.06%')} and moves the largest channel share by {n(shift_sh, 'mart_parts_exposed.largest_channel_share_shift_points, median', '{:.2f}', was='1.32')} points; at that shift the EWMA signals in "
+    # 4. out of tolerance
+    o23.append(H4("Out-of-tolerance pieces"))
+    oc = hv.groupby("cls").agg(meas=("n_meas", "sum"), oot=("n_oot", "sum")); oc["pm"] = 1e6 * oc["oot"] / oc["meas"]
+    hi_c, lo_c = oc["pm"].idxmax(), oc[oc["pm"] > 0]["pm"].idxmin()
+    none_c = [c_ for c_ in ("cut geometry", "formed", "hole diameter", "flatness") if oc.at[c_, "oot"] == 0]
+    LBLC = {"cut geometry": "cut geometry", "formed": "formed characteristics", "hole diameter": "hole diameter", "flatness": "flatness"}
+    oo = hv[hv["n_oot"] > 0]; oo_runs = set(oo["run_id"])
+    o23.append(P(f"{n(n_oot, 'int_characteristic_history: routine readings outside tolerance, variable charts')} measured pieces fell outside tolerance in the year, {n(1e6 * n_oot / n_meas, 'readings outside tolerance per million measured', '{:.0f}')} per million measured: "
+                 f"{n(n_oot_sc, 'readings outside tolerance on runs with a special cause')} on runs with a special cause and {n(n_oot - n_oot_sc, 'readings outside tolerance on runs without a special cause')} on runs without one, the rejects a stable process makes at its capability. "
+                 f"{LBLC[hi_c].capitalize()} run highest, at {n(oc.at[hi_c, 'pm'], 'readings outside tolerance per million, ' + hi_c, '{:.0f}')} per million, and {LBLC[lo_c]} at {n(oc.at[lo_c, 'pm'], 'readings outside tolerance per million, ' + lo_c, '{:.0f}')}; "
+                 f"{' and '.join(LBLC[c_] for c_ in none_c)} had none. "
+                 f"{n(int(oo['alarm_raised'].fillna(False).astype(bool).sum()), 'int_characteristic_history: subgroups with a reading outside tolerance that raised a signal')} of the {n(len(oo), 'int_characteristic_history: subgroups with a reading outside tolerance')} subgroups holding one raised a chart signal; in the others a single piece crossed the tolerance while its subgroup's mean and range stayed inside their limits, since the charts judge the process, not each part. "
+                 f"The record carries no tolerance flag at entry, so containment shows only where a nonconformance was raised, on {n(len(oo_runs & set(ncr['run_id'])), 'mart_nonconformances: runs with a reading outside tolerance that carry a nonconformance')} of the {n(len(oo_runs), 'int_characteristic_history: runs with a reading outside tolerance')} runs. "
+                 f"The attribute checks failed {n(bu.nonconforming, 'stg_spc__subgroups.attribute_count, burr checks, in the year', was='268')} of {n(bu.checked, 'stg_spc__subgroups.pieces, burr checks, in the year', was='219,535')} pieces on burr and "
+                 f"{n(pi.nonconforming, 'stg_spc__subgroups.attribute_count, pin checks, in the year', was='278')} of {n(pi.checked, 'stg_spc__subgroups.pieces, pin checks, in the year', was='324,225')} on pins, {n(att_sc, 'attribute fails on runs with a special cause')} of them on runs with a special cause."))
+    orows = []
+    for c_ in ("cut geometry", "formed", "hole diameter", "flatness"):
+        g_ = hv[hv["cls"] == c_]; m_ = g_["n_meas"].sum()
+        orows.append({"group": LBLC[c_].capitalize(), "sc": 1e6 * g_.loc[g_["sc"], "n_oot"].sum() / m_, "nsc": 1e6 * g_.loc[~g_["sc"], "n_oot"].sum() / m_})
+    for t__, lab__ in (("burr height", "Burr checks"), ("hole diameter", "Pin checks")):
+        g_ = av[av["characteristic_type"] == t__]; m_ = g_["pieces"].sum()
+        orows.append({"group": lab__, "sc": 1e6 * g_.loc[g_["sc"], "attribute_count"].sum() / m_, "nsc": 1e6 * g_.loc[~g_["sc"], "attribute_count"].sum() / m_})
+    orows = pd.DataFrame(orows)
+    for r_ in orows.itertuples():
+        pg.figval(131, f"{r_.sc + r_.nsc:.0f}", f"out-of-tolerance or failed pieces per million, {r_.group}")
+    pg.figure(FIG.oot_by_class(orows, "d1_out_of_tolerance_plant"), "Figure 131: Out-of-tolerance pieces per million by class"); entries[keys[-1]] = pg.body[-1]; o23.append(keys[-1])
+    # 5. per-stroke
+    o23.append(H4("Per-stroke charts: speed of detection"))
+    o23.append(P(f"A chipped punch drops the per-stroke total by a median {pct(shift_tot, 'mart_parts_exposed.total_shift_at_onset, median', 2, was='3.06%')} and moves the largest channel share by {n(shift_sh, 'mart_parts_exposed.largest_channel_share_shift_points, median', '{:.2f}', was='1.32')} points; at that shift the EWMA signals in "
                  f"{n(A.ewma_arl(lam, Lx, shift_tot / cv_r, phi_r), 'ewma_arl at the median chipped-punch shift', was='38')} strokes and the channel-share chart usually on the stroke of the break. Lambda 0.02 is the choice for shifts of 2% to 3%: at a 2% step it signals in "
-                 f"{n(A.ewma_arl(0.02, Ls[0.02], 0.02 / cv_r, phi_r), 'ewma_arl, lambda 0.02, 2% step', was='76')} strokes against {n(A.ewma_arl(0.05, Ls[0.05], 0.02 / cv_r, phi_r), 'ewma_arl, lambda 0.05, 2% step', was='117')} at 0.05 and {n(A.ewma_arl(0.10, Ls[0.10], 0.02 / cv_r, phi_r), 'ewma_arl, lambda 0.10, 2% step', was='425')} at 0.10."))
+                 f"{n(A.ewma_arl(0.02, Ls[0.02], 0.02 / cv_r, phi_r), 'ewma_arl, lambda 0.02, 2% step', was='76')} strokes against {n(A.ewma_arl(0.05, Ls[0.05], 0.02 / cv_r, phi_r), 'ewma_arl, lambda 0.05, 2% step', was='117')} at 0.05 and {n(A.ewma_arl(0.10, Ls[0.10], 0.02 / cv_r, phi_r), 'ewma_arl, lambda 0.10, 2% step', was='425')} at 0.10. "
+                 f"On the {n(int(stops['strokes_kept'].sum()), 'mart_per_stroke_stops.strokes_kept', was='204')} stops with strokes kept, chipped punches were stopped at a median {n(pe['strokes_exposed_per_stroke_charts'].median(), 'mart_parts_exposed.strokes_exposed_per_stroke_charts, median', was='0')} strokes from the onset, 90th percentile "
+                 f"{n(pe['strokes_exposed_per_stroke_charts'].quantile(0.9), 'mart_parts_exposed.strokes_exposed_per_stroke_charts, 90th percentile', was='20')}; the EWMA caught {n(chc.get('EWMA on the total', 0), 'mart_per_stroke_stops: chipped punches stopped by the EWMA', was='8')} and the channel-share chart "
+                 f"{n(chc.get('channel share', 0), 'mart_per_stroke_stops: chipped punches stopped by the channel-share chart', was='63')}. Under an hourly check the same failures would have exposed up to {n(pe['parts_exposed_hourly_check_up_to'].median(), 'mart_parts_exposed.parts_exposed_hourly_check_up_to, median', was='6,499')} parts at the median press and "
+                 f"{n(p3x.hourly_up_to, 'mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03', was='11,773')} on PR-03."))
     cap(B["fig_ewma"]); o23.append(B["fig_ewma"])
-    o23.append(P(f"The charts stopped the presses {n(len(stops), 'mart_per_stroke_stops: stops in the year', was='520')} times in the year: {n(fcs['slug pulling'], 'mart_per_stroke_stops: slug pulling', was='274')} on slug pulling, {n(fcs['worn punch'], 'mart_per_stroke_stops: worn punch', was='82')} on a worn punch, "
-                 f"{n(fcs['chipped punch'], 'mart_per_stroke_stops: chipped punch', was='71')} on a chipped punch and {n(fcs['nothing found'], 'mart_per_stroke_stops: nothing found', was='93')} with nothing found, a false-stop rate of {n(srate.nf / (srate.s / 1e6), 'mart_per_stroke_stop_rates: nothing found per million strokes', '{:.2f}', was='1.02')} per million strokes, "
-                 f"{n(nf_chart.get('EWMA on the total', 0), 'mart_per_stroke_stops: nothing found on the EWMA', was='82')} of the {n(fcs['nothing found'], 'mart_per_stroke_stops: nothing found', was='93')} on the EWMA. On the {n(int(stops['strokes_kept'].sum()), 'mart_per_stroke_stops.strokes_kept', was='204')} stops with strokes kept, chipped punches were stopped at a median "
-                 f"{n(pe['strokes_exposed_per_stroke_charts'].median(), 'mart_parts_exposed.strokes_exposed_per_stroke_charts, median', was='0')} strokes from the onset, 90th percentile {n(pe['strokes_exposed_per_stroke_charts'].quantile(0.9), 'mart_parts_exposed.strokes_exposed_per_stroke_charts, 90th percentile', was='20')}; the EWMA caught "
-                 f"{n(chc.get('EWMA on the total', 0), 'mart_per_stroke_stops: chipped punches stopped by the EWMA', was='8')} chipped punches and the channel-share chart {n(chc.get('channel share', 0), 'mart_per_stroke_stops: chipped punches stopped by the channel-share chart', was='63')}. Under an hourly check the same failures would have exposed up to "
-                 f"{n(pe['parts_exposed_hourly_check_up_to'].median(), 'mart_parts_exposed.parts_exposed_hourly_check_up_to, median', was='6,499')} parts at the median press and {n(p3x.hourly_up_to, 'mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03', was='11,773')} on PR-03."))
     cap(B["fig_stops"], "One worn punch was signalled by both charts at once."); o23.append(B["fig_stops"])
     cap(B["fig_parts"]); o23.append(B["fig_parts"])
     o23 += [new("<p><strong>Actions.</strong></p>"), B["actions_ul"]]
@@ -1075,23 +1154,56 @@ def build():
                 f"{n(g11.pct_grr_of_tolerance, 'mart_charts_in_force.pct_grr_of_tolerance, F-11333', '{:.1f}', was='16.3')}% ({txt(DAY(g11.study_date).rsplit(' ', 1)[0], 'mart_charts_in_force.study_date, F-11333', was='5 May')}) is in service with a restudy due {txt(DAY(g11.restudy_due).rsplit(' ', 1)[0], 'mart_charts_in_force.restudy_due, F-11333', was='17 August')}."))
     cap(B["fam_grr"]); o3.append(B["fam_grr"])
     o3.append(h(3, "family-performance", "3.3 Performance"))
-    o3.append(P(f"The family's charts caught every special cause on the three parts and ran at {n(fb.at['total', 'ratio'], 'family: observed over expected, total', '{:.2f}', was='1.13')} times expectation overall, with the excess on one class. "
+    o3.append(P("The family's charts are judged as the plant's above. Its capability, with Ppk and 95% intervals for its critical characteristics, is in the <a href=\"spc_quarterly_review_2026_q2.html\">SPC Quarterly Review</a>."))
+    FAMP = ("P-11333", "P-15731", "P-14026")
+    fhv = hv[hv["part_id"].isin(FAMP)]; fav = av[av["part_id"].isin(FAMP)]
+    f_oot = int(fhv["n_oot"].sum()); f_oot_sc = int(fhv.loc[fhv["sc"], "n_oot"].sum()); f_att = int(fav["attribute_count"].sum()); f_att_sc = int(fav.loc[fav["sc"], "attribute_count"].sum())
+    s3f = s3[s3["finding_class"] != "nothing found"]
+    o3.append(H4("What the charts flagged"))
+    o3.append(P(f"The family's routine charts raised {n(len(frt), 'mart_signals: family routine signals in the year', was='764')} signals in the year and its coil-change chart {wd(int((fs['chart'] == 'coil-change means').sum()), 'mart_signals: family coil-change signals', was='one')}; the tonnage charts stopped PR-03 "
+                f"{n(len(s3), 'mart_per_stroke_stops: PR-03 stops', was='97')} times across every part it ran. {n(f_oot, 'int_characteristic_history: family routine readings outside tolerance')} of the family's measured pieces fell outside tolerance, and its attribute checks failed {n(f_att, 'stg_spc__subgroups.attribute_count, family, in the year')}."))
+    ffl = pd.DataFrame([
+        {"group": "Routine characteristic charts", "a": len(fac), "b": int((~frt["assignable_cause"]).sum())},
+        {"group": "Coil-change chart", "a": len(f_soft), "b": int((fs["chart"] == "coil-change means").sum()) - len(f_soft)},
+        {"group": "PR-03 tonnage stops", "a": len(s3f), "b": len(s3) - len(s3f)},
+        {"group": "Measured pieces outside tolerance", "a": f_oot_sc, "b": f_oot - f_oot_sc},
+        {"group": "Attribute fails", "a": f_att_sc, "b": f_att - f_att_sc}])
+    for r_ in ffl.itertuples():
+        pg.figval(132, f"{r_.a:,}", f"family flagged: {r_.group}, special cause"); pg.figval(132, f"{r_.b:,}", f"family flagged: {r_.group}, no assignable cause")
+    pg.figure(FIG.flagged_bars(ffl, "d1_charts_flagged_family"), "Figure 132: What the family's charts flagged in the year"); entries[keys[-1]] = pg.body[-1]; o3.append(keys[-1])
+    o3.append(H4("Signals with a special cause"))
+    o3.append(P(f"The family's charts traced {n(fac['run_id'].nunique() + len(f_soft), 'family special-cause events: runs with an assignable cause on the routine charts, and the soft coil', was='4')} events to a special cause: "
                 f"{n(len(fac), 'mart_signals: family routine alarms with an assignable cause', was='107')} routine alarms on {n(fac['run_id'].nunique(), 'mart_signals: family runs with an assignable cause', was='3')} runs closed with a cause: "
                 f"{n(len(f_lvl_s), 'mart_signals: family, level after sharpening', was='54')} on {wd(f_lvl_s['run_id'].nunique(), 'mart_signals: family runs, level after sharpening', was='one')} run where {txt(', '.join(sorted(set(f_lvl_s['die_id']))), 'mart_signals.die_id, level after sharpening', was='D-5731-A')} came back from sharpening at a new level and its verification failed, "
                 f"{n(len(f_fx), 'mart_signals: family, fixture drift', was='30')} on {wd(f_fx['run_id'].nunique(), 'mart_signals: family runs, fixture drift', was='one')} run of {txt(', '.join(sorted(set(f_fx['part_id']))), 'mart_signals.part_id, fixture drift', was='P-14026')} as F-14026 drifted, and "
                 f"{n(len(f_lvl_r), 'mart_signals: family, level after the rebuild', was='23')} on {wd(f_lvl_r['run_id'].nunique(), 'mart_signals: family runs, level after the rebuild', was='two')} runs of {txt(', '.join(sorted(set(f_lvl_r['part_id']))), 'mart_signals.part_id, level after the rebuild', was='P-14026')} after its rebuild, whose verification failed on "
                 f"{wd(fvt.at[('three-way', 'rebuild'), 'failed'], 'mart_limit_verifications: three-way failed after the D-4026-A rebuild', was='three')} of the die's {wd(tw_4026, 'mart_charts_in_force: three-way charts on D-4026-A', was='four')} three-way charts. "
-                f"The coil-change chart caught the soft coil on {txt(f_soft['characteristic_id'].iloc[0], 'mart_signals.characteristic_id, soft coil', was='C-15731-07')} on {txt(DAY(f_soft['raised_at'].iloc[0]).rsplit(' ', 1)[0], 'mart_signals.raised_at, soft coil', was='27 May')}. "
-                f"{n(int((~frt['assignable_cause']).sum()), 'mart_signals: family routine alarms closed as no cause found', was='657')} alarms on {n(frt.loc[~frt['assignable_cause'], 'run_id'].nunique(), 'mart_signals: family runs with a no-cause alarm', was='39')} runs closed as no cause found, and every alarm was closed by 30 June."))
+                f"The coil-change chart caught the soft coil on {txt(f_soft['characteristic_id'].iloc[0], 'mart_signals.characteristic_id, soft coil', was='C-15731-07')} on {txt(DAY(f_soft['raised_at'].iloc[0]).rsplit(' ', 1)[0], 'mart_signals.raised_at, soft coil', was='27 May')}."))
     o3.append(B["fam_table"])
+    o3.append(H4("Signals with no assignable cause"))
+    o3.append(P(f"{n(int((~frt['assignable_cause']).sum()), 'mart_signals: family routine alarms closed as no cause found', was='657')} routine signals and {n(len(s3) - len(s3f), 'mart_per_stroke_stops: PR-03 nothing found', was='42')} PR-03 stops closed with nothing found; every alarm was closed by 30 June. "
+                f"Overall the family's charts ran at {n(fb.at['total', 'ratio'], 'family: observed over expected, total', '{:.2f}', was='1.13')} times expectation, with the excess on one class."))
     o3.append(P(f"On charts with no special cause, {n(fb.at['total', 'subgroups'], 'family: routine subgroups in scope', was='10,369')} routine subgroups raised {n(fb.at['total', 'signals'], 'family: signals', was='368')} signals against {n(fb.at['total', 'es'], 'family: expected signals', was='327')} expected "
                 f"({n(fb.at['total', 'ratio'], 'family: observed over expected', '{:.2f}', was='1.13')}, interval {n(fb.at['total', 'lo'], 'family: interval low', '{:.2f}', was='1.01')} to {n(fb.at['total', 'hi'], 'family: interval high', '{:.2f}', was='1.25')}). "
                 f"Formed ran at {n(fb.at['formed', 'ratio'], 'family formed: observed over expected', '{:.2f}', was='0.80')} for the reason the plant's three-way charts do; hole diameter at {n(fb.at['hole diameter', 'ratio'], 'family hole diameter: observed over expected', '{:.2f}', was='0.40')} on "
                 f"{n(fb.at['hole diameter', 'subgroups'], 'family hole diameter: subgroups', was='296')} subgroups, inside chance; cut geometry at {n(fb.at['cut geometry', 'ratio'], 'family cut geometry: observed over expected', '{:.2f}', was='1.64')} "
                 f"({n(fb.at['cut geometry', 'lo'], 'family cut geometry: interval low', '{:.2f}', was='1.43')} to {n(fb.at['cut geometry', 'hi'], 'family cut geometry: interval high', '{:.2f}', was='1.88')}), beyond chance, with the excess on rules 3 and 4 as on the plant's X-bar and R charts."))
     cap(B["fam_fig"]); o3.append(B["fam_fig"])
+    o3.append(H4("Out-of-tolerance pieces"))
+    fm_ = int(fhv["n_meas"].sum()); foc = fhv.groupby("cls")["n_oot"].sum(); fcls = [c_ for c_ in foc.index if foc[c_] > 0]
+    fbu, fpi = fav[fav["characteristic_type"] == "burr height"], fav[fav["characteristic_type"] == "hole diameter"]
+    f_oo = fhv[fhv["n_oot"] > 0]
+    assert f_oot == f_oot_sc == 1 and fm_ > 0 and bool(f_oo["alarm_raised"].fillna(False).astype(bool).all()) and set(f_oo["run_id"]) <= set(ncr["run_id"])
+    o3.append(P(f"{wd(f_oot, 'int_characteristic_history: family routine readings outside tolerance').capitalize()} measured piece fell outside tolerance in the year, {n(1e6 * f_oot / fm_, 'family readings outside tolerance per million measured', '{:.0f}')} per million measured: "
+                f"{wd(f_oot_sc, 'family readings outside tolerance on runs with a special cause')} on a run with a special cause and none on runs without one. "
+                f"{txt(LBLC[fcls[0]].capitalize(), 'int_characteristic_history: family class with the reading outside tolerance')} carried it; {' and '.join(', '.join(LBLC[c_] for c_ in ('cut geometry', 'formed', 'hole diameter', 'flatness') if c_ not in fcls).rsplit(', ', 1))} had none. "
+                "It raised a chart signal. The record carries no tolerance flag at entry, so containment shows only where a nonconformance was raised, as one was on its run. "
+                f"The attribute checks failed {n(int(fbu['attribute_count'].sum()), 'stg_spc__subgroups.attribute_count, family burr checks')} of {n(int(fbu['pieces'].sum()), 'stg_spc__subgroups.pieces, family burr checks')} pieces on burr and {n(int(fpi['attribute_count'].sum()), 'stg_spc__subgroups.attribute_count, family pin checks')} of "
+                f"{n(int(fpi['pieces'].sum()), 'stg_spc__subgroups.pieces, family pin checks')} on pins, {n(f_att_sc, 'family attribute fails on runs with a special cause')} of them on runs with a special cause."))
+    assert f_oot <= 10 and len(f_oo) == 1, "the family's out-of-tolerance text assumes a single piece and no figure"
+    o3.append(H4("Per-stroke charts on PR-03"))
     chips3 = pe3[pe3["chart"] == "channel share"]
-    o3.append(P(f"<strong>Per-stroke charts on PR-03.</strong> The charts stopped PR-03 {n(len(s3), 'mart_per_stroke_stops: PR-03 stops', was='97')} times across every part it ran: {n(f3.get('slug pulling', 0), 'mart_per_stroke_stops: PR-03 slug pulling', was='34')} on slug pulling, "
+    o3.append(P(f"The charts stopped PR-03 {n(len(s3), 'mart_per_stroke_stops: PR-03 stops', was='97')} times across every part it ran: {n(f3.get('slug pulling', 0), 'mart_per_stroke_stops: PR-03 slug pulling', was='34')} on slug pulling, "
                 f"{n(f3.get('worn punch', 0), 'mart_per_stroke_stops: PR-03 worn punch', was='10')} on a worn punch, {n(f3.get('chipped punch', 0), 'mart_per_stroke_stops: PR-03 chipped punch', was='11')} on a chipped punch and {n(f3.get('nothing found', 0), 'mart_per_stroke_stops: PR-03 nothing found', was='42')} with nothing found. "
                 f"{txt('Ten' if len(chips3) == 10 else str(len(chips3)), 'mart_parts_exposed: PR-03 chipped punches stopped by the channel-share chart', was='Ten')} chipped punches were stopped at {n(chips3['strokes_exposed_per_stroke_charts'].max(), 'mart_parts_exposed: PR-03 channel-share chipped punches, strokes from onset (largest)', was='0')} strokes by the channel-share chart and one at "
                 f"{n(pe13.strokes_exposed_per_stroke_charts, 'mart_parts_exposed.strokes_exposed_per_stroke_charts, the 13 May stop', was='34')} strokes by the EWMA, the 13 May stop on run R26-00820 at stroke {n(s13.stop_stroke_no, 'mart_per_stroke_stops.stop_stroke_no', was='239,498')}, on a punch found chipped and replaced; the press restarted at "
@@ -1099,6 +1211,7 @@ def build():
                 f"{n(sr_st.nf / (sr_st.s / 1e6), 'mart_per_stroke_stop_rates: nothing found per million strokes', '{:.2f}', was='1.02')} across the plant."))
     assert (chips3["strokes_exposed_per_stroke_charts"] == 0).all() and (pe3["chart"] == "EWMA on the total").sum() == 1
     cap(B["fam_ps_fig"]); o3 += [B["fam_ps_fig"], B["fig_13"]]
+
     order += o3
     order += [k for k in keys if appendix_key <= k < first_new]          # the appendix, as built
     used = set(order)

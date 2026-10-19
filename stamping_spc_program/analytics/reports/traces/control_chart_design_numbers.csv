@@ -35,7 +35,6 @@ section,value_as_printed,read_from,value_in_the_text
 "Figure: Signals against expectation by characteristic class, plant and family",0.88,"observed over expected, plant, flatness",
 "Figure: Signals against expectation by characteristic class, plant and family",0.75,"observed over expected, 95% interval low, plant, flatness",
 "Figure: Signals against expectation by characteristic class, plant and family",1.02,"observed over expected, 95% interval high, plant, flatness",
-1. Executive Summary,133,"false alarms per week as designed, plant",133
 1. Executive Summary,408,mart_limit_verifications: sharpenings,408
 1. Executive Summary,8.1%,share of sharpenings failed,8.1%
 1. Executive Summary,97,mart_per_stroke_stops: PR-03 stops,97
@@ -212,16 +211,34 @@ Figure: Variance components by class,0.1%,"mart_variance_components.share_betwee
 2.2 Chart design,nine,"mart_limit_sets.coil_changes_spanned, highest",nine
 2.2 Chart design,50,"mart_limit_sets.subgroups_used, lowest",50
 2.2 Chart design,978,"mart_limit_sets.subgroups_used, highest",978
-2.3 Performance,"1,657",mart_signals: routine alarms with an assignable cause,"1,657"
-2.3 Performance,58,mart_signals: runs with a routine assignable-cause alarm,58
-2.3 Performance,"1,620","mart_signals: level after sharpening or rebuild, on a limit set whose verification failed","1,620"
+2.3 Performance,93,"mart_capability: critical characteristics at or above 1.33, quarter",93
+2.3 Performance,100,"mart_capability: critical characteristics, quarter",100
+2.3 Performance,"12,156",mart_signals: routine signals in the year,"12,156"
+2.3 Performance,28,"mart_signals: coil-change chart, rule 1 signals in the year",28
+2.3 Performance,520,mart_per_stroke_stops: stops in the year,520
+2.3 Performance,145,"int_characteristic_history: routine readings outside tolerance, variable charts",
+2.3 Performance,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
+2.3 Performance,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",278
+2.3 Performance,489,"special-cause events: level-change runs, fixture-drift run, other-cause runs, soft coil, wrong count, tonnage stops with a finding",
+Figure: What the charts flagged in the year,"1,657","what the charts flagged: Routine characteristic charts, special cause",
+Figure: What the charts flagged in the year,"10,499","what the charts flagged: Routine characteristic charts, no assignable cause",
+Figure: What the charts flagged in the year,1,"what the charts flagged: Coil-change chart, special cause",
+Figure: What the charts flagged in the year,27,"what the charts flagged: Coil-change chart, no assignable cause",
+Figure: What the charts flagged in the year,427,"what the charts flagged: Tonnage charts, special cause",
+Figure: What the charts flagged in the year,93,"what the charts flagged: Tonnage charts, no assignable cause",
+Figure: What the charts flagged in the year,49,"what the charts flagged: Measured pieces outside tolerance, special cause",
+Figure: What the charts flagged in the year,96,"what the charts flagged: Measured pieces outside tolerance, no assignable cause",
+Figure: What the charts flagged in the year,112,"what the charts flagged: Attribute fails, special cause",
+Figure: What the charts flagged in the year,434,"what the charts flagged: Attribute fails, no assignable cause",
+2.3 Performance,489,"special-cause events: level-change runs, fixture-drift run, other-cause runs, soft coil, wrong count, tonnage stops with a finding",
 2.3 Performance,53,mart_signals: runs with a level-change alarm,53
-2.3 Performance,one,"mart_signals: coil-change chart, assignable cause",one
-2.3 Performance,PR-06,"mart_signals.press_id, sharpening logged at the wrong count",PR-06
-2.3 Performance,274,mart_per_stroke_stops: slug pulling,274
-2.3 Performance,82,mart_per_stroke_stops: worn punch,82
-2.3 Performance,71,mart_per_stroke_stops: chipped punch,71
-2.3 Performance,0,"mart_parts_exposed.strokes_exposed_per_stroke_charts, median",0
+2.3 Performance,one,"mart_signals: runs, fixture drift",one
+2.3 Performance,6,"mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant",6
+2.3 Performance,427,"mart_per_stroke_stops: stops on slug pulling, worn and chipped punches",427
+2.3 Performance,161,mart_nonconformances: nonconformances in the year,
+2.3 Performance,62,mart_nonconformances: nonconformances on runs with no special cause,
+2.3 Performance,54,mart_nonconformances: first-piece holds on runs with no special cause,
+2.3 Performance,8,mart_nonconformances: mixed parts and packaging on runs with no special cause,
 2.3 Performance,"X-bar and R, three-way, regression, with verification","mart_signals.chart_type, level-change alarms","X-bar and R, three-way, regression, with verification"
 2.3 Performance,53,"mart_signals: runs, level change",53
 2.3 Performance,"1,620","mart_signals: alarms, level change","1,620"
@@ -242,23 +259,29 @@ Figure: Variance components by class,0.1%,"mart_variance_components.share_betwee
 2.3 Performance,427,"mart_per_stroke_stops: stops, as alarms",427
 2.3 Performance,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
 2.3 Performance,27,mart_signals: coil-change signals closed as no cause found,27
-2.3 Performance,133,"false alarms per week as designed, plant",133
-2.3 Performance,3.1,"false alarms per 100 routine subgroups, plant",3.1
-2.3 Performance,23.7,"expected false alarms per week, PR-03",23.7
+2.3 Performance,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
+2.3 Performance,27,mart_signals: coil-change signals closed as no cause found,27
+2.3 Performance,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
+2.3 Performance,27,mart_signals: coil-change signals closed as no cause found,27
+2.3 Performance,93,mart_per_stroke_stops: nothing found,93
+2.3 Performance,370,"analytics.chart_performance.arl_rules, rule 1, known",370
+2.3 Performance,133,"signals with no assignable cause expected a week by design, plant",133
+2.3 Performance,3.1,"signals expected per 100 routine subgroups, plant",3.1
+2.3 Performance,23.7,"signals expected per week by design, PR-03",23.7
 2.3 Performance,750,"routine subgroups per week, PR-03",750
-2.3 Performance,12.9,"expected false alarms per week, median press",12.9
-"Figure: False-alarm load as designed, per press per week",16.0,"expected false alarms per week, PR-01",
-"Figure: False-alarm load as designed, per press per week",15.3,"expected false alarms per week, PR-02",
-"Figure: False-alarm load as designed, per press per week",23.7,"expected false alarms per week, PR-03",
-"Figure: False-alarm load as designed, per press per week",15.6,"expected false alarms per week, PR-04",
-"Figure: False-alarm load as designed, per press per week",6.5,"expected false alarms per week, PR-05",
-"Figure: False-alarm load as designed, per press per week",15.3,"expected false alarms per week, PR-06",
-"Figure: False-alarm load as designed, per press per week",6.5,"expected false alarms per week, PR-07",
-"Figure: False-alarm load as designed, per press per week",7.5,"expected false alarms per week, PR-08",
-"Figure: False-alarm load as designed, per press per week",12.9,"expected false alarms per week, PR-09",
-"Figure: False-alarm load as designed, per press per week",7.0,"expected false alarms per week, PR-10",
-"Figure: False-alarm load as designed, per press per week",7.0,"expected false alarms per week, PR-11",
-"Figure: False-alarm load as designed, per press per week",750 subgroups a week,"routine subgroups per week, PR-03",
+2.3 Performance,12.9,"signals expected per week by design, median press",12.9
+"Figure: Signals with no assignable cause expected by design, per press per week",16.0,"expected false alarms per week, PR-01",
+"Figure: Signals with no assignable cause expected by design, per press per week",15.3,"expected false alarms per week, PR-02",
+"Figure: Signals with no assignable cause expected by design, per press per week",23.7,"expected false alarms per week, PR-03",
+"Figure: Signals with no assignable cause expected by design, per press per week",15.6,"expected false alarms per week, PR-04",
+"Figure: Signals with no assignable cause expected by design, per press per week",6.5,"expected false alarms per week, PR-05",
+"Figure: Signals with no assignable cause expected by design, per press per week",15.3,"expected false alarms per week, PR-06",
+"Figure: Signals with no assignable cause expected by design, per press per week",6.5,"expected false alarms per week, PR-07",
+"Figure: Signals with no assignable cause expected by design, per press per week",7.5,"expected false alarms per week, PR-08",
+"Figure: Signals with no assignable cause expected by design, per press per week",12.9,"expected false alarms per week, PR-09",
+"Figure: Signals with no assignable cause expected by design, per press per week",7.0,"expected false alarms per week, PR-10",
+"Figure: Signals with no assignable cause expected by design, per press per week",7.0,"expected false alarms per week, PR-11",
+"Figure: Signals with no assignable cause expected by design, per press per week",750 subgroups a week,"routine subgroups per week, PR-03",
 2.3 Performance,370,"analytics.chart_performance.arl_rules, rule 1, known",370
 2.3 Performance,44,"arl_rules, rule 1 at 1 sigma",44
 2.3 Performance,92,"arl_rules, rules 1 to 4, known",92
@@ -345,21 +368,33 @@ Figure: Signals against expectation by characteristic class,0.88,"observed over 
 2.3 Performance,four,stg_erp__coils: most coils in a lot,four
 2.3 Performance,76%,analytics.chart_performance.coil_change: lot share of coil variance,76%
 2.3 Performance,ten,mart_signals less mart_coil_change_points: signals on points with fewer than six coils on record,ten
-2.3 Performance,"11,773","mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03, median","11,773"
+2.3 Performance,145,"int_characteristic_history: routine readings outside tolerance, variable charts",
+2.3 Performance,131,readings outside tolerance per million measured,
+2.3 Performance,49,readings outside tolerance on runs with a special cause,
+2.3 Performance,96,readings outside tolerance on runs without a special cause,
+2.3 Performance,176,"readings outside tolerance per million, formed",
+2.3 Performance,104,"readings outside tolerance per million, cut geometry",
+2.3 Performance,57,int_characteristic_history: subgroups with a reading outside tolerance that raised a signal,
+2.3 Performance,142,int_characteristic_history: subgroups with a reading outside tolerance,
+2.3 Performance,19,mart_nonconformances: runs with a reading outside tolerance that carry a nonconformance,
+2.3 Performance,119,int_characteristic_history: runs with a reading outside tolerance,
+2.3 Performance,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
+2.3 Performance,"219,535","stg_spc__subgroups.pieces, burr checks, in the year","219,535"
+2.3 Performance,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",278
+2.3 Performance,"324,225","stg_spc__subgroups.pieces, pin checks, in the year","324,225"
+2.3 Performance,112,attribute fails on runs with a special cause,
+Figure: Out-of-tolerance pieces per million by class,104,"out-of-tolerance or failed pieces per million, Cut geometry",
+Figure: Out-of-tolerance pieces per million by class,176,"out-of-tolerance or failed pieces per million, Formed characteristics",
+Figure: Out-of-tolerance pieces per million by class,0,"out-of-tolerance or failed pieces per million, Hole diameter",
+Figure: Out-of-tolerance pieces per million by class,0,"out-of-tolerance or failed pieces per million, Flatness",
+Figure: Out-of-tolerance pieces per million by class,1221,"out-of-tolerance or failed pieces per million, Burr checks",
+Figure: Out-of-tolerance pieces per million by class,857,"out-of-tolerance or failed pieces per million, Pin checks",
 2.3 Performance,3.06%,"mart_parts_exposed.total_shift_at_onset, median",3.06%
 2.3 Performance,1.32,"mart_parts_exposed.largest_channel_share_shift_points, median",1.32
 2.3 Performance,38,ewma_arl at the median chipped-punch shift,38
 2.3 Performance,76,"ewma_arl, lambda 0.02, 2% step",76
 2.3 Performance,117,"ewma_arl, lambda 0.05, 2% step",117
 2.3 Performance,425,"ewma_arl, lambda 0.10, 2% step",425
-2.3 Performance,520,mart_per_stroke_stops: stops in the year,520
-2.3 Performance,274,mart_per_stroke_stops: slug pulling,274
-2.3 Performance,82,mart_per_stroke_stops: worn punch,82
-2.3 Performance,71,mart_per_stroke_stops: chipped punch,71
-2.3 Performance,93,mart_per_stroke_stops: nothing found,93
-2.3 Performance,1.02,mart_per_stroke_stop_rates: nothing found per million strokes,1.02
-2.3 Performance,82,mart_per_stroke_stops: nothing found on the EWMA,82
-2.3 Performance,93,mart_per_stroke_stops: nothing found,93
 2.3 Performance,204,mart_per_stroke_stops.strokes_kept,204
 2.3 Performance,0,"mart_parts_exposed.strokes_exposed_per_stroke_charts, median",0
 2.3 Performance,20,"mart_parts_exposed.strokes_exposed_per_stroke_charts, 90th percentile",20
@@ -484,7 +519,22 @@ Figure: Between-coil share of variance by family characteristic,19.3%,"mart_vari
 3.2 Chart design,17 August,"mart_charts_in_force.restudy_due, F-11333",17 August
 Figure: Gauge R&amp;R of the family's fixtures against the 10% and 30% lines,restudy 17 August 2026,"mart_charts_in_force.restudy_due, F-11333",
 Figure: Gauge R&amp;R of the family's fixtures against the 10% and 30% lines,"after rebuild, 17 June 2026","mart_charts_in_force.study_date, F-14026",
-3.3 Performance,1.13,"family: observed over expected, total",1.13
+3.3 Performance,764,mart_signals: family routine signals in the year,764
+3.3 Performance,one,mart_signals: family coil-change signals,one
+3.3 Performance,97,mart_per_stroke_stops: PR-03 stops,97
+3.3 Performance,1,int_characteristic_history: family routine readings outside tolerance,
+3.3 Performance,14,"stg_spc__subgroups.attribute_count, family, in the year",
+Figure: What the family's charts flagged in the year,107,"family flagged: Routine characteristic charts, special cause",
+Figure: What the family's charts flagged in the year,657,"family flagged: Routine characteristic charts, no assignable cause",
+Figure: What the family's charts flagged in the year,1,"family flagged: Coil-change chart, special cause",
+Figure: What the family's charts flagged in the year,0,"family flagged: Coil-change chart, no assignable cause",
+Figure: What the family's charts flagged in the year,55,"family flagged: PR-03 tonnage stops, special cause",
+Figure: What the family's charts flagged in the year,42,"family flagged: PR-03 tonnage stops, no assignable cause",
+Figure: What the family's charts flagged in the year,1,"family flagged: Measured pieces outside tolerance, special cause",
+Figure: What the family's charts flagged in the year,0,"family flagged: Measured pieces outside tolerance, no assignable cause",
+Figure: What the family's charts flagged in the year,6,"family flagged: Attribute fails, special cause",
+Figure: What the family's charts flagged in the year,8,"family flagged: Attribute fails, no assignable cause",
+3.3 Performance,4,"family special-cause events: runs with an assignable cause on the routine charts, and the soft coil",4
 3.3 Performance,107,mart_signals: family routine alarms with an assignable cause,107
 3.3 Performance,3,mart_signals: family runs with an assignable cause,3
 3.3 Performance,54,"mart_signals: family, level after sharpening",54
@@ -500,8 +550,6 @@ Figure: Gauge R&amp;R of the family's fixtures against the 10% and 30% lines,"af
 3.3 Performance,four,mart_charts_in_force: three-way charts on D-4026-A,four
 3.3 Performance,C-15731-07,"mart_signals.characteristic_id, soft coil",C-15731-07
 3.3 Performance,27 May,"mart_signals.raised_at, soft coil",27 May
-3.3 Performance,657,mart_signals: family routine alarms closed as no cause found,657
-3.3 Performance,39,mart_signals: family runs with a no-cause alarm,39
 3.3 Performance,"regression, with verification","mart_signals.chart_type, family level after sharpening","regression, with verification"
 3.3 Performance,1,"mart_signals: runs, family level after sharpening",1
 3.3 Performance,54,"mart_signals: alarms, family level after sharpening",54
@@ -514,6 +562,9 @@ Figure: Gauge R&amp;R of the family's fixtures against the 10% and 30% lines,"af
 3.3 Performance,1,"mart_signals: coils, family soft coil",1
 3.3 Performance,1,"mart_signals: alarms, family soft coil",1
 3.3 Performance,657,mart_signals: family routine alarms closed as no cause found,657
+3.3 Performance,657,mart_signals: family routine alarms closed as no cause found,657
+3.3 Performance,42,mart_per_stroke_stops: PR-03 nothing found,42
+3.3 Performance,1.13,"family: observed over expected, total",1.13
 3.3 Performance,"10,369",family: routine subgroups in scope,"10,369"
 3.3 Performance,368,family: signals,368
 3.3 Performance,327,family: expected signals,327
@@ -546,6 +597,15 @@ Figure: The family's signals against expectation by class,3.15,"family expected 
 Figure: The family's signals against expectation by class,1.13,"family observed over expected, total",
 Figure: The family's signals against expectation by class,1.01,"family interval low, total",
 Figure: The family's signals against expectation by class,1.25,"family interval high, total",
+3.3 Performance,one,int_characteristic_history: family routine readings outside tolerance,
+3.3 Performance,18,family readings outside tolerance per million measured,
+3.3 Performance,one,family readings outside tolerance on runs with a special cause,
+3.3 Performance,Cut geometry,int_characteristic_history: family class with the reading outside tolerance,
+3.3 Performance,3,"stg_spc__subgroups.attribute_count, family burr checks",
+3.3 Performance,"9,210","stg_spc__subgroups.pieces, family burr checks",
+3.3 Performance,11,"stg_spc__subgroups.attribute_count, family pin checks",
+3.3 Performance,"11,835","stg_spc__subgroups.pieces, family pin checks",
+3.3 Performance,6,family attribute fails on runs with a special cause,
 3.3 Performance,97,mart_per_stroke_stops: PR-03 stops,97
 3.3 Performance,34,mart_per_stroke_stops: PR-03 slug pulling,34
 3.3 Performance,10,mart_per_stroke_stops: PR-03 worn punch,10

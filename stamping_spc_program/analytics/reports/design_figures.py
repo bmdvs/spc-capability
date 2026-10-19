@@ -402,3 +402,32 @@ def program_by_class(pv, parts, min_label=12):
     ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.17), fontsize=8.5)
     return S.save(f, "d1_charts_by_program_and_class", "Active SPC charts by program and control target")
 
+
+def flagged_bars(rows, name, labels=("Special cause", "No assignable cause")):
+    """rows: group, a (special cause), b (no assignable cause). One 100% stacked horizontal bar per group, counts in the
+    segments, the total at the bar's end."""
+    f, ax = S.fig(h=3.2, grid="x")
+    y = np.arange(len(rows)); tot = (rows["a"] + rows["b"]).values.astype(float); fa = np.where(tot > 0, rows["a"] / tot, 0); fb_ = 1 - fa
+    ax.barh(y, 100 * fa, color=S.BRAND_BLUE, height=0.6, label=labels[0]); ax.barh(y, 100 * fb_, left=100 * fa, color=S.LIGHT_BLUE, height=0.6, label=labels[1])
+    for i, r in rows.reset_index(drop=True).iterrows():
+        if r.a > 0:
+            ax.text(100 * fa[i] / 2, i, f"{int(r.a):,}", ha="center", va="center", fontsize=8.5, color="white")
+        if r.b > 0:
+            ax.text(100 * fa[i] + 100 * fb_[i] / 2, i, f"{int(r.b):,}", ha="center", va="center", fontsize=8.5, color=S.TEXT)
+        ax.text(102, i, f"{int(tot[i]):,}", va="center", fontsize=9)
+    ax.set_yticks(y); ax.set_yticklabels(rows["group"]); ax.invert_yaxis(); ax.set_xlim(0, 112); ax.set_xlabel("Share of what was flagged (%)")
+    ax.legend(frameon=False, ncol=2, loc="upper center", bbox_to_anchor=(0.45, -0.2), fontsize=9)
+    return S.save(f, name, "What the charts flagged in the year")
+
+
+def oot_by_class(rows, name):
+    """rows: group, sc, nsc (per million, on runs with and without a special cause). Stacked horizontal bars with the total written at the end."""
+    f, ax = S.fig(h=3.2, grid="x")
+    y = np.arange(len(rows)); tot = (rows["sc"] + rows["nsc"]).values
+    ax.barh(y, S.sig(rows["sc"]), color=S.BRAND_BLUE, height=0.6, label="On a run with a special cause"); ax.barh(y, S.sig(rows["nsc"]), left=S.sig(rows["sc"]), color=S.LIGHT_BLUE, height=0.6, label="On a run without one")
+    for i, t in enumerate(tot):
+        ax.text(t + max(tot) * 0.01, i, f"{t:,.0f}", va="center", fontsize=9)
+    ax.set_yticks(y); ax.set_yticklabels(rows["group"]); ax.invert_yaxis(); ax.set_xlim(0, max(tot) * 1.12); ax.set_xlabel("Pieces outside tolerance or failed, per million checked")
+    ax.legend(frameon=False, ncol=2, loc="upper center", bbox_to_anchor=(0.45, -0.2), fontsize=9)
+    return S.save(f, name, "Out-of-tolerance pieces per million by class")
+
