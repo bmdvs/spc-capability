@@ -11,6 +11,7 @@ from analytics.chart_performance import arl as A
 from analytics.chart_performance.coil_change import expectation as coil_change_expectation
 from analytics.data import query
 from analytics.reports import design_figures as FIG
+from analytics.reports import sample_charts as SC
 from analytics.reports.page import DAY, F0, F1, F2, F4, P1, Page
 from analytics.style import style as S
 
@@ -21,7 +22,7 @@ WARN_TINT = "#FBEBD3"
 REPORT_CLASS = {"formed height": "formed", "bend angle": "formed", "hole-to-edge": "cut geometry", "hole-to-hole": "cut geometry", "length": "cut geometry",
                 "width": "cut geometry", "hole diameter": "hole diameter", "flatness": "flatness", "burr height": "sheared edges"}
 CLASS_ORDER = ["formed", "cut geometry", "hole diameter", "flatness", "sheared edges"]
-REGRESSION_FIGURE = 24        # the tool-wear (regression) chart on C-15731-02 in page order; the wear-rate figure labels it
+REGRESSION_FIGURE = 22        # the tool-wear (regression) chart on C-15731-02 in page order; the wear-rate figure labels it
 CHART_NAME = {"three-way (I-MR-R)": "three-way", "Xbar-R": "X-bar and R", "tool-wear": "regression", "p": "p chart"}
 DISPLAY = {"tool-wear": "regression", "tool-wear re-fit": "regression re-fit", "tool-wear regression": "regression line"}     # the marts' names for the regression chart, as the page shows them
 
@@ -66,7 +67,12 @@ def build():
 
     def put(blk):
         return None
-    pg.raw(f"<style>table.data tr.warn td {{ background: {WARN_TINT}; }}</style>")
+    pg.raw(f"<style>table.data tr.warn td {{ background: {WARN_TINT}; }} "
+           ".subsection { margin: 34px 0 14px; border-left: 3px solid #54C0E8; padding-left: 12px; } "
+           ".subsection-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #8093A4; font-weight: 700; margin-bottom: 2px; } "
+           ".subsection h3 { font-size: 16px; font-weight: 600; letter-spacing: .2px; margin: 0; } "
+           "h4.within { font-size: 15px; font-weight: 700; color: var(--brand); margin: 26px 0 8px; } "
+           "h5.within { font-size: 13.5px; font-weight: 700; color: var(--brand); margin: 18px 0 4px; }</style>")
 
     # ── read once ────────────────────────────────────────────────────────────
     design = query("select parameter, value from marts.mart_chart_design order by parameter").set_index("parameter")["value"]
@@ -94,7 +100,7 @@ def build():
     # ═══════════════ 1. Summary
     pg.h2("summary", "1. Summary")
     ctn = cif["chart_type"].value_counts()
-    pg.p(f"At 30 June 2026 there are {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} active SPC charts on {n(cif['press_id'].nunique(), 'mart_charts_in_force: presses', was='11')} presses. The charts correspond to the "
+    pg.p(f"At 30 June 2026 there are {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} active SPC charts on {n(cif['press_id'].nunique(), 'mart_charts_in_force: presses', was='11')} presses. The {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} charts correspond to the "
          f"{wd(cif['characteristic_class'].nunique(), 'mart_charts_in_force: characteristic classes, by characteristic type', was='five')} characteristic classes: formed heights and bend angles, cut geometry (hole position and part length and width), hole diameter, flatness, and sheared edges. "
          f"By chart type: {n(int(((cif['chart_type'] == 'three-way (I-MR-R)') & (cif['characteristic_class'] == 'formed')).sum()), 'mart_charts_in_force: three-way, formed', was='399')} three-way charts, {n(int(ctn.get('tool-wear', 0)), 'mart_charts_in_force: tool-wear (regression) charts', was='23')} regression charts, "
          f"{n(int(ctn.get('Xbar-R', 0)), 'mart_charts_in_force: X-bar and R', was='474')} X-bar and R charts, {n(int(ctn.get('p', 0)), 'mart_charts_in_force: p', was='483')} p charts and "
@@ -105,13 +111,16 @@ def build():
         g = cif[cif["characteristic_class"] == c]
         f1.append({"characteristic_class": c, "measured": int((g["data_type"] == "variable").sum()), "attribute": int((g["data_type"] == "attribute").sum()),
                    "chart_label": ", ".join(CHART_NAME[t] for t in g["chart_type"].value_counts().sort_index().sort_values(ascending=False, kind="stable").index)})
+    presses = query("select press_id, load_cell_channels from staging.stg_erp__presses where status = 'active' order by press_id")
+    presses["per_stroke_charts"] = 1 + presses["load_cell_channels"]          # an EWMA on the total and a residual chart on each channel's share
+    n_ps = int(presses["per_stroke_charts"].sum())
+    f1.append({"characteristic_class": "press tonnage", "measured": n_ps, "attribute": 0, "chart_label": "EWMA, channel share"})
     f1 = pd.DataFrame(f1)
     for r in f1.itertuples():
-        pg.figval(1, f"{r.measured + r.attribute:,}", f"mart_charts_in_force: charts, {r.characteristic_class}")
+        pg.figval(1, f"{r.measured + r.attribute:,}", f"{'stg_erp__presses: per-stroke charts, one EWMA and one channel-share chart per load channel' if r.characteristic_class == 'press tonnage' else 'mart_charts_in_force: charts'}, {r.characteristic_class}")
         pg.figval(1, f"{r.measured:,}", f"mart_charts_in_force: measured charts, {r.characteristic_class}")
         pg.figval(1, f"{r.attribute:,}", f"mart_charts_in_force: attribute charts, {r.characteristic_class}")
-    pg.figure(FIG.charts_by_class(f1), "Figure 1: Active SPC charts by characteristic class",
-              f"{len(cif):,} charts on {cif['press_id'].nunique()} presses, measured and attribute by class; {n_none} burr characteristics on the sharpening count carry no chart. The one three-way chart on a hole position (C-34479-05) is counted with cut geometry.")
+    pg.figure(FIG.charts_by_class(f1), "Figure 1: Active SPC charts by control target", "The one three-way chart on a hole position (C-34479-05) is counted with cut geometry.")
     sig = query("select * from marts.mart_signals where in_record order by alarm_id")
     rt_ = sig[(sig["subgroup_type"] == "routine") & (sig["chart"] != "coil-change means")]
     ac = rt_[rt_["assignable_cause"]]; lvl = ac[ac["cause_code"].isin(["level after sharpening", "level after the rebuild"])]
@@ -205,16 +214,21 @@ def build():
     pg.h2("in-force", "2. The charts in force and how they are run")
     var = cif[cif["data_type"] == "variable"]; vb = var["study_basis"].value_counts()
     pg.p(f"Each class runs on the chart its variation calls for, and every variable chart runs on a gauge in gating status. Formed heights and bend angles run on three-way charts with a coil-change chart beside them; hole diameters on regression charts (tool-wear charts, with the centre line fitted on shots since sharpening); cut geometry and flatness on X-bar and R; sheared edges and the pin checks on hole diameters on p charts. "
-         f"All {n(len(var), 'mart_charts_in_force: variable charts', was='897')} variable charts have a current calibration and a gauge study on file, {n(vb.get('this gauge', 0), 'mart_charts_in_force.study_basis: this gauge', was='825')} on the gauge itself and {n(vb.get('gauge type at the press', 0), 'mart_charts_in_force.study_basis: gauge type at the press', was='72')} through the study of the gauge type at the press. "
-         f"{n(int(cif['in_baseline'].sum()), 'mart_charts_in_force.in_baseline', was='16')} charts are in a baseline and {'none' if int(cif['past_trigger'].sum()) == 0 else n(int(cif['past_trigger'].sum()), 'mart_charts_in_force.past_trigger')} is past its recalculation trigger.")
+         f"The gauges are {n(cif.loc[cif['gauge_type'] == 'check fixture', 'gauge_id'].nunique(), 'mart_charts_in_force.gauge_id: check fixtures, distinct', was='180')} check fixtures, {n(cif.loc[cif['gauge_type'] == 'pin', 'gauge_id'].nunique(), 'mart_charts_in_force.gauge_id: pins, distinct', was='35')} pins, "
+         f"{n(cif.loc[cif['gauge_type'] == 'caliper', 'gauge_id'].nunique(), 'mart_charts_in_force.gauge_id: calipers, distinct', was='29')} calipers and {n(cif.loc[cif['gauge_type'] == 'indicator', 'gauge_id'].nunique(), 'mart_charts_in_force.gauge_id: indicators, distinct', was='12')} indicators; "
+         f"all {n(len(var), 'mart_charts_in_force: variable charts', was='897')} variable charts have a current calibration and a gauge study on file, {n(vb.get('this gauge', 0), 'mart_charts_in_force.study_basis: this gauge', was='825')} on the gauge itself and {n(vb.get('gauge type at the press', 0), 'mart_charts_in_force.study_basis: gauge type at the press', was='72')} through the study of the gauge type at the press. "
+         f"{n(int(cif['in_baseline'].sum()), 'mart_charts_in_force.in_baseline', was='16')} charts are in a baseline and {'none' if int(cif['past_trigger'].sum()) == 0 else n(int(cif['past_trigger'].sum()), 'mart_charts_in_force.past_trigger')} is past its recalculation trigger; "
+         f"{n(int((var['limits_effective_from'] < pd.Timestamp('2025-07-01')).sum()), 'mart_charts_in_force.limits_effective_from before 1 July 2025, variable charts')} run on limits issued before the record and "
+         f"{n(int((var['limits_effective_from'] >= pd.Timestamp('2025-07-01')).sum()), 'mart_charts_in_force.limits_effective_from in the year, variable charts')} on limits issued in the year.")
     order = CLASS_ORDER
     pw = cif.pivot_table(index="press_id", columns="characteristic_class", values="characteristic_id", aggfunc="count", fill_value=0).reset_index()
     for c in order:
         if c not in pw:
             pw[c] = 0
+    pw["press tonnage"] = pw["press_id"].map(presses.set_index("press_id")["per_stroke_charts"]).astype(int)
     for _, r in pw.iterrows():
-        pg.figval(4, f"{int(sum(r[c] for c in order))}", f"mart_charts_in_force: charts, {r['press_id']}")
-    pg.figure(FIG.charts_by_press_and_class(pw, order), "Figure 4: Active SPC charts by press and class", "Active charts at 30 June 2026 on each press, by characteristic class, with the press total at the end of each bar.")
+        pg.figval(4, f"{int(sum(r[c] for c in order) + r['press tonnage'])}", f"mart_charts_in_force with stg_erp__presses: charts, {r['press_id']}")
+    pg.figure(FIG.charts_by_press_and_class(pw, list(order) + ["press tonnage"], {"press tonnage": "press tonnage (3 or 5 per press)"}), "Figure 4: Active SPC charts by press and control target")
     pg.p(f"Limits are set once from a baseline and held across sharpenings under verification, so a chart's limits change only when the process has. A baseline is {n(design['baseline_subgroups'], 'mart_chart_design.baseline_subgroups', was='25')} subgroups; a three-way baseline spans at least ten coil changes. A sharpening does not reset the limits: the first "
          f"{n(design['verification_subgroups'], 'mart_chart_design.verification_subgroups', was='25')} routine subgroups after it verify them, and a failed verification starts a new baseline. Formed charts are verified after a rebuild or a forming-station repair only, since a sharpening does not touch the forming stations. Regression lines are re-fitted at each verification that passes, with the limits' sigma held.")
     rc = query("select trigger, cast(sum(limit_sets) as integer) n from marts.mart_limit_recalculations group by 1").set_index("trigger")["n"]
@@ -258,7 +272,9 @@ def build():
     pg.body_table("Table 2: ARL by chart as designed", pd.DataFrame(rows), cols, {"Shift (sigma)": F1, **{v: F0 for v in list(cols.values())[1:]}},
                   bold_cells={(0, "X-bar, rule 1"), (1, "X-bar, rule 1"), (0, "X-bar, rules 1 to 4"), (1, "X-bar, rules 1 to 4")},
                   caption="Average run length in subgroups; known parameters and limits estimated from 25 subgroups.")
-    f6 = pd.DataFrame([{"shift": sh, "X-bar rule 1": A.arl_rules(sh, (1,)), "X-bar rules 1 to 4": A.arl_rules(sh, (1, 2, 3, 4)), "three-way individuals rule 1": A.three_way_arl(sh, with_moving_range=False, with_range=False), "three-way all three charts": A.three_way_arl(sh)} for sh in np.arange(0, 2.01, 0.25)])
+    f6 = pd.DataFrame([{"shift": sh, "X-bar rule 1": A.arl_rules(sh, (1,)), "X-bar rules 1 to 4": A.arl_rules(sh, (1, 2, 3, 4)), "three-way individuals rule 1": A.three_way_arl(sh, with_moving_range=False, with_range=False), "three-way all three charts": A.three_way_arl(sh),
+                        "X-bar rule 1, limits from 25 subgroups": A.expected_arl_xbar(25, sh, (1,)), "X-bar rules 1 to 4, limits from 25 subgroups": A.expected_arl_xbar(25, sh, (1, 2, 3, 4))} for sh in np.arange(0, 2.01, 0.25)])
+    assert np.allclose(f6["X-bar rule 1"], f6["three-way individuals rule 1"]), "rule 1 on X-bar and three-way individuals differ"
     pg.figure(FIG.arl_curves(f6), "Figure 7: ARL curves by chart type", "Average run length against a shift in the mean, known parameters, log scale. The three-way chart's curve with all three charts includes the moving-range and range charts.")
     vf = query("select * from marts.mart_limit_verifications")
     vt = vf.groupby(["chart", "die_event"]).agg(verifications=("verification_id", "count"), failed=("result", lambda s: int((s == "failed").sum()))).reset_index(); vt["rate"] = vt["failed"] / vt["verifications"]; vtx = vt.set_index(["chart", "die_event"])
@@ -417,7 +433,7 @@ def build():
     for r in ws.itertuples():
         pg.figval(17, f"{r.rate:.4f}", f"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, {r.characteristic_id}")
         pg.figval(17, f"{int(r.intervals)}", f"mart_wear_slopes.qualifying_intervals, {r.characteristic_id}")
-    pg.figure(FIG.wear_rate_by_die(ws, 0.004, 0.010, "C-15731-02", f"(Figure {REGRESSION_FIGURE})"), "Figure 17: Hole diameter wear rate by die, with the intervals behind each rate",
+    pg.figure(FIG.wear_rate_by_die(ws, 0.004, 0.010, "C-15731-02", "(3.2)"), "Figure 17: Hole diameter wear rate by die, with the intervals behind each rate",
               "Each charted hole diameter's wear rate: the median slope of subgroup means on shots since sharpening over its intervals of 15 subgroups or more spanning 20,000 shots. Marker area is the number of qualifying intervals (written beside it); hollow markers rest on one interval. The plant range, 0.004 to 0.010 mm per 100,000 shots, is shaded.")
 
     # ═══════════════ 5. Per-stroke monitoring design
@@ -427,8 +443,11 @@ def build():
                                     hourly_up_to=("parts_exposed_hourly_check_up_to", "median"), hourly_average=("parts_exposed_hourly_check_average", "median")).reset_index()
     p3x = px.set_index("press_id").loc["PR-03"]
     lam, Lx, Lc = float(design["ewma_lambda"]), float(design["ewma_L"]), float(design["ewma_L_considered"])
-    pg.p(f"The per-stroke charts catch a chipped punch on the stroke, where an hourly check would pass up to {n(p3x.hourly_up_to, 'mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03, median', was='11,773')} parts on PR-03 before seeing it. The EWMA on the per-stroke tonnage total runs with lambda "
-         f"{n(lam, 'mart_chart_design.ewma_lambda', '{:.2f}', was='0.02')} and L {n(Lx, 'mart_chart_design.ewma_L', '{:.1f}', was='5.5')}, from a baseline of {n(design['ewma_baseline_strokes'], 'mart_chart_design.ewma_baseline_strokes', was='500')} production strokes at each run start; a residual chart on each channel's share of the total runs beside it at L "
+    pg.p(f"The per-stroke charts catch a chipped punch on the stroke, where an hourly check would pass up to {n(p3x.hourly_up_to, 'mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03, median', was='11,773')} parts on PR-03 before seeing it.")
+    ps_runs = query("select sum(runs) n from marts.mart_per_stroke_stop_rates where period = 'record'")["n"].iloc[0]
+    sr3_runs = query("select sum(runs) n from marts.mart_per_stroke_stop_rates where period = 'record' and press_id = 'PR-03'")["n"].iloc[0]
+    pg.p(f"They are set at each run start from a baseline of {n(design['ewma_baseline_strokes'], 'mart_chart_design.ewma_baseline_strokes', was='500')} production strokes, {n(ps_runs, 'mart_per_stroke_stop_rates.runs, the year', was='2,219')} times in the year, and are not held across runs. The EWMA on the per-stroke tonnage total runs with lambda "
+         f"{n(lam, 'mart_chart_design.ewma_lambda', '{:.2f}', was='0.02')} and L {n(Lx, 'mart_chart_design.ewma_L', '{:.1f}', was='5.5')}; a residual chart on each channel's share of the total runs beside it at L "
          f"{n(design['channel_share_L'], 'mart_chart_design.channel_share_L', '{:.1f}', was='5.5')}.")
     phi_r = float(rt["baseline_lag_1_autocorrelation"].median()); cv_r = float((rt["baseline_total_kn_sd"] / rt["baseline_total_kn_mean"]).median())
     neff = float(design["ewma_baseline_strokes"]) * (1 - phi_r) / (1 + phi_r)
@@ -437,7 +456,7 @@ def build():
     a0, a0c = A.ewma_arl(lam, Lx, 0, phi_r), A.ewma_arl(lam, Lc, 0, phi_r)
     p3_strokes = float(query("select sum(strokes) s from intermediate.int_run_shots where press_id = 'PR-03' and cast(production_start as date) between '2026-04-01' and '2026-06-30'")["s"].iloc[0])
     p3_shifts = float(query("select count(distinct (cast(sample_time as date), hour(sample_time) * 60 + minute(sample_time) >= 870)) n from intermediate.int_characteristic_history where press_id = 'PR-03' and in_quarter")["n"].iloc[0])
-    pg.p(f"<strong>The design.</strong> The total is autocorrelated at lag 1 by a median {n(phi_r, 'mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median', '{:.2f}', was='0.60')} and varies by {pct(cv_r, 'mart_per_stroke_run_tonnage: baseline sd over mean, median', 2, was='1.49%')} within a run, so the EWMA limits are set on the AR(1)-adjusted variance. At known parameters the in-control ARL is "
+    pg.p(f"The EWMA limits are set on the AR(1)-adjusted variance of the total. At known parameters the in-control ARL is "
          f"{n(a0 / 1e6, 'ewma_arl, L 5.5, known, millions', '{:.1f}', was='77.8')} million strokes; with the parameters estimated from 500 strokes it is {n(est[Lx] / 1e6, 'ewma_arl averaged over the estimates, L 5.5, millions', '{:.2f}', was='2.64')} million. L is set at 5.5 for the estimated case: at L 4.9 the known-parameter ARL of "
          f"{n(a0c / 1e6, 'ewma_arl, L 4.9, known, millions', '{:.2f}', was='3.68')} million falls to {n(round(est[Lc], -3), 'ewma_arl averaged over the estimates, L 4.9, to the thousand', was='312,000')} strokes once estimation is allowed for, about one false stop in "
          f"{wd(round(est[Lc] / (p3_strokes / p3_shifts)), 'strokes at L 4.9 over PR-03 strokes per worked shift in the quarter', was='eight')} shifts on PR-03.")
@@ -654,13 +673,16 @@ def build():
         assert entries[k].count(old) == 1, (old, entries[k][:80]); entries[k] = entries[k].replace(old, new_)
 
     def h(level, anchor, title):
+        if level == 3:
+            num, name = title.split(" ", 1)
+            return new(f'<div class="subsection" id="{anchor}"><div class="subsection-label">Section {num}</div><h3>{name}</h3></div>')
         return new(f'<h{level} id="{anchor}">{title}</h{level}>')
     B = {name: find(snip) for name, snip in {
         "overview": "active SPC charts on", "fig_classes": "Figure 1: Active SPC charts", "perf_special": "How the charts performed.</strong>",
         "perf_take": "Takeaway: every special cause in the record", "tab_special": "Special causes caught in the year, by the chart", "perf_class": "On the second job",
         "fig_class_signals": "Signals against expectation by characteristic class", "perf_false": "False alarms.</strong>", "fig_load": "False-alarm load as designed",
         "actions_head": "Two actions.</strong>", "actions_ul": "they are re-issued as ten coil changes accrue", "s2_open": "Each class runs on the chart its variation calls for",
-        "fig_press_class": "Active SPC charts by press and class", "limits_gov": "Limits are set once from a baseline", "limits_counts": "The record holds",
+        "fig_press_class": "Active SPC charts by press and control target", "limits_gov": "Limits are set once from a baseline", "limits_counts": "The record holds",
         "two_charts_p": "Two charts changed in the year", "two_charts_ul": "the regression chart's recalculation trigger shortened", "fig_recalc": "New limit sets by month and trigger",
         "dielog": "The die log carries dates without times", "fam_grr": "Gauge R&amp;R of the family", "arl": "The rules in force were chosen", "arl_take": "Takeaway: rules 1 to 4 catch",
         "tab_arl": "ARL by chart as designed", "fig_arl": "ARL curves by chart type", "verif": "Verification.</strong>", "verif_take": "Takeaway: verification fails on",
@@ -672,7 +694,7 @@ def build():
         "fam_bc_fig": "Between-coil share of variance by family", "coil_plant": "The coil effect and centring.</strong>", "fam_cf_fig": "Coil means against the certificate fit",
         "threeway": "The three-way design.</strong>", "fig_threeway": "False alarms per 100 points by three-way design", "fam_p1_p": "Phase I baselines.</strong>",
         "fam_p1_fig": "A Phase I baseline after a rebuild", "tw_plant": "The regression chart.</strong>", "fam_tw_p": "On C-15731-02 the line in force", "fam_tw_fig": "The regression chart on C-15731-02",
-        "fig_wear": "Hole diameter wear rate by die", "s5_open": "The per-stroke charts catch a chipped punch", "s5_design": "The design.</strong> The total is autocorrelated",
+        "fig_wear": "Hole diameter wear rate by die", "s5_open": "The per-stroke charts catch a chipped punch", "s5_design": "The EWMA limits are set on the AR(1)-adjusted variance of the total", "ps_limits": "They are set at each run start from a baseline of",
         "s5_chip": "A chipped punch drops the total", "fig_ewma": "EWMA ARL1 against shift size", "s5_record": "The record.</strong> The charts stopped",
         "fig_stops": "Stops by the per-stroke charts, by finding and chart", "fig_13": "The 13 May stop on D-1333-C", "p_13": "On 13 May 2026 the EWMA on PR-03",
         "s5_parts": "Parts exposed.</strong>", "fig_parts": "Parts exposed per chipped punch", "fam_intro": "are followed here through the same four headings",
@@ -686,20 +708,19 @@ def build():
     edit(B["obs_ul"], "(Section 4)", "(2.4)")
     edit(B["fam_rates"], "(Section 3)", "(2.3)")
     edit(B["actions_ul"], "accrue (Section 3).", "accrue (2.2).")
-    edit(B["s5_open"], "<p>", "<p><strong>Per-stroke charts.</strong> ")
     edit(B["fam_p1_p"], "<strong>Phase I baselines.</strong> ", "")
-    edit(B["fam_ps"], "<p>", "<p><strong>Per-stroke charts on PR-03.</strong> ")
     first = keys[0]; assert entries[first].startswith("<style>")
     first_new = nxt[0]
     order = [first]
     order += [h(2, "exec-summary", "1. Executive Summary")]
     n_sub = int(query("select count(*) n from staging.stg_spc__subgroups where sample_time >= '2025-07-01' and sample_time < '2026-07-01'")["n"].iloc[0])
-    order.append(new(f"<p>This report revalidates the plant's SPC chart design on the 1 July 2025 to 30 June 2026 record: {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} active charts on {n(cif['press_id'].nunique(), 'mart_charts_in_force: presses', was='11')} presses, "
-                     f"{n(n_sub, 'stg_spc__subgroups: subgroups in the year')} subgroups, and the per-stroke tonnage charts on {n(sr_st.s / 1e6, 'mart_per_stroke_stop_rates.strokes, the year, millions', '{:.1f}')} million strokes. "
-                     "It asks four questions of the charts, in the order of Section 2: what is charted and on what chart type; how limits are set, held and verified; whether each chart signalled when the process changed and stayed quiet when it did not; and whether the variance structure of each characteristic class is the one its chart type assumes. "
+    order.append(new(f"<p>This report revalidates the plant's SPC chart design on the 1 July 2025 to 30 June 2026 record: {n(len(cif) + n_ps, 'mart_charts_in_force with stg_erp__presses: active charts', was='1,427')} active SPC charts on {n(cif['press_id'].nunique(), 'mart_charts_in_force: presses', was='11')} presses, "
+                     f"{n(len(cif), 'mart_charts_in_force: charts', was='1,380')} on part characteristics and {n(n_ps, 'stg_erp__presses: per-stroke charts at 30 June 2026', was='47')} on press tonnage, "
+                     f"{n(n_sub, 'stg_spc__subgroups: subgroups in the year', was='379,677')} subgroups and {n(sr_st.s / 1e6, 'mart_per_stroke_stop_rates.strokes, the year, millions', '{:.1f}', was='90.9')} million production strokes. "
+                     "It asks three questions of the charts, in the order of Section 2: what is charted and on what chart type; how each chart's type and limits follow from where its variation lies and how the limits are set, held and verified; and whether each chart signalled when the process changed and stayed quiet when it did not. The per-stroke tonnage charts are taken through the same three questions alongside the characteristic charts. "
                      "Performance is tested by comparing each chart's signals with the false-alarm rate its own rules and baseline size predict, on intervals with no special cause, so a chart type on the wrong variance structure shows as a rate far from expectation. "
                      "Variation is tested by decomposing each class into within-subgroup, between-subgroup, between-coil and wear components and checking the chart type against where the variance lies.</p>"))
-    order.append(new(f"<p>Section 3 asks the same four questions of one part family, the three C110 copper parts on PR-03: {n(len(fam_cif), 'mart_charts_in_force: family charts', was='27')} charts on {wd(fam_cif['die_id'].nunique(), 'mart_charts_in_force: family dies', was='three')} dies and "
+    order.append(new(f"<p>Section 3 asks the same three questions of one part family, the three C110 copper parts on PR-03: {n(len(fam_cif), 'mart_charts_in_force: family charts', was='27')} charts on {wd(fam_cif['die_id'].nunique(), 'mart_charts_in_force: family dies', was='three')} dies and "
                      f"{wd(int(fam_cif.loc[fam_cif['gauge_type'] == 'check fixture', 'gauge_id'].nunique()), 'mart_charts_in_force: family check fixtures', was='three')} check fixtures. The plant is reported at summary level because {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} charts cannot be shown one at a time; "
                      "the family is where every chart, baseline, limit set, fit and stop is shown in full, so the plant-level rates can be read against the records that produce them.</p>"))
     order.append(new(f"<p>On both scopes the chart selection holds. Every special cause in the record was caught by the chart designed for it and every alarm was closed by 30 June: on the plant, {n(len(ac), 'mart_signals: routine alarms with an assignable cause', was='1,657')} routine alarms on "
@@ -718,43 +739,382 @@ def build():
         for col in ("ratio", "lo", "hi"):
             pg.figval(100, f"{getattr(r_, col):.2f}", f"observed over expected{'' if col == 'ratio' else ', 95% interval ' + ('low' if col == 'lo' else 'high')}, {r_.scope}, {r_.cls}")
     pg.figure(FIG.plant_family_ratios(pf, {"formed": (0.9, 1.4), "cut geometry": (0.9, 1.4), "hole diameter": (0.9, 1.5), "flatness": (0.9, 1.4)}), "Figure 100: Signals against expectation by characteristic class, plant and family",
-              "Charts with no special cause in the interval; expectation at each chart's own baseline size and rules. Plant: 2.3, {FIG:Signals against expectation by characteristic class}; family: 3.3, {FIG:The family's signals against expectation by class}.")
+              "Plant: 2.3; family: 3.3.")
     entries[keys[-1]] = pg.body[-1]; order.append(keys[-1])
-    order.append(new(f"<p>The variance structure is the one each chart assumes on every measured class ({{FIG:Variance components by class}}), and the family's characteristics show it one at a time ({{FIG:Between-coil share of variance by family characteristic}}). "
+    order.append(new(f"<p>The variance structure is the one each chart assumes on every measured class (2.2), and the family's characteristics show it one at a time (3.2). "
                      f"The design load is {n(tot_w, 'false alarms per week as designed, plant', was='133')} false alarms a week across the plant; verification of limits held across {n(len(shp), 'mart_limit_verifications: sharpenings', was='408')} sharpenings failed on "
                      f"{pct(shp.mean(), 'share of sharpenings failed', was='8.1%')}, each a real level change. PR-03's per-stroke charts stopped it {n(len(s3), 'mart_per_stroke_stops: PR-03 stops', was='97')} times with the chipped punches caught at a median "
                      f"{n(pe3['strokes_exposed_per_stroke_charts'].median(), 'mart_parts_exposed: PR-03 chipped punches, median strokes from onset', was='0')} strokes from the onset; its nothing-found rate, {n(sr3.nf / (sr3.s / 1e6), 'mart_per_stroke_stop_rates: PR-03 nothing found per million strokes', '{:.2f}', was='2.21')} per million strokes against "
                      f"{n(sr_st.nf / (sr_st.s / 1e6), 'mart_per_stroke_stop_rates: nothing found per million strokes', '{:.2f}', was='1.02')} for the plant, is the one family figure outside the plant's pattern.</p>"))
     order.append(new(f"<p>Two actions follow: the {n(int(rw['below_coil_change_minimum'].sum()), 'mart_limit_sets: three-way annual-review sets below the coil-change minimum', was='23')} three-way limit sets issued at the annual review on fewer than ten coil changes are re-issued as ten accrue, "
                      "and the regression charts' verification criterion is tightened to 1.0 sigma with the line re-fitted at each planned trigger.</p>"))
-    order += [h(2, "chart-summary", "2. SPC Chart Summary"), h(3, "overview", "2.1 Overview"),
-              B["overview"], B["fig_classes"], B["fig_press_class"]]
-    order += [new(f"<p>The per-stroke charts on tonnage, an EWMA on the total and a residual chart on each channel's share, run on every press beside the {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} and are covered in 2.3.</p>"), B["s2_open"]]
-    order += [h(3, "limits", "2.2 Chart Limits"), B["limits_gov"], B["limits_counts"], B["fig_recalc"], B["two_charts_p"], B["two_charts_ul"], B["dielog"], B["verif"], B["verif_take"], B["tab_verif"], B["annual"]]
-    order += [h(3, "performance", "2.3 Performance"), B["perf_special"], B["perf_take"], B["tab_special"], B["perf_class"], B["fig_class_signals"], B["perf_false"], B["fig_load"],
-              B["arl"], B["arl_take"], B["tab_arl"], B["fig_arl"], B["obs"], B["obs_ul"], B["obs_take"], B["tab_obs"], B["fig_rules"], B["fig_press_obs"], B["bypress"], B["autocorr"], B["fig_autocorr"],
-              B["s5_open"], B["s5_design"], B["s5_chip"], B["fig_ewma"], B["s5_record"], B["fig_stops"], B["s5_parts"], B["fig_parts"], new("<p><strong>Actions.</strong></p>"), B["actions_ul"]]
-    order += [h(3, "variation", "2.4 Variation"), B["var_open"], B["var_ul"], B["fig_var"], B["coil_plant"], B["threeway"], B["fig_threeway"], B["tw_plant"], B["fig_wear"]]
-    order += [h(2, "family", "3. Part Family"), new("<p>The three C110 copper parts on PR-03 (P-11333 on D-1333-C, P-15731 on D-5731-A, P-14026 on D-4026-A) are followed through the same four headings as the plant.</p>"),
-              h(3, "family-overview", "3.1 Overview"), B["fam_overview"], B["fam_fixtures"], B["fam_grr"],
-              h(3, "family-limits", "3.2 Chart Limits"), B["fam_limits"], B["fam_verif"], B["fam_p1_p"], B["fam_p1_fig"], B["fam_tw_p"],
-              h(3, "family-performance", "3.3 Performance"), B["fam_special"], B["fam_take"], B["fam_table"], B["fam_rates"], B["fam_fig"], B["fam_ps"], B["fam_ps_fig"], B["p_13"], B["fig_13"],
-              h(3, "family-variation", "3.4 Variation"), B["fam_bc_p"], B["fam_bc_fig"], B["fam_coil"], B["fam_cf_fig"], new("<p>C-15731-02's chart carries the wear trend as its centre line:</p>"), B["fam_tw_fig"]]
+    p3p = presses.set_index("press_id").loc["PR-03"]; rt3 = rt[rt["press_id"] == "PR-03"]
+
+    def join(k, build):
+        """Append a sentence to an existing paragraph, its traced numbers moved onto that paragraph."""
+        t0 = len(pg.trace); frag = build(); moved = [r for r, _ in pg.trace[t0:]]; del pg.trace[t0:]
+        list.extend(pg.trace, [(r, k) for r in moved])
+        i = entries[k].rfind("</p>"); entries[k] = entries[k][:i] + " " + frag + entries[k][i:]
+    parts_ = query("select * from staging.stg_erp__parts where status = 'active' order by part_id")
+    cls_parts = cif.groupby("characteristic_class")["part_id"].nunique()
+    assert all(cls_parts[c] == len(parts_) for c in ("formed", "cut geometry", "hole diameter", "sheared edges")), "a part without one of the four classes"
+    flat_parts = cif[cif["characteristic_class"] == "flatness"].merge(parts_[["part_id", "primary_press"]], on="part_id")
+    per_part = len(cif) / len(parts_)
+    pp_ = parts_.groupby("primary_press")["part_id"].nunique()
+    assert (cif.groupby("press_id")["part_id"].nunique() == pp_.rename_axis("press_id")).all(), "a press whose charted parts differ from its assigned parts"
+    fewest = pp_.sort_values(kind="stable").index[:3].tolist(); assert fewest == ["PR-03", "PR-06", "PR-09"], fewest
+    grp = query("select press_id, press_group, load_cell_channels from staging.stg_erp__presses").set_index("press_id")
+    assert set(grp.loc[grp["load_cell_channels"] == 2, "press_group"]) == {"high_speed"} and set(grp.loc[grp["load_cell_channels"] == 4, "press_group"]) == {"medium"}
+    cpp = cif.groupby("press_id").size()
+    tot_p = cpp + presses.set_index("press_id")["per_stroke_charts"]
+    ld = load.set_index("press_id"); light = ld["per_week"].idxmin()
+    assert ld["per_week"].idxmax() == "PR-03" and cpp.idxmin() == "PR-03"
+    p3_running = int(query("select count(distinct part_id) n from intermediate.int_characteristic_history where in_record and subgroup_type = 'routine' and press_id = 'PR-03'")["n"].iloc[0])
+    freq = cif.groupby("press_group")["frequency_minutes"].unique()
+    assert len(freq["high_speed"]) == 1 and len(freq["medium"]) == 1
+    prog = cif.merge(parts_[["part_id", "program"]], on="part_id")
+    pg_ = prog.groupby("program").agg(charts=("characteristic_id", "count"), parts=("part_id", "nunique")).sort_values("charts", ascending=False)
+    assert pg_.index[0] == "automotive" and pg_.index[-1] == "HVAC"
+    famprog = parts_[parts_["part_id"].isin(["P-11333", "P-15731", "P-14026"])].groupby("program")["part_id"].apply(lambda x: ", ".join(sorted(x)))
+    famtxt = " and ".join(f"{k_} ({v_})" for k_, v_ in famprog.sort_index().items())
+    ORD21 = ["cut geometry", "formed", "hole diameter", "sheared edges", "flatness"]
+    fcn_all = cif[cif["data_type"] == "attribute"].groupby("characteristic_class").size()
+    LBL21 = {"cut geometry": "X-bar and R", "formed": "three-way", "hole diameter": "regression, p chart", "sheared edges": "p chart", "flatness": "X-bar and R", "press tonnage": "EWMA, channel share"}
+    nvar, natt = int((cif["data_type"] == "variable").sum()), int((cif["data_type"] == "attribute").sum())
+    assert set(cif.loc[cif["data_type"] == "attribute", "characteristic_class"]) == {"hole diameter", "sheared edges"}
+    run_parts = query("select press_id, count(distinct part_id) n from intermediate.int_run_shots where cast(actual_start as date) between '2025-07-01' and '2026-06-30' group by 1").set_index("press_id")["n"]
+    assert all(run_parts[p_] == pp_[p_] == 10 for p_ in ("PR-03", "PR-06", "PR-09")), "PR-03, PR-06 or PR-09 ran a part not its own"
+    hrs = query("select press_id, sum(epoch(actual_end) - epoch(actual_start)) / 3600 h from intermediate.int_run_shots where cast(actual_start as date) between '2025-07-01' and '2026-06-30' group by 1").set_index("press_id")["h"]
+    hs_other = [p_ for p_ in grp.index if grp.at[p_, "press_group"] == "high_speed" and p_ != "PR-03"]
+    o21 = [h(2, "chart-summary", "2. SPC Chart Summary"), h(3, "overview", "2.1 Overview")]
+    o21.append(new(f"<p>As of June 2026, there are {n(len(cif) + n_ps, 'mart_charts_in_force with stg_erp__presses: active charts', was='1,427')} active SPC charts across the {n(cif['press_id'].nunique(), 'mart_charts_in_force: presses', was='11')} presses. "
+                   f"{n(len(cif), 'mart_charts_in_force: charts', was='1,380')} are on part characteristics in {wd(cif['characteristic_class'].nunique(), 'mart_charts_in_force: characteristic classes, by characteristic type', was='five')} classes: cut geometry (hole position and part length and width), formed characteristics (formed heights and bend angles), hole diameter, sheared edges, and flatness. "
+                   f"{n(nvar, 'mart_charts_in_force: variable charts', was='897')} ({pct(nvar / len(cif), 'mart_charts_in_force: variable share of charts', 0, was='65%')}) of these are variable charts, plotting dimensions read off a gauge; "
+                   f"{n(natt, 'mart_charts_in_force: attribute charts', was='483')} ({pct(natt / len(cif), 'mart_charts_in_force: attribute share of charts', 0, was='35%')}) are attribute charts, tallying pass/fail pin checks on hole diameters and burr checks on sheared edges. "
+                   f"The other {n(n_ps, 'stg_erp__presses: per-stroke charts at 30 June 2026', was='47')} charts are on press tonnage: an EWMA on each press's per-stroke total and a chart on each load channel's share of it.</p>"))
+    f21 = []
+    for c_ in ORD21:
+        g_ = cif[cif["characteristic_class"] == c_]
+        f21.append({"characteristic_class": c_, "measured": int((g_["data_type"] == "variable").sum()), "attribute": int((g_["data_type"] == "attribute").sum()), "chart_label": LBL21[c_]})
+    f21.append({"characteristic_class": "press tonnage", "measured": n_ps, "attribute": 0, "chart_label": LBL21["press tonnage"]})
+    f21 = pd.DataFrame(f21)
+    for r_ in f21.itertuples():
+        pg.figval(108, f"{r_.measured + r_.attribute:,}", f"active charts, {r_.characteristic_class}"); pg.figval(108, f"{r_.measured:,}", f"variable charts, {r_.characteristic_class}")
+    pg.figure(FIG.charts_by_class(f21), "Figure 108: Active SPC charts by control target")
+    entries[keys[-1]] = pg.body[-1]; o21.append(keys[-1])
+    o21.append(new(f"<p>Each SPC chart belongs to one characteristic on an individual part, and each part carries an average of {n(per_part, 'mart_charts_in_force: charts per active part', '{:.0f}', was='8')} charts. The shop's parts fall into "
+                   f"{wd(len(pg_), 'stg_erp__parts: programs', was='six')} programs. Automotive is the largest at {n(pg_.at['automotive', 'parts'], 'stg_erp__parts: active parts, automotive', was='48')} parts and {n(pg_.at['automotive', 'charts'], 'mart_charts_in_force: charts, automotive', was='373')} charts, HVAC the smallest at "
+                   f"{n(pg_.at['HVAC', 'parts'], 'stg_erp__parts: active parts, HVAC', was='12')} and {n(pg_.at['HVAC', 'charts'], 'mart_charts_in_force: charts, HVAC', was='90')}. The C110 family, detailed in Section 3, sits in "
+                   f"{txt(famtxt, 'stg_erp__parts.program, the family parts', was='appliance (P-15731) and automotive (P-11333, P-14026)')}.</p>"))
+    pv = prog.pivot_table(index="program", columns="characteristic_class", values="characteristic_id", aggfunc="count", fill_value=0).reindex(index=pg_.index, columns=ORD21, fill_value=0)
+    for pr_, r_ in pg_.iterrows():
+        pg.figval(109, f"{int(r_.charts)}", f"mart_charts_in_force: charts, {pr_}"); pg.figval(109, f"{int(r_.parts)}", f"stg_erp__parts: active parts, {pr_}")
+    pg.figure(FIG.program_by_class(pv, pg_["parts"]), "Figure 109: Active SPC charts by program and control target")
+    entries[keys[-1]] = pg.body[-1]; o21.append(keys[-1])
+    o21.append(new(f"<p>Each part is assigned to one press. Presses carry up to {n(pp_.max(), 'stg_erp__parts: most active parts on a press', was='20')} parts each, with PR-03, PR-06 and PR-09 being dedicated presses that run only their "
+                   f"{wd(pp_['PR-03'], 'stg_erp__parts: active parts, PR-03, PR-06 and PR-09', was='ten')} assigned parts. Each press carries {wd(presses['per_stroke_charts'].min(), 'stg_erp__presses: fewest per-stroke charts on a press', was='three')} or "
+                   f"{wd(presses['per_stroke_charts'].max(), 'stg_erp__presses: most per-stroke charts on a press', was='five')} tonnage charts, one for its total and one for each load channel.</p>"))
+    pw2 = cif.pivot_table(index="press_id", columns="characteristic_class", values="characteristic_id", aggfunc="count", fill_value=0).reindex(columns=ORD21, fill_value=0).reset_index()
+    pw2["press tonnage"] = pw2["press_id"].map(presses.set_index("press_id")["per_stroke_charts"]).astype(int)
+    for _, r_ in pw2.iterrows():
+        pg.figval(110, f"{int(sum(r_[c_] for c_ in ORD21) + r_['press tonnage'])}", f"mart_charts_in_force with stg_erp__presses: charts, {r_['press_id']}")
+    pg.figure(FIG.charts_by_press_and_class(pw2, ORD21 + ["press tonnage"], {"press tonnage": "Press Tonnage"}), "Figure 110: Active SPC charts by press and control target")
+    entries[keys[-1]] = pg.body[-1]; o21.append(keys[-1])
+    o21.append(new(f"<p>Each chart collects subgroup measurements only while its part is running. The frequency of measurements differs by press: every {n(freq['high_speed'][0], 'mart_charts_in_force.frequency_minutes, high-speed presses', was='30')} minutes on the high-speed presses and every "
+                   f"{n(freq['medium'][0], 'mart_charts_in_force.frequency_minutes, medium presses', was='60')} on the others. PR-03 produces {n(ld.at['PR-03', 'per_week'], 'routine subgroups per week, PR-03', was='750')} subgroup measurements a week "
+                   f"({pct(ld.at['PR-03', 'per_week'] / ld['per_week'].sum(), 'routine subgroups per week, PR-03 share of the plant', 0, was='18%')} of total) because it has {pct(hrs['PR-03'] / hrs[hs_other].mean() - 1, 'int_run_shots: PR-03 running hours over the mean of the other high-speed presses, less one', 0)} more running hours a week than the other high-speed presses.</p>"))
+    for pr_, r_ in ld.iterrows():
+        pg.figval(111, f"{r_.per_week:,.0f}", f"routine subgroups per week, {pr_}")
+    pg.figure(FIG.subgroups_by_press(ld.reset_index(), set(grp.index[grp["press_group"] == "high_speed"]), ld["per_week"].sum()), "Figure 111: Subgroup Measurements per week by press")
+    entries[keys[-1]] = pg.body[-1]; o21.append(keys[-1])
+    order += o21
+    def cap(k, text=None):
+        """Replace a figure's or table's caption, or drop it."""
+        assert '<div class="caption">' in entries[k], entries[k][:60]
+        entries[k] = re.sub(r'<div class="caption">.*?</div>$', (f'<div class="caption">{text}</div>' if text else ""), entries[k], flags=re.S)
+    P = lambda html: new(f"<p>{html}</p>")
+    WIN = 20                                                    # the coil-change chart's window, as in analytics.chart_performance.coil_change
+    # ═══ 2.2 Chart design
+    assert bi < 0.001, "a between-interval share above 0.1%"
+    cc10 = int(cif.loc[cif["chart_type"] == "three-way (I-MR-R)", "coil_change_subgroup_size"].astype(int).unique()[0])
+    ar_jm = int(by_month[(by_month["issued_month"] >= "2026-01") & (by_month["issued_month"] <= "2026-03")]["annual review"].sum())
+    H4 = lambda t_: new(f'<h4 class="within">{t_}</h4>')
+    H5 = lambda t_: new(f'<h5 class="within">{t_}</h5>')
+
+    snum = [120]
+
+    def sample(img, title, vals):
+        snum[0] += 1
+        for v_, src_ in vals:
+            pg.figval(snum[0], v_, src_)
+        pg.figure(img, f"Figure {snum[0]}: {title}"); entries[keys[-1]] = pg.body[-1]
+        return keys[-1]
+    hist = lambda cid, a_, b_, types=("routine",): query(f"""select * from intermediate.int_characteristic_history where characteristic_id = ? and in_record and subgroup_type in ({', '.join("'" + t_ + "'" for t_ in types)})
+                                                           and sample_time between ? and ? order by sample_time, subgroup_id""", [cid, a_, b_])
+    alarmed_ = set(sig["subgroup_id"]); caused_ = set(sig.loc[sig["assignable_cause"], "subgroup_id"])
+    meta_of = lambda cid: (lambda r_: {"chart_id": cid, "part": r_["part_id"], "name": r_["characteristic_name"], "unit": r_["unit"]})(cif.set_index("characteristic_id").loc[cid])
+    o22 = [h(3, "design", "2.2 Chart design")]
+    o22.append(P(f"Each class runs on the chart its variation calls for, so the design starts with where the variance lies. The year's record was decomposed, class by class, into within-subgroup, between-subgroup, between-coil and wear components, and the "
+                 f"{wd(len(med), 'mart_variance_components: variable classes', was='four')} variable classes differ enough that no one chart serves them all: cut geometry and flatness are piece-to-piece noise "
+                 f"({pct(min(med.at['cut geometry', 'share_within'], med.at['flatness', 'share_within']), 'mart_variance_components.share_within, cut geometry and flatness, the lower median', 0, was='97%')} within the subgroup); formed characteristics (formed heights and bend angles) carry a coil offset "
+                 f"({pct(med.at['formed', 'share_between_coils'], 'mart_variance_components.share_between_coils, formed', was='13.5%')} after centring, {pct(med.at['formed', 'incoming_coil_share'], 'mart_variance_components.incoming_coil_share, formed, median', was='49.7%')} before it); "
+                 f"hole diameters carry a wear trend ({pct(med.at['hole diameter', 'trend_share'], 'mart_variance_components.trend_share, hole diameter, median', was='36.2%')}). Between-interval shares are nil on every class."))
+    cap(B["fig_var"]); o22.append(B["fig_var"])
+    o22.append(H4("Design of SPC charts"))
+    # X-bar and R
+    o22.append(H5("X-bar and R (cut geometry and flatness)"))
+    o22.append(P(f"Cut geometry and flatness have no between-subgroup component, so each subgroup's mean is plotted against limits set from the within-subgroup ranges, the more precise estimate, and the range against its own limit. "
+                 f"Western Electric rules 1 to 4 run on the means, because nothing shifts the level from one subgroup to the next in normal running. {n(int(ctn.get('Xbar-R', 0)), 'mart_charts_in_force: X-bar and R', was='474')} charts run this way. The one exception found is "
+                 f"{txt('C-34479-05', 'mart_chart_changes: characteristic moved to three-way', was='C-34479-05')}, a hole position with {pct(mv.evidence_value, 'mart_chart_changes.evidence_value', was='35.2%')} of its variance between coils, moved to a three-way chart on {txt(DAY(mv.changed_on), 'mart_chart_changes.changed_on', was='9 March 2026')}."))
+    XS = ("C-26998-02", "2025-07-25 17:57:00", "2025-09-06 12:01:00")
+    dx = hist(*XS); mx = meta_of(XS[0])
+    assert len(dx) == 30 and dx["limit_set_id"].nunique() == 1 and not dx["subgroup_id"].isin(alarmed_).any() and not bool(cif.set_index("characteristic_id").at[XS[0], "family_part"])
+    o22.append(sample(SC.xbar_r(dx, mx), f"Sample X-bar and R chart: {XS[0]}, {mx['name']}", [(f"{dx['ucl_mean'].iloc[-1]:.3f}", f"int_characteristic_history.ucl_mean, {XS[0]}"), (f"{dx['lcl_mean'].iloc[-1]:.3f}", f"int_characteristic_history.lcl_mean, {XS[0]}")]))
+    # three-way
+    o22.append(H5("Three-way (formed characteristics)"))
+    three_formed_n = int(((cif["chart_type"] == "three-way (I-MR-R)") & (cif["characteristic_class"] == "formed")).sum())
+    o22.append(P(f"Formed characteristics move with the coil. Thickness and hardness on the coil certificate explain the coil means with a median R squared of {n(rmed, 'mart_coil_fit.r_squared, median', '{:.2f}', was='0.82')} across "
+                 f"{n(len(cf), 'mart_coil_fit: characteristics', was='242')} characteristics, so the die is centred on a {n(cc10, 'mart_charts_in_force.coil_change_subgroup_size, three-way charts', was='10')}-piece subgroup at every coil change, and a coil-change chart, one point per coil with limits from the coils on record (the previous "
+                 f"{n(WIN, 'analytics.chart_performance.coil_change: window of coils', was='20')} once there are that many), checks each coil before the routine chart sees it. Centring leaves a residual offset of {pct(rho, 'mart_variance_components: residual coil share of the variance of formed subgroup means, median', was='39.1%')} of the variance of the subgroup means, and the limits must carry it. "
+                 f"The three-way chart plots each subgroup mean as an individual value against limits set from the standard deviation of the baseline means, which include that offset; limits from the average moving range would not, and would signal on "
+                 f"{n(r1_mr, 'coil_block_rate, rule 1, moving-range limits', '{:.2f}', was='1.57')} in-control points per 100 against the {n(r1_sd, 'coil_block_rate, rule 1, limits in force', '{:.2f}', was='0.27')} of the limits in force. Rules 2 to 4 are off on the individuals chart, because the coil steps would trip them. "
+                 f"Beside it, the moving-range chart watches the change between consecutive means, and the range chart the spread within each subgroup. {n(three_formed_n, 'mart_charts_in_force: three-way, formed', was='399')} charts run this way. In the sample, the level steps at each coil change and stays inside the individuals limits."))
+    TS = ("C-30054-04", "2025-08-14 11:59:00", "2025-10-07 07:57:00")
+    dt = hist(*TS); dt["coil"] = dt["coil_id"].ffill(); mt = meta_of(TS[0])
+    assert dt["coil"].nunique() in (4, 5) and dt["limit_set_id"].nunique() == 1 and not dt["subgroup_id"].isin(caused_).any() and not bool(cif.set_index("characteristic_id").at[TS[0], "family_part"])
+    assert ((dt["subgroup_mean"] <= dt["ucl_mean"]) & (dt["subgroup_mean"] >= dt["lcl_mean"])).all(), "the three-way sample leaves its individuals limits"
+    o22.append(sample(SC.three_way(dt, mt), f"Sample three-way chart: {TS[0]}, {mt['name']}", [(f"{dt['ucl_mean'].iloc[-1]:.3f}", f"int_characteristic_history.ucl_mean, {TS[0]}"), (f"{dt['lcl_mean'].iloc[-1]:.3f}", f"int_characteristic_history.lcl_mean, {TS[0]}")]))
+    # regression
+    o22.append(H5("Regression (hole diameter)"))
+    o22.append(P(f"A pierced hole grows as the punch edge wears between sharpenings, at a rate predictable from the shots since the die was sharpened, so the {n(int(ctn.get('tool-wear', 0)), 'mart_charts_in_force: tool-wear (regression) charts', was='23')} measured hole diameters run on regression charts. "
+                 "The centre line is the regression of diameter on shots since sharpening, fitted over the die's earlier intervals, with limits three residual sigmas either side: the chart asks whether each subgroup sits where the wear line predicts, not whether the hole has grown, so it signals on what is not wear. "
+                 f"The line resets at each sharpening and is re-fitted at each verification that passes, with the limit width held. Wear rates run from {n(ws['rate'].min(), 'mart_wear_slopes.characteristic_rate_mm_per_100k_shots, lowest', '{:.4f}', was='0.0041')} to "
+                 f"{n(ws['rate'].max(), 'mart_wear_slopes.characteristic_rate_mm_per_100k_shots, highest', '{:.4f}', was='0.0100')} mm per 100,000 shots across the {n(len(ws), 'mart_wear_slopes: characteristics', was='19')} charted holes; {wd(int((ws['intervals'] == 1).sum()), 'mart_wear_slopes.qualifying_intervals equal to 1', was='six')} rest on a single sharpening interval."))
+    RS = ("C-12836-01", "2026-02-16 08:33:00", "2026-03-04 15:31:00")
+    dr = hist(*RS); dr = dr[dr["shots_since_sharpening"].notna()].reset_index(drop=True); mr_ = meta_of(RS[0])
+    rsets = query("select limit_set_id, trigger from marts.mart_limit_sets where characteristic_id = ?", [RS[0]]).set_index("limit_set_id")["trigger"]
+    refit_at = [i for i in range(1, len(dr)) if dr.at[i, "limit_set_id"] != dr.at[i - 1, "limit_set_id"] and rsets[dr.at[i, "limit_set_id"]] == "tool-wear re-fit"]
+    assert dr["sharpening_interval_no"].nunique() in (2, 3) and len(refit_at) >= 1 and not bool(cif.set_index("characteristic_id").at[RS[0], "family_part"])
+    o22.append(sample(SC.regression(dr, mr_, refit_at), f"Sample regression chart: {RS[0]}, {mr_['name']}", [(f"{len(refit_at)}", f"mart_limit_sets: re-fits taking effect in the sample, {RS[0]}")]))
+    # p charts
+    o22.append(H5("p charts (pin and burr checks)"))
+    npc = int(round(bu.checked / bu.subgroups)); assert npc == int(round(pi.checked / pi.subgroups)) == 5
+    pb_, pp__ = bu.nonconforming / bu.checked, pi.nonconforming / pi.checked
+    ucl_ = lambda p_: p_ + 3 * np.sqrt(p_ * (1 - p_) / npc); sgn = lambda p_: 1 - (1 - p_) ** npc
+    o22.append(P(f"The other {n(int(ctn.get('p', 0)) - int(fcn_all.get('sheared edges', 0)), 'mart_charts_in_force: pin checks on hole diameters', was='303')} hole diameters are checked with a go/no-go pin rather than measured, and every part's sheared edge is checked for burr by the operator: each piece passes or fails, and the fails in a check of "
+                 f"{n(npc, 'stg_spc__subgroups.pieces per check, burr and pin checks', was='5')} pieces are tallied on a p chart against limits set from the baseline fail rate. Unlike the measured holes, a pin check cannot see a hole growing toward its limit, only a hole that has passed it. "
+                 f"At the year's fail rates, {pct(pb_, 'stg_spc__subgroups: burr checks, fail rate', 2)} on burr checks and {pct(pp__, 'stg_spc__subgroups: pin checks, fail rate', 2)} on pin checks, the upper limit of a {n(npc, 'stg_spc__subgroups.pieces per check, burr and pin checks', was='5')}-piece check sits at about "
+                 f"{pct(ucl_(pb_), 'p chart upper limit, burr checks', 1)} and {pct(ucl_(pp__), 'p chart upper limit, pin checks', 1)}, so a single failed piece is a signal: the p chart works as a rule that every nonconforming piece is investigated (the sample shows the pattern: zeros, and a single failed piece far above the limit), raising a signal on about "
+                 f"{n(100 * sgn(pb_), 'p chart: checks with at least one fail per 100, burr checks', '{:.1f}')} and {n(100 * sgn(pp__), 'p chart: checks with at least one fail per 100, pin checks', '{:.1f}')} checks in 100, and it cannot show a rising fail rate before pieces fail. "
+                 f"The control on these features is upstream: burr height is measured on the laboratory gauge on {n(n_none, 'stg_spc__characteristics: chart none', was='180')} characteristics and controlled by the sharpening count, with no chart, and the critical holes run on the regression charts above. "
+                 "The SPC export carries the p charts' counts but not their limits, so the limits here are computed from the fail rates."))
+    crit_h = cif[(cif["characteristic_type"] == "hole diameter") & cif["critical"]]
+    assert set(crit_h["chart_type"]) == {"tool-wear"}, "a critical hole diameter not on a regression chart"
+    PS_ = ("C-10030-06", "2025-09-11 19:59:00", "2025-09-30 11:33:00")
+    dp = query("select sample_time, attribute_count, pieces from staging.stg_spc__subgroups where characteristic_id = ? and sample_time between ? and ? order by sample_time, subgroup_id", list(PS_)); mp_ = meta_of(PS_[0])
+    assert len(dp) == 40 and 1 <= int(dp["attribute_count"].sum()) <= 2 and not bool(cif.set_index("characteristic_id").at[PS_[0], "family_part"])
+    o22.append(sample(SC.p_chart(dp, mp_, pb_, ucl_(pb_)), f"Sample p chart: {PS_[0]}, burr check", [(f"{int(dp['attribute_count'].sum())}", f"stg_spc__subgroups.attribute_count, {PS_[0]}, the sample's checks")]))
+    # per-stroke
+    o22.append(H5("Per-stroke tonnage"))
+    o22.append(P(f"The press monitor reads the load on each upright every stroke. An EWMA on the per-stroke total (lambda {n(lam, 'mart_chart_design.ewma_lambda', '{:.2f}', was='0.02')}, L {n(Lx, 'mart_chart_design.ewma_L', '{:.1f}', was='5.5')}) accumulates small drops such as a chipped punch's, and a residual chart on each channel's share catches the shift of load toward the corner nearest the break. "
+                 f"The total is autocorrelated at lag 1 by {n(phi_r, 'mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median', '{:.2f}', was='0.60')} and varies by {pct(cv_r, 'mart_per_stroke_run_tonnage: baseline sd over mean, median', 2, was='1.49%')} within a run, so the EWMA runs on the AR(1)-adjusted variance. "
+                 f"Limits are set at each run start from the first {n(design['ewma_baseline_strokes'], 'mart_chart_design.ewma_baseline_strokes', was='500')} production strokes, {n(ps_runs, 'mart_per_stroke_stop_rates.runs, the year', was='2,219')} times in the year, and are not held across runs, because the tonnage level belongs to the setup, not the part. "
+                 f"At known parameters the in-control ARL is {n(a0 / 1e6, 'ewma_arl, L 5.5, known, millions', '{:.1f}', was='77.8')} million strokes and {n(est[Lx] / 1e6, 'ewma_arl averaged over the estimates, L 5.5, millions', '{:.2f}', was='2.64')} million with the parameters estimated; L "
+                 f"{n(Lc, 'mart_chart_design.ewma_L_considered', '{:.1f}', was='4.9')} would give about one false stop in {wd(round(est[Lc] / (p3_strokes / p3_shifts)), 'strokes at L 4.9 over PR-03 strokes per worked shift in the quarter', was='eight')} shifts on PR-03."))
+    RUNS_ = "R26-00555"
+    rr_ = query("select * from marts.mart_per_stroke_run_tonnage where run_id = ?", [RUNS_]).iloc[0]
+    assert rr_.press_group == "medium" and int(rr_.per_stroke_stops) == 0 and not bool(parts_.set_index("part_id").at[rr_.part_id, "family_code"] == "F-19")
+    raw_ = S.ROOT / "data" / "raw" / "press_monitor" / "strokes" / f"press={rr_.press_id}"
+    sk = query(f"select stroke_no, total_kn, peak_kn_ch1, peak_kn_ch2, peak_kn_ch3, peak_kn_ch4 from read_parquet('{(raw_ / '*.parquet').as_posix()}') where run_id = ? order by stroke_no", [RUNS_])
+    sk = sk[sk["stroke_no"] > int(rr_.setup_strokes)].reset_index(drop=True); sk["stroke_no"] = np.arange(1, len(sk) + 1)
+    for c_ in ("ch1", "ch2", "ch3", "ch4"):
+        sk[f"share_{c_}"] = sk[f"peak_kn_{c_}"] / sk["total_kn"]
+    zz = np.empty(len(sk)); zz[0] = rr_.baseline_total_kn_mean
+    for i in range(1, len(sk)):
+        zz[i] = lam * sk.at[i, "total_kn"] + (1 - lam) * zz[i - 1]
+    sk["ewma"] = zz
+    a_ = rr_.baseline_lag_1_autocorrelation * (1 - lam); bs = {"mean": float(rr_.baseline_total_kn_mean), "sz": float(rr_.baseline_total_kn_sd * np.sqrt(lam / (2 - lam) * (1 + a_) / (1 - a_)))}
+    b500 = sk[sk["stroke_no"] <= int(design["ewma_baseline_strokes"])]
+    for c_ in ("ch1", "ch2", "ch3", "ch4"):
+        bs[f"level_{c_}"], bs[f"sd_{c_}"] = float(b500[f"share_{c_}"].mean()), float(b500[f"share_{c_}"].std(ddof=1))
+    win = sk[(sk["stroke_no"] > 500) & (sk["stroke_no"] <= 900)].reset_index(drop=True)
+    assert (np.abs(win["ewma"] - bs["mean"]) <= Lx * bs["sz"]).all() and all((np.abs((win[f"share_{c_}"] - bs[f"level_{c_}"]) / bs[f"sd_{c_}"]) <= Lx).all() for c_ in ("ch1", "ch2", "ch3", "ch4")), "the per-stroke sample is not in control"
+    o22.append(sample(SC.per_stroke(win, bs, lam, Lx, {"run": RUNS_, "press": rr_.press_id, "part": rr_.part_id}), f"Sample per-stroke tonnage charts: run {RUNS_}, {rr_.press_id}", [(f"{bs['mean']:.1f}", f"mart_per_stroke_run_tonnage.baseline_total_kn_mean, {RUNS_}")]))
+    # setting and holding
+    o22.append(H4("Setting and holding limits"))
+    o22.append(P(f"The rules below govern the {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} characteristic charts; the tonnage charts set theirs per run, as above."))
+    o22.append(P(f"<strong>Setting and holding the limits.</strong> A characteristic chart's limits come from a Phase I baseline of {n(design['baseline_subgroups'], 'mart_chart_design.baseline_subgroups', was='25')} subgroups, spanning at least ten coil changes on a three-way chart; subgroups outside the baseline's own limits are screened "
+                 f"({n(int(pb['screened_subgroups'].sum()), 'mart_phase1_baselines.screened_subgroups, total', was='94')} in {n(int((pb['screened_subgroups'] > 0).sum()), 'mart_phase1_baselines: baselines with a subgroup screened', was='64')} baselines in the year) and the means tested for normality "
+                 f"({pct(pb['normal_at_5pct'].mean(), 'mart_phase1_baselines.normal_at_5pct, share', was='92.9%')} pass). The limits are then held, and a sharpening does not reset them: the first {n(design['verification_subgroups'], 'mart_chart_design.verification_subgroups', was='25')} subgroups after it verify them, "
+                 "and only a failed verification, a rebuild or the annual review starts a new baseline; a regression chart's planned trigger re-fits its line instead. Formed charts are verified after a rebuild or forming-station repair only, since sharpening does not touch the forming stations. "
+                 f"The die log carries dates without times, so a run is placed by the last sharpening dated on or before its start day; {n(same_day.d, 'int_run_shots: runs starting on the day their sharpening is logged', was='15')} of {n(same_day.n, 'int_run_shots: runs with a shot count', was='1,399')} runs start on a sharpening day and "
+                 f"{n(span, 'int_run_shots with int_sharpening_intervals: runs spanning a logged sharpening date', was='92')} span one. "
+                 f"At 30 June {n(int(cif['in_baseline'].sum()), 'mart_charts_in_force.in_baseline', was='16')} charts are in a baseline and {'none' if int(cif['past_trigger'].sum()) == 0 else n(int(cif['past_trigger'].sum()), 'mart_charts_in_force.past_trigger')} is past its recalculation trigger."))
+    o22.append(P(f"<strong>Gauges.</strong> Every variable chart runs on a gauge in gating status: {n(cif.loc[cif['gauge_type'] == 'check fixture', 'gauge_id'].nunique(), 'mart_charts_in_force.gauge_id: check fixtures, distinct', was='180')} check fixtures, "
+                 f"{n(cif.loc[cif['gauge_type'] == 'caliper', 'gauge_id'].nunique(), 'mart_charts_in_force.gauge_id: calipers, distinct', was='29')} calipers and {n(cif.loc[cif['gauge_type'] == 'indicator', 'gauge_id'].nunique(), 'mart_charts_in_force.gauge_id: indicators, distinct', was='12')} indicators, "
+                 f"each with a current calibration and a gauge study on file, {n(vb.get('this gauge', 0), 'mart_charts_in_force.study_basis: this gauge', was='825')} charts on a study of the gauge itself and {n(vb.get('gauge type at the press', 0), 'mart_charts_in_force.study_basis: gauge type at the press', was='72')} on a study of the gauge type at the press. "
+                 f"The pin checks run on {n(cif.loc[cif['gauge_type'] == 'pin', 'gauge_id'].nunique(), 'mart_charts_in_force.gauge_id: pins, distinct', was='35')} calibrated pin gauges."))
+    o22.append(P(f"<strong>The year's limit sets.</strong> {n(int(rc.sum()), 'mart_limit_recalculations: limit sets in the year', was='319')} new sets were issued on the {n(len(var), 'mart_charts_in_force: variable charts', was='897')} variable charts "
+                 f"({n(int((var['limits_effective_from'] < pd.Timestamp('2025-07-01')).sum()), 'mart_charts_in_force.limits_effective_from before 1 July 2025, variable charts', was='671')} run on limits issued before the record, {n(int((var['limits_effective_from'] >= pd.Timestamp('2025-07-01')).sum()), 'mart_charts_in_force.limits_effective_from in the year, variable charts', was='226')} on limits issued in the year): "
+                 f"{n(rc['rebuild'], 'mart_limit_recalculations: rebuild', was='146')} after rebuilds, spread through the year; {n(rc['annual review'], 'mart_limit_recalculations: annual review', was='74')} at the annual review of 19 January, {n(ar_jm, 'mart_limit_recalculations: annual review, January to March', was='71')} of them in January to March; "
+                 f"{n(rc['tool-wear re-fit'], 'mart_limit_recalculations: tool-wear re-fit', was='65')} regression lines re-fitted; {n(rc['failed verification'], 'mart_limit_recalculations: failed verification', was='34')} after a failed verification. "
+                 f"Two charts changed design: C-34479-05 above, and C-15731-02's recalculation trigger, shortened from {n(tw.from_value, 'mart_chart_changes.from_value', was='30')} to {n(tw.to_value, 'mart_chart_changes.to_value', was='20')} subgroups from "
+                 f"{txt(DAY(tw.changed_on), 'mart_chart_changes.changed_on', was='8 December 2025')} after its intervals shortened under the burr line."))
+    cap(B["fig_recalc"]); o22.append(B["fig_recalc"])
+    o22.append(P(f"Verification held the limits across {n(len(shp), 'mart_limit_verifications: sharpenings', was='408')} sharpenings and failed on {n(int(shp.sum()), 'mart_limit_verifications: sharpenings with a failure', was='33')} of them ({pct(shp.mean(), 'share of sharpenings failed', was='8.1%')}), inside its design range of 3% to 9%; by chart, "
+                 f"{n(x1.failed, 'mart_limit_verifications: X-bar and R failed', was='34')} of {n(x1.verifications, 'mart_limit_verifications: X-bar and R after sharpening', was='1,100')} X-bar and R ({pct(x1.rate, 'X-bar and R failure rate', was='3.1%')}), {n(x2.failed, 'mart_limit_verifications: tool-wear failed', was='2')} of "
+                 f"{n(x2.verifications, 'mart_limit_verifications: tool-wear', was='67')} regression ({pct(x2.rate, 'tool-wear failure rate', was='3.0%')}) and {n(x3.failed, 'mart_limit_verifications: three-way failed', was='3')} of {n(x3.verifications, 'mart_limit_verifications: three-way after a rebuild', was='141')} three-way after rebuild "
+                 f"({pct(x3.rate, 'three-way failure rate', was='2.1%')}). The passes sit at a median {n(ok['mean_offset_sigma'].abs().median(), 'mart_limit_verifications.mean_offset_sigma, passes, median absolute', '{:.2f}', was='0.21')} sigma from centre, and the chance of a false failure is under "
+                 f"{n(0.001 if ff_rate < 0.00001 else ff_rate * 100, 'analytics.chart_performance: false-failure rate of the mean criterion, limits from 25 subgroups', '{:.3f}', was='0.001')}%, so each failure is a die that came back at a different level."))
+    o22.append(B["tab_verif"])
+    o22.append(P(f"<strong>The annual review's three-way sets.</strong> {n(len(below), 'mart_limit_sets: three-way annual-review sets below the minimum', was='23')} of the {n(len(rw), 'mart_limit_sets: three-way annual-review sets', was='45')} three-way sets issued at the review span "
+                 f"{wd(below['coil_changes_spanned'].min(), 'mart_limit_sets.coil_changes_spanned, lowest', was='one')} to {wd(below['coil_changes_spanned'].max(), 'mart_limit_sets.coil_changes_spanned, highest', was='nine')} coil changes, because the review computed on a trailing window of "
+                 f"{n(below['subgroups_used'].min(), 'mart_limit_sets.subgroups_used, lowest', was='50')} to {n(below['subgroups_used'].max(), 'mart_limit_sets.subgroups_used, highest', was='978')} subgroups rather than the ten-coil baseline rule. Their centre lines are sound; their limits understate the coil offset. They are re-issued as ten coil changes accrue."))
+    # ═══ 2.3 Performance
+    o23 = [h(3, "performance", "2.3 Performance"), P("A chart has two jobs, and the year's record tests both: signal when the process changed, and stay quiet when it did not.")]
+    o23.append(P(f"<strong>What the charts caught.</strong> Every special cause in the record was caught by the chart designed for it, and every alarm was closed by 30 June. A signal closes either as no cause found, a false alarm, or with the cause, which SPC calls a special cause. "
+                 f"{n(len(ac), 'mart_signals: routine alarms with an assignable cause', was='1,657')} routine alarms on {n(ac['run_id'].nunique(), 'mart_signals: runs with a routine assignable-cause alarm', was='58')} runs closed with a cause, "
+                 f"{n(len(lvl), 'mart_signals: level after sharpening or rebuild, on a limit set whose verification failed', was='1,620')} of them on {n(lvl['run_id'].nunique(), 'mart_signals: runs with a level-change alarm', was='53')} runs where a die came back from sharpening or rebuild at a new level and its verification failed; "
+                 f"the coil-change chart caught the {wd(len(soft), 'mart_signals: coil-change chart, assignable cause', was='one')} soft coil; the regression chart on {txt(wc['press_id'].iloc[0], 'mart_signals.press_id, sharpening logged at the wrong count', was='PR-06')} caught a sharpening logged at the wrong count; "
+                 f"the per-stroke charts stopped the presses on {n(n_slug, 'mart_per_stroke_stops: slug pulling', was='274')} slug pulls, {n(n_worn, 'mart_per_stroke_stops: worn punch', was='82')} worn punches and {n(n_chip, 'mart_per_stroke_stops: chipped punch', was='71')} chipped punches, the chipped punches at a median "
+                 f"{n(pe_all['strokes_exposed_per_stroke_charts'].median(), 'mart_parts_exposed.strokes_exposed_per_stroke_charts, median', was='0')} strokes after the onset."))
+    t_ = entries[B["tab_special"]]; i_ = t_.index('<div class="caption">'); j_ = t_.index("events are distinct runs, stops or coils. ", i_)
+    entries[B["tab_special"]] = t_[:i_] + '<div class="caption">' + t_[j_ + len("events are distinct runs, stops or coils. "):]
+    o23.append(B["tab_special"])
+    o23.append(P(f"<strong>What the charts cost.</strong> The price of the rules in force is {n(tot_w, 'false alarms per week as designed, plant', was='133')} false alarms a week across the plant, {n(100 * tot_w / sub_w, 'false alarms per 100 routine subgroups, plant', '{:.1f}', was='3.1')} per 100 routine subgroups, "
+                 f"and the load falls where the subgroups are: PR-03 carries {n(p3.alarms_per_week, 'expected false alarms per week, PR-03', '{:.1f}', was='23.7')} a week on its {n(p3.per_week, 'routine subgroups per week, PR-03', was='750')} subgroups against a plant median of "
+                 f"{n(float(load['alarms_per_week'].median()), 'expected false alarms per week, median press', '{:.1f}', was='12.9')}."))
+    cap(B["fig_load"]); o23.append(B["fig_load"])
+    o23.append(P(f"That price was chosen. Under rule 1 alone an X-bar chart signals once in {n(a_r1_0, 'analytics.chart_performance.arl_rules, rule 1, known', was='370')} in-control subgroups and catches a one-sigma shift in {n(a_r1_1, 'arl_rules, rule 1 at 1 sigma', was='44')}; with rules 1 to 4 it signals once in "
+                 f"{n(a_r14_0, 'arl_rules, rules 1 to 4, known', was='92')} and catches the shift in {n(a_r14_1, 'arl_rules, rules 1 to 4 at 1 sigma', was='9')}. Limits estimated from 25 subgroups move both figures, to {n(A.expected_arl_xbar(25, 0, (1,)), 'expected_arl_xbar, rule 1, baseline 25', was='407')} and "
+                 f"{n(A.expected_arl_xbar(25, 0, (1, 2, 3, 4)), 'expected_arl_xbar, rules 1 to 4, baseline 25', was='74')}. The three-way chart's curve sits above the X-bar chart's at small shifts, which is the detection cost of carrying the coil offset in its limits."))
+    assert all(A.three_way_arl(sh_) > A.arl_rules(sh_, (1, 2, 3, 4)) for sh_ in (0.25, 0.5, 0.75, 1.0, 1.5)), "the three-way curve is not above the X-bar rules 1 to 4 curve at small shifts"
+    cap(B["fig_arl"]); o23.append(B["fig_arl"])
+    o23.append(P(f"<strong>Observed against expected.</strong> On charts with no special cause in the interval, the year's signals ran close to the design rate on every class, and the departures have reasons the record shows. Cut geometry ran at "
+                 f"{n(byc.at['cut geometry', 'ratio'], 'observed over expected, cut geometry (X-bar and R)', '{:.2f}', was='1.32')} times expectation and flatness at {n(flat.ratio, 'observed over expected, flatness', '{:.2f}', was='0.88')}, inside chance at {n(flat.subgroups, 'mart_signal_rates.subgroups_in_scope, flatness', was='5,738')} subgroups "
+                 f"({n(f_lo, 'Poisson interval on flatness signals over expectation, low', '{:.2f}', was='0.75')} to {n(f_hi, 'Poisson interval on flatness signals over expectation, high', '{:.2f}', was='1.02')}). Hole diameter ran at {n(byc.at['hole diameter', 'ratio'], 'observed over expected, hole diameter (regression)', '{:.2f}', was='1.79')} and formed heights at "
+                 f"{n(byc.at['formed', 'ratio'], 'observed over expected, formed (three-way)', '{:.2f}', was='0.83')}, both beyond chance: the regression charts signal on level changes at sharpening of up to 1.5 sigma that pass verification and then run under the old line, and the three-way charts carry the residual coil offset in their limits by design, so rule 1 signals less often than an independent process would. "
+                 f"The {n(int((cif['chart_type'] == 'p').sum()), 'mart_charts_in_force: p charts', was='483')} p charts are outside the comparison: the export carries their counts but no limits or alarm flags. The burr checks recorded {n(bu.nonconforming, 'stg_spc__subgroups.attribute_count, burr checks, in the year', was='268')} nonconforming pieces in "
+                 f"{n(bu.checked, 'stg_spc__subgroups.pieces, burr checks, in the year', was='219,535')} and the pin checks {n(pi.nonconforming, 'stg_spc__subgroups.attribute_count, pin checks, in the year', was='278')} in {n(pi.checked, 'stg_spc__subgroups.pieces, pin checks, in the year', was='324,225')}."))
+    for c_ in ("hole diameter", "formed"):
+        k_, e_ = float(byc.at[c_, "signals"]), float(byc.at[c_, "es"]); lo_, hi_ = stats.chi2.ppf(0.025, 2 * k_) / 2 / e_, stats.chi2.ppf(0.975, 2 * (k_ + 1)) / 2 / e_
+        assert not lo_ <= 1 <= hi_, f"{c_} is inside chance"
+    cap(B["fig_class_signals"], "Flatness's interval spans its band."); o23.append(B["fig_class_signals"])
+    o23.append(P(f"The excess on X-bar and R and regression charts is on rules 3 and 4 ({n(rate(xr, 'signals_rule_3'), 'mart_signal_rates.signals_rule_3, X-bar and R, per 100', '{:.2f}', was='1.39')} and {n(rate(xr, 'signals_rule_4'), 'mart_signal_rates.signals_rule_4, X-bar and R, per 100', '{:.2f}', was='2.09')} per 100 against "
+                 f"{n(known[3], 'flag_rate_rules, rule 3, known', '{:.2f}', was='0.45')} and {n(known[4], 'flag_rate_rules, rule 4, known', '{:.2f}', was='0.78')} at known parameters on X-bar and R; {n(rate(twr, 'signals_rule_3'), 'mart_signal_rates.signals_rule_3, tool-wear, per 100', '{:.2f}', was='1.20')} and "
+                 f"{n(rate(twr, 'signals_rule_4'), 'mart_signal_rates.signals_rule_4, tool-wear, per 100', '{:.2f}', was='2.37')} on regression), which is what limits held across sharpenings produce: small persistent offsets, from operator reproducibility on the fixture or a part running on another press, accumulate run-rule signals that a recomputed chart would absorb, and "
+                 f"{n(int((lv['mean_offset_sigma'].abs() >= 1).sum()), 'mart_limit_verifications: X-bar and R and tool-wear passes at 1.0 to 1.5 sigma', was='14')} of {n(len(lv), 'mart_limit_verifications: X-bar and R and tool-wear passes', was='1,131')} verification passes on these charts lie between 1.0 and 1.5 sigma."))
+    cap(B["fig_rules"]); o23.append(B["fig_rules"])
+    edit(B["bypress"], " per 100 of expectation.", " per 100."); o23.append(B["bypress"])
+    cap(B["fig_press_obs"]); o23.append(B["fig_press_obs"])
+    o23.append(P(f"Subgroup means within a coil carry a median lag-1 autocorrelation of {n(mp, 'mart_variance_components.lag_1_autocorrelation_within_coil, median', '{:.2f}', was='-0.07')} (10th to 90th percentile {n(lo, 'lag-1, 10th percentile', '{:.2f}', was='-0.19')} to {n(hi, 'lag-1, 90th percentile', '{:.2f}', was='0.02')}). "
+                 f"Across that range the in-control ARL under rules 1 to 4 runs from {n(A.arl_ar1_rules(lo, (1, 2, 3, 4), per_zone=3), 'arl_ar1_rules at the 10th percentile', was='142')} to {n(A.arl_ar1_rules(hi, (1, 2, 3, 4), per_zone=3), 'arl_ar1_rules at the 90th percentile', was='87')}, "
+                 f"{n(A.arl_ar1_rules(mp, (1, 2, 3, 4), per_zone=3), 'arl_ar1_rules at the measured median', was='109')} at the median against {n(a_r14_0, 'arl_rules, rules 1 to 4, independent', was='92')} with none, and rule 1 does not move, so the limits need no adjustment for it."))
+    cap(B["fig_autocorr"]); o23.append(B["fig_autocorr"])
+    o23.append(P(f"The coil-change chart raised {n(len(ccs), 'mart_signals: coil-change chart, rule 1 signals in the year', was='28')} rule 1 signals in the year, {n(cc_ncf, 'mart_signals: coil-change chart, no cause found', was='27')} closed as no cause found and {wd(len(soft), 'mart_signals: coil-change chart, assignable cause', was='one')} the soft coil on "
+                 f"{txt(soft['characteristic_id'].iloc[0], 'mart_signals.characteristic_id, soft coil', was='C-15731-07')} on {txt(DAY(soft['raised_at'].iloc[0]), 'mart_signals.raised_at, soft coil', was='27 May 2026')}. On the {n(len(ccp), 'mart_coil_change_points: points with six or more coils on record', was='2,292')} points with six or more coils on record it raised "
+                 f"{n(cobs, 'mart_coil_change_points: rule 1 signals on points with six or more coils', was='18')} against {n(cexp, 'analytics.chart_performance.coil_change: expected signals, Monte Carlo', '{:.1f}', was='12.1')} expected ({n(cobs / cexp, 'observed over expected, coil-change chart', '{:.2f}', was='1.49')} times, interval "
+                 f"{n(clo, 'Poisson interval, low', '{:.2f}', was='0.88')} to {n(chi, 'Poisson interval, high', '{:.2f}', was='2.35')}); the expectation is above the independent rate because coils arrive in lots of "
+                 f"{wd(int(query('select min(k) n from (select coil_lot, count(*) k from staging.stg_erp__coils group by 1)')['n'].iloc[0]), 'stg_erp__coils: fewest coils in a lot', was='one')} to {wd(int(query('select max(k) n from (select coil_lot, count(*) k from staging.stg_erp__coils group by 1)')['n'].iloc[0]), 'stg_erp__coils: most coils in a lot', was='four')} that share "
+                 f"{pct(cc['lot_share'], 'analytics.chart_performance.coil_change: lot share of coil variance', 0, was='76%')} of the coil variance, and the other {wd(len(ccs) - cobs, 'mart_signals less mart_coil_change_points: signals on points with fewer than six coils on record', was='ten')} signals sit on points whose limits rest on coils before the record."))
+    o23.append(P(f"<strong>Per-stroke charts.</strong> They catch a chipped punch on the stroke, where an hourly check would pass up to {n(p3x.hourly_up_to, 'mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03, median', was='11,773')} parts on PR-03 before seeing it. A chipped punch drops the total by a median "
+                 f"{pct(shift_tot, 'mart_parts_exposed.total_shift_at_onset, median', 2, was='3.06%')} and moves the largest channel share by {n(shift_sh, 'mart_parts_exposed.largest_channel_share_shift_points, median', '{:.2f}', was='1.32')} points; at that shift the EWMA signals in "
+                 f"{n(A.ewma_arl(lam, Lx, shift_tot / cv_r, phi_r), 'ewma_arl at the median chipped-punch shift', was='38')} strokes and the channel-share chart usually on the stroke of the break. Lambda 0.02 is the choice for shifts of 2% to 3%: at a 2% step it signals in "
+                 f"{n(A.ewma_arl(0.02, Ls[0.02], 0.02 / cv_r, phi_r), 'ewma_arl, lambda 0.02, 2% step', was='76')} strokes against {n(A.ewma_arl(0.05, Ls[0.05], 0.02 / cv_r, phi_r), 'ewma_arl, lambda 0.05, 2% step', was='117')} at 0.05 and {n(A.ewma_arl(0.10, Ls[0.10], 0.02 / cv_r, phi_r), 'ewma_arl, lambda 0.10, 2% step', was='425')} at 0.10."))
+    cap(B["fig_ewma"]); o23.append(B["fig_ewma"])
+    o23.append(P(f"The charts stopped the presses {n(len(stops), 'mart_per_stroke_stops: stops in the year', was='520')} times in the year: {n(fcs['slug pulling'], 'mart_per_stroke_stops: slug pulling', was='274')} on slug pulling, {n(fcs['worn punch'], 'mart_per_stroke_stops: worn punch', was='82')} on a worn punch, "
+                 f"{n(fcs['chipped punch'], 'mart_per_stroke_stops: chipped punch', was='71')} on a chipped punch and {n(fcs['nothing found'], 'mart_per_stroke_stops: nothing found', was='93')} with nothing found, a false-stop rate of {n(srate.nf / (srate.s / 1e6), 'mart_per_stroke_stop_rates: nothing found per million strokes', '{:.2f}', was='1.02')} per million strokes, "
+                 f"{n(nf_chart.get('EWMA on the total', 0), 'mart_per_stroke_stops: nothing found on the EWMA', was='82')} of the {n(fcs['nothing found'], 'mart_per_stroke_stops: nothing found', was='93')} on the EWMA. On the {n(int(stops['strokes_kept'].sum()), 'mart_per_stroke_stops.strokes_kept', was='204')} stops with strokes kept, chipped punches were stopped at a median "
+                 f"{n(pe['strokes_exposed_per_stroke_charts'].median(), 'mart_parts_exposed.strokes_exposed_per_stroke_charts, median', was='0')} strokes from the onset, 90th percentile {n(pe['strokes_exposed_per_stroke_charts'].quantile(0.9), 'mart_parts_exposed.strokes_exposed_per_stroke_charts, 90th percentile', was='20')}; the EWMA caught "
+                 f"{n(chc.get('EWMA on the total', 0), 'mart_per_stroke_stops: chipped punches stopped by the EWMA', was='8')} chipped punches and the channel-share chart {n(chc.get('channel share', 0), 'mart_per_stroke_stops: chipped punches stopped by the channel-share chart', was='63')}. Under an hourly check the same failures would have exposed up to "
+                 f"{n(pe['parts_exposed_hourly_check_up_to'].median(), 'mart_parts_exposed.parts_exposed_hourly_check_up_to, median', was='6,499')} parts at the median press and {n(p3x.hourly_up_to, 'mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03', was='11,773')} on PR-03."))
+    cap(B["fig_stops"], "One worn punch was signalled by both charts at once."); o23.append(B["fig_stops"])
+    cap(B["fig_parts"]); o23.append(B["fig_parts"])
+    o23 += [new("<p><strong>Actions.</strong></p>"), B["actions_ul"]]
+    order += o22 + o23
+    # ═══ 3.1 to 3.3
+    join(B["fam_overview"], lambda: f"PR-03 carries {n(int(p3p.per_stroke_charts), 'stg_erp__presses: per-stroke charts, PR-03', was='3')} per-stroke charts, an EWMA on the total and {n(int(p3p.load_cell_channels), 'stg_erp__presses.load_cell_channels, PR-03', was='2')} channel-share charts.")
+    assert len(fvar) == 20
+    o3 = [h(2, "family", "3. Part Family"), new("<p>The three C110 copper parts on PR-03 (P-11333 on D-1333-C, P-15731 on D-5731-A, P-14026 on D-4026-A) are followed through the same three headings as the plant.</p>"),
+          h(3, "family-overview", "3.1 Overview"), B["fam_overview"], h(3, "family-design", "3.2 Chart design")]
+    o3.append(P(f"The family's {txt('twenty', 'mart_charts_in_force: family measured charts (20)', was='twenty')} measured characteristics show the plant's structure one at a time: the formed heights and bend angles carry between-coil shares of {n(100 * ff['share_between_coils'].min(), 'mart_variance_components.share_between_coils, family formed, lowest', '{:.0f}', was='7')}% to "
+                f"{n(100 * ff['share_between_coils'].max(), 'mart_variance_components.share_between_coils, family formed, highest', '{:.0f}', was='31')}% on the routine record and {n(100 * ff['incoming_coil_share'].min(), 'mart_variance_components.incoming_coil_share, family, lowest', '{:.0f}', was='22')}% to "
+                f"{n(100 * ff['incoming_coil_share'].max(), 'mart_variance_components.incoming_coil_share, family, highest', '{:.0f}', was='52')}% incoming, the hole positions {n(100 * fh['share_between_coils'].min(), 'mart_variance_components.share_between_coils, family hole position and width, lowest', '{:.0f}', was='0')}% to "
+                f"{n(100 * fh['share_between_coils'].max(), 'mart_variance_components.share_between_coils, family hole position and width, highest', '{:.0f}', was='6')}%, and the one measured hole diameter, {txt(fhd.characteristic_id, 'mart_variance_components: family hole diameter', was='C-15731-02')}, a {pct(fhd.trend_share, 'mart_variance_components.trend_share, C-15731-02', was='23.5%')} wear trend. "
+                f"Each sits on the chart its class calls for: {n(int(fcn.get(('formed', 'three-way (I-MR-R)'), 0)), 'mart_charts_in_force: family formed, three-way', was='12')} three-way, {n(int(fcn.get(('cut geometry', 'Xbar-R'), 0)), 'mart_charts_in_force: family cut geometry, X-bar and R', was='7')} X-bar and R, "
+                f"{n(int(fcn.get(('hole diameter', 'tool-wear'), 0)), 'mart_charts_in_force: family regression charts', was='1')} regression, with {n(int(fcn.get(('hole diameter', 'p'), 0)), 'mart_charts_in_force: family pin checks', was='4')} pin checks and {n(int(fcn.get(('sheared edges', 'p'), 0)), 'mart_charts_in_force: family burr checks', was='3')} burr checks on p charts."))
+    cap(B["fam_bc_fig"], "C-15731-02, the one variable hole diameter, is shown at its wear-trend share."); o3.append(B["fam_bc_fig"])
+    o3.append(P(f"<strong>The coil effect.</strong> It is predictable from the certificate on the {n(int(fitted.sum()), 'mart_coil_fit: family formed characteristics with a fit', was='7')} of the family's {n(len(fformed), 'mart_charts_in_force: family formed characteristics', was='12')} formed characteristics with a fit on record; the other "
+                f"{wd(int((~fitted).sum()), 'mart_charts_in_force: family formed characteristics without a fit', was='five')}, all on {txt(unfit['part_id'].iloc[0], 'mart_coil_change_points.part_id, formed characteristics without a fit', was='P-15731')}, carry {n(int(unfit['n'].iloc[0]), 'mart_coil_change_points: coil-change subgroups with a certificate, each formed characteristic without a fit', was='13')} coil-change subgroups in the year, fewer than the 20 the fit requires. "
+                f"On {txt(pick.characteristic_id, 'mart_coil_fit: family characteristic with R squared nearest the plant median', was='C-11333-05')} the fit is {n(pick.per_mm_thickness, 'mart_coil_fit.per_mm_thickness', '{:.2f}', was='2.73')} mm of height per mm of thickness and {n(pick.per_hrb, 'mart_coil_fit.per_hrb', '{:.4f}', was='-0.0094')} mm per HRB, R squared "
+                f"{n(pick.r_squared, 'mart_coil_fit.r_squared', '{:.3f}', was='0.814')} on {n(pick.coil_change_subgroups, 'mart_coil_fit.coil_change_subgroups', was='20')} subgroups over {n(pick.coils, 'mart_coil_fit.coils', was='9')} coils, residual {pct(pick.residual_sigma_share_of_tolerance, 'mart_coil_fit.residual_sigma_share_of_tolerance, C-11333-05', was='3.2%')} of tolerance against coil means that spread "
+                f"{pct(pick.coil_means_sigma_share_of_tolerance, 'mart_coil_fit.coil_means_sigma_share_of_tolerance, C-11333-05', was='9.3%')}."))
+    o3.append(B["fam_cf_fig"])
+    o3.append(P(f"<strong>A baseline.</strong> The baseline on C-11333-02, taken on the run of {txt(DAY(b['sample_time'].min()) if 'sample_time' in b else DAY(pb74.effective_from), 'mart_phase1_baseline_subgroups: date of the baseline run', was='11 May 2026')} after the rebuild of {txt(DAY(rb_.event_date).rsplit(' ', 1)[0], 'int_die_event_timeline: rebuild of D-1333-C', was='9 May')}, shows the procedure: "
+                f"{n(len(b), 'mart_phase1_baseline_subgroups: subgroups', was='25')} routine subgroups, limits {n(b0.lcl_mean, 'mart_phase1_baseline_subgroups.lcl_mean', '{:.3f}', was='24.381')} to {n(b0.ucl_mean, 'mart_phase1_baseline_subgroups.ucl_mean', '{:.3f}', was='24.435')} mm on the means and a range limit of "
+                f"{n(b0.ucl_range, 'mart_phase1_baseline_subgroups.ucl_range', '{:.4f}', was='0.0988')} mm, Anderson-Darling {n(pb74.anderson_darling, 'mart_phase1_baselines.anderson_darling', '{:.2f}', was='0.53')} against {n(pb74.anderson_darling_critical_5pct, 'mart_phase1_baselines.anderson_darling_critical_5pct', '{:.2f}', was='0.73')}. "
+                f"Subgroup {n(scr.baseline_subgroup_no, 'mart_phase1_baseline_subgroups: screened subgroup', was='18')} carries a range of {n(scr.subgroup_range, 'mart_phase1_baseline_subgroups.subgroup_range, screened', '{:.3f}', was='0.106')} mm, beyond the range limit; it is flagged and kept, and without it the mean limits move by under "
+                f"{n(0.002 if move < 0.002 else move, 'mart_phase1_baseline_subgroups: largest move of the mean limits without the screened subgroup', '{:.3f}', was='0.002')} mm."))
+    o3.append(B["fam_p1_fig"])
+    o3.append(P(f"<strong>The regression line.</strong> On C-15731-02 the line in force ({txt(DAY(inforce.effective_from), 'mart_limit_sets.effective_from, C-15731-02 in force', was='27 May 2026')}) runs at {n(inforce.slope_per_100k_shots, 'mart_limit_sets.slope_per_100k_shots', '{:.4f}', was='0.0058')} mm per 100,000 shots from "
+                f"{n(inforce.centre_line, 'mart_limit_sets.centre_line', '{:.4f}', was='9.4555')} mm with a band of plus and minus {n(3 * inforce.sigma_of_means, 'mart_limit_sets.sigma_of_means times 3', '{:.4f}', was='0.0060')} mm; the chart ran on {wd(len(in_year), 'mart_limit_sets: C-15731-02 sets in force in the year', was='ten')} limit sets in the year, listed in the appendix."))
+    o3.append(B["fam_tw_fig"])
+    o3.append(P(f"<strong>The year's limit sets.</strong> {n(int(fls.sum()), 'mart_limit_sets: family sets issued in the year', was='20')} sets were issued on the family's charts: {n(fls.get('rebuild', 0), 'mart_limit_sets: family, rebuild', was='9')} after rebuilds, {n(fls.get('tool-wear re-fit', 0), 'mart_limit_sets: family, tool-wear re-fit', was='7')} regression re-fits, "
+                f"{n(fls.get('annual review', 0), 'mart_limit_sets: family, annual review', was='3')} at the annual review and {n(fls.get('failed verification', 0), 'mart_limit_sets: family, failed verification', was='1')} after a failed verification. Verifications on the three dies: "
+                f"{n(fvt.at[('X-bar and R', 'sharpening'), 'done'], 'mart_limit_verifications: family X-bar and R after sharpening', was='51')} X-bar and R after sharpening with {'none' if fvt.at[('X-bar and R', 'sharpening'), 'failed'] == 0 else fvt.at[('X-bar and R', 'sharpening'), 'failed']} failed, "
+                f"{n(fvt.at[('tool-wear', 'sharpening'), 'done'], 'mart_limit_verifications: family tool-wear', was='8')} regression with {n(fvt.at[('tool-wear', 'sharpening'), 'failed'], 'mart_limit_verifications: family tool-wear failed', was='1')} failed on {txt(fvd.get('tool-wear', ''), 'mart_limit_verifications.die_id, tool-wear failed', was='D-5731-A')}, "
+                f"{n(fvt.at[('three-way', 'rebuild'), 'done'], 'mart_limit_verifications: family three-way after rebuild', was='16')} three-way after rebuild with {n(fvt.at[('three-way', 'rebuild'), 'failed'], 'mart_limit_verifications: family three-way failed', was='3')} failed, all on {txt(fvd.get('three-way', ''), 'mart_limit_verifications.die_id, three-way failed', was='D-4026-A')}; "
+                f"by sharpening, {n(int(fshp.sum()), 'mart_limit_verifications: family sharpenings failed', was='1')} of {n(len(fshp), 'mart_limit_verifications: family sharpenings', was='23')}. PR-03's per-stroke limits were set at {n(sr3_runs, 'mart_per_stroke_stop_rates.runs, PR-03, the year', was='151')} run starts; its total runs at a lag-1 autocorrelation of "
+                f"{n(float(rt3['baseline_lag_1_autocorrelation'].median()), 'mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, PR-03, median', '{:.2f}', was='0.59')} and {pct(float((rt3['baseline_total_kn_sd'] / rt3['baseline_total_kn_mean']).median()), 'mart_per_stroke_run_tonnage: baseline sd over mean, PR-03, median', 2, was='1.49%')} within a run, against "
+                f"{n(phi_r, 'mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median', '{:.2f}', was='0.60')} and {pct(cv_r, 'mart_per_stroke_run_tonnage: baseline sd over mean, median', 2, was='1.49%')} across the plant."))
+    o3.append(P(f"<strong>Gauges.</strong> {n(int(own.sum()), 'mart_charts_in_force: family measured charts on the part own check fixture', was='18')} of the {n(len(fvar), 'mart_charts_in_force: family measured charts', was='20')} measured charts run on the part's own check fixture, the other "
+                f"{wd(len(other), 'mart_charts_in_force: family measured charts on another gauge', was='two')} on {txt(' and '.join('an ' + t_ if t_[0] in 'aeiou' else 'a ' + t_ for t_ in other), 'mart_charts_in_force.gauge_type, family measured charts not on a fixture', was='a caliper and an indicator')}. "
+                f"F-15731 stands at {n(g15.pct_grr_of_tolerance, 'mart_charts_in_force.pct_grr_of_tolerance, F-15731', '{:.1f}', was='6.0')}% of tolerance ({txt(DAY(g15.study_date), 'mart_charts_in_force.study_date, F-15731', was='2 April 2026')}) and F-14026 at "
+                f"{n(g14.pct_grr_of_tolerance, 'mart_charts_in_force.pct_grr_of_tolerance, F-14026', '{:.1f}', was='5.3')}% ({txt(DAY(g14.study_date).rsplit(' ', 1)[0], 'mart_charts_in_force.study_date, F-14026', was='17 June')}, after the rebuild that followed its "
+                f"{txt(DAY(gs3.study_date).rsplit(' ', 1)[0], 'mart_gauge_studies.study_date, F-14026 restudy after failed verification', was='3 June')} restudy at {n(gs3.pct_grr_of_tolerance, 'mart_gauge_studies.pct_grr_of_tolerance, F-14026 restudy', '{:.1f}', was='16.7')}%); F-11333 at "
+                f"{n(g11.pct_grr_of_tolerance, 'mart_charts_in_force.pct_grr_of_tolerance, F-11333', '{:.1f}', was='16.3')}% ({txt(DAY(g11.study_date).rsplit(' ', 1)[0], 'mart_charts_in_force.study_date, F-11333', was='5 May')}) is in service with a restudy due {txt(DAY(g11.restudy_due).rsplit(' ', 1)[0], 'mart_charts_in_force.restudy_due, F-11333', was='17 August')}."))
+    cap(B["fam_grr"]); o3.append(B["fam_grr"])
+    o3.append(h(3, "family-performance", "3.3 Performance"))
+    o3.append(P(f"The family's charts caught every special cause on the three parts and ran at {n(fb.at['total', 'ratio'], 'family: observed over expected, total', '{:.2f}', was='1.13')} times expectation overall, with the excess on one class. "
+                f"{n(len(fac), 'mart_signals: family routine alarms with an assignable cause', was='107')} routine alarms on {n(fac['run_id'].nunique(), 'mart_signals: family runs with an assignable cause', was='3')} runs closed with a cause: "
+                f"{n(len(f_lvl_s), 'mart_signals: family, level after sharpening', was='54')} on {wd(f_lvl_s['run_id'].nunique(), 'mart_signals: family runs, level after sharpening', was='one')} run where {txt(', '.join(sorted(set(f_lvl_s['die_id']))), 'mart_signals.die_id, level after sharpening', was='D-5731-A')} came back from sharpening at a new level and its verification failed, "
+                f"{n(len(f_fx), 'mart_signals: family, fixture drift', was='30')} on {wd(f_fx['run_id'].nunique(), 'mart_signals: family runs, fixture drift', was='one')} run of {txt(', '.join(sorted(set(f_fx['part_id']))), 'mart_signals.part_id, fixture drift', was='P-14026')} as F-14026 drifted, and "
+                f"{n(len(f_lvl_r), 'mart_signals: family, level after the rebuild', was='23')} on {wd(f_lvl_r['run_id'].nunique(), 'mart_signals: family runs, level after the rebuild', was='two')} runs of {txt(', '.join(sorted(set(f_lvl_r['part_id']))), 'mart_signals.part_id, level after the rebuild', was='P-14026')} after its rebuild, whose verification failed on "
+                f"{wd(fvt.at[('three-way', 'rebuild'), 'failed'], 'mart_limit_verifications: three-way failed after the D-4026-A rebuild', was='three')} of the die's {wd(tw_4026, 'mart_charts_in_force: three-way charts on D-4026-A', was='four')} three-way charts. "
+                f"The coil-change chart caught the soft coil on {txt(f_soft['characteristic_id'].iloc[0], 'mart_signals.characteristic_id, soft coil', was='C-15731-07')} on {txt(DAY(f_soft['raised_at'].iloc[0]).rsplit(' ', 1)[0], 'mart_signals.raised_at, soft coil', was='27 May')}. "
+                f"{n(int((~frt['assignable_cause']).sum()), 'mart_signals: family routine alarms closed as no cause found', was='657')} alarms on {n(frt.loc[~frt['assignable_cause'], 'run_id'].nunique(), 'mart_signals: family runs with a no-cause alarm', was='39')} runs closed as no cause found, and every alarm was closed by 30 June."))
+    o3.append(B["fam_table"])
+    o3.append(P(f"On charts with no special cause, {n(fb.at['total', 'subgroups'], 'family: routine subgroups in scope', was='10,369')} routine subgroups raised {n(fb.at['total', 'signals'], 'family: signals', was='368')} signals against {n(fb.at['total', 'es'], 'family: expected signals', was='327')} expected "
+                f"({n(fb.at['total', 'ratio'], 'family: observed over expected', '{:.2f}', was='1.13')}, interval {n(fb.at['total', 'lo'], 'family: interval low', '{:.2f}', was='1.01')} to {n(fb.at['total', 'hi'], 'family: interval high', '{:.2f}', was='1.25')}). "
+                f"Formed ran at {n(fb.at['formed', 'ratio'], 'family formed: observed over expected', '{:.2f}', was='0.80')} for the reason the plant's three-way charts do; hole diameter at {n(fb.at['hole diameter', 'ratio'], 'family hole diameter: observed over expected', '{:.2f}', was='0.40')} on "
+                f"{n(fb.at['hole diameter', 'subgroups'], 'family hole diameter: subgroups', was='296')} subgroups, inside chance; cut geometry at {n(fb.at['cut geometry', 'ratio'], 'family cut geometry: observed over expected', '{:.2f}', was='1.64')} "
+                f"({n(fb.at['cut geometry', 'lo'], 'family cut geometry: interval low', '{:.2f}', was='1.43')} to {n(fb.at['cut geometry', 'hi'], 'family cut geometry: interval high', '{:.2f}', was='1.88')}), beyond chance, with the excess on rules 3 and 4 as on the plant's X-bar and R charts."))
+    cap(B["fam_fig"]); o3.append(B["fam_fig"])
+    chips3 = pe3[pe3["chart"] == "channel share"]
+    o3.append(P(f"<strong>Per-stroke charts on PR-03.</strong> The charts stopped PR-03 {n(len(s3), 'mart_per_stroke_stops: PR-03 stops', was='97')} times across every part it ran: {n(f3.get('slug pulling', 0), 'mart_per_stroke_stops: PR-03 slug pulling', was='34')} on slug pulling, "
+                f"{n(f3.get('worn punch', 0), 'mart_per_stroke_stops: PR-03 worn punch', was='10')} on a worn punch, {n(f3.get('chipped punch', 0), 'mart_per_stroke_stops: PR-03 chipped punch', was='11')} on a chipped punch and {n(f3.get('nothing found', 0), 'mart_per_stroke_stops: PR-03 nothing found', was='42')} with nothing found. "
+                f"{txt('Ten' if len(chips3) == 10 else str(len(chips3)), 'mart_parts_exposed: PR-03 chipped punches stopped by the channel-share chart', was='Ten')} chipped punches were stopped at {n(chips3['strokes_exposed_per_stroke_charts'].max(), 'mart_parts_exposed: PR-03 channel-share chipped punches, strokes from onset (largest)', was='0')} strokes by the channel-share chart and one at "
+                f"{n(pe13.strokes_exposed_per_stroke_charts, 'mart_parts_exposed.strokes_exposed_per_stroke_charts, the 13 May stop', was='34')} strokes by the EWMA, the 13 May stop on run R26-00820 at stroke {n(s13.stop_stroke_no, 'mart_per_stroke_stops.stop_stroke_no', was='239,498')}, on a punch found chipped and replaced; the press restarted at "
+                f"{txt(pd.Timestamp(s13.cleared_at).strftime('%H:%M'), 'mart_per_stroke_stops.cleared_at', was='11:55')}. PR-03's nothing-found rate is {n(sr3.nf / (sr3.s / 1e6), 'mart_per_stroke_stop_rates: PR-03 nothing found per million strokes', '{:.2f}', was='2.21')} per million strokes against "
+                f"{n(sr_st.nf / (sr_st.s / 1e6), 'mart_per_stroke_stop_rates: nothing found per million strokes', '{:.2f}', was='1.02')} across the plant."))
+    assert (chips3["strokes_exposed_per_stroke_charts"] == 0).all() and (pe3["chart"] == "EWMA on the total").sum() == 1
+    cap(B["fam_ps_fig"]); o3 += [B["fam_ps_fig"], B["fig_13"]]
+    order += o3
     order += [k for k in keys if appendix_key <= k < first_new]          # the appendix, as built
-    dropped = {B["actions_head"], B["fam_intro"], B["recs"]} | {k for k in keys if k < appendix_key and entries[k].startswith(("<h2", "<h3"))}
     used = set(order)
     assert len(used) == len(order), "a block placed twice"
-    lost = [k for k in keys if k not in used and k not in dropped]
-    assert not lost, [entries[k][:80] for k in lost]
-    rows = list(pg.trace)
-    assert not [r for r, k in rows if k in dropped and k != B["recs"]], "a dropped block carries traced numbers"
-    rows = [(r, k) for r, k in rows if k not in dropped]
+    dropped = {k for k in keys if k < appendix_key and k not in used}
+    exhibits = {k for k in dropped if "chart-title'>" in entries[k]}
+    assert exhibits == {B["tab_arl"], B["tab_obs"], B["fig_classes"], B["fig_press_class"], B["fig_threeway"], B["fig_wear"]}, [entries[k][:90] for k in exhibits]
+    rows = [(r, k) for r, k in pg.trace if k not in dropped]
     label, pos = {}, {}
     cur = ""
     for i, k in enumerate(order):
-        m_ = re.match(r'<h[23] id="[^"]+">([^<]+)</h[23]>', entries[k])
+        m_ = re.match(r'<h[23] id="[^"]+">([^<]+)</h[23]>', entries[k]); m2 = re.match(r'<div class="subsection" id="[^"]+"><div class="subsection-label">Section ([^<]+)</div><h3>([^<]+)</h3>', entries[k])
         if m_:
             cur = m_.group(1)
+        elif m2:
+            cur = f"{m2.group(1)} {m2.group(2)}"
         label[k], pos[k] = cur, i
     pg.body = [entries[k] for k in order]
     pg.trace = [((r[0] if r[0].startswith("Figure ") else label[k]),) + tuple(r[1:]) for r, k in sorted(rows, key=lambda x: pos[x[1]])]
@@ -765,8 +1125,6 @@ def build():
                 mp.setdefault(int(m_.group(1)), len(mp) + 1)
         pg.body = [re.sub(f"(chart-title'>{kind} )(\\d+)(:)", lambda m_: f"{m_.group(1)}{mp[int(m_.group(2))]}{m_.group(3)}", blk) for blk in pg.body]
         pg.trace = [((f"{kind} {mp[int(t[0].split()[1])]}" if t[0].startswith(kind + " ") else t[0]),) + tuple(t[1:]) for t in pg.trace]
-        if kind == "Figure":
-            assert mp[16] == REGRESSION_FIGURE, f"the regression chart is Figure {mp[16]}, not {REGRESSION_FIGURE}"
     def resolve(m_):
         kind, title = m_.group(1), m_.group(2)
         hits = {x for blk in pg.body for x in re.findall(f"chart-title'>{'Figure' if kind == 'FIG' else 'Table'} (\\d+): " + re.escape(title) + "</div>", blk)}
@@ -774,8 +1132,14 @@ def build():
         return f"{'Figure' if kind == 'FIG' else 'Table'} {hits.pop()}"
     pg.body = [re.sub(r"\{(FIG|TAB):([^}]+)\}", resolve, blk) for blk in pg.body]
     assert not any("{FIG:" in blk or "{TAB:" in blk for blk in pg.body)
-    toc = [("exec-summary", "1. Executive Summary"), ("chart-summary", "2. SPC Chart Summary"), ("overview", "2.1 Overview", "sub"), ("limits", "2.2 Chart Limits", "sub"), ("performance", "2.3 Performance", "sub"), ("variation", "2.4 Variation", "sub"),
-           ("family", "3. Part Family"), ("family-overview", "3.1 Overview", "sub"), ("family-limits", "3.2 Chart Limits", "sub"), ("family-performance", "3.3 Performance", "sub"), ("family-variation", "3.4 Variation", "sub"), ("appendix", "Appendix")]
+    ftitle = {}
+    for blk in pg.body:
+        for m_ in re.finditer(r"chart-title'>Figure (\d+): ([^<]+)</div>", blk):
+            ftitle[int(m_.group(1))] = m_.group(2)
+    pg.body = [re.sub(r"(chart-title'>)Figure \d+: ", r"\1", blk) for blk in pg.body]
+    pg.trace = [((f"Figure: {ftitle[int(t[0].split()[1])]}" if re.fullmatch(r"Figure \d+", t[0]) else t[0]),) + tuple(t[1:]) for t in pg.trace]
+    toc = [("exec-summary", "1. Executive Summary"), ("chart-summary", "2. SPC Chart Summary"), ("overview", "2.1 Overview", "sub"), ("design", "2.2 Chart design", "sub"), ("performance", "2.3 Performance", "sub"),
+           ("family", "3. Part Family"), ("family-overview", "3.1 Overview", "sub"), ("family-design", "3.2 Chart design", "sub"), ("family-performance", "3.3 Performance", "sub"), ("appendix", "Appendix")]
     html = S.report_shell("Control Chart Design", "Revalidation on the July 2025 to June 2026 record", "July 2026", "\n".join(pg.body), toc)
     out = S.DOCS / "reports"; out.mkdir(parents=True, exist_ok=True)
     (out / "control_chart_design.html").write_text(html, encoding="utf8", newline="\n")

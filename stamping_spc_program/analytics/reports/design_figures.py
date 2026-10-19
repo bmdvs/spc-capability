@@ -5,7 +5,7 @@ import pandas as pd
 
 from analytics.style import style as S
 
-CLASS_ORDER = ["formed", "hole diameter", "cut geometry", "flatness"]
+CLASS_ORDER = ["cut geometry", "formed", "hole diameter", "flatness"]
 COMPONENTS = [("share_within", "Within subgroup", S.BRAND_BLUE), ("share_between_subgroups_in_coil", "Between subgroups in a coil", S.ACCENT),
               ("share_between_coils", "Between coils", S.AMBER), ("share_between_intervals", "Between sharpening intervals", S.GREY)]
 
@@ -83,10 +83,12 @@ def tool_wear_chart(g, centre, slope_per_100k, half_width, usl, lsl):
 
 def arl_curves(f6):
     f, ax = S.fig(h=4.0)
-    for col, colour, style in (("X-bar rule 1", S.BRAND_BLUE, "-"), ("X-bar rules 1 to 4", S.BRAND_BLUE, "--"), ("three-way individuals rule 1", S.AMBER, "-"), ("three-way all three charts", S.AMBER, "--")):
-        ax.plot(f6["shift"], S.sig(f6[col]), color=colour, linestyle=style, marker="o", markersize=3, label=col)
+    for col, label, colour, style in (("X-bar rule 1", "rule 1 (X-bar; three-way individuals)", S.BRAND_BLUE, "-"), ("X-bar rules 1 to 4", "X-bar rules 1 to 4", S.ACCENT, "-"),
+                                      ("X-bar rule 1, limits from 25 subgroups", "X-bar rule 1, limits from 25 subgroups", S.BRAND_BLUE, "--"), ("X-bar rules 1 to 4, limits from 25 subgroups", "X-bar rules 1 to 4, limits from 25 subgroups", S.ACCENT, "--"),
+                                      ("three-way all three charts", "three-way all three charts", S.RED, "-")):
+        ax.plot(f6["shift"], S.sig(f6[col]), color=colour, linestyle=style, marker="o", markersize=3, label=label)
     ax.set_yscale("log"); ax.set_xlabel("Shift in the mean (sigmas of the plotted statistic)"); ax.set_ylabel("Average run length (subgroups)")
-    ax.legend(frameon=False)
+    ax.legend(frameon=False, ncol=2, fontsize=8.5, loc="upper center", bbox_to_anchor=(0.5, -0.17))
     return S.save(f, "d1_arl_curves_by_chart_type", "ARL curves by chart type")
 
 
@@ -149,23 +151,26 @@ def parts_exposed(px):
 
 
 # ── the restructured page's new figures ───────────────────────────────────────
-CLASS_COLOURS = {"formed": S.BRAND_BLUE, "cut geometry": S.ACCENT, "hole diameter": S.AMBER, "flatness": S.GREY, "sheared edges": S.GREEN}
-CLASS_LABEL = {"formed": "Formed characteristics", "cut geometry": "Cut geometry", "hole diameter": "Hole diameter", "flatness": "Flatness", "sheared edges": "Sheared edges"}
+CLASS_COLOURS = {"formed": S.BRAND_BLUE, "cut geometry": S.ACCENT, "hole diameter": S.AMBER, "flatness": S.GREY, "sheared edges": S.GREEN, "press tonnage": S.DARK_GREY}
+CLASS_LABEL = {"formed": "Formed characteristics", "cut geometry": "Cut geometry", "hole diameter": "Hole diameter", "flatness": "Flatness", "sheared edges": "Sheared edges", "press tonnage": "Press tonnage"}
 
 
-def charts_by_class(rows):
-    """rows: characteristic_class, measured, attribute, chart_label; in page order. Stacked columns, measured below
-    attribute, the total on top with the chart types in parentheses below it."""
+def charts_by_class(rows, inside=("hole diameter",)):
+    """rows: characteristic_class, measured, attribute, chart_label; in page order. Stacked columns, variable charts below
+    attribute, the total on top with the chart types in parentheses below it; a white count inside the variable segment of
+    the classes named in inside."""
     f, ax = S.fig(h=3.9)
     x = np.arange(len(rows)); tot = (rows["measured"] + rows["attribute"]).values
-    ax.bar(x, rows["measured"], width=0.6, color=S.BRAND_BLUE, label="Measured (variable) charts")
+    ax.bar(x, rows["measured"], width=0.6, color=S.BRAND_BLUE, label="Variable charts")
     ax.bar(x, rows["attribute"], bottom=rows["measured"], width=0.6, color=S.LIGHT_BLUE, label="Attribute charts")
     for i, r in rows.reset_index(drop=True).iterrows():
         ax.text(i, tot[i] + tot.max() * 0.02, f"{tot[i]:,}\n({r.chart_label})", ha="center", va="bottom", fontsize=8.5, linespacing=1.3)
-    ax.set_xticks(x); ax.set_xticklabels([CLASS_LABEL[c].replace(" characteristics", "\ncharacteristics") for c in rows["characteristic_class"]])
+        if r.characteristic_class in inside and r.measured > 0:
+            ax.text(i, r.measured / 2, f"{int(r.measured)}", ha="center", va="center", fontsize=8.5, color="white", fontweight="bold")
+    ax.set_xticks(x); ax.set_xticklabels([CLASS_LABEL[c].replace(" ", "\n") for c in rows["characteristic_class"]])
     ax.set_ylim(0, tot.max() * 1.3); ax.set_ylabel("Active SPC charts")
     ax.legend(frameon=False, loc="upper right", fontsize=9)
-    return S.save(f, "d1_charts_in_force_by_class", "Active SPC charts by characteristic class")
+    return S.save(f, "d1_charts_in_force_by_class", "Active SPC charts by control target")
 
 
 def false_alarm_load(load, median, label_press, label_text):
@@ -180,16 +185,21 @@ def false_alarm_load(load, median, label_press, label_text):
     return S.save(f, "d1_false_alarm_load_by_press", "False-alarm load as designed, per press per week")
 
 
-def charts_by_press_and_class(pw, order):
-    f, ax = S.fig(h=4.2, grid="x")
+def charts_by_press_and_class(pw, order, labels=None, min_label=6):
+    labels = labels or {}
+    f, ax = S.fig(h=4.6, grid="x")
     y = np.arange(len(pw)); left = np.zeros(len(pw))
     for c in order:
-        v = pw[c].values.astype(float); ax.barh(y, v, left=left, color=CLASS_COLOURS[c], label=CLASS_LABEL[c], height=0.65); left += v
+        v = pw[c].values.astype(float); ax.barh(y, v, left=left, color=CLASS_COLOURS[c], label=labels.get(c, CLASS_LABEL[c]), height=0.65)
+        for i, (l_, vv) in enumerate(zip(left, v)):
+            if vv >= min_label:
+                ax.text(l_ + vv / 2, i, f"{int(vv)}", ha="center", va="center", fontsize=7.5, color="white")
+        left += v
     for i, t in enumerate(left):
         ax.text(t + 2, i, f"{int(t)}", va="center", fontsize=9)
-    ax.set_yticks(y); ax.set_yticklabels(pw["press_id"]); ax.invert_yaxis(); ax.set_xlim(0, left.max() * 1.1); ax.set_xlabel("Charts in force at 30 June 2026")
-    ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, 1.18), fontsize=9)
-    return S.save(f, "d1_charts_in_force_by_press_and_class", "Charts in force by press and class")
+    ax.set_yticks(y); ax.set_yticklabels(pw["press_id"]); ax.invert_yaxis(); ax.set_xlim(0, left.max() * 1.1); ax.set_xlabel("Active SPC Charts")
+    ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.13), fontsize=9)
+    return S.save(f, "d1_charts_in_force_by_press_and_class", "Active SPC charts by press and control target")
 
 
 def fixture_grr(rows):
@@ -357,4 +367,38 @@ def plant_family_ratios(pf, bands):
     ax.set_ylabel("Observed over expected signals"); ax.set_ylim(0, float(pf["hi"].max()) * 1.18)
     ax.legend(frameon=False, fontsize=8.5, loc="upper left", ncol=2)
     return S.save(f, "d1_signals_against_expectation_plant_and_family", "Signals against expectation by characteristic class, plant and family")
+
+
+def subgroups_by_press(ld, high_speed, total):
+    """ld: press_id, per_week. Bars by press, the high-speed presses dark, the weekly total in the plot."""
+    f, ax = S.fig(h=3.6)
+    x = np.arange(len(ld)); hs = [p in high_speed for p in ld["press_id"]]
+    ax.bar(x, S.sig(ld["per_week"]), color=[S.BRAND_BLUE if h_ else S.LIGHT_BLUE for h_ in hs], width=0.65)
+    for i, v in enumerate(ld["per_week"]):
+        ax.text(i, v + 8, f"{v:,.0f}", ha="center", va="bottom", fontsize=8.5)
+    ax.set_xticks(x); ax.set_xticklabels(ld["press_id"], fontsize=8.5)
+    ax.set_ylabel("Weekly subgroup measurements"); ax.set_ylim(0, float(ld["per_week"].max()) * 1.22)
+    ax.text(0.99, 0.95, f"Weekly total: {total:,.0f}", transform=ax.transAxes, ha="right", va="top", fontsize=9.5)
+    from matplotlib.patches import Patch
+    ax.legend(handles=[Patch(color=S.BRAND_BLUE, label="High-speed press, 30 minute intervals"), Patch(color=S.LIGHT_BLUE, label="60 minute intervals")],
+              frameon=False, fontsize=8.5, loc="upper right", bbox_to_anchor=(0.99, 0.86))
+    return S.save(f, "d1_routine_subgroups_by_press", "Subgroup measurements per week by press")
+
+
+def program_by_class(pv, parts, min_label=12):
+    """pv: programs (rows, in descending chart count) by class (columns, in legend order). Stacked horizontal bars with a
+    count inside each segment wide enough to hold one and the chart and part counts at the end of each bar."""
+    f, ax = S.fig(h=3.8, grid="x")
+    y = np.arange(len(pv)); left = np.zeros(len(pv))
+    for c in pv.columns:
+        v = pv[c].values.astype(float); ax.barh(y, v, left=left, color=CLASS_COLOURS[c], label=CLASS_LABEL[c], height=0.62)
+        for i, (l_, vv) in enumerate(zip(left, v)):
+            if vv >= min_label:
+                ax.text(l_ + vv / 2, i, f"{int(vv)}", ha="center", va="center", fontsize=7.5, color="white")
+        left += v
+    for i, (t, n_) in enumerate(zip(left, parts.values)):
+        ax.text(t + 4, i, f"{int(t)} charts, {int(n_)} parts", va="center", fontsize=8.5)
+    ax.set_yticks(y); ax.set_yticklabels(pv.index); ax.invert_yaxis(); ax.set_xlim(0, left.max() * 1.35); ax.set_xlabel("Active SPC Charts")
+    ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.17), fontsize=8.5)
+    return S.save(f, "d1_charts_by_program_and_class", "Active SPC charts by program and control target")
 
