@@ -114,92 +114,57 @@ Figure: Subgroup Measurements per week by press,226,"routine subgroups per week,
 Figure: Subgroup Measurements per week by press,455,"routine subgroups per week, PR-09",
 Figure: Subgroup Measurements per week by press,215,"routine subgroups per week, PR-10",
 Figure: Subgroup Measurements per week by press,221,"routine subgroups per week, PR-11",
-2.1 Overview,180,"mart_charts_in_force.gauge_id: check fixtures, distinct",180
-2.1 Overview,35,"mart_charts_in_force.gauge_id: pins, distinct",35
-2.1 Overview,29,"mart_charts_in_force.gauge_id: calipers, distinct",29
-2.1 Overview,12,"mart_charts_in_force.gauge_id: indicators, distinct",12
-2.1 Overview,897,mart_charts_in_force: variable charts,897
-2.1 Overview,825,mart_charts_in_force.study_basis: this gauge,825
-2.1 Overview,72,mart_charts_in_force.study_basis: gauge type at the press,72
-2.1 Overview,16,mart_charts_in_force.in_baseline,16
-2.1 Overview,671,"mart_charts_in_force.limits_effective_from before 1 July 2025, variable charts",
-2.1 Overview,226,"mart_charts_in_force.limits_effective_from in the year, variable charts",
-2.2 Chart design,four,mart_variance_components: measured classes,four
+2.2 Chart design,four,mart_variance_components: variable classes,four
+2.2 Chart design,97%,"mart_variance_components.share_within, cut geometry and flatness, the lower median",97%
 2.2 Chart design,13.5%,"mart_variance_components.share_between_coils, formed",13.5%
 2.2 Chart design,49.7%,"mart_variance_components.incoming_coil_share, formed, median",49.7%
 2.2 Chart design,36.2%,"mart_variance_components.trend_share, hole diameter, median",36.2%
-2.2 Chart design,97%,"mart_variance_components.share_within, cut geometry and flatness, the lower median",97%
 Figure: Variance components by class,0.1%,"mart_variance_components.share_between_intervals, largest class median (bound)",
+2.2 Chart design,474,mart_charts_in_force: X-bar and R,474
+2.2 Chart design,C-34479-05,mart_chart_changes: characteristic moved to three-way,C-34479-05
+2.2 Chart design,35.2%,mart_chart_changes.evidence_value,35.2%
+2.2 Chart design,9 March 2026,mart_chart_changes.changed_on,9 March 2026
+"Figure: Sample X-bar and R chart: C-26998-02, hole to edge B",23.346,"int_characteristic_history.ucl_mean, C-26998-02",
+"Figure: Sample X-bar and R chart: C-26998-02, hole to edge B",23.304,"int_characteristic_history.lcl_mean, C-26998-02",
 2.2 Chart design,0.82,"mart_coil_fit.r_squared, median",0.82
 2.2 Chart design,242,mart_coil_fit: characteristics,242
 2.2 Chart design,10,"mart_charts_in_force.coil_change_subgroup_size, three-way charts",10
 2.2 Chart design,20,analytics.chart_performance.coil_change: window of coils,20
 2.2 Chart design,39.1%,"mart_variance_components: residual coil share of the variance of formed subgroup means, median",39.1%
 2.2 Chart design,1.57,"coil_block_rate, rule 1, moving-range limits",1.57
-2.2 Chart design,20.5,"coil_block_rate, rules 1 to 4, moving-range limits",20.5
 2.2 Chart design,0.27,"coil_block_rate, rule 1, limits in force",0.27
-2.2 Chart design,0.92,"moving-range rule 1 rate, independent means",0.92
-2.2 Chart design,0.46,"range_rate, known",0.46
-Figure: False alarms per 100 points by three-way design,0.27,"coil_block_rate, rule 1, sd-of-means limits",
-Figure: False alarms per 100 points by three-way design,1.57,"coil_block_rate, rule 1, moving-range limits",
-Figure: False alarms per 100 points by three-way design,17.4,"coil_block_rate, rules 1 to 4, sd-of-means limits",
-Figure: False alarms per 100 points by three-way design,20.5,"coil_block_rate, rules 1 to 4, moving-range limits",
+2.2 Chart design,399,"mart_charts_in_force: three-way, formed",399
+"Figure: Sample three-way chart: C-30054-04, formed height D",7.714,"int_characteristic_history.ucl_mean, C-30054-04",
+"Figure: Sample three-way chart: C-30054-04, formed height D",7.438,"int_characteristic_history.lcl_mean, C-30054-04",
+2.2 Chart design,23,mart_charts_in_force: tool-wear (regression) charts,23
 2.2 Chart design,0.0041,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, lowest",0.0041
 2.2 Chart design,0.0100,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, highest",0.0100
 2.2 Chart design,19,mart_wear_slopes: characteristics,19
 2.2 Chart design,six,mart_wear_slopes.qualifying_intervals equal to 1,six
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0041,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-32929-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",1,"mart_wear_slopes.qualifying_intervals, C-32929-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0042,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-12836-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",6,"mart_wear_slopes.qualifying_intervals, C-12836-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0051,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-39736-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",1,"mart_wear_slopes.qualifying_intervals, C-39736-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0051,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-15731-02",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",8,"mart_wear_slopes.qualifying_intervals, C-15731-02",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0054,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-22617-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",3,"mart_wear_slopes.qualifying_intervals, C-22617-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0056,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-20417-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",5,"mart_wear_slopes.qualifying_intervals, C-20417-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0056,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-22558-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",2,"mart_wear_slopes.qualifying_intervals, C-22558-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0060,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-35987-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",1,"mart_wear_slopes.qualifying_intervals, C-35987-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0064,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-13459-04",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",3,"mart_wear_slopes.qualifying_intervals, C-13459-04",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0067,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-37329-02",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",3,"mart_wear_slopes.qualifying_intervals, C-37329-02",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0073,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-11687-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",9,"mart_wear_slopes.qualifying_intervals, C-11687-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0075,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-16291-02",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",4,"mart_wear_slopes.qualifying_intervals, C-16291-02",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0076,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-15609-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",7,"mart_wear_slopes.qualifying_intervals, C-15609-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0077,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-16315-02",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",6,"mart_wear_slopes.qualifying_intervals, C-16315-02",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0078,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-29540-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",1,"mart_wear_slopes.qualifying_intervals, C-29540-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0084,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-22043-02",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",1,"mart_wear_slopes.qualifying_intervals, C-22043-02",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0086,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-31540-02",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",1,"mart_wear_slopes.qualifying_intervals, C-31540-02",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0095,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-28553-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",3,"mart_wear_slopes.qualifying_intervals, C-28553-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",0.0100,"mart_wear_slopes.characteristic_rate_mm_per_100k_shots, C-31102-01",
-"Figure: Hole diameter wear rate by die, with the intervals behind each rate",2,"mart_wear_slopes.qualifying_intervals, C-31102-01",
-2.2 Chart design,C-34479-05,mart_chart_changes: characteristic moved to three-way,C-34479-05
-2.2 Chart design,35.2%,mart_chart_changes.evidence_value,35.2%
-2.2 Chart design,9 March 2026,mart_chart_changes.changed_on,9 March 2026
-2.2 Chart design,0.60,"mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median",0.60
-2.2 Chart design,1.49%,"mart_per_stroke_run_tonnage: baseline sd over mean, median",1.49%
+"Figure: Sample regression chart: C-12836-01, hole diameter A",2,"mart_limit_sets: re-fits taking effect in the sample, C-12836-01",
+2.2 Chart design,303,mart_charts_in_force: pin checks on hole diameters,303
+2.2 Chart design,5,"stg_spc__subgroups.pieces per check, burr and pin checks",5
+2.2 Chart design,0.12%,"stg_spc__subgroups: burr checks, fail rate",
+2.2 Chart design,0.09%,"stg_spc__subgroups: pin checks, fail rate",
+2.2 Chart design,5,"stg_spc__subgroups.pieces per check, burr and pin checks",5
+2.2 Chart design,4.8%,"p chart upper limit, burr checks",
+2.2 Chart design,4.0%,"p chart upper limit, pin checks",
+2.2 Chart design,0.6,"p chart: checks with at least one fail per 100, burr checks",
+2.2 Chart design,0.4,"p chart: checks with at least one fail per 100, pin checks",
+2.2 Chart design,180,stg_spc__characteristics: chart none,180
+"Figure: Sample p chart: C-10030-06, burr check",1,"stg_spc__subgroups.attribute_count, C-10030-06, the sample's checks",
 2.2 Chart design,0.02,mart_chart_design.ewma_lambda,0.02
 2.2 Chart design,5.5,mart_chart_design.ewma_L,5.5
-2.2 Chart design,5.5,mart_chart_design.channel_share_L,5.5
+2.2 Chart design,0.60,"mart_per_stroke_run_tonnage.baseline_lag_1_autocorrelation, median",0.60
+2.2 Chart design,1.49%,"mart_per_stroke_run_tonnage: baseline sd over mean, median",1.49%
 2.2 Chart design,500,mart_chart_design.ewma_baseline_strokes,500
 2.2 Chart design,"2,219","mart_per_stroke_stop_rates.runs, the year","2,219"
 2.2 Chart design,77.8,"ewma_arl, L 5.5, known, millions",77.8
 2.2 Chart design,2.64,"ewma_arl averaged over the estimates, L 5.5, millions",2.64
 2.2 Chart design,4.9,mart_chart_design.ewma_L_considered,4.9
 2.2 Chart design,eight,strokes at L 4.9 over PR-03 strokes per worked shift in the quarter,eight
+"Figure: Sample per-stroke tonnage charts: run R26-00555, PR-06",965.3,"mart_per_stroke_run_tonnage.baseline_total_kn_mean, R26-00555",
+2.2 Chart design,"1,380",mart_charts_in_force: charts,"1,380"
 2.2 Chart design,25,mart_chart_design.baseline_subgroups,25
 2.2 Chart design,94,"mart_phase1_baselines.screened_subgroups, total",94
 2.2 Chart design,64,mart_phase1_baselines: baselines with a subgroup screened,64
@@ -208,6 +173,13 @@ Figure: False alarms per 100 points by three-way design,20.5,"coil_block_rate, r
 2.2 Chart design,15,int_run_shots: runs starting on the day their sharpening is logged,15
 2.2 Chart design,"1,399",int_run_shots: runs with a shot count,"1,399"
 2.2 Chart design,92,int_run_shots with int_sharpening_intervals: runs spanning a logged sharpening date,92
+2.2 Chart design,16,mart_charts_in_force.in_baseline,16
+2.2 Chart design,180,"mart_charts_in_force.gauge_id: check fixtures, distinct",180
+2.2 Chart design,29,"mart_charts_in_force.gauge_id: calipers, distinct",29
+2.2 Chart design,12,"mart_charts_in_force.gauge_id: indicators, distinct",12
+2.2 Chart design,825,mart_charts_in_force.study_basis: this gauge,825
+2.2 Chart design,72,mart_charts_in_force.study_basis: gauge type at the press,72
+2.2 Chart design,35,"mart_charts_in_force.gauge_id: pins, distinct",35
 2.2 Chart design,319,mart_limit_recalculations: limit sets in the year,319
 2.2 Chart design,897,mart_charts_in_force: variable charts,897
 2.2 Chart design,671,"mart_charts_in_force.limits_effective_from before 1 July 2025, variable charts",671

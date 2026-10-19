@@ -5,7 +5,7 @@ import pandas as pd
 
 from analytics.style import style as S
 
-CLASS_ORDER = ["formed", "hole diameter", "cut geometry", "flatness"]
+CLASS_ORDER = ["cut geometry", "formed", "hole diameter", "flatness"]
 COMPONENTS = [("share_within", "Within subgroup", S.BRAND_BLUE), ("share_between_subgroups_in_coil", "Between subgroups in a coil", S.ACCENT),
               ("share_between_coils", "Between coils", S.AMBER), ("share_between_intervals", "Between sharpening intervals", S.GREY)]
 
