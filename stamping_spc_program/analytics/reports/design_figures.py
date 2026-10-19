@@ -6,22 +6,52 @@ import pandas as pd
 from analytics.style import style as S
 
 CLASS_ORDER = ["cut geometry", "formed", "hole diameter", "flatness"]
-COMPONENTS = [("share_within", "Within subgroup", S.BRAND_BLUE), ("share_between_subgroups_in_coil", "Between subgroups in a coil", S.ACCENT),
-              ("share_between_coils", "Between coils", S.AMBER), ("share_between_intervals", "Between sharpening intervals", S.GREY)]
+COMPONENTS = [("within_share_wear_first", "Within subgroup", S.BRAND_BLUE), ("between_subgroups_share_wear_first", "Between subgroups", S.ACCENT),
+              ("between_coils_share_wear_first", "Between coils", S.AMBER), ("wear_share", "Tool wear", S.GREEN)]
+TONNAGE_COMPONENTS = [("stroke_to_stroke", "Within run", S.LIGHT_BLUE), ("between_runs", "Between runs", S.GREY), ("wear_within_run", "Wear within run", S.DARK_GREY)]
 
 
-def variance_components(fig1):
-    f, ax = S.fig(h=3.6)
+def variance_components(fig1, tonnage, formed_before):
+    """fig1: characteristic_class and the wear-first component medians; tonnage: shares of the per-stroke total by
+    component; formed_before: the formed between-coil share on the coil-change subgroups before centring, marked on its bar."""
+    f, ax = S.fig(h=4.4)
     d = fig1.set_index("characteristic_class").reindex(CLASS_ORDER)
-    left = np.zeros(len(d))
+    y = list(range(len(d))); yt = len(d) + 0.4
+    left = np.zeros(len(d)); hv = []
     for col, label, colour in COMPONENTS:
         v = S.sig(d[col].values * 100)
-        ax.barh(range(len(d)), v, left=left, color=colour, label=label, height=0.6)
+        hv.append(ax.barh(y, v, left=left, color=colour, label=label, height=0.6))
         left += v
-    ax.set_yticks(range(len(d))); ax.set_yticklabels([CLASS_LABEL[c] for c in d.index]); ax.invert_yaxis()
+    lt = 0.0; ht = []
+    for key, label, colour in TONNAGE_COMPONENTS:
+        v = float(S.sig(tonnage[key] * 100))
+        ht.append(ax.barh([yt], [v], left=[lt], color=colour, label=label, height=0.4))
+        lt += v
+    i = CLASS_ORDER.index("formed"); xm = formed_before * 100
+    ax.plot([xm, xm], [i - 0.38, i + 0.38], color=S.TEXT, linewidth=1.6)
+    ax.text(xm + 1, i - 0.36, "between coils before centring", fontsize=8.5, color=S.TEXT, va="bottom")
+    ax.axhline(len(d) - 0.25, color="#DDDDDD", linewidth=0.8)
+    ax.set_yticks(y + [yt]); ax.set_yticklabels([CLASS_LABEL[c] for c in d.index] + ["Press tonnage (per stroke)"]); ax.invert_yaxis()
     ax.set_xlim(0, 100); ax.set_xlabel("Share of variance, median across characteristics (%)")
-    ax.legend(ncol=2, frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.22))
-    return S.save(f, "d1_variance_components_by_class", "Variance components by characteristic class")
+    l1 = ax.legend(handles=hv, ncol=4, frameon=False, loc="upper center", bbox_to_anchor=(0.42, -0.17), fontsize=9, title="Measured characteristics", title_fontsize=9)
+    ax.add_artist(l1)
+    ax.legend(handles=ht, ncol=3, frameon=False, loc="upper center", bbox_to_anchor=(0.42, -0.36), fontsize=9, title="Press tonnage", title_fontsize=9)
+    return S.save(f, "d1_variance_components_by_class", "Variance components by class")
+
+
+def fails_across_interval(afi):
+    """afi: attribute_check, interval_fifth, per_1000, lo, hi. Fails per thousand pieces by fifth of the sharpening interval,
+    each point with its 95% Poisson interval."""
+    f, ax = S.fig(h=3.6)
+    for check, label, colour, dx in (("burr", "Burr checks", S.GREEN, -0.012), ("pin", "Pin checks", S.AMBER, 0.012)):
+        g = afi[afi["attribute_check"] == check].sort_values("interval_fifth")
+        x = (g["interval_fifth"].values - 0.5) * 0.2 + dx; yv = g["per_1000"].values
+        ax.errorbar(x, yv, yerr=[yv - g["lo"].values, g["hi"].values - yv], fmt="o-", color=colour, capsize=3, markersize=5, linewidth=1.4, label=label)
+    ax.set_xticks([0.1, 0.3, 0.5, 0.7, 0.9]); ax.set_xticklabels(["0 to 0.2", "0.2 to 0.4", "0.4 to 0.6", "0.6 to 0.8", "0.8 and over"])
+    ax.set_xlim(0, 1); ax.set_ylim(0, None)
+    ax.set_xlabel("Position in sharpening interval (fraction of due count)"); ax.set_ylabel("Fails per thousand pieces checked")
+    ax.legend(frameon=False, loc="upper left", fontsize=9)
+    return S.save(f, "d1_fails_across_sharpening_interval", "Burr and pin fails across the sharpening interval")
 
 
 def coil_fit(pts, tol_low, tol_high):
@@ -358,7 +388,7 @@ def plant_family_ratios(pf, bands):
             g = pf[(pf["cls"] == c) & (pf["scope"] == scope)]
             if not len(g):
                 continue
-            r = g.iloc[0]; x = i + (j - 0.5) * w
+            r = g.iloc[0]; x = i + ((j - 0.5) * w if pf["scope"].nunique() > 1 else 0)
             ax.bar(x, S.sig(r.ratio), width=w * 0.92, color=colour, label=("Plant" if scope == "plant" else "Family") if i == 0 else None)
             ax.errorbar(x, r.ratio, yerr=[[r.ratio - r.lo], [r.hi - r.ratio]], color=S.DARK_GREY, capsize=3, linewidth=1.1, label="95% interval" if i == 0 and scope == "plant" else None)
             ax.text(x, r.hi + 0.06, f"{r.ratio:.2f}", ha="center", va="bottom", fontsize=8.5, fontweight="bold")
@@ -366,7 +396,9 @@ def plant_family_ratios(pf, bands):
     ax.set_xticks(range(len(classes))); ax.set_xticklabels([CLASS_LABEL[c].replace(" characteristics", "\ncharacteristics") for c in classes])
     ax.set_ylabel("Observed over expected signals"); ax.set_ylim(0, float(pf["hi"].max()) * 1.18)
     ax.legend(frameon=False, fontsize=8.5, loc="upper left", ncol=2)
-    return S.save(f, "d1_signals_against_expectation_plant_and_family", "Signals against expectation by characteristic class, plant and family")
+    if pf["scope"].nunique() > 1:
+        return S.save(f, "d1_signals_against_expectation_plant_and_family", "Signals against expectation by characteristic class, plant and family")
+    return S.save(f, "d1_signals_against_expectation_plant", "Signals against expectation by characteristic class")
 
 
 def subgroups_by_press(ld, high_speed, total):
@@ -430,4 +462,53 @@ def oot_by_class(rows, name):
     ax.set_yticks(y); ax.set_yticklabels(rows["group"]); ax.invert_yaxis(); ax.set_xlim(0, max(tot) * 1.12); ax.set_xlabel("Pieces outside tolerance or failed, per million checked")
     ax.legend(frameon=False, ncol=2, loc="upper center", bbox_to_anchor=(0.45, -0.2), fontsize=9)
     return S.save(f, name, "Out-of-tolerance pieces per million by class")
+
+
+GAUGE_ORDER = [("check fixture", "Check fixtures"), ("caliper", "Calipers"), ("indicator", "Indicators")]
+
+
+def grr_by_gauge(gg, f14_before, f14_after):
+    """gg: gauge_id, gauge_type, pct (the %GRR of tolerance of the study each variable-chart gauge runs on). One point per
+    gauge in a strip by gauge type, with lines at 10% and 30%; F-14026 drawn at its restudy before the rebuild and its study
+    after it, joined by an arrow; F-11333 labelled."""
+    f, ax = S.fig(h=3.4, grid="x")
+    rng = np.random.default_rng(7); ypos = {}
+    for i, (t, lab) in enumerate(GAUGE_ORDER):
+        g = gg[gg["gauge_type"] == t].sort_values("gauge_id")
+        y = i + rng.uniform(-0.22, 0.22, len(g)); ypos.update(zip(g["gauge_id"], y))
+        ax.scatter(S.sig(g["pct"]), y, s=16, color=S.BRAND_BLUE, alpha=0.7, linewidth=0, zorder=3)
+    for v, lab in ((10, "10%"), (30, "30%")):
+        ax.axvline(v, color=S.AMBER if v == 10 else S.RED, linewidth=1, linestyle="--", zorder=1)
+        ax.text(v + 0.4, 2.45, lab, fontsize=8.5, color=S.TEXT, va="center")
+    ax.scatter([f14_before], [-0.32], s=30, facecolor="white", edgecolor=S.BRAND_BLUE, linewidth=1.3, zorder=4)
+    ax.scatter([f14_after], [-0.32], s=30, color=S.AMBER, zorder=4)
+    ax.annotate("", xy=(f14_after + 0.4, -0.32), xytext=(f14_before - 0.4, -0.32), arrowprops=dict(arrowstyle="->", color=S.TEXT, linewidth=1))
+    ax.text((f14_before + f14_after) / 2, -0.5, "F-14026, before and after the rebuild", fontsize=8.5, ha="center", va="top", color=S.TEXT)
+    v11 = float(gg.set_index("gauge_id").at["F-11333", "pct"])
+    ax.annotate("F-11333", xy=(v11, ypos["F-11333"]), xytext=(v11 + 2.5, 0.55), fontsize=8.5, arrowprops=dict(arrowstyle="-", color=S.DARK_GREY, linewidth=0.8))
+    ax.set_yticks(range(len(GAUGE_ORDER))); ax.set_yticklabels([lab for _, lab in GAUGE_ORDER]); ax.set_ylim(2.6, -0.85)
+    ax.set_xlim(0, 32); ax.set_xlabel("%GRR of tolerance, latest study")
+    return S.save(f, "d1_grr_by_gauge", "%GRR of tolerance by gauge")
+
+
+def measurement_share(msc):
+    """msc: median gauge share of within-subgroup variance by class. Four short horizontal bars in the class order."""
+    f, ax = S.fig(h=2.4, grid="x")
+    v = [100 * float(msc[c]) for c in CLASS_ORDER]
+    ax.barh(range(len(v)), S.sig(v), color=[CLASS_COLOURS[c] for c in CLASS_ORDER], height=0.55)
+    for i, x in enumerate(v):
+        ax.text(x + max(v) * 0.02, i, f"{x:.1f}%", va="center", fontsize=9)
+    ax.set_yticks(range(len(v))); ax.set_yticklabels([CLASS_LABEL[c] for c in CLASS_ORDER]); ax.invert_yaxis()
+    ax.set_xlim(0, max(v) * 1.25); ax.set_xlabel("Gauge share of within-subgroup variance, median (%)")
+    return S.save(f, "d1_measurement_share_by_class", "Measurement's share of within-subgroup variance by class")
+
+
+def kappa_latest(lq):
+    """lq: operator_id, kappa (each operator's latest qualification). One point per operator, sorted."""
+    d = lq.sort_values(["kappa", "operator_id"]).reset_index(drop=True)
+    f, ax = S.fig(h=3.2)
+    ax.scatter(range(len(d)), S.sig(d["kappa"]), s=26, color=S.GREEN, zorder=3)
+    ax.set_xticks(range(len(d))); ax.set_xticklabels(d["operator_id"], rotation=90, fontsize=7.5)
+    ax.set_ylim(0.6, 1.0); ax.set_ylabel("Kappa, latest qualification")
+    return S.save(f, "d1_burr_check_kappa", "Burr-check operator kappa")
 

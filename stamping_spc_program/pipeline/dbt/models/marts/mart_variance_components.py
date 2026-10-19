@@ -8,6 +8,11 @@ centring): the variance of their means less the within share of a 10-piece mean,
 On hole diameters the wear trend is the variance of the fitted values of the regression of subgroup means on shots
 since sharpening (subgroups with the shot count known), as a share of the variance of all readings.
 Lag-1 autocorrelation is of subgroup means less their run-and-coil mean, pooled over segments of six or more.
+The tool-wear split fits the regression of subgroup means on shots since sharpening first, on the subgroups with the shot
+count known (from a die's first sharpening in the record), and splits the residual means into the same nested components;
+the wear share is the variance of the fitted values, and every share is of the sum of the five. A characteristic with fewer
+than 30 such subgroups is split on all its routine subgroups with no wear term (wear_fitted false). The between-coil share
+on the same subgroups without the wear taken out is given beside it.
 """
 import numpy as np
 import pandas as pd
@@ -16,15 +21,15 @@ R5 = ["r1", "r2", "r3", "r4", "r5"]
 R10 = [f"r{i}" for i in range(1, 11)]
 
 
-def nested(g, sw2):
-    seg = g.groupby(["run_id", "coil_id"])["subgroup_mean"]
+def nested(g, sw2, col="subgroup_mean"):
+    seg = g.groupby(["run_id", "coil_id"])[col]
     v_in_coil = float(np.nanmean(seg.var(ddof=1)))
     sub = max(v_in_coil - sw2 / 5, 0.0)
     coil_means = seg.mean(); n_c = float(seg.size().mean())
     interval = g.groupby(["run_id", "coil_id"])["interval_key"].first()
     v_coil = float(coil_means.groupby(interval).var(ddof=1).mean()) if coil_means.size > 3 else np.nan
     coil = max(v_coil - (sub + sw2 / 5) / n_c, 0.0) if v_coil == v_coil else 0.0
-    iv = g.groupby("interval_key")["subgroup_mean"].mean()
+    iv = g.groupby("interval_key")[col].mean()
     v_int = float(iv.var(ddof=1)) if len(iv) > 2 else 0.0
     inter = max(v_int - (coil + (sub + sw2 / 5) / n_c) / max(len(g) / max(len(iv), 1) / n_c, 1), 0.0)
     return sub, coil, inter, int(coil_means.size), int(len(iv))
@@ -81,6 +86,23 @@ def model(dbt, session):
                 row["trend_share"] = float(np.var(b0 + b1 * s, ddof=1)) / allv
                 row["trend_within_share"] = float(np.mean(np.var(x, axis=1, ddof=1))) / allv
                 row["trend_subgroups"] = int(len(k))
+        k = r[r["shots_since_sharpening"].notna()].copy()
+        fitted = len(k) >= 30
+        if not fitted:
+            k = r.copy()
+        xk = k[R5].values.astype(float); swk = float(np.nanmean(np.nanvar(xk, axis=1, ddof=1)))
+        mk = np.nanmean(xk, 1); fit = np.zeros(len(k))
+        if fitted:
+            sk = k["shots_since_sharpening"].values.astype(float)
+            b1, b0 = np.polyfit(sk, mk, 1); fit = b0 + b1 * sk
+        wear = float(np.var(fit, ddof=1)) if fitted else 0.0
+        k["wear_residual_mean"] = mk - fit
+        sub_w, coil_w, inter_w = nested(k, swk, "wear_residual_mean")[:3]
+        sub_0, coil_0, inter_0 = nested(k, swk)[:3]
+        tw = swk + sub_w + coil_w + inter_w + wear
+        row.update({"wear_fitted": fitted, "wear_subgroups": int(len(k)), "wear_share": wear / tw, "within_share_wear_first": swk / tw, "between_subgroups_share_wear_first": sub_w / tw,
+                    "between_coils_share_wear_first": coil_w / tw, "between_intervals_share_wear_first": inter_w / tw,
+                    "between_coils_share_wear_in": coil_0 / (swk + sub_0 + coil_0 + inter_0)})
         rows.append(row)
     out = pd.DataFrame(rows)
     for c in ("coil_change_subgroups", "incoming_coil_share", "trend_share", "trend_within_share", "trend_subgroups"):

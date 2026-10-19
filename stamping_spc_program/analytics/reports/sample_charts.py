@@ -30,7 +30,10 @@ def _limit(ax, x_end, y, label, fmt, colour=LIMIT):
 def _times(ax, t, every=6):
     """The date once at the first subgroup of each day, and a time at every few subgroups between."""
     t = pd.to_datetime(pd.Series(t)).reset_index(drop=True); n = len(t)
-    days = [i for i in range(n) if i == 0 or t.iloc[i].date() != t.iloc[i - 1].date()]
+    days = []
+    for i in range(n):
+        if (i == 0 or t.iloc[i].date() != t.iloc[i - 1].date()) and (not days or i - days[-1] >= 3):
+            days.append(i)
     ticks = sorted(set(days) | {i for i in range(n) if i % every == 0 and min(abs(i - j) for j in days) >= 3})
     ax.set_xticks(np.array(ticks) + 1)
     ax.set_xticklabels([t.iloc[i].strftime("%H:%M") + (f"\n{t.iloc[i].day} {t.iloc[i].strftime('%b')}" if i in days else "") for i in ticks])
