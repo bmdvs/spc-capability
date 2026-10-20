@@ -93,17 +93,17 @@ Figure: Variance components by class: cut geometry and flatness,0.1%,"variance s
 2.1 Chart Types,399,"mart_charts_in_force: three-way, formed",399
 2.1 Chart Types,49.7%,"mart_variance_components.incoming_coil_share, formed, median",49.7%
 2.1 Chart Types,12.3%,"mart_variance_components.between_coils_share_wear_first, formed, median",12.3%
-Figure: Variance components by class: formed characteristics before and after centering,50.3%,"variance share, Formed characteristics
+Figure: Variance components by class: formed characteristics,50.3%,"variance share, Formed characteristics
 (before centering), Within subgroup",
-Figure: Variance components by class: formed characteristics before and after centering,49.7%,"variance share, Formed characteristics
+Figure: Variance components by class: formed characteristics,49.7%,"variance share, Formed characteristics
 (before centering), Between coils",
-Figure: Variance components by class: formed characteristics before and after centering,80.0%,"variance share, Formed characteristics
+Figure: Variance components by class: formed characteristics,80.0%,"variance share, Formed characteristics
 (after centering), Within subgroup",
-Figure: Variance components by class: formed characteristics before and after centering,5.5%,"variance share, Formed characteristics
+Figure: Variance components by class: formed characteristics,5.5%,"variance share, Formed characteristics
 (after centering), Between subgroups",
-Figure: Variance components by class: formed characteristics before and after centering,12.3%,"variance share, Formed characteristics
+Figure: Variance components by class: formed characteristics,12.3%,"variance share, Formed characteristics
 (after centering), Between coils",
-Figure: Variance components by class: formed characteristics before and after centering,0.2%,"variance share, Formed characteristics
+Figure: Variance components by class: formed characteristics,0.2%,"variance share, Formed characteristics
 (after centering), Tool wear",
 2.1 Chart Types,25,mart_chart_design.baseline_subgroups,25
 2.1 Chart Types,ten,mart_chart_design.three_way_baseline_coil_changes,ten
@@ -393,10 +393,6 @@ Figure: Measurement's share of within-subgroup variance by class,0.9%,"approxima
 2.2 Measurement systems,0.78,"mart_operator_kappa.kappa, latest, lowest",0.78
 2.2 Measurement systems,0.89,"mart_operator_kappa.kappa, latest, highest",0.89
 2.2 Measurement systems,0.75,"qualification threshold given for D1 (the record states results against the requalification line, not its value)",0.75
-2.2 Measurement systems,0.66,"mart_operator_kappa.kappa, E-1006 below the line",0.66
-2.2 Measurement systems,14 April 2026,"mart_operator_kappa.study_date, E-1006 below the line",14 April 2026
-2.2 Measurement systems,0.83,"mart_operator_kappa.kappa, E-1006 requalified",0.83
-2.2 Measurement systems,28 April,"mart_operator_kappa.study_date, E-1006 requalified",28 April
 Figure: Burr-check operator kappa,0.82,"mart_operator_kappa.kappa, latest, E-1001",
 Figure: Burr-check operator kappa,0.83,"mart_operator_kappa.kappa, latest, E-1002",
 Figure: Burr-check operator kappa,0.88,"mart_operator_kappa.kappa, latest, E-1003",
@@ -421,10 +417,41 @@ Figure: Burr-check operator kappa,0.85,"mart_operator_kappa.kappa, latest, E-102
 Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-1022",
 Figure: Burr-check operator kappa,0.79,"mart_operator_kappa.kappa, latest, E-1023",
 Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-1024",
-2.3 Control Limits,319,mart_limit_recalculations: limit sets in the year,319
+2.3 Control Limits,254,"mart_limit_recalculations: limit sets in the year, regression re-fits left out",254
 2.3 Control Limits,897,mart_charts_in_force: variable charts,897
-2.3 Control Limits,671,"mart_charts_in_force.limits_effective_from before 1 July 2025, variable charts",671
-2.3 Control Limits,226,"mart_charts_in_force.limits_effective_from in the year, variable charts",226
+2.3 Control Limits,683,"mart_charts_in_force with mart_limit_sets: variable charts on limits issued before 1 July 2025, a re-fit counted from the set it re-fitted",683
+2.3 Control Limits,214,"mart_charts_in_force with mart_limit_sets: variable charts on limits issued in the year, a re-fit counted from the set it re-fitted",214
+2.3 Control Limits,January 2026,"mart_limit_sets.effective_from, first annual-review set",January 2026
+2.3 Control Limits,74,mart_limit_sets: charts issued new limits at the annual review,74
+"Figure: New Control Limits Set by Trigger, Last 12 Months",4,"mart_limit_recalculations: failed verification, 2025-07",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",20,"mart_limit_recalculations: rebuild, 2025-07",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",3,"mart_limit_recalculations: failed verification, 2025-08",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",13,"mart_limit_recalculations: rebuild, 2025-08",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",4,"mart_limit_recalculations: failed verification, 2025-09",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",17,"mart_limit_recalculations: rebuild, 2025-09",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",19,"mart_limit_recalculations: rebuild, 2025-10",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",1,"mart_limit_recalculations: failed verification, 2025-11",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",13,"mart_limit_recalculations: rebuild, 2025-11",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",4,"mart_limit_recalculations: failed verification, 2025-12",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",14,"mart_limit_recalculations: rebuild, 2025-12",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",32,"mart_limit_recalculations: annual review, 2026-01",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",5,"mart_limit_recalculations: failed verification, 2026-01",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",7,"mart_limit_recalculations: rebuild, 2026-01",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",25,"mart_limit_recalculations: annual review, 2026-02",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",1,"mart_limit_recalculations: failed verification, 2026-02",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",7,"mart_limit_recalculations: rebuild, 2026-02",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",14,"mart_limit_recalculations: annual review, 2026-03",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",3,"mart_limit_recalculations: failed verification, 2026-03",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",15,"mart_limit_recalculations: rebuild, 2026-03",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",1,"mart_limit_recalculations: annual review, 2026-04",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",3,"mart_limit_recalculations: failed verification, 2026-04",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",4,"mart_limit_recalculations: rebuild, 2026-04",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",1,"mart_limit_recalculations: annual review, 2026-05",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",5,"mart_limit_recalculations: failed verification, 2026-05",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",6,"mart_limit_recalculations: rebuild, 2026-05",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",1,"mart_limit_recalculations: annual review, 2026-06",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",1,"mart_limit_recalculations: failed verification, 2026-06",
+"Figure: New Control Limits Set by Trigger, Last 12 Months",11,"mart_limit_recalculations: rebuild, 2026-06",
 2.3 Control Limits,408,mart_limit_verifications: sharpenings,408
 2.3 Control Limits,33,mart_limit_verifications: sharpenings with a failure,33
 2.3 Control Limits,8.1%,share of sharpenings failed,8.1%
@@ -439,35 +466,38 @@ Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-102
 2.3 Control Limits,2.1%,three-way failure rate,2.1%
 2.3 Control Limits,0.21,"mart_limit_verifications.mean_offset_sigma, passes, median absolute",0.21
 2.3 Control Limits,0.001,"analytics.chart_performance: false-failure rate of the mean criterion, limits from 25 subgroups",0.001
-3. Chart Performance,93,"mart_capability: critical characteristics at or above 1.33, quarter",93
-3. Chart Performance,100,"mart_capability: critical characteristics, quarter",100
-3.1 Signals and causes,"12,156",mart_signals: routine signals in the year,"12,156"
-3.1 Signals and causes,40,"mart_signals: special-cause events on the routine charts (die events for level changes, runs otherwise)",40
+3.1 Signals and causes,93,"mart_capability: critical characteristics at or above 1.33, quarter",93
+3.1 Signals and causes,100,"mart_capability: critical characteristics, quarter",100
+3.1 Signals and causes,"12,185","mart_signals: routine signals, coil-change chart signals and the wrong-count signal, in the year","12,185"
+3.1 Signals and causes,42,"mart_signals: first signals of a special-cause event on the variable charts (routine events, soft coil, wrong count)",42
 3.1 Signals and causes,"1,617",mart_signals: follow-on signals of a special-cause event,"1,617"
-3.1 Signals and causes,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
-3.1 Signals and causes,28,"mart_signals: coil-change chart, rule 1 signals in the year",28
-3.1 Signals and causes,one,"mart_signals: coil-change chart, assignable cause",one
+3.1 Signals and causes,42,"mart_signals: first signals of a special-cause event on the variable charts (routine events, soft coil, wrong count)",42
+3.1 Signals and causes,"10,526",mart_signals: routine and coil-change signals with no assignable cause,"10,526"
 3.1 Signals and causes,520,mart_per_stroke_stops: stops in the year,520
 3.1 Signals and causes,427,mart_per_stroke_stops: stops with a finding,427
 3.1 Signals and causes,93,mart_per_stroke_stops: nothing found,93
-Figure: What the charts flagged in the year,40,"what the charts flagged: Routine characteristic charts, first signal of a special cause",
-Figure: What the charts flagged in the year,"10,499","what the charts flagged: Routine characteristic charts, no assignable cause",
-Figure: What the charts flagged in the year,"1,617","what the charts flagged: Routine characteristic charts, follow-on signal",
-Figure: What the charts flagged in the year,1,"what the charts flagged: Coil-change chart, first signal of a special cause",
-Figure: What the charts flagged in the year,27,"what the charts flagged: Coil-change chart, no assignable cause",
-Figure: What the charts flagged in the year,427,"what the charts flagged: Tonnage charts, first signal of a special cause",
-Figure: What the charts flagged in the year,93,"what the charts flagged: Tonnage charts, no assignable cause",
+3.1 Signals and causes,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
+3.1 Signals and causes,"219,535","stg_spc__subgroups.pieces, burr checks, in the year","219,535"
+3.1 Signals and causes,0.12%,burr checks: nonconforming share,
+3.1 Signals and causes,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",278
+3.1 Signals and causes,"324,225","stg_spc__subgroups.pieces, pin checks, in the year","324,225"
+3.1 Signals and causes,0.09%,pin checks: nonconforming share,
+"Figure: SPC Chart Signals and Causes, Past 12 Months",34,"what the charts flagged: X-bar and R, first signal of a special cause",
+"Figure: SPC Chart Signals and Causes, Past 12 Months","7,412","what the charts flagged: X-bar and R, no assignable cause",
+"Figure: SPC Chart Signals and Causes, Past 12 Months","1,482","what the charts flagged: X-bar and R, follow-on signal",
+"Figure: SPC Chart Signals and Causes, Past 12 Months",5,"what the charts flagged: Three-way, first signal of a special cause",
+"Figure: SPC Chart Signals and Causes, Past 12 Months","2,630","what the charts flagged: Three-way, no assignable cause",
+"Figure: SPC Chart Signals and Causes, Past 12 Months",25,"what the charts flagged: Three-way, follow-on signal",
+"Figure: SPC Chart Signals and Causes, Past 12 Months",3,"what the charts flagged: Regression, first signal of a special cause",
+"Figure: SPC Chart Signals and Causes, Past 12 Months",484,"what the charts flagged: Regression, no assignable cause",
+"Figure: SPC Chart Signals and Causes, Past 12 Months",110,"what the charts flagged: Regression, follow-on signal",
+"Figure: SPC Chart Signals and Causes, Past 12 Months",427,"what the charts flagged: Per-stroke tonnage, first signal of a special cause",
+"Figure: SPC Chart Signals and Causes, Past 12 Months",93,"what the charts flagged: Per-stroke tonnage, no assignable cause",
 3.1 Signals and causes,469,"special-cause events: level-change die returns, fixture-drift run, other-cause runs, soft coil, wrong count, tonnage stops with a finding",469
 3.1 Signals and causes,33,mart_signals: level-change die returns (die and sharpening interval),33
-3.1 Signals and causes,one,"mart_signals: runs, fixture drift",one
 3.1 Signals and causes,6,"mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant",6
-3.1 Signals and causes,427,"mart_per_stroke_stops: stops on slug pulling, worn and chipped punches",427
-3.1 Signals and causes,161,mart_nonconformances: nonconformances in the year,
-3.1 Signals and causes,62,mart_nonconformances: nonconformances on runs with no special cause,
-3.1 Signals and causes,54,mart_nonconformances: first-piece holds on runs with no special cause,
-3.1 Signals and causes,8,mart_nonconformances: mixed parts and packaging on runs with no special cause,
-3.1 Signals and causes,"X-bar and R, three-way, regression, with verification","mart_signals.chart_type, level-change alarms","X-bar and R, three-way, regression, with verification"
-3.1 Signals and causes,53,"mart_signals: runs, level change",53
+3.1 Signals and causes,"X-bar and R, three-way, regression","mart_signals.chart_type, level-change alarms","X-bar and R, three-way, regression"
+3.1 Signals and causes,33,mart_signals: level-change die returns (die and sharpening interval),33
 3.1 Signals and causes,"1,620","mart_signals: alarms, level change","1,620"
 3.1 Signals and causes,F-14026,"mart_charts_in_force.gauge_id, fixture drift alarms",F-14026
 3.1 Signals and causes,"X-bar and R, three-way","mart_signals.chart_type, fixture drift","X-bar and R, three-way"
@@ -476,8 +506,9 @@ Figure: What the charts flagged in the year,93,"what the charts flagged: Tonnage
 3.1 Signals and causes,"X-bar and R, three-way","mart_signals.chart_type, other causes","X-bar and R, three-way"
 3.1 Signals and causes,6,"mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant",6
 3.1 Signals and causes,7,"mart_signals: alarms, other causes",7
+3.1 Signals and causes,PR-06,"mart_signals.press_id, sharpening logged at the wrong count",PR-06
 3.1 Signals and causes,regression,"mart_signals.chart_type, sharpening logged at the wrong count",regression
-3.1 Signals and causes,1,"mart_signals: runs, wrong count",1
+3.1 Signals and causes,1,mart_signals: wrong count,1
 3.1 Signals and causes,1,"mart_signals: alarms, wrong count",1
 3.1 Signals and causes,C-15731-07,"mart_signals.characteristic_id, soft coil",C-15731-07
 3.1 Signals and causes,1,"mart_signals: coils, soft coil",1
@@ -486,159 +517,59 @@ Figure: What the charts flagged in the year,93,"what the charts flagged: Tonnage
 3.1 Signals and causes,427,"mart_per_stroke_stops: stops, as alarms",427
 3.1 Signals and causes,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
 3.1 Signals and causes,27,mart_signals: coil-change signals closed as no cause found,27
-3.1 Signals and causes,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
-3.1 Signals and causes,27,mart_signals: coil-change signals closed as no cause found,27
 3.1 Signals and causes,427,mart_per_stroke_stops: stops with a finding,427
 3.1 Signals and causes,274,mart_per_stroke_stops: slug pulling,274
+3.1 Signals and causes,64%,mart_per_stroke_stops: slug pulling share of stops with a finding,
 3.1 Signals and causes,82,mart_per_stroke_stops: worn punch,82
+3.1 Signals and causes,19%,mart_per_stroke_stops: worn punch share of stops with a finding,
 3.1 Signals and causes,71,mart_per_stroke_stops: chipped punch,71
-"Figure: Stops by the per-stroke charts, by finding and chart",8,"mart_per_stroke_stops: chipped punch, EWMA on the total",
-"Figure: Stops by the per-stroke charts, by finding and chart",63,"mart_per_stroke_stops: chipped punch, channel share",
-"Figure: Stops by the per-stroke charts, by finding and chart",82,"mart_per_stroke_stops: nothing found, EWMA on the total",
-"Figure: Stops by the per-stroke charts, by finding and chart",11,"mart_per_stroke_stops: nothing found, channel share",
-"Figure: Stops by the per-stroke charts, by finding and chart",274,"mart_per_stroke_stops: slug pulling, channel share",
-"Figure: Stops by the per-stroke charts, by finding and chart",71,"mart_per_stroke_stops: worn punch, EWMA on the total",
-"Figure: Stops by the per-stroke charts, by finding and chart",1,"mart_per_stroke_stops: worn punch, both",
-"Figure: Stops by the per-stroke charts, by finding and chart",10,"mart_per_stroke_stops: worn punch, channel share",
-3.1 Signals and causes,13 May 2026,"mart_per_stroke_stops.stopped_at, the 13 May stop",13 May 2026
-3.1 Signals and causes,R26-00820,mart_per_stroke_stops.run_id,R26-00820
-3.1 Signals and causes,"239,498",mart_per_stroke_stops.stop_stroke_no,"239,498"
-3.1 Signals and causes,34,"mart_parts_exposed.strokes_exposed_per_stroke_charts, the 13 May stop",34
-3.1 Signals and causes,11:55,mart_per_stroke_stops.cleared_at,11:55
-3.1 Signals and causes,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
-3.1 Signals and causes,27,mart_signals: coil-change signals closed as no cause found,27
-3.1 Signals and causes,93,mart_per_stroke_stops: nothing found,93
-3.1 Signals and causes,370,"analytics.chart_performance.arl_rules, rule 1, known",370
-3.1 Signals and causes,93,mart_per_stroke_stops: nothing found,93
-3.1 Signals and causes,1.02,mart_per_stroke_stop_rates: nothing found per million strokes,1.02
-3.1 Signals and causes,82,mart_per_stroke_stops: nothing found on the EWMA,82
-3.1 Signals and causes,10%,"mart_signals: X-bar and regression means, rule 1 share of rule trips",10%
-3.1 Signals and causes,15%,"mart_signals: X-bar and regression means, rule 2 share of signals",15%
-3.1 Signals and causes,32%,"mart_signals: X-bar and regression means, rule 3 share of signals",32%
-3.1 Signals and causes,43%,"mart_signals: X-bar and regression means, rule 4 share of signals",43%
-3.1 Signals and causes,2.0%,"mart_signals: rule 1 and rule 2 yield, first signals of an event over trips less follow-ons (each)",2.0%
-3.1 Signals and causes,0.7%,mart_signals: rule 3 yield,0.7%
-3.1 Signals and causes,0.2%,mart_signals: rule 4 yield,0.2%
-3.1 Signals and causes,36,mart_signals: special-cause events first signalled on X-bar and regression charts,36
-3.1 Signals and causes,56%,mart_signals: events first signalled by rule 2,56%
-3.1 Signals and causes,42%,"mart_signals: events first signalled by rules 1 and 3, each",42%
-3.1 Signals and causes,14%,mart_signals: events first signalled by rule 4,14%
-3.1 Signals and causes,74%,mart_signals: rules 3 and 4 share of rule trips,74%
-3.1 Signals and causes,8,mart_signals: events first signalled by rule 3 or 4 and not by rule 1 or 2,8
-3.1 Signals and causes,36,mart_signals: special-cause events first signalled on X-bar and regression charts,36
-3.1 Signals and causes,2,"int_characteristic_history: routine subgroups from the first rule 3 or 4 signal to the first rule 1 or 2 signal on the same chart, median",2
-3.1 Signals and causes,28,mart_signals: events first signalled by rule 1 or 2,28
-3.1 Signals and causes,0.5%,mart_signals: three-way individuals yield,0.5%
-3.1 Signals and causes,0.2%,mart_signals: three-way moving range yield,0.2%
-3.1 Signals and causes,63,mart_per_stroke_stops: chipped punches stopped by the channel-share chart,63
-3.1 Signals and causes,8,mart_per_stroke_stops: chipped punches stopped by the EWMA,8
-Figure: Which rules found the causes,2.0%,"mart_signals: yield, Rule 1 (15 of 769)",
-Figure: Which rules found the causes,2.0%,"mart_signals: yield, Rule 2 (20 of 1010)",
-Figure: Which rules found the causes,0.7%,"mart_signals: yield, Rule 3 (15 of 2239)",
-Figure: Which rules found the causes,0.2%,"mart_signals: yield, Rule 4 (5 of 3182)",
-Figure: Which rules found the causes,0.5%,"mart_signals: yield, Rule 1, three-way individuals (3 of 611)",
-Figure: Which rules found the causes,0.2%,"mart_signals: yield, Rule 1, moving range (3 of 1368)",
-Figure: Which rules found the causes,42%,"mart_signals: first detection, Rule 1 (15 of 36)",
-Figure: Which rules found the causes,56%,"mart_signals: first detection, Rule 2 (20 of 36)",
-Figure: Which rules found the causes,42%,"mart_signals: first detection, Rule 3 (15 of 36)",
-Figure: Which rules found the causes,14%,"mart_signals: first detection, Rule 4 (5 of 36)",
+3.1 Signals and causes,17%,mart_per_stroke_stops: chipped punch share of stops with a finding,
+"Figure: Per-stroke tonnage chart signals, by finding",8,"mart_per_stroke_stops: chipped punch, EWMA on the total",
+"Figure: Per-stroke tonnage chart signals, by finding",63,"mart_per_stroke_stops: chipped punch, channel share",
+"Figure: Per-stroke tonnage chart signals, by finding",82,"mart_per_stroke_stops: nothing found, EWMA on the total",
+"Figure: Per-stroke tonnage chart signals, by finding",11,"mart_per_stroke_stops: nothing found, channel share",
+"Figure: Per-stroke tonnage chart signals, by finding",274,"mart_per_stroke_stops: slug pulling, channel share",
+"Figure: Per-stroke tonnage chart signals, by finding",71,"mart_per_stroke_stops: worn punch, EWMA on the total",
+"Figure: Per-stroke tonnage chart signals, by finding",1,"mart_per_stroke_stops: worn punch, both",
+"Figure: Per-stroke tonnage chart signals, by finding",10,"mart_per_stroke_stops: worn punch, channel share",
+3.2 Observed against expected,"8,510",mart_signals: routine subgroups with a signal with no assignable cause,"8,510"
+3.2 Observed against expected,92%,"mart_signals: routine subgroups with a signal, share with no assignable cause",
+3.2 Observed against expected,163,"mart_signals: routine subgroups with a signal with no assignable cause, per week",163
 3.2 Observed against expected,133,"signals with no assignable cause expected a week by design, plant",133
 3.2 Observed against expected,3.1,"signals expected per 100 routine subgroups, plant",3.1
-3.2 Observed against expected,23.7,"signals expected per week by design, PR-03",23.7
-3.2 Observed against expected,750,"routine subgroups per week, PR-03",750
-3.2 Observed against expected,12.9,"signals expected per week by design, median press",12.9
-"Figure: Signals with no assignable cause expected by design, per press per week",16.0,"expected false alarms per week, PR-01",
-"Figure: Signals with no assignable cause expected by design, per press per week",15.3,"expected false alarms per week, PR-02",
-"Figure: Signals with no assignable cause expected by design, per press per week",23.7,"expected false alarms per week, PR-03",
-"Figure: Signals with no assignable cause expected by design, per press per week",15.6,"expected false alarms per week, PR-04",
-"Figure: Signals with no assignable cause expected by design, per press per week",6.5,"expected false alarms per week, PR-05",
-"Figure: Signals with no assignable cause expected by design, per press per week",15.3,"expected false alarms per week, PR-06",
-"Figure: Signals with no assignable cause expected by design, per press per week",6.5,"expected false alarms per week, PR-07",
-"Figure: Signals with no assignable cause expected by design, per press per week",7.5,"expected false alarms per week, PR-08",
-"Figure: Signals with no assignable cause expected by design, per press per week",12.9,"expected false alarms per week, PR-09",
-"Figure: Signals with no assignable cause expected by design, per press per week",7.0,"expected false alarms per week, PR-10",
-"Figure: Signals with no assignable cause expected by design, per press per week",7.0,"expected false alarms per week, PR-11",
-"Figure: Signals with no assignable cause expected by design, per press per week",750 subgroups a week,"routine subgroups per week, PR-03",
-3.2 Observed against expected,1.32,"observed over expected, cut geometry (X-bar and R)",1.32
-3.2 Observed against expected,0.88,"observed over expected, flatness",0.88
-3.2 Observed against expected,"5,738","mart_signal_rates.subgroups_in_scope, flatness","5,738"
-3.2 Observed against expected,0.75,"Poisson interval on flatness signals over expectation, low",0.75
-3.2 Observed against expected,1.02,"Poisson interval on flatness signals over expectation, high",1.02
-3.2 Observed against expected,1.79,"observed over expected, hole diameter (regression)",1.79
-3.2 Observed against expected,0.83,"observed over expected, formed (three-way)",0.83
-3.2 Observed against expected,483,mart_charts_in_force: p charts,483
-3.2 Observed against expected,268,"stg_spc__subgroups.attribute_count, burr checks, in the year",268
-3.2 Observed against expected,"219,535","stg_spc__subgroups.pieces, burr checks, in the year","219,535"
-3.2 Observed against expected,278,"stg_spc__subgroups.attribute_count, pin checks, in the year",278
-3.2 Observed against expected,"324,225","stg_spc__subgroups.pieces, pin checks, in the year","324,225"
-Figure: Signals against expectation by characteristic class,2.36,"observed per 100, formed",
-Figure: Signals against expectation by characteristic class,2.86,"expected per 100, formed",
-Figure: Signals against expectation by characteristic class,0.83,"observed over expected, formed",
-Figure: Signals against expectation by characteristic class,4.58,"observed per 100, cut geometry",
-Figure: Signals against expectation by characteristic class,3.47,"expected per 100, cut geometry",
-Figure: Signals against expectation by characteristic class,1.32,"observed over expected, cut geometry",
-Figure: Signals against expectation by characteristic class,4.35,"observed per 100, hole diameter",
-Figure: Signals against expectation by characteristic class,2.43,"expected per 100, hole diameter",
-Figure: Signals against expectation by characteristic class,1.79,"observed over expected, hole diameter",
-Figure: Signals against expectation by characteristic class,3.05,"observed per 100, flatness",
-Figure: Signals against expectation by characteristic class,3.47,"expected per 100, flatness",
-Figure: Signals against expectation by characteristic class,0.88,"observed over expected, flatness",
-3.2 Observed against expected,1.39,"mart_signal_rates.signals_rule_3, X-bar and R, per 100",1.39
-3.2 Observed against expected,2.09,"mart_signal_rates.signals_rule_4, X-bar and R, per 100",2.09
-3.2 Observed against expected,0.45,"flag_rate_rules, rule 3, known",0.45
-3.2 Observed against expected,0.78,"flag_rate_rules, rule 4, known",0.78
-3.2 Observed against expected,1.20,"mart_signal_rates.signals_rule_3, tool-wear, per 100",1.20
-3.2 Observed against expected,2.37,"mart_signal_rates.signals_rule_4, tool-wear, per 100",2.37
-3.2 Observed against expected,14,mart_limit_verifications: X-bar and R and tool-wear passes at 1.0 to 1.5 sigma,14
-3.2 Observed against expected,"1,131",mart_limit_verifications: X-bar and R and tool-wear passes,"1,131"
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.52,"mart_signal_rates.signals_rule_1, X-bar and R, per 100",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.27,"flag_rate_rules, rule 1, known",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.57,"mart_signal_rates.signals_rule_2, X-bar and R, per 100",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.20,"flag_rate_rules, rule 2, known",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",1.39,"mart_signal_rates.signals_rule_3, X-bar and R, per 100",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.45,"flag_rate_rules, rule 3, known",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",2.09,"mart_signal_rates.signals_rule_4, X-bar and R, per 100",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.78,"flag_rate_rules, rule 4, known",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.37,"mart_signal_rates.signals_rule_1, regression, per 100",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.27,"flag_rate_rules, rule 1, known",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.48,"mart_signal_rates.signals_rule_2, regression, per 100",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.20,"flag_rate_rules, rule 2, known",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",1.20,"mart_signal_rates.signals_rule_3, regression, per 100",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.45,"flag_rate_rules, rule 3, known",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",2.37,"mart_signal_rates.signals_rule_4, regression, per 100",
-"Figure: Signals by rule on long-held limits, observed against the known-parameter expectation",0.78,"flag_rate_rules, rule 4, known",
-3.2 Observed against expected,PR-01,"mart_signal_rates: press furthest above expectation, by difference",PR-01
-3.2 Observed against expected,PR-09,"mart_signal_rates: press furthest above expectation, by ratio",PR-09
-3.2 Observed against expected,3.91,"observed per 100, PR-01",3.91
-3.2 Observed against expected,3.18,"expected per 100, PR-01",3.18
-3.2 Observed against expected,3.46,"observed per 100, PR-09",3.46
-3.2 Observed against expected,2.81,"expected per 100, PR-09",2.81
-3.2 Observed against expected,PR-10,mart_signal_rates: press furthest below expectation,PR-10
-3.2 Observed against expected,2.60,"observed per 100, that press",2.60
-3.2 Observed against expected,3.26,"expected per 100, that press",3.26
-3.2 Observed against expected,0.7,"bound on the gap between observed and expected per 100, the other eight presses (largest 0.61)",0.7
-3.2 Observed against expected,-0.07,"mart_variance_components.lag_1_autocorrelation_within_coil, median",-0.07
-3.2 Observed against expected,-0.19,"lag-1, 10th percentile",-0.19
-3.2 Observed against expected,0.02,"lag-1, 90th percentile",0.02
-3.2 Observed against expected,142,arl_ar1_rules at the 10th percentile,142
-3.2 Observed against expected,87,arl_ar1_rules at the 90th percentile,87
-3.2 Observed against expected,109,arl_ar1_rules at the measured median,109
-3.2 Observed against expected,92,"arl_rules, rules 1 to 4, independent",92
-3.2 Observed against expected,28,"mart_signals: coil-change chart, rule 1 signals in the year",28
-3.2 Observed against expected,27,"mart_signals: coil-change chart, no cause found",27
-3.2 Observed against expected,one,"mart_signals: coil-change chart, assignable cause",one
-3.2 Observed against expected,C-15731-07,"mart_signals.characteristic_id, soft coil",C-15731-07
-3.2 Observed against expected,27 May 2026,"mart_signals.raised_at, soft coil",27 May 2026
-3.2 Observed against expected,"2,292",mart_coil_change_points: points with six or more coils on record,"2,292"
-3.2 Observed against expected,18,mart_coil_change_points: rule 1 signals on points with six or more coils,18
-3.2 Observed against expected,12.1,"analytics.chart_performance.coil_change: expected signals, Monte Carlo",12.1
-3.2 Observed against expected,1.49,"observed over expected, coil-change chart",1.49
-3.2 Observed against expected,0.88,"Poisson interval, low",0.88
-3.2 Observed against expected,2.35,"Poisson interval, high",2.35
-3.2 Observed against expected,one,stg_erp__coils: fewest coils in a lot,one
-3.2 Observed against expected,four,stg_erp__coils: most coils in a lot,four
-3.2 Observed against expected,76%,analytics.chart_performance.coil_change: lot share of coil variance,76%
-3.2 Observed against expected,ten,mart_signals less mart_coil_change_points: signals on points with fewer than six coils on record,ten
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",20.3,"mart_signals: routine subgroups with a signal with no assignable cause per week, PR-01",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",16.0,"signals expected per week by design, PR-01",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",21.0,"mart_signals: routine subgroups with a signal with no assignable cause per week, PR-02",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",15.3,"signals expected per week by design, PR-02",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",29.8,"mart_signals: routine subgroups with a signal with no assignable cause per week, PR-03",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",23.7,"signals expected per week by design, PR-03",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",21.4,"mart_signals: routine subgroups with a signal with no assignable cause per week, PR-04",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",15.6,"signals expected per week by design, PR-04",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",6.8,"mart_signals: routine subgroups with a signal with no assignable cause per week, PR-05",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",6.5,"signals expected per week by design, PR-05",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",16.3,"mart_signals: routine subgroups with a signal with no assignable cause per week, PR-06",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",15.3,"signals expected per week by design, PR-06",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",8.2,"mart_signals: routine subgroups with a signal with no assignable cause per week, PR-07",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",6.5,"signals expected per week by design, PR-07",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",7.8,"mart_signals: routine subgroups with a signal with no assignable cause per week, PR-08",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",7.5,"signals expected per week by design, PR-08",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",17.7,"mart_signals: routine subgroups with a signal with no assignable cause per week, PR-09",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",12.9,"signals expected per week by design, PR-09",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",5.6,"mart_signals: routine subgroups with a signal with no assignable cause per week, PR-10",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",7.0,"signals expected per week by design, PR-10",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",8.2,"mart_signals: routine subgroups with a signal with no assignable cause per week, PR-11",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",7.0,"signals expected per week by design, PR-11",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",16.3,"observed per week, median press",
+"Figure: Signals with no assignable cause, observed vs. expected, per press and week",12.9,"signals expected per week by design, median press",
+Figure: Signals against expectation by chart type,4.50,"observed per 100, X-bar and R",
+Figure: Signals against expectation by chart type,3.47,"expected per 100, X-bar and R",
+Figure: Signals against expectation by chart type,1.30,"observed over expected, X-bar and R",
+Figure: Signals against expectation by chart type,2.36,"observed per 100, three-way",
+Figure: Signals against expectation by chart type,2.86,"expected per 100, three-way",
+Figure: Signals against expectation by chart type,0.83,"observed over expected, three-way",
+Figure: Signals against expectation by chart type,4.35,"observed per 100, tool-wear",
+Figure: Signals against expectation by chart type,2.43,"expected per 100, tool-wear",
+Figure: Signals against expectation by chart type,1.79,"observed over expected, tool-wear",
 3.2 Observed against expected,1.02,mart_per_stroke_stop_rates: nothing found per million strokes,1.02
 3.2 Observed against expected,0.91,"design rate of stops with nothing found per million strokes: EWMA in-control ARL with estimated parameters and channel-share rate at L 5.5, summed per press",0.91
 3.2 Observed against expected,82,mart_per_stroke_stops: nothing found on the EWMA,82
@@ -646,92 +577,3 @@ Figure: Signals against expectation by characteristic class,0.88,"observed over 
 3.2 Observed against expected,41,"mart_per_stroke_stops: nothing found on the EWMA, PR-03",41
 3.2 Observed against expected,11,mart_per_stroke_stops: nothing found on the channel-share charts,11
 3.2 Observed against expected,48,"design stops with nothing found on the channel-share charts, summed per press over its charts",48
-3.2 Observed against expected,9,"arl_rules, rules 1 to 4 at 1 sigma",9
-3.2 Observed against expected,44,"arl_rules, rule 1 at 1 sigma",44
-3.2 Observed against expected,four,"arl_rules: in-control ARL, rule 1 over rules 1 to 4 (370 over 92)",four
-3.2 Observed against expected,32,"three_way_arl, all three charts, 1 sigma",32
-3.2 Observed against expected,33,mart_signals: level-change die events on the routine charts,33
-3.2 Observed against expected,31,level-change die events with a failed verification on the first-signal chart,31
-3.2 Observed against expected,2.1,"mart_limit_verifications.mean_offset_sigma, failed, first-signal chart, median absolute",2.1
-3.2 Observed against expected,2,"int_characteristic_history: routine subgroups from the die event to the first signal, median",2
-3.2 Observed against expected,2.9,"arl_rules, rules 1 to 4 at the median estimated shift",2.9
-3.2 Observed against expected,31,level-change events within the 5th to 95th percentile of the run length at their shift,31
-"Figure: Run length against shift, with the year's level changes","2.11, 3.0","level change D-0823-C|3|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
-"Figure: Run length against shift, with the year's level changes","2.15, 2.0","level change D-0823-C|4|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
-"Figure: Run length against shift, with the year's level changes","2.15, 3.0","level change D-0823-C|6|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
-"Figure: Run length against shift, with the year's level changes","1.67, 2.0","level change D-0893-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
-"Figure: Run length against shift, with the year's level changes","1.89, 2.0","level change D-1181-A|2|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
-"Figure: Run length against shift, with the year's level changes","1.99, 4.0","level change D-1181-A|3|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
-"Figure: Run length against shift, with the year's level changes","2.26, 2.0","level change D-1209-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
-"Figure: Run length against shift, with the year's level changes","1.51, 3.0","level change D-1209-A|7|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
-"Figure: Run length against shift, with the year's level changes","2.11, 1.0","level change D-1687-A|6|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
-"Figure: Run length against shift, with the year's level changes","2.42, 1.0","level change D-2488-B|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
-"Figure: Run length against shift, with the year's level changes","1.78, 2.0","level change D-2587-A|3|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
-"Figure: Run length against shift, with the year's level changes","2.03, 2.0","level change D-2617-A|2|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
-"Figure: Run length against shift, with the year's level changes","2.18, 2.0","level change D-2617-A|3|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
-"Figure: Run length against shift, with the year's level changes","1.94, 3.0","level change D-3264-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
-"Figure: Run length against shift, with the year's level changes","2.23, 1.0","level change D-4813-C|7|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
-"Figure: Run length against shift, with the year's level changes","1.95, 1.0","level change D-4813-C|8|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
-"Figure: Run length against shift, with the year's level changes","1.93, 1.0","level change D-4849-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
-"Figure: Run length against shift, with the year's level changes","2.01, 2.0","level change D-5731-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
-"Figure: Run length against shift, with the year's level changes","2.35, 2.0","level change D-6291-A|3|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
-"Figure: Run length against shift, with the year's level changes","2.14, 3.0","level change D-6291-A|4|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
-"Figure: Run length against shift, with the year's level changes","1.98, 7.0","level change D-6315-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
-"Figure: Run length against shift, with the year's level changes","2.26, 3.0","level change D-6526-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
-"Figure: Run length against shift, with the year's level changes","1.87, 1.0","level change D-6526-A|2|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
-"Figure: Run length against shift, with the year's level changes","2.19, 4.0","level change D-6526-A|3|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
-"Figure: Run length against shift, with the year's level changes","2.44, 1.0","level change D-6526-A|4|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
-"Figure: Run length against shift, with the year's level changes","1.89, 5.0","level change D-6559-B|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
-"Figure: Run length against shift, with the year's level changes","1.51, 5.0","level change D-6998-B|2|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 3.0",
-"Figure: Run length against shift, with the year's level changes","2.40, 1.0","level change D-7180-A|8|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
-"Figure: Run length against shift, with the year's level changes","2.81, 2.0","level change D-7778-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
-"Figure: Run length against shift, with the year's level changes","1.51, 1.0","level change D-7862-C|5|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 2.0",
-"Figure: Run length against shift, with the year's level changes","2.16, 2.0","level change D-9604-A|1|level after sharpening: estimated shift (sigma) and subgroups to the first signal, rule 1.0",
-"Figure: Run length against shift, with the year's level changes",370,"X-bar rule 1, ARL at 0 sigma",
-"Figure: Run length against shift, with the year's level changes",44,"X-bar rule 1, ARL at 1 sigma",
-"Figure: Run length against shift, with the year's level changes",92,"X-bar rules 1 to 4, ARL at 0 sigma",
-"Figure: Run length against shift, with the year's level changes",9,"X-bar rules 1 to 4, ARL at 1 sigma",
-"Figure: Run length against shift, with the year's level changes",72,"three-way all three charts, ARL at 0 sigma",
-"Figure: Run length against shift, with the year's level changes",32,"three-way all three charts, ARL at 1 sigma",
-3.2 Observed against expected,3.06%,"mart_parts_exposed.total_shift_at_onset, median",3.06%
-3.2 Observed against expected,1.32,"mart_parts_exposed.largest_channel_share_shift_points, median",1.32
-3.2 Observed against expected,38,ewma_arl at the median chipped-punch shift,38
-3.2 Observed against expected,76,"ewma_arl, lambda 0.02, 2% step",76
-3.2 Observed against expected,117,"ewma_arl, lambda 0.05, 2% step",117
-3.2 Observed against expected,425,"ewma_arl, lambda 0.10, 2% step",425
-3.2 Observed against expected,204,mart_per_stroke_stops.strokes_kept,204
-3.2 Observed against expected,0,"mart_parts_exposed.strokes_exposed_per_stroke_charts, median",0
-3.2 Observed against expected,20,"mart_parts_exposed.strokes_exposed_per_stroke_charts, 90th percentile",20
-"Figure: EWMA ARL1 against shift size, three lambda values","3.62%, 0","mart_parts_exposed: FE-002072, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","3.88%, 0","mart_parts_exposed: FE-002300, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","1.48%, 0","mart_parts_exposed: FE-003327, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","3.70%, 0","mart_parts_exposed: FE-003902, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","0.20%, 0","mart_parts_exposed: FE-003987, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","4.10%, 0","mart_parts_exposed: FE-004243, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","1.84%, 0","mart_parts_exposed: FE-004528, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","2.99%, 0","mart_parts_exposed: FE-004549, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","2.06%, 0","mart_parts_exposed: FE-004686, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","5.23%, 0","mart_parts_exposed: FE-004714, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","3.93%, 0","mart_parts_exposed: FE-004751, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","4.23%, 0","mart_parts_exposed: FE-004755, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","4.64%, 0","mart_parts_exposed: FE-004858, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","3.90%, 0","mart_parts_exposed: FE-004916, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","0.77%, 1","mart_parts_exposed: FE-004963, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","6.05%, 0","mart_parts_exposed: FE-005158, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","4.80%, 0","mart_parts_exposed: FE-005266, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","2.97%, 0","mart_parts_exposed: FE-005355, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","3.08%, 0","mart_parts_exposed: FE-005376, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","2.53%, 43","mart_parts_exposed: FE-005426, shift at onset and strokes to the stop (EWMA on the total)",
-"Figure: EWMA ARL1 against shift size, three lambda values","2.36%, 0","mart_parts_exposed: FE-005443, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","1.07%, 103","mart_parts_exposed: FE-005448, shift at onset and strokes to the stop (EWMA on the total)",
-"Figure: EWMA ARL1 against shift size, three lambda values","5.45%, 0","mart_parts_exposed: FE-005450, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","4.62%, 34","mart_parts_exposed: FE-005463, shift at onset and strokes to the stop (EWMA on the total)",
-"Figure: EWMA ARL1 against shift size, three lambda values","4.97%, 0","mart_parts_exposed: FE-005568, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","2.97%, 0","mart_parts_exposed: FE-005631, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","3.06%, 20","mart_parts_exposed: FE-005738, shift at onset and strokes to the stop (EWMA on the total)",
-"Figure: EWMA ARL1 against shift size, three lambda values","1.69%, 0","mart_parts_exposed: FE-005809, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","1.90%, 0","mart_parts_exposed: FE-006026, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","2.58%, 0","mart_parts_exposed: FE-006076, shift at onset and strokes to the stop (channel share)",
-"Figure: EWMA ARL1 against shift size, three lambda values","1.82%, 0","mart_parts_exposed: FE-006317, shift at onset and strokes to the stop (channel share)",
-3.2 Observed against expected,"6,499","mart_parts_exposed.parts_exposed_hourly_check_up_to, median","6,499"
-3.2 Observed against expected,"11,773","mart_parts_exposed.parts_exposed_hourly_check_up_to, PR-03","11,773"
