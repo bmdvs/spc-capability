@@ -138,8 +138,6 @@ Figure: Variance components by class: hole diameter,36.1%,"variance share, Hole 
 2.2 Measurement systems,12,mart_charts_in_force with stg_calibration__gauges: indicators on variable charts,12
 2.2 Measurement systems,23,mart_charts_in_force: regression charts on an indicator,23
 2.2 Measurement systems,35,"mart_charts_in_force.gauge_id: pins, distinct",35
-2.2 Measurement systems,825,mart_charts_in_force.study_basis: this gauge,825
-2.2 Measurement systems,72,mart_charts_in_force.study_basis: gauge type at the press,72
 2.2 Measurement systems,765,stg_calibration__calibrations: done in the year,765
 2.2 Measurement systems,756,stg_calibration__calibrations: passed,756
 2.2 Measurement systems,8,stg_calibration__calibrations: adjusted,8
@@ -506,17 +504,15 @@ Figure: Burr-check operator kappa,0.81,"mart_operator_kappa.kappa, latest, E-102
 3.1 Signals and causes,"X-bar and R, three-way","mart_signals.chart_type, other causes","X-bar and R, three-way"
 3.1 Signals and causes,6,"mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant",6
 3.1 Signals and causes,7,"mart_signals: alarms, other causes",7
+3.1 Signals and causes,C-15731-07,"mart_signals.characteristic_id, soft coil",C-15731-07
+3.1 Signals and causes,1,"mart_signals: coils, soft coil",1
+3.1 Signals and causes,1,"mart_signals: alarms, soft coil",1
 3.1 Signals and causes,PR-06,"mart_signals.press_id, sharpening logged at the wrong count",PR-06
 3.1 Signals and causes,regression,"mart_signals.chart_type, sharpening logged at the wrong count",regression
 3.1 Signals and causes,1,mart_signals: wrong count,1
 3.1 Signals and causes,1,"mart_signals: alarms, wrong count",1
-3.1 Signals and causes,C-15731-07,"mart_signals.characteristic_id, soft coil",C-15731-07
-3.1 Signals and causes,1,"mart_signals: coils, soft coil",1
-3.1 Signals and causes,1,"mart_signals: alarms, soft coil",1
 3.1 Signals and causes,427,"mart_per_stroke_stops: stops on slug pulling, worn and chipped punches",427
 3.1 Signals and causes,427,"mart_per_stroke_stops: stops, as alarms",427
-3.1 Signals and causes,"10,499",mart_signals: routine alarms closed as no cause found,"10,499"
-3.1 Signals and causes,27,mart_signals: coil-change signals closed as no cause found,27
 3.1 Signals and causes,427,mart_per_stroke_stops: stops with a finding,427
 3.1 Signals and causes,274,mart_per_stroke_stops: slug pulling,274
 3.1 Signals and causes,64%,mart_per_stroke_stops: slug pulling share of stops with a finding,
