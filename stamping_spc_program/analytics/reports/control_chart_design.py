@@ -72,7 +72,8 @@ def build():
            ".subsection-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #8093A4; font-weight: 700; margin-bottom: 2px; } "
            ".subsection h3 { font-size: 16px; font-weight: 600; letter-spacing: .2px; margin: 0; } "
            "h4.within { font-size: 15px; font-weight: 700; color: var(--brand); margin: 26px 0 8px; } "
-           "h5.within { font-size: 13.5px; font-weight: 700; color: var(--brand); margin: 18px 0 4px; }</style>")
+           "h5.within { font-size: 13.5px; font-weight: 700; color: var(--brand); margin: 18px 0 4px; } "
+           "main.content > h2#overview { margin-top: 0; }</style>")
 
     # ── read once ────────────────────────────────────────────────────────────
     design = query("select parameter, value from marts.mart_chart_design order by parameter").set_index("parameter")["value"]
@@ -850,10 +851,7 @@ def build():
                  f"({n(int(fxc['formed']), 'mart_charts_in_force: formed charts on a check fixture', was='399')}) and flatness ({n(int(fxc['flatness']), 'mart_charts_in_force: flatness charts on a check fixture', was='32')}). "
                  f"{n(ca_['gauge_id'].nunique(), 'mart_charts_in_force with stg_calibration__gauges: calipers on variable charts', was='29')} calipers at the presses read {n(len(ca_), 'mart_charts_in_force: charts on a caliper', was='74')} cut-geometry charts, and "
                  f"{n(in_['gauge_id'].nunique(), 'mart_charts_in_force with stg_calibration__gauges: indicators on variable charts', was='12')} indicators read the {n(len(in_), 'mart_charts_in_force: regression charts on an indicator', was='23')} hole-diameter regression charts. "
-                 f"The pin checks use {n(pins_['gauge_id'].nunique(), 'mart_charts_in_force.gauge_id: pins, distinct', was='35')} pin gauges, and the burr check is the operator's, with burr height measured on the laboratory gauge. "
-                 f"Every variable chart runs on a gauge in gating status, with a current calibration and a gauge study on file: {n(vb_.get('this gauge', 0), 'mart_charts_in_force.study_basis: this gauge', was='825')} charts on a study of the gauge itself and "
-                 f"{n(vb_.get('gauge type at the press', 0), 'mart_charts_in_force.study_basis: gauge type at the press', was='72')} on a study of the gauge type at the press. "
-                 "Gauge status is reported each quarter in the <a href=\"spc_quarterly_review_2026_q2.html\">SPC Quarterly Review</a>; this section gives the year's position."))
+                 f"The pin checks use {n(pins_['gauge_id'].nunique(), 'mart_charts_in_force.gauge_id: pins, distinct', was='35')} pin gauges, and the burr check is the operator's, with burr height measured on the laboratory gauge."))
     cal_ = query("""select c.gauge_id, c.result, g.type from staging.stg_calibration__calibrations c join staging.stg_calibration__gauges g using (gauge_id)
                     where c.done >= '2025-07-01' and c.done < '2026-07-01' order by c.calibration_id""")
     cr_ = cal_["result"].value_counts(); assert set(cr_.index) <= {"pass", "adjusted", "rebuilt"}
@@ -932,8 +930,8 @@ def build():
     types_ = ["X-bar and R", "three-way", "regression", "p", "EWMA", "channel share"]
     assert set(cif["chart_type"]) == {"Xbar-R", "three-way (I-MR-R)", "tool-wear", "p"} and n_ps == len(presses) + int(presses["load_cell_channels"].sum())
     o22.append(P(f"{txt('Six', 'mart_charts_in_force chart types (X-bar and R, three-way, regression, p) and the two per-stroke charts (EWMA, channel share)', was='Six')} different chart types are used for the SPC charts. "
-                 "X-bar and R, three-way, and regression charts are used for the variable charts on part characteristics (cut geometry, formed characteristics, hole diameter, and flatness), and selection is based on the underlying variance of the characteristic. "
-                 "EWMA and channel-share charts are used for the press's per-stroke tonnage. p charts are used for the attribute checks (pin checks on hole diameters and burr checks on sheared edges)."))
+                 "X-bar and R, three-way, and regression charts are used for the variable charts on part characteristics (cut geometry, formed characteristics, hole diameter, and flatness), and their selection is based on the underlying variance of the characteristic. "
+                 "P charts are used for the attribute checks (pin checks on hole diameters and burr checks on sheared edges). EWMA and channel-share charts are used for the press's per-stroke tonnage."))
     VC_ROWS = {c_: [("Within subgroup", med.at[c_, "within_share_wear_first"]), ("Between subgroups", med.at[c_, "between_subgroups_share_wear_first"]),
                     ("Between coils", med.at[c_, "between_coils_share_wear_first"]), ("Tool wear", med.at[c_, "wear_share"])] for c_ in ("cut geometry", "formed", "hole diameter", "flatness")}
 
@@ -988,7 +986,7 @@ def build():
     o22.append(sample(SC.three_way(dt, mt), f"Sample three-way chart: {TS[0]}, {mt['name']}", [(f"{dt['ucl_mean'].iloc[-1]:.3f}", f"int_characteristic_history.ucl_mean, {TS[0]}"), (f"{dt['lcl_mean'].iloc[-1]:.3f}", f"int_characteristic_history.lcl_mean, {TS[0]}")]))
     # regression
     o22.append(H5(f"Regression (hole diameter; {n(int(ctn.get('tool-wear', 0)), 'mart_charts_in_force: tool-wear (regression) charts', was='23')} charts)"))
-    o22.append(P(f"On hole diameters, {pct(med.at['hole diameter', 'wear_share'], 'mart_variance_components.wear_share, hole diameter, median', was='36.1%')} of the variance is from tool wear, as the hole grows while the punch edge wears down between sharpenings. Regression charts are used to account for this predictable change so they signal only on variation that is not wear."))
+    o22.append(P(f"On hole diameters, {pct(med.at['hole diameter', 'wear_share'], 'mart_variance_components.wear_share, hole diameter, median', was='36.1%')} of the variance is from tool wear, as the hole grows while the punch edge wears down between sharpenings. Regression charts are used to account for this predictable change so they signal only on variation that is not related to tool wear."))
     o22.append(vc_fig(162, [("Hole diameter", VC_ROWS["hole diameter"])], "d1_variance_hole_diameter", "Variance components by class: hole diameter"))
     o22.append(P(f"The regression chart plots each subgroup's mean against a center line that rises with the shots since the die was last sharpened, and control limits that rise with it. "
                  "The center line is the tool wear line: a regression of hole diameter on shots since sharpening, fitted over the subgroups from the die's earlier sharpening intervals. The control limits sit three residual sigmas on either side of it. "
@@ -1065,7 +1063,7 @@ def build():
         for t_ in [c_ for c_ in bm_.columns if c_ != "issued_month"]:
             if r_[t_]:
                 pg.figval(30, f"{int(r_[t_])}", f"mart_limit_recalculations: {t_}, {r_['issued_month']}")
-    pg.figure(FIG.recalculations(bm_, labels=True), "Figure 30: New Control Limits Set by Trigger, Last 12 Months"); entries[keys[-1]] = pg.body[-1]; o22.append(keys[-1])
+    pg.figure(FIG.recalculations(bm_, labels=True, name="d1_new_limits_by_trigger"), "Figure 30: New Control Limits Set by Trigger, Last 12 Months"); entries[keys[-1]] = pg.body[-1]; o22.append(keys[-1])
 
     o22.append(P(f"Verification held the limits across {n(len(shp), 'mart_limit_verifications: sharpenings', was='408')} sharpenings and failed on {n(int(shp.sum()), 'mart_limit_verifications: sharpenings with a failure', was='33')} of them ({pct(shp.mean(), 'share of sharpenings failed', was='8.1%')}), inside its design range of 3% to 9%; by chart, "
                  f"{n(x1.failed, 'mart_limit_verifications: X-bar and R failed', was='34')} of {n(x1.verifications, 'mart_limit_verifications: X-bar and R after sharpening', was='1,100')} X-bar and R ({pct(x1.rate, 'X-bar and R failure rate', was='3.1%')}), {n(x2.failed, 'mart_limit_verifications: tool-wear failed', was='2')} of "
@@ -1146,7 +1144,7 @@ def build():
     assert N_ev == n_first + len(st_find) and list(vcause.sort_values(ascending=False, kind="stable").index[:2]) == ["lvl", "oth"] and vcause.iloc[2:].max() < vcause["oth"]
     o23.append(P(f"{n(N_ev, 'special-cause events: level-change die returns, fixture-drift run, other-cause runs, soft coil, wrong count, tonnage stops with a finding', was='469')} signals were traced to a special cause over the past year. "
                  f"The variable characteristic charts most commonly found special causes related to a die at a new level after sharpening or rebuild ({n(ev['lvl'], 'mart_signals: level-change die returns (die and sharpening interval)', was='33')}) "
-                 f"and faults related to strip misfeed, slug pull, gauge zero, or lubricant issue ({n(ev['oth'], 'mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant', was='6')})."))
+                 f"and faults related to strip misfeed, slug pull, gauge zeroing, or lubricant issues ({n(ev['oth'], 'mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant', was='6')})."))
     ts_ = pd.DataFrame([
         {"what": "Die at a new level after sharpening or rebuild", "chart": txt(charts_of(lvl), 'mart_signals.chart_type, level-change alarms', was='X-bar and R, three-way, regression'),
          "events": n(ev["lvl"], 'mart_signals: level-change die returns (die and sharpening interval)', was='33'), "alarms": n(len(lvl), 'mart_signals: alarms, level change', was='1,620')},
@@ -1154,14 +1152,13 @@ def build():
          "events": n(ev["fx"], 'mart_signals: runs, fixture drift', was='1'), "alarms": n(len(fx), 'mart_signals: alarms, fixture drift', was='30')},
         {"what": "Strip misfeed, slug pulling, gauge zeroing, lubricant", "chart": txt(charts_of(oth), 'mart_signals.chart_type, other causes', was='X-bar and R, three-way'),
          "events": n(ev["oth"], 'mart_signals: runs, strip misfeed, slug pulling, gauge zero, lubricant', was='6'), "alarms": n(len(oth), 'mart_signals: alarms, other causes', was='7')},
+        {"what": f"Soft coil ({txt(soft['characteristic_id'].iloc[0], 'mart_signals.characteristic_id, soft coil', was='C-15731-07')})", "chart": "three-way",
+         "events": n(ev["soft"], 'mart_signals: coils, soft coil', was='1'), "alarms": n(len(soft), 'mart_signals: alarms, soft coil', was='1')},
         {"what": f"Sharpening logged at the wrong count ({txt(wc['press_id'].iloc[0], 'mart_signals.press_id, sharpening logged at the wrong count', was='PR-06')})", "chart": txt(charts_of(wc), 'mart_signals.chart_type, sharpening logged at the wrong count', was='regression'),
          "events": n(ev["wc"], 'mart_signals: wrong count', was='1'), "alarms": n(len(wc), 'mart_signals: alarms, wrong count', was='1')},
-        {"what": f"Soft coil ({txt(soft['characteristic_id'].iloc[0], 'mart_signals.characteristic_id, soft coil', was='C-15731-07')})", "chart": "coil-change",
-         "events": n(ev["soft"], 'mart_signals: coils, soft coil', was='1'), "alarms": n(len(soft), 'mart_signals: alarms, soft coil', was='1')},
         {"what": "Slug pulling, worn and chipped punches", "chart": "per-stroke EWMA and channel share",
          "events": n(ev["stops"], 'mart_per_stroke_stops: stops on slug pulling, worn and chipped punches', was='427'), "alarms": n(ev["stops"], 'mart_per_stroke_stops: stops, as alarms', was='427')}])
-    pg.body_table("Table 60: Special Causes With the Charts that Signaled Them", ts_, {"what": "What was caught", "chart": "Chart", "events": "Events", "alarms": "Alarms"}, bold_cols=("Events",),
-                  caption=f"{n(int((~rt_['assignable_cause']).sum()), 'mart_signals: routine alarms closed as no cause found', was='10,499')} routine signals and {n(cc_ncf, 'mart_signals: coil-change signals closed as no cause found', was='27')} coil-change signals had no assignable cause.")
+    pg.body_table("Table 60: Special Causes With the Charts that Signaled Them", ts_, {"what": "What was caught", "chart": "Chart", "events": "Events", "alarms": "Alarms"}, bold_cols=("Events",))
     entries[keys[-1]] = pg.body[-1]; o23.append(keys[-1])
     fcl = st_find["finding_class"].value_counts()
     o23.append(P(f"The per-stroke tonnage charts produced {n(len(st_find), 'mart_per_stroke_stops: stops with a finding', was='427')} signals that were found to have a special cause. Of them, "
@@ -1262,7 +1259,7 @@ def build():
     toc = [("overview", "1. Active SPC Charts"),
            ("design", "2. Chart Design"), ("chart-types", "2.1 Chart Types", "sub"), ("measurement", "2.2 Measurement systems", "sub"), ("limits", "2.3 Control Limits", "sub"),
            ("performance", "3. Chart Performance"), ("signals", "3.1 Signals and causes", "sub"), ("expected", "3.2 Observed against expected", "sub")]
-    html = S.report_shell("Report: SPC Chart Design &amp; Performance", "", "", "\n".join(pg.body), toc)
+    html = S.report_shell("Review: SPC Chart Design &amp; Performance", "", "", "\n".join(pg.body), toc)
     out = S.DOCS / "reports"; out.mkdir(parents=True, exist_ok=True)
     (out / "control_chart_design.html").write_text(html, encoding="utf8", newline="\n")
     trace, off = pg.check()

@@ -88,7 +88,7 @@ def phase1_baseline(b, centre, ucl, lcl, ucl_r):
 TRIGGER_COLOURS = {"rebuild": S.BRAND_BLUE, "annual review": S.AMBER, "tool-wear re-fit": S.ACCENT, "regression re-fit": S.ACCENT, "failed verification": S.RED, "repair": S.GREY, "chart change": S.GREEN}
 
 
-def recalculations(by_month, labels=False):
+def recalculations(by_month, labels=False, name="d1_recalculations_by_month_and_trigger"):
     f, ax = S.fig(h=3.8)
     months = list(by_month["issued_month"]); bottom = np.zeros(len(months))
     for t in [c for c in TRIGGER_COLOURS if c in by_month.columns]:
@@ -106,7 +106,7 @@ def recalculations(by_month, labels=False):
             ax.text(i, t + max(bottom) * 0.012, f"{int(t)}", ha="center", va="bottom", fontsize=8.5)
         ax.set_ylim(0, max(bottom) * 1.07)
     ax.set_ylabel("New control limits set" if labels else "New limit sets"); ax.legend(frameon=False, ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.14))
-    return S.save(f, "d1_recalculations_by_month_and_trigger", "New control limits set by trigger, last 12 months" if labels else "Recalculations by month and trigger")
+    return S.save(f, name, "New control limits set by trigger, last 12 months" if labels else "Recalculations by month and trigger")
 
 
 def tool_wear_chart(g, centre, slope_per_100k, half_width, usl, lsl):
@@ -341,11 +341,18 @@ def no_cause_by_press(lp, med_obs, med_exp):
     x = np.arange(len(lp)); w = 0.38
     ax.bar(x - w / 2, S.sig(lp["observed_per_week"]), width=w, color=S.BRAND_BLUE, label="Observed")
     ax.bar(x + w / 2, S.sig(lp["alarms_per_week"]), width=w, color=S.LIGHT_BLUE, label="Expected")
-    ax.axhline(med_obs, color=S.BRAND_BLUE, linestyle="--", linewidth=1.2, label=f"Plant median, actual ({med_obs:.1f})")
-    ax.axhline(med_exp, color=S.AMBER, linestyle="--", linewidth=1.2, label=f"Plant median, expected ({med_exp:.1f})")
-    ax.set_xticks(x); ax.set_xticklabels(lp["press_id"]); ax.set_ylabel("Signals with no assignable cause a week")
-    ax.set_ylim(0, max(lp["observed_per_week"].max(), lp["alarms_per_week"].max()) * 1.15)
-    ax.legend(frameon=False, ncol=4, fontsize=8.5, loc="upper center", bbox_to_anchor=(0.5, -0.1))
+    top = max(lp["observed_per_week"].max(), lp["alarms_per_week"].max())
+    for i, (o, e) in enumerate(zip(lp["observed_per_week"], lp["alarms_per_week"])):
+        ax.text(i - w / 2, o + top * 0.012, f"{o:.1f}", ha="center", va="bottom", fontsize=7)
+        ax.text(i + w / 2, e + top * 0.012, f"{e:.1f}", ha="center", va="bottom", fontsize=7)
+    ax.axhline(med_obs, color=S.BRAND_BLUE, linestyle="--", linewidth=1.2)
+    ax.axhline(med_exp, color=S.AMBER, linestyle="--", linewidth=1.2)
+    for k, (txt, colour) in enumerate(((f"Plant median, observed ({med_obs:.1f})", S.BRAND_BLUE), (f"Plant median, expected ({med_exp:.1f})", S.AMBER))):
+        ax.text(0.985, 0.97 - 0.1 * k, txt, transform=ax.transAxes, ha="right", va="top", fontsize=8.5, color=colour,
+                bbox=dict(boxstyle="round,pad=0.3", facecolor="white", edgecolor=colour, linewidth=0.8))
+    ax.set_xticks(x); ax.set_xticklabels(lp["press_id"]); ax.set_ylabel("Weekly signals with no assignable cause")
+    ax.set_ylim(0, top * 1.18)
+    ax.legend(frameon=False, ncol=2, fontsize=8.5, loc="upper center", bbox_to_anchor=(0.5, -0.1))
     return S.save(f, "d1_no_cause_observed_expected_by_press", "Signals with no assignable cause, observed vs. expected, per press and week")
 
 
