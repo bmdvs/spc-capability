@@ -11,6 +11,12 @@ __pycache__/
 .ruff_cache/
 .ipynb_checkpoints/
 
-# databases
+# local state
 *.duckdb
 *.duckdb.wal
+.dlt/
+pipeline/dbt/target/
+pipeline/dbt/logs/
+pipeline/dbt/dbt_packages/
+pipeline/dbt/.user.yml
+logs/
