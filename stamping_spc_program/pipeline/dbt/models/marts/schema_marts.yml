@@ -102,7 +102,7 @@ models:
         tests:
           - accepted_values:
               arguments:
-                values: ['quarter', 'record']
+                values: ['quarter', 'record', '2025 Q3', '2025 Q4', '2026 Q1', '2026 Q2']
       - name: cpk_definition
         tests:
           - accepted_values:

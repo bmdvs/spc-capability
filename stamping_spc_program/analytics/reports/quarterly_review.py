@@ -1,252 +1,399 @@
-"""SPC Quarterly Review, April to June 2026. Reads the marts, computes the expected false-alarm rates
-(analytics.chart_performance), builds the figures and writes docs/reports/spc_quarterly_review_2026_q2.html and the table
-of every number in the body with the mart it is read from and the value in the page text."""
+"""Quarterly Capability & SPC Review, April to June 2026. Reads the marts, computes the expected rates with the method of
+the control chart design study (analytics.chart_performance), builds the figures and writes
+docs/reports/spc_quarterly_review_2026_q2.html, the quarter's signal log as CSV, and the table of every number in the body
+with the mart it is read from and the value in the page text."""
 import numpy as np
 import pandas as pd
 from scipy import stats
 
 from analytics.data import query
+from analytics.chart_performance import arl as A
+from analytics.reports import design_figures as DFIG
 from analytics.reports import review_figures as FIG
-from analytics.reports.control_chart_design import expected_rate
+from analytics.reports.control_chart_design import REPORT_CLASS, expected_rate
 from analytics.reports.page import DAY, F0, F1, F2, P1, Page
 from analytics.style import style as S
 
-FAMILY_FORMED = ("formed",)
+LV = ["level after sharpening", "level after the rebuild"]
+D1_LINK = '<a href="control_chart_design.html">the control chart design study</a>'
+CHART_ROW = {"Xbar-R": "X-bar and R", "three-way (I-MR-R)": "three-way", "tool-wear": "regression"}
+SHORT = {"level after sharpening": "level change", "level after the rebuild": "level after rebuild", "fixture drift": "fixture drift", "strip misfeed": "strip misfeed",
+         "slug pulling": "slug pull", "gauge zero": "gauge zero", "lubricant": "lubricant", "soft coil": "soft coil", "sharpening logged at the wrong count": "wrong count"}
+
+
+def pci(k, e):
+    return (stats.chi2.ppf(0.025, 2 * k) / 2 / e if k > 0 else 0.0), stats.chi2.ppf(0.975, 2 * (k + 1)) / 2 / e
 
 
 def build():
     pg = Page(); n, pct, txt, wd = pg.num, pg.pct, pg.text, pg.word
-    _table = pg.table
-    pg.table = lambda title, df, *a, **k: _table(title, df.replace({"tool-wear": "regression", "tool-wear re-fit": "regression re-fit"}), *a, **k)
+    fno = [0]
+
+    def F(title):
+        fno[0] += 1
+        return f"Figure {fno[0]}: {title}"
+
+    # ═══════════════ read once
     sig = query("select * from marts.mart_signals where in_quarter order by raised_at, alarm_id")
+    cif = query("select * from marts.mart_charts_in_force order by characteristic_id"); cif["cls"] = cif["characteristic_type"].map(REPORT_CLASS)
+    var = cif[cif["data_type"] == "variable"]
     sr = query("select * from marts.mart_signal_rates where period = 'quarter' order by characteristic_id, press_id, chart, baseline_subgroups")
     sr["es"] = [expected_rate(c, b) * s for c, b, s in zip(sr["chart"], sr["baseline_subgroups"], sr["subgroups_in_scope"])]
-    cap = query("select * from marts.mart_capability where period = 'quarter' order by characteristic_id")
-    crit_ids = set(query("select characteristic_id from staging.stg_spc__characteristics where critical")["characteristic_id"])
-    ccap = cap[cap["characteristic_id"].isin(crit_ids)]
-    fpa = query("select * from marts.mart_first_piece_approvals where in_quarter order by first_piece_at")
-    cif = query("select * from marts.mart_charts_in_force order by characteristic_id"); var = cif[cif["data_type"] == "variable"]
-    gq = query("select * from marts.mart_gauge_quarter_end where quarter_end = cast('2026-06-30' as date)")
-    ac = sig[sig["assignable_cause"]]; nc = sig[~sig["assignable_cause"]]
-    tot_n, tot_s, tot_e = sr["subgroups_in_scope"].sum(), sr["signals_any_rule"].sum(), sr["es"].sum()
-    cm = cap.groupby("characteristic_class")["ppk"].median()
-    held = fpa[fpa["held"]]
-    out_of_gating = set(gq[gq["past_due"] | gq["away_for_calibration"]]["gauge_id"])
-    fed_out = int((var["gauge_id"].isin(out_of_gating) | var["study_date"].isna()).sum())
-    restudy_gauges = int(var.drop_duplicates("gauge_id")["restudy_scheduled"].fillna(False).astype(bool).sum())
+    sr["cls"] = sr["characteristic_id"].map(cif.set_index("characteristic_id")["cls"]); assert sr["cls"].notna().all()
+    cap_all = query("select * from marts.mart_capability order by period, characteristic_id"); cap_all["cls"] = cap_all["characteristic_type"].map(REPORT_CLASS)
+    crit_ids = set(query("select characteristic_id from staging.stg_spc__characteristics where critical")["characteristic_id"]); cap_all["critical"] = cap_all["characteristic_id"].isin(crit_ids)
+    cap = cap_all[cap_all["period"] == "quarter"].copy(); ccap = cap[cap["critical"]]
+    assert set(cap.loc[~cap["critical"], "cls"]) == {"flatness"}
+    vca = query("select * from marts.mart_variance_components")
+    stp = query("select * from marts.mart_per_stroke_stops where in_quarter order by stopped_at"); stf = stp[stp["finding_class"] != "nothing found"]
+    srq = query("select * from marts.mart_per_stroke_stop_rates where period = 'quarter' order by press_id")
+    fpa = query("select * from marts.mart_first_piece_approvals where in_quarter order by first_piece_at"); held = fpa[fpa["held"]]; passed = fpa[~fpa["held"]]
+    design = query("select parameter, value from marts.mart_chart_design").set_index("parameter")["value"]
+    presses = query("select press_id, load_cell_channels from staging.stg_erp__presses order by press_id")
 
-    # ═══════════════ 1. Summary
-    pg.h2("summary", "1. Summary")
-    pg.p(f"The quarter ran in control. Signals on charts with no special cause came in at {n(tot_s / tot_e, 'mart_signal_rates with the expected rate: observed over expected, quarter', '{:.2f}', was='1.23')} times the expected false-alarm rate, every assignable cause found was closed inside the quarter, capability held above 1.33 on "
-         f"{n(int((~ccap['under_1_33']).sum()), 'mart_capability: critical characteristics at or above 1.33', was='93')} of {n(len(ccap), 'mart_capability: critical characteristics', was='100')} critical characteristics, no gauge fed a chart without a current calibration and study, and {n(int(fpa['held'].sum()), 'mart_first_piece_approvals.held', was='19')} of "
-         f"{n(len(fpa), 'mart_first_piece_approvals: run starts', was='583')} run starts were held at the first piece.")
-    kp = pd.DataFrame([
-        {"Measure": "Signals per 100 routine subgroups, charts with no special cause", "April to June 2026": f"{n(100 * tot_s / tot_n, 'observed per 100, quarter', '{:.2f}', was='3.80')} observed against {n(100 * tot_e / tot_n, 'expected per 100, quarter', '{:.2f}', was='3.08')} expected"},
-        {"Measure": "Assignable causes found and closed", "April to June 2026": f"{n(len(ac), 'mart_signals: assignable-cause alarms, quarter', was='418')} alarms on {n(ac['run_id'].nunique(), 'mart_signals: runs with an assignable cause', was='21')} runs, {'all' if int(ac['closed_at'].notna().sum()) == len(ac) else n(int(ac['closed_at'].notna().sum()), 'mart_signals.closed_at')} closed by 30 June"},
-        {"Measure": "Ppk, median by class (critical characteristics)", "April to June 2026": f"formed {n(cm['formed'], 'mart_capability.ppk, formed, median', '{:.2f}', was='1.51')}; hole position {n(cm['hole position'], 'mart_capability.ppk, hole position, median', '{:.2f}', was='1.64')}; hole diameter {n(cm['hole diameter'], 'mart_capability.ppk, hole diameter, median', '{:.2f}', was='1.63')}; flatness Ppu {n(cm['flatness'], 'mart_capability.ppk, flatness, median', '{:.2f}', was='1.81')}"},
-        {"Measure": "Charts fed by a gauge out of gating status at 30 June", "April to June 2026": f"{n(fed_out, 'mart_charts_in_force with mart_gauge_quarter_end: variable charts fed by a gauge past due, away or without a study', was='0')} of {n(len(var), 'mart_charts_in_force: variable charts', was='897')}; {n(restudy_gauges, 'mart_charts_in_force.restudy_scheduled: gauges', was='16')} gauges on a restudy schedule"},
-        {"Measure": "First-piece holds", "April to June 2026": f"{n(len(held), 'mart_first_piece_approvals.held', was='19')} of {n(len(fpa), 'mart_first_piece_approvals: run starts', was='583')} run starts, median {n(held['minutes_to_release'].median(), 'mart_first_piece_approvals.minutes_to_release, held, median', was='62')} minutes to release"}])
-    pg.raw(S.table(kp))
-    pg.p("Six special causes were caught by the chart designed to catch them.")
-    st = query("select * from marts.mart_per_stroke_stops where run_id = 'R26-00820'").iloc[0]; pe13 = query("select * from marts.mart_parts_exposed where run_id = 'R26-00820'").iloc[0]
-    sc = sig[sig["cause_code"] == "soft coil"].iloc[0]; coil = query("select certificate_hardness_hrb from marts.mart_coil_change_points where subgroup_id = ?", [sc.subgroup_id]).iloc[0]
-    hrb = query("select median(certificate_hardness_hrb) m from staging.stg_erp__coils where grade = 'C110 copper' and nominal_thickness_mm = 0.99")["m"].iloc[0]
-    fv = query("select * from marts.mart_fixture_verifications where gauge_id = 'F-14026' and result <> 'pass'").iloc[0]
-    cal = query("select * from staging.stg_calibration__calibrations where gauge_id = 'F-14026' and event_type = 'rebuild'").iloc[0]
-    gs14 = query("select * from marts.mart_gauge_studies where gauge_id = 'F-14026' and in_quarter order by study_date")
-    fd = sig[sig["cause_code"] == "fixture drift"]
-    kq = query("select * from marts.mart_operator_kappa where operator_id = 'E-1006' and in_quarter order by study_date")
-    wc = sig[sig["cause_code"] == "sharpening logged at the wrong count"].iloc[0]; de = query("select * from intermediate.int_die_event_timeline where shot_count_corrected").iloc[0]
-    fp9 = fpa[fpa["run_id"] == "R26-01002"].iloc[0]
-    pg.ul([f"<strong>A chipped punch on D-1333-C (PR-03)</strong>, stopped by the per-stroke EWMA at {txt(pd.Timestamp(st.stopped_at).strftime('%H:%M'), 'mart_per_stroke_stops.stopped_at', was='10:55')} on 13 May at stroke {n(st.stop_stroke_no, 'mart_per_stroke_stops.stop_stroke_no', was='239,498')}, {n(pe13.strokes_exposed_per_stroke_charts, 'mart_parts_exposed.strokes_exposed_per_stroke_charts', was='34')} strokes after the onset; punch replaced, press restarted at {txt(pd.Timestamp(st.cleared_at).strftime('%H:%M'), 'mart_per_stroke_stops.cleared_at', was='11:55')}.",
-           f"<strong>A soft coil on P-15731</strong>, caught by rule 1 on the coil-change chart on {txt(pd.Timestamp(sc.raised_at).strftime('%d %B').lstrip('0'), 'mart_signals.raised_at, soft coil', was='27 May')}: certificate hardness {n(coil.certificate_hardness_hrb, 'mart_coil_change_points.certificate_hardness_hrb', '{:.1f}', was='36.6')} HRB at the low end of the C110 coils on record (median {n(hrb, 'stg_erp__coils.certificate_hardness_hrb, C110 0.99 mm, median', '{:.1f}', was='40.2')}); coil held, die centred, certificate queried with the supplier, closed the same afternoon.",
-           f"<strong>Fixture F-14026 drifting</strong>, first seen as {n(len(fd), 'mart_signals: fixture drift alarms', was='30')} alarms on P-14026's charts on 28 and 29 May, confirmed by the daily verification on {txt(pd.Timestamp(fv.verification_date).strftime('%d %B').lstrip('0'), 'mart_fixture_verifications.verification_date', was='2 June')} ({n(fv.master_deviation_mm, 'mart_fixture_verifications.master_deviation_mm', '{:.3f}', was='0.019')} mm against {n(fv.tolerance_mm, 'mart_fixture_verifications.tolerance_mm', '{:.3f}', was='0.016')}), restudied at "
-           f"{n(gs14.iloc[0].pct_grr_of_tolerance, 'mart_gauge_studies.pct_grr_of_tolerance, restudy', '{:.1f}', was='16.7')}% of tolerance, pulled, rebuilt and back in service on {txt(pd.Timestamp(cal.done).strftime('%d %B').lstrip('0'), 'stg_calibration__calibrations.done, rebuild', was='18 June')} at {n(gs14.iloc[-1].pct_grr_of_tolerance, 'mart_gauge_studies.pct_grr_of_tolerance, after rebuild', '{:.1f}', was='5.3')}%.",
-           f"<strong>Burr check operator E-1006</strong> below the requalification line on {txt(pd.Timestamp(kq.iloc[0].study_date).strftime('%d %B').lstrip('0'), 'mart_operator_kappa.study_date', was='14 April')} at kappa {n(kq.iloc[0].kappa, 'mart_operator_kappa.kappa', '{:.2f}', was='0.66')}, requalified on {txt(pd.Timestamp(kq.iloc[-1].study_date).strftime('%d %B').lstrip('0'), 'mart_operator_kappa.study_date', was='28 April')} at {n(kq.iloc[-1].kappa, 'mart_operator_kappa.kappa', '{:.2f}', was='0.83')}.",
-           f"<strong>A sharpening logged at the wrong count</strong> on {de.die_id} (PR-06), caught by rule 1 on the regression chart on {txt(pd.Timestamp(wc.raised_at).strftime('%d %B').lstrip('0'), 'mart_signals.raised_at, wrong count', was='16 May')} and corrected in the die log the same day.",
-           f"<strong>A first-piece hold on PR-09</strong> on {txt(pd.Timestamp(fp9.first_piece_at).strftime('%d %B').lstrip('0'), 'mart_first_piece_approvals.first_piece_at', was='9 June')}, {fp9.held_characteristic_id} out of tolerance after the die repair of 8 June; die adjusted and released in {n(fp9.minutes_to_release, 'mart_first_piece_approvals.minutes_to_release', was='44')} minutes."])
-    fur = ac[ac["cause_code"].isin(["slug pulling", "strip misfeed", "lubricant", "gauge zero"])].groupby("cause_code")["run_id"].nunique()
-    pg.p(f"{wd(int(fur.sum()), 'mart_signals: further assignable causes, runs', was='Six').capitalize()} further assignable causes were found and closed: {wd(fur['slug pulling'], 'slug pulling, runs', was='two')} slug pulling, {wd(fur['strip misfeed'], 'strip misfeed, runs', was='two')} strip misfeed, {wd(fur['lubricant'], 'lubricant, runs', was='one')} lubricant, {wd(fur['gauge zero'], 'gauge zero, runs', was='one')} gauge zero.")
+    # the routine charts' signals on the control chart design study's basis
+    rt = sig[(sig["subgroup_type"] == "routine") & (sig["chart"] != "coil-change means")]
+    ac = rt[rt["assignable_cause"]].copy()
+    ac["event"] = np.where(ac["cause_code"].isin(LV), ac["die_id"] + "|" + ac["sharpening_interval_no"].astype(int).astype(str) + "|" + ac["cause_code"], ac["run_id"] + "|" + ac["cause_code"])
+    ac = ac.sort_values(["raised_at", "alarm_id"]); ac["first"] = ac["subgroup_id"] == ac["event"].map(ac.groupby("event")["subgroup_id"].first())
+    n_ev = ac["event"].nunique(); n_fol = len(ac) - n_ev; n_nc = int((~rt["assignable_cause"]).sum())
+    ccs = sig[sig["chart"] == "coil-change means"]; soft = ccs[ccs["assignable_cause"]]
+    other = sig[(sig["subgroup_type"] != "routine") & (sig["chart"] != "coil-change means")]; wc = other[other["assignable_cause"]]
+    assert list(wc["cause_code"]) == ["sharpening logged at the wrong count"] and len(soft) == 1
+    allc = sig[sig["assignable_cause"]].copy()
+    allc["event"] = np.where(allc["cause_code"].isin(LV), allc["die_id"] + "|" + allc["sharpening_interval_no"].fillna(-1).astype(int).astype(str) + "|" + allc["cause_code"], allc["run_id"] + "|" + allc["cause_code"])
+    n_sc = allc["event"].nunique(); assert n_sc == n_ev + len(soft) + len(wc)
+    assert sig["closed_at"].notna().all() and pd.Timestamp(sig["closed_at"].max()) < pd.Timestamp("2026-07-01") and pd.Timestamp(stp["cleared_at"].max()) < pd.Timestamp("2026-07-01")
+    tot_s, tot_e = sr["signals_any_rule"].sum(), sr["es"].sum()
+    held_n, starts = len(held), len(fpa)
 
-    # ═══════════════ 2. Signals and reaction
-    pg.h2("signals", "2. Signals and reaction")
-    pg.p(f"Signals ran at {n(tot_s / tot_e, 'observed over expected, quarter', '{:.2f}', was='1.23')} times the expected false-alarm rate, and the {n(len(ac), 'mart_signals: assignable-cause alarms', was='418')} with an assignable cause were acknowledged in a median {n(ac['minutes_to_acknowledge'].median(), 'mart_signals.minutes_to_acknowledge, assignable, median', was='3')} minutes and closed in a median "
-         f"{n(ac['minutes_to_close'].median() / 60, 'mart_signals.minutes_to_close, assignable, median, hours', was='2')} hours. The quarter raised {n(len(sig), 'mart_signals: alarms, quarter', was='4,066')} alarms on {n(sig['subgroup_id'].nunique(), 'mart_signals: subgroups with an alarm', was='3,120')} subgroups; {n(len(nc), 'mart_signals: no cause found', was='3,648')} were closed as no cause found in a median "
-         f"{n(nc['minutes_to_close'].median(), 'mart_signals.minutes_to_close, no cause found, median', was='24')} minutes, by a recheck on a second gauge, five more parts measured, or the next subgroup within limits.")
-    ct = sr.groupby("chart").agg(subgroups=("subgroups_in_scope", "sum"), signals=("signals_any_rule", "sum"), es=("es", "sum")); ct["obs"] = 100 * ct["signals"] / ct["subgroups"]; ct["exp"] = 100 * ct["es"] / ct["subgroups"]; ct["ratio"] = ct["signals"] / ct["es"]
-    pg.p(f"By chart type, X-bar and R ran at {n(ct.at['X-bar and R', 'ratio'], 'observed over expected, X-bar and R, quarter', '{:.2f}', was='1.42')} times expectation, three-way at {n(ct.at['three-way', 'ratio'], 'observed over expected, three-way, quarter', '{:.2f}', was='0.92')} and regression at {n(ct.at['tool-wear', 'ratio'], 'observed over expected, tool-wear, quarter', '{:.2f}', was='2.19')}. The excess on X-bar and R and regression charts sits on rules 3 and 4 under long-held limits, as the design revalidation found; the three-way charts run at their design rate.")
-    p1 = sr.groupby("press_id").agg(subgroups=("subgroups_in_scope", "sum"), signals=("signals_any_rule", "sum"), es=("es", "sum")).reset_index()
-    p1["observed per 100"] = 100 * p1["signals"] / p1["subgroups"]; p1["expected per 100"] = 100 * p1["es"] / p1["subgroups"]
-    p1["low"] = [100 * stats.chi2.ppf(0.025, 2 * k) / 2 / m if k > 0 else 0.0 for k, m in zip(p1["signals"], p1["subgroups"])]; p1["high"] = [100 * stats.chi2.ppf(0.975, 2 * (k + 1)) / 2 / m for k, m in zip(p1["signals"], p1["subgroups"])]
-    pg.figure(FIG.observed_expected_by_press(p1), "Figure 1: Observed against expected signals by press", "Signals per 100 routine subgroups on charts with no special cause in the quarter, with a 95% Poisson interval, against the rate expected from the press's charts at their own baseline sizes under their rules.")
-    pg.table("Signals by chart type, observed against expected", ct.reset_index(), {"chart": "Chart", "subgroups": "Routine subgroups", "signals": "Signals", "obs": "Observed per 100", "exp": "Expected per 100", "ratio": "Observed over expected"},
-             {"Routine subgroups": F0, "Signals": F0, "Observed per 100": F2, "Expected per 100": F2, "Observed over expected": F2})
-    p4 = p1.set_index("press_id").loc["PR-04"]; below = p1[p1["observed per 100"] < p1["expected per 100"]]["press_id"].tolist()
-    lv = sig[sig["cause_code"] == "level after sharpening"]
-    pg.p(f"{txt(p1.sort_values('observed per 100').iloc[-1].press_id, 'press with the highest observed rate', was='PR-04')} ran highest, at {n(p4['observed per 100'], 'observed per 100, PR-04', '{:.2f}', was='5.27')} per 100 against {n(p4['expected per 100'], 'expected per 100, PR-04', '{:.2f}', was='3.16')} expected, and {txt(' and '.join(below), 'presses observed below expected', was='PR-08 and PR-10')} ran below expectation. The {n(len(lv), 'mart_signals: level after sharpening', was='356')} alarms dispositioned \"level after sharpening\" fall on "
-         f"{n(lv['run_id'].nunique(), 'mart_signals: runs with level after sharpening', was='12')} runs where a die came back from sharpening at a new level and its verification failed; they are the verification doing its work, and each started a new baseline.")
-    sig["rule_label"] = sig["chart"] + " rule " + sig["rule"].astype(str); sig["cause"] = np.where(sig["assignable_cause"], sig["cause_code"], "no cause found")
-    tab = sig.pivot_table(index="rule_label", columns="cause", values="alarm_id", aggfunc="count", fill_value=0)
-    pg.figure(FIG.signals_by_rule_and_cause(tab), "Figure 2: Signals by rule and cause", "Alarms in the quarter by chart and rule, divided by the cause recorded at closure.")
-    rx = ac.groupby("cause_code").agg(alarms=("alarm_id", "count"), am=("minutes_to_acknowledge", "median"), ax=("minutes_to_acknowledge", "max"), cm_=("minutes_to_close", "median"), cx=("minutes_to_close", "max")).reset_index()
-    pg.table("Assignable causes: time to reaction and closure", rx, {"cause_code": "Cause", "alarms": "Alarms", "am": "Minutes to acknowledge, median", "ax": "Minutes to acknowledge, longest", "cm_": "Minutes to close, median", "cx": "Minutes to close, longest"},
-             {"Alarms": F0, "Minutes to acknowledge, median": F1, "Minutes to acknowledge, longest": F1, "Minutes to close, median": F1, "Minutes to close, longest": F1})
-    famsig = sig[sig["family_part"]]
-    fa = famsig[famsig["assignable_cause"]]; lr = fa[fa["cause_code"] == "level after the rebuild"]
-    vr = query("select max(verified_at) v, max(event_date) e from marts.mart_limit_verifications where part_id = 'P-14026' and die_event = 'rebuild' and result = 'failed'").iloc[0]
-    pg.p(f"The family's charts raised {n(len(famsig), 'mart_signals: family alarms, quarter', was='484')} alarms in the quarter, {n(len(fa), 'mart_signals: family alarms with an assignable cause', was='54')} with an assignable cause: the {n(len(fd), 'mart_signals: fixture drift alarms', was='30')} fixture-drift alarms on P-14026 on 28 and 29 May, "
-         f"{n(len(lr), 'mart_signals: level after the rebuild, family', was='23')} on P-14026 after its rebuild of {txt(pd.Timestamp(vr.e).strftime('%d %B').lstrip('0'), 'mart_limit_verifications.event_date, P-14026 rebuild', was='28 May')}, whose verification failed on {txt(pd.Timestamp(vr.v).strftime('%d %B').lstrip('0'), 'mart_limit_verifications.verified_at, P-14026', was='30 June')}, and the soft coil on C-15731-07. The other "
-         f"{n(int((~famsig['assignable_cause']).sum()), 'mart_signals: family alarms, no cause found', was='430')} were closed as no cause found.")
-    fl = famsig[["raised_at", "characteristic_id", "chart", "rule", "subgroup_type", "disposition", "cause_code", "minutes_to_acknowledge", "minutes_to_close"]].copy()
-    fl["raised_at"] = fl["raised_at"].map(lambda t: pd.Timestamp(t).strftime("%d %b %H:%M").lstrip("0")); fl["cause_code"] = fl["cause_code"].fillna("")
-    pg.table("The family's signal log, April to June 2026", fl, {"raised_at": "Raised", "characteristic_id": "Characteristic", "chart": "Chart", "rule": "Rule", "subgroup_type": "Subgroup", "disposition": "Disposition", "cause_code": "Cause", "minutes_to_acknowledge": "Minutes to acknowledge", "minutes_to_close": "Minutes to close"},
-             {"Rule": F0, "Minutes to acknowledge": F1, "Minutes to close": F1})
-
-    # ═══════════════ 3. Limits governance
-    pg.h2("limits", "3. Limits governance")
-    rq = query("select trigger, chart, cast(sum(limit_sets_in_quarter) as integer) n from marts.mart_limit_recalculations group by all having sum(limit_sets_in_quarter) > 0 order by 1, 2")
-    rt_ = rq.groupby("trigger")["n"].sum()
-    vq = query("select * from marts.mart_limit_verifications where in_quarter"); vt = vq.groupby(["chart", "die_event"]).agg(verifications=("verification_id", "count"), failed=("result", lambda s: int((s == "failed").sum()))).reset_index()
-    vx = vt.set_index(["chart", "die_event"]); sharp = vq[vq["die_event"] == "sharpening"]; tw_fail = vq[(vq["chart"] == "three-way") & (vq["result"] == "failed")]
-    pg.p(f"No chart is past its recalculation trigger at 30 June, and {n(int(rq['n'].sum()), 'mart_limit_recalculations.limit_sets_in_quarter', was='53')} new limit sets were issued in the quarter: {n(rt_['rebuild'], 'rebuild, quarter', was='21')} after rebuilds, {n(rt_['tool-wear re-fit'], 'tool-wear re-fit, quarter', was='20')} regression lines re-fitted, {n(rt_['failed verification'], 'failed verification, quarter', was='9')} after failed verifications and "
-         f"{n(rt_['annual review'], 'annual review, quarter', was='3')} from the annual review. Of {n(len(sharp), 'mart_limit_verifications: verifications after a sharpening, quarter', was='339')} verifications after a sharpening, {n(int((sharp['result'] == 'failed').sum()), 'failed after a sharpening, quarter', was='10')} failed, "
-         f"{'all' if int((sharp['result'] == 'failed').sum()) == vx.at[('X-bar and R', 'sharpening'), 'failed'] else 'not all'} on X-bar and R charts; of {n(vx.at[('three-way', 'rebuild'), 'verifications'], 'three-way verifications after a rebuild, quarter', was='30')} three-way verifications after a rebuild, {n(len(tw_fail), 'three-way failed, quarter', was='3')} failed, all on "
-         f"{txt(tw_fail['part_id'].iloc[0], 'mart_limit_verifications.part_id, three-way failures', was='P-14026')} on {txt(pd.Timestamp(tw_fail['verified_at'].max()).strftime('%d %B').lstrip('0'), 'mart_limit_verifications.verified_at', was='30 June')}.")
-    pg.table("Recalculations in the quarter by trigger and chart", rq, {"trigger": "Trigger", "chart": "Chart", "n": "New limit sets"}, {"New limit sets": F0})
-    pg.table("Verifications completed in the quarter", vt, {"chart": "Chart", "die_event": "After", "verifications": "Verifications", "failed": "Failed"}, {"Verifications": F0, "Failed": F0})
-    bip = cif[cif["in_baseline"]].copy(); c23 = bip[bip["characteristic_id"] == "C-23264-03"].iloc[0]
-    pg.p(f"{n(len(bip), 'mart_charts_in_force.in_baseline', was='16')} charts are in a baseline at 30 June: {n(int((bip['chart_type'] == 'Xbar-R').sum()), 'in baseline, X-bar and R', was='12')} X-bar and R and {n(int((bip['chart_type'] == 'three-way (I-MR-R)').sum()), 'in baseline, three-way', was='4')} three-way. One of them, C-23264-03 on PR-08, has been in baseline since {txt(DAY(c23.baseline_started), 'mart_charts_in_force.baseline_started', was='1 December 2025')} with "
-         f"{n(c23.baseline_subgroups_so_far, 'mart_charts_in_force.baseline_subgroups_so_far', was='21')} of 25 subgroups after seven months; its previous limits stay in force as provisional.")
-    bip["started"] = bip["baseline_started"].map(DAY); bip["so_far"] = bip["baseline_subgroups_so_far"].astype(float); bip["coils"] = bip["baseline_coil_changes_so_far"].astype(float)
-    pg.table("Baselines in progress at 30 June 2026", bip, {"characteristic_id": "Characteristic", "part_id": "Part", "press_id": "Press", "chart_type": "Chart", "started": "Baseline started", "so_far": "Subgroups so far", "coils": "Coil changes so far"},
-             {"Subgroups so far": F0, "Coil changes so far": F0}, note="A three-way baseline needs 25 subgroups spanning ten coil changes; an X-bar and R baseline, 25 subgroups.")
-
-    # ═══════════════ 4. Capability
-    pg.h2("capability", "4. Capability")
-    fq = cap[cap["characteristic_class"] == "formed"]
-    pg.p(f"Capability held above 1.33 on {n(int((~ccap['under_1_33']).sum()), 'critical at or above 1.33', was='93')} of the {n(len(ccap), 'critical characteristics', was='100')} critical characteristics with 60 subgroups or more in the quarter. Medians by class: formed Ppk {n(cm['formed'], 'formed Ppk median', '{:.2f}', was='1.51')} (interquartile range "
-         f"{n(fq['ppk'].quantile(0.25), 'formed Ppk, 25th percentile', '{:.2f}', was='1.41')} to {n(fq['ppk'].quantile(0.75), 'formed Ppk, 75th percentile', '{:.2f}', was='1.59')}), hole position {n(cm['hole position'], 'hole position Ppk median', '{:.2f}', was='1.64')}, hole diameter {n(cm['hole diameter'], 'hole diameter Ppk median', '{:.2f}', was='1.63')}, flatness Ppu {n(cm['flatness'], 'flatness Ppu median', '{:.2f}', was='1.81')}. Cpk sits "
-         f"{n(fq['cpk_less_ppk'].median(), 'formed Cpk less Ppk, median', '{:.2f}', was='0.09')} above Ppk on formed characteristics, which is the coil offset left after centring, and {n(cap[cap['characteristic_class'] == 'hole diameter']['cpk_less_ppk'].median(), 'hole diameter Cpk less Ppk, median', '{:.2f}', was='0.38')} above on hole diameters, which is the wear over the interval that Ppk carries and Cpk, taken about the regression line, does not.")
-    rows = []
-    for cls, g in cap.groupby("characteristic_class"):
-        rows.append({"class": cls, "n": len(g), "ppk": g["ppk"].median(), "iqr": f"{g['ppk'].quantile(0.25):.2f} to {g['ppk'].quantile(0.75):.2f}", "cpk": g["cpk"].median(), "gap": g["cpk_less_ppk"].median(), "u": int(g["under_1_33"].sum()), "def": g["cpk_definition"].iloc[0], "idx": g["index_reported"].iloc[0]})
-    pg.table("Cpk and Ppk by class, April to June 2026", pd.DataFrame(rows), {"class": "Class", "n": "Characteristics", "ppk": "Ppk, median", "iqr": "Ppk, interquartile range", "cpk": "Cpk, median", "gap": "Cpk less Ppk", "u": "Under 1.33", "def": "Cpk on", "idx": "Index"},
-             {"Characteristics": F0, "Ppk, median": F2, "Cpk, median": F2, "Cpk less Ppk": F2, "Under 1.33": F0}, note="Critical characteristics with 60 routine subgroups or more in the quarter, and every flatness characteristic; flatness carries the upper index only.")
-    order = ["formed", "hole diameter", "hole position", "flatness"]
-    pg.figure(FIG.plant_ppk_by_class(cap, order), "Figure 4: Plant Ppk by class", "Each point is one characteristic's Ppk for the quarter (Ppu on flatness), with the box from the 25th to the 75th percentile and the median; 1.33 marked.")
-    fc = cap[cap["family_part"]].copy(); fbelow = fc[fc["under_1_33"]]; fabove = fc[~fc["under_1_33"]]; c03 = fc[fc["characteristic_id"] == "C-15731-03"].iloc[0]
-    b5, b6 = fc[fc["characteristic_id"] == "C-15731-05"].iloc[0], fc[fc["characteristic_id"] == "C-15731-06"].iloc[0]
-    pg.p(f"On the family, {n(len(fabove), 'mart_capability: family at or above 1.33', was='11')} of {n(len(fc), 'mart_capability: family characteristics', was='13')} critical characteristics are above 1.33, {wd(int((fabove['ppk_low'] > 1.33).sum()), 'family with the interval clear of 1.33', was='ten')} of them with their 95% intervals clear of it; C-15731-03's interval reaches down to "
-         f"{n(c03.ppk_low, 'mart_capability.ppk_low, C-15731-03', '{:.2f}', was='1.30')}. {wd(len(fbelow), 'family below 1.33', was='Two').capitalize()} formed heights on P-15731 are below: C-15731-05 at {n(b5.ppk, 'ppk, C-15731-05', '{:.2f}', was='1.30')} ({n(b5.ppk_low, 'ppk_low, C-15731-05', '{:.2f}', was='1.22')} to {n(b5.ppk_high, 'ppk_high, C-15731-05', '{:.2f}', was='1.38')}) and C-15731-06 at "
-         f"{n(b6.ppk, 'ppk, C-15731-06', '{:.2f}', was='1.23')} ({n(b6.ppk_low, 'ppk_low, C-15731-06', '{:.2f}', was='1.15')} to {n(b6.ppk_high, 'ppk_high, C-15731-06', '{:.2f}', was='1.31')}). Intervals are Bissell's approximation.")
-    pg.figure(FIG.family_ppk(fc), "Figure 3: The family: Ppk with 95% intervals", "Ppk for April to June 2026 on each of the family's critical characteristics with 60 subgroups or more, with its 95% interval by Bissell's approximation; 1.33 marked.")
-    u = cap[cap["under_1_33"]].merge(query("select characteristic_id, share_between_coils, trend_share from marts.mart_variance_components"), on="characteristic_id", how="left")
-    uf = u[u["characteristic_class"] == "formed"]; c39 = u[u["characteristic_id"] == "C-39736-01"].iloc[0]
-    fmed = float(query("select median(share_between_coils) m from marts.mart_variance_components where characteristic_class = 'formed' and critical")["m"].iloc[0])
-    pg.p(f"The {wd(len(u), 'mart_capability: under 1.33', was='seven')} characteristics under 1.33 carry no special cause; their shortfall is the variation the charts are designed to live with. On the {wd(len(uf), 'formed under 1.33', was='six')} formed characteristics the between-coil share of the routine record runs "
-         f"{n(100 * uf['share_between_coils'].min(), 'share_between_coils, formed under 1.33, lowest', '{:.0f}', was='7')}% to {n(100 * uf['share_between_coils'].max(), 'share_between_coils, formed under 1.33, highest', '{:.0f}', was='31')}%, against a class median of {pct(fmed, 'mart_variance_components.share_between_coils, formed, median', was='13.5%')}; on C-39736-01 (hole diameter, PR-09) the wear trend takes Ppk to "
-         f"{n(c39.ppk, 'ppk, C-39736-01', '{:.2f}', was='1.32')} while Cpk about the line is {n(c39.cpk, 'cpk, C-39736-01', '{:.2f}', was='2.12')}. Each had only signals closed as no cause found in the quarter. The two P-15731 heights and C-16315-06 are the ones to take to the customer at the next review.")
-    ev = []
-    for r in u.itertuples():
-        s_ = sig[sig["characteristic_id"] == r.characteristic_id]; ev.append(f"{len(s_)}, " + ("none" if s_.empty else "; ".join(f"{k} {v}" for k, v in s_["cause"].value_counts().items())))
-    u["evidence"] = ev
-    pg.table("Characteristics under Ppk 1.33, with the chart evidence", u, {"characteristic_id": "Characteristic", "press_id": "Press", "characteristic_class": "Class", "ppk": "Ppk", "cpk": "Cpk", "share_between_coils": "Between-coil share", "trend_share": "Wear trend", "evidence": "Signals in the quarter and their causes"},
-             {"Ppk": F2, "Cpk": F2, "Between-coil share": P1, "Wear trend": P1}, note="Shares of the routine record's variance over the year.")
-
-    # ═══════════════ 5. Measurement gating
-    pg.h2("measurement", "5. Measurement gating")
-    gsq = query("select * from marts.mart_gauge_studies where in_quarter order by study_date, gauge_id"); fx = query("select * from marts.mart_gauge_studies where latest_on_file and gauge_type = 'check fixture'")
-    band = gsq["grr_band"].value_counts(); fb = fx["grr_band"].value_counts()
-    pg.p(f"No gauge fed a chart without a current calibration and study in the quarter, and the one fixture that drifted was off the floor within a day of its verification failing. At 30 June no gauge is past calibration due or away for calibration; {n(int(var['study_date'].notna().sum()), 'mart_charts_in_force: variable charts with a study', was='897')} of {n(len(var), 'variable charts', was='897')} variable charts have a study on file. "
-         f"{n(len(gsq), 'mart_gauge_studies: studies in the quarter', was='66')} gauge studies were run in the quarter, {n(int((gsq['gauge_type'] == 'check fixture').sum()), 'studies on check fixtures', was='52')} on check fixtures: {n(band.get('under 10%', 0), 'under 10%', was='59')} under 10% of tolerance and {n(band.get('10% to 30%', 0), '10% to 30%', was='7')} at 10% to 30%, {wd(int(gsq[(gsq['grr_band'] == '10% to 30%') & gsq['restudy_due'].notna()].shape[0]), 'mart_gauge_studies: 10% to 30% with a restudy date', was='six')} with a restudy scheduled and the seventh, {txt(gsq[(gsq['grr_band'] == '10% to 30%') & gsq['restudy_due'].isna()]['gauge_id'].iloc[0], 'mart_gauge_studies: 10% to 30% without a restudy date', was='F-14026')}, rebuilt. Across all "
-         f"{n(len(fx), 'check fixtures on file', was='180')} check fixtures the latest study is under 10% on {n(fb.get('under 10%', 0), 'fixtures under 10%', was='164')} and at 10% to 30% on {n(fb.get('10% to 30%', 0), 'fixtures at 10% to 30%', was='16')}, none over 30%.")
-    gall = query("select quarter_end, count(*) gauges, count(*) filter (where past_due) past_due, count(*) filter (where past_due and feeds_a_chart) pdf, count(*) filter (where away_for_calibration) away, count(*) filter (where away_for_calibration and feeds_a_chart) awf from marts.mart_gauge_quarter_end group by 1 order by 1")
-    gall["quarter_end"] = gall["quarter_end"].map(DAY)
-    pg.table("Calibration status at each quarter end", gall, {"quarter_end": "Quarter end", "gauges": "Gauges", "past_due": "Past calibration due", "pdf": "Past due, feeding a chart", "away": "Away for calibration", "awf": "Away, feeding a chart"},
-             {"Gauges": F0, "Past calibration due": F0, "Past due, feeding a chart": F0, "Away for calibration": F0, "Away, feeding a chart": F0})
-    f5 = gsq[gsq["gauge_type"] == "check fixture"].copy(); f5["label"] = f5["gauge_id"] + " (" + f5["study_date"].map(lambda d: pd.Timestamp(d).strftime("%d %b").lstrip("0")) + ")"
-    pg.figure(FIG.grr_before_after(f5), "Figure 5: %GRR before and after, fixtures studied in the quarter", "Each row is one study of a check fixture in the quarter (%GRR of tolerance, ANOVA method) beside the fixture's previous study; F-14026 appears twice, on its restudy after the failed verification and after its rebuild.")
-    pg.p(f"F-14026 showed on the charts before the verification caught it. Its {n(len(fd), 'fixture drift alarms', was='30')} alarms on 28 and 29 May preceded the failed daily verification of 2 June by {wd((pd.Timestamp(fv.verification_date) - pd.Timestamp(fd['raised_at'].max()).normalize()).days, 'days from the last drift alarm to the failed verification', was='four')} days; the restudy on 3 June read "
-         f"{n(gs14.iloc[0].pct_grr_of_tolerance, 'restudy %GRR', '{:.1f}', was='16.7')}% of tolerance with {n(gs14.iloc[0].ndc, 'restudy ndc', was='4')} distinct categories, the fixture was rebuilt and restudied on 17 June at {n(gs14.iloc[-1].pct_grr_of_tolerance, 'after-rebuild %GRR', '{:.1f}', was='5.3')}% with {n(gs14.iloc[-1].ndc, 'after-rebuild ndc', was='15')}, and it returned to service on 18 June. P-14026 did not run while it was out. The daily verifications otherwise passed "
-         f"{n(int(query('select count(*) n from marts.mart_fixture_verifications where in_quarter and result = ' + chr(39) + 'pass' + chr(39))['n'].iloc[0]), 'mart_fixture_verifications: passes, quarter', was='1,052')} times and failed once.")
-    kall = query("select * from marts.mart_operator_kappa order by operator_id, study_date"); lq = kall[kall["latest"]]
-    pg.p(f"All {n(len(lq), 'mart_operator_kappa: operators', was='24')} burr check operators are qualified at 30 June, at kappa {n(lq['kappa'].min(), 'latest kappa, lowest', '{:.2f}', was='0.78')} to {n(lq['kappa'].max(), 'latest kappa, highest', '{:.2f}', was='0.89')} against the burr gauge, median {n(lq['kappa'].median(), 'latest kappa, median', '{:.2f}', was='0.82')}. E-1006 fell to "
-         f"{n(kq.iloc[0].kappa, 'kappa, 14 April', '{:.2f}', was='0.66')} on 14 April and was requalified on 28 April at {n(kq.iloc[-1].kappa, 'kappa, 28 April', '{:.2f}', was='0.83')}; no burr check by E-1006 is recorded between the two studies.")
-    pg.figure(FIG.kappa_by_operator(kall, 0.75), "Figure 6: Kappa by operator", "Every burr check qualification in the record, by operator, against the requalification line; E-1006's studies are marked, with the quarter's two labelled.")
-    ms = query("select sum(subgroups) n, sum(subgroups_on_gauge_away) a, sum(subgroups_on_gauge_past_due) p from marts.mart_measurement_subgroups where in_quarter").iloc[0]
-    aw = query("""select cast(h.sample_time as date) - g.out_of_service_from as days_after, (cast(r.actual_start as date) <= g.out_of_service_from) as run_begun_before
+    # measurement gating: where each subgroup recorded against a gauge away falls against the gauge's dates out and back
+    aw = query("""select h.subgroup_id, h.gauge_id, h.characteristic_id, h.sample_time, g.out_of_service_from o, g.back_in_service b, cast(r.actual_start as date) rs
                   from intermediate.int_characteristic_history h join intermediate.int_run_shots r using (run_id)
                   join intermediate.int_gauge_status g on g.gauge_id = h.gauge_id and cast(h.sample_time as date) between g.out_of_service_from and coalesce(g.back_in_service, date '2100-01-01')
                   where h.gauge_out_of_service and h.in_quarter""")
-    later = aw[~aw["run_begun_before"]]
-    pg.p(f"{n(ms.a, 'mart_measurement_subgroups.subgroups_on_gauge_away, quarter', was='261')} subgroups, {pct(ms.a / ms.n, 'share of the quarter', 2, was='0.27%')} of the quarter's, were recorded against a gauge away for calibration, and {'none' if ms.p == 0 else n(ms.p, 'past due')} against a gauge past due. "
-         f"{n(int(aw['run_begun_before'].sum()), 'int_characteristic_history with int_gauge_status: on runs begun on or before the removal day', was='89')} are on runs begun before the removal was entered; the other {n(len(later), 'the rest', was='172')} fall {n(later['days_after'].min(), 'days after the removal, fewest', was='1')} to "
-         f"{n(later['days_after'].max(), 'days after the removal, most', was='15')} days after it, which the terminal should have blocked, and are referred to the calibration administrator.")
+    dd = pd.to_datetime(aw["sample_time"]).dt.normalize()
+    aw["where"] = np.where(dd == pd.to_datetime(aw["o"]), "removal day", np.where(dd == pd.to_datetime(aw["b"]), "return day", "between"))
+    between = aw[aw["where"] == "between"]; retday = aw[aw["where"] == "return day"]
+    assert (pd.to_datetime(between["rs"]) <= pd.to_datetime(between["o"])).all() and not between["subgroup_id"].isin(query("select subgroup_id from marts.mart_signals")["subgroup_id"]).any()
+    assert not aw["subgroup_id"].isin(query("select subgroup_id from marts.mart_phase1_baseline_subgroups")["subgroup_id"]).any()
+    gq = query("select * from marts.mart_gauge_quarter_end where quarter_end = cast('2026-06-30' as date)")
+    out_now = set(gq[gq["past_due"] | gq["away_for_calibration"]]["gauge_id"])
+    on_out = int(var["gauge_id"].isin(out_now).sum())
+    meas_head = (f"{n(len(between), 'int_characteristic_history with int_gauge_status: subgroups recorded strictly between a gauge removal and its return', was='9')} subgroups, on "
+                 f"{wd(between['gauge_id'].nunique(), 'gauges with a subgroup recorded while away', was='two')} gauges, were recorded while the gauge was away, all on runs begun before the removal, and none signaled; "
+                 "no chart took limits from a gauge out of service")
+    meas_ret = f"The record dates a gauge's return without a time, so {n(len(retday), 'subgroups on the return day of a gauge', was='252')} subgroups on return days cannot be placed before or after it"
 
-    # ═══════════════ 6. Dies and per-stroke monitoring
-    pg.h2("dies", "6. Dies and per-stroke monitoring")
+    # ═══════════════ 2. Capability Review (built first, the summary is written last)
+    body_summary_at = len(pg.body)
+    pg.h2("capability", "2. Capability Review")
+    below = cap[cap["ppk"] < 1.33].copy()
+    assert below["critical"].all() and set(below["cls"]) == {"formed", "hole diameter"}
+    pg.p(f"Capability held through the quarter on all but {wd(len(below), 'mart_capability: below 1.33, quarter', was='seven')} critical characteristics, and none of those carries a special cause.")
+    pg.h3("where", "2.1 Where capability stands")
+    pg.p(f"{n(int((ccap['ppk'] >= 1.33).sum()), 'mart_capability: critical characteristics at or above 1.33, quarter', was='93')} of {n(len(ccap), 'mart_capability: critical characteristics with 60 routine subgroups or more, quarter', was='100')} critical characteristics ran above Ppk 1.33; "
+         f"the {wd(len(below), 'mart_capability: below 1.33, quarter', was='seven')} below are {wd(int((below['cls'] == 'formed').sum()), 'below 1.33, formed', was='six')} formed characteristics and {wd(int((below['cls'] == 'hole diameter').sum()), 'below 1.33, hole diameter', was='one')} hole diameter. "
+         f"The {n(int((cap['cls'] == 'flatness').sum()), 'mart_capability: flatness characteristics, quarter', was='11')} flatness characteristics, reported on Ppu, all ran above it.")
+    assert (cap.loc[cap["cls"] == "flatness", "ppk"] >= 1.33).all()
+    for r in cap.itertuples():
+        pg.figval(fno[0] + 1, f"{r.ppk:.2f}", f"mart_capability.ppk, {r.characteristic_id}")
+    pg.figure(FIG.ppk_by_class(cap[["characteristic_id", "cls", "ppk"]]), F("Ppk by class"))
+    pg.h3("design-explains", "2.2 What the chart design explains")
+    gap = cap.groupby("cls")["cpk_less_ppk"].median()
+    assert abs(gap["cut geometry"]) < 0.02 and abs(gap["flatness"]) < 0.02
+    pg.p(f"Cpk sits close to Ppk on cut geometry and flatness, {n(gap['formed'], 'mart_capability.cpk_less_ppk, formed, median', '{:.2f}', was='0.09')} above on formed characteristics and "
+         f"{n(gap['hole diameter'], 'mart_capability.cpk_less_ppk, hole diameter, median', '{:.2f}', was='0.38')} above on hole diameters: the coil offset left after centering and the wear over the sharpening interval, which the three-way and regression charts carry by design.")
+    pg.figure(FIG.cpk_against_ppk(cap), F("Cpk against Ppk"))
+    pg.h3("year", "2.3 Across the year")
+    QS = ["2025 Q3", "2025 Q4", "2026 Q1", "2026 Q2"]
+    qmed = cap_all[cap_all["period"].isin(QS)].groupby(["period", "cls"])["ppk"].median().reset_index().rename(columns={"period": "quarter"})
+    qcnt = cap_all[cap_all["period"].isin(QS)].groupby("period").agg(population=("ppk", "size"), above=("ppk", lambda s: int((s >= 1.33).sum()))).reindex(QS).reset_index().rename(columns={"period": "quarter"})
+    qcnt["below"] = qcnt["population"] - qcnt["above"]
+    hd = qmed[qmed["cls"] == "hole diameter"].set_index("quarter")["ppk"]; fm = qmed[qmed["cls"] == "formed"].set_index("quarter")["ppk"]
+    earlier = qcnt[qcnt["quarter"] != "2026 Q2"]["below"]
+    pg.p(f"Capability held across the year, with formed characteristics steady at {n(fm.min(), 'mart_capability: formed median Ppk, lowest quarter', '{:.2f}', was='1.49')} to {n(fm.max(), 'mart_capability: formed median Ppk, highest quarter', '{:.2f}', was='1.51')}, "
+         f"but hole diameters eased from {n(hd['2025 Q3'], 'mart_capability: hole diameter median Ppk, 2025 Q3', '{:.2f}', was='1.73')} to {n(hd['2026 Q2'], 'mart_capability: hole diameter median Ppk, 2026 Q2', '{:.2f}', was='1.63')} in the review quarter, "
+         f"and the count below 1.33 rose to {n(int(qcnt.set_index('quarter').at['2026 Q2', 'below']), 'mart_capability: below 1.33, 2026 Q2', was='7')}, from {n(int(earlier.min()), 'mart_capability: below 1.33, earlier quarters, fewest', was='3')} to {n(int(earlier.max()), 'mart_capability: below 1.33, earlier quarters, most', was='4')} in the earlier quarters.")
+    for r in qcnt.itertuples():
+        pg.figval(fno[0] + 1, f"{r.above} of {r.population}", f"mart_capability: at or above 1.33 over the population, {r.quarter}")
+    for r in qmed.itertuples():
+        pg.figval(fno[0] + 1, f"{r.ppk:.2f}", f"mart_capability: median Ppk, {r.cls}, {r.quarter}")
+    pg.figure(FIG.capability_by_quarter(qmed, qcnt), F("Capability by quarter"))
+    pg.h3("below", "2.4 Characteristics below 1.33")
+    u = below.merge(vca[["characteristic_id", "within_share_wear_first", "between_subgroups_share_wear_first", "between_coils_share_wear_first", "wear_share"]], on="characteristic_id", how="left")
+    COMP = {"within_share_wear_first": "within subgroup", "between_subgroups_share_wear_first": "between subgroups", "between_coils_share_wear_first": "between coils", "wear_share": "tool wear"}
+    u["largest"] = u[[c_ for c_ in COMP if c_ != "within_share_wear_first"]].idxmax(axis=1)
+    u["label"] = [f"{COMP[c]} {100 * r[c]:.0f}%" + (f"; Cpk {r.cpk:.2f}" if r.cls == "hole diameter" else "") for c, (_, r) in zip(u["largest"], u.iterrows())]
+    u["customer"] = (u["ppk_high"] < 1.33) | (u["cpk"] < 1.33)
+    cust = sorted(u.loc[u["customer"], "characteristic_id"]); assert cust == ["C-15731-06", "C-16315-06", "C-37007-06"], cust
+    u_sig = sig[sig["characteristic_id"].isin(u["characteristic_id"])]; assert not u_sig["assignable_cause"].any()
+    pg.p(f"None of the {wd(len(u), 'mart_capability: below 1.33, quarter', was='seven')} carries a special cause; each falls short on the variation its chart is built to carry. "
+         f"Three go to the customer, those whose interval lies wholly below 1.33 or whose Cpk is also below it: {txt('C-15731-06, C-37007-06 and C-16315-06', 'mart_capability: ppk_high under 1.33 or cpk under 1.33, quarter', was='C-15731-06, C-37007-06 and C-16315-06')}.")
+    for r in u.itertuples():
+        pg.figval(fno[0] + 1, f"{r.ppk:.2f} ({r.ppk_low:.2f} to {r.ppk_high:.2f}); {r.label}", f"mart_capability and mart_variance_components, {r.characteristic_id}")
+    pg.figure(FIG.below_133(u[["characteristic_id", "ppk", "ppk_low", "ppk_high", "label", "customer"]]), F("Characteristics below Ppk 1.33"))
+    pg.h3("attribute", "2.5 Attribute features")
+    at = query("""select c.characteristic_type t, s.sample_time, s.pieces, coalesce(s.attribute_count, 0) f from staging.stg_spc__subgroups s join marts.mart_charts_in_force c using (characteristic_id)
+                  where c.chart_type = 'p' and s.sample_time >= '2025-07-01' and s.sample_time < '2026-07-01'""")
+    at["quarter"] = pd.to_datetime(at["sample_time"]).dt.to_period("Q").astype(str)
+    ag = at.groupby(["t", "quarter"]).agg(pieces=("pieces", "sum"), fails=("f", "sum")).reset_index()
+    ag["per_million"] = 1e6 * ag["fails"] / ag["pieces"]; ag["lo"] = [1e6 * pci(k, m)[0] for k, m in zip(ag["fails"], ag["pieces"])]; ag["hi"] = [1e6 * pci(k, m)[1] for k, m in zip(ag["fails"], ag["pieces"])]
+    for t_ in ("burr height", "hole diameter"):
+        g_ = ag[ag["t"] == t_]; assert g_["lo"].max() <= g_["hi"].min(), f"{t_} quarters not overlapping"
+    bq = ag[(ag["t"] == "burr height")].set_index("quarter"); pq = ag[(ag["t"] == "hole diameter")].set_index("quarter")
+    pg.p(f"Burr and pin fails ran flat within chance across the year: burr at {n(bq.at['2026Q2', 'per_million'], 'stg_spc__subgroups: burr fails per million, 2026 Q2')} per million pieces checked this quarter against "
+         f"{n(bq.drop('2026Q2')['per_million'].min(), 'burr fails per million, earlier quarters, lowest')} to {n(bq.drop('2026Q2')['per_million'].max(), 'burr fails per million, earlier quarters, highest')} before it, and pins at "
+         f"{n(pq.at['2026Q2', 'per_million'], 'stg_spc__subgroups: pin fails per million, 2026 Q2')} against {n(pq.drop('2026Q2')['per_million'].min(), 'pin fails per million, earlier quarters, lowest')} to {n(pq.drop('2026Q2')['per_million'].max(), 'pin fails per million, earlier quarters, highest')}.")
+    for r in ag.itertuples():
+        pg.figval(fno[0] + 1, f"{r.per_million:.0f}", f"fails per million, {r.t}, {r.quarter} ({r.fails} of {r.pieces:,})")
+    pg.figure(FIG.fails_by_quarter(ag), F("Burr and pin fails per million, by quarter"))
+    pg.h3("by-press", "2.6 By press")
+    pm = cap.pivot_table(index="press_id", columns="cls", values="ppk", aggfunc="median"); pcount = cap.pivot_table(index="press_id", columns="cls", values="ppk", aggfunc="size")
+    low_cells = [(p_, c_) for p_ in pm.index for c_ in pm.columns if pm.at[p_, c_] == pm.at[p_, c_] and pm.at[p_, c_] < 1.33]
+    assert low_cells == [("PR-11", "formed")] and int(pcount.loc["PR-11"].sum()) == 1
+    pg.p(f"No press sits apart; PR-11's one characteristic in the population, {txt(cap[cap['press_id'] == 'PR-11']['characteristic_id'].iloc[0], 'mart_capability: the PR-11 characteristic, quarter', was='C-37007-06')}, is below 1.33.")
+
+    # ═══════════════ 3. SPC Review
+    pg.h2("spc", "3. SPC Review")
+    assert sr["signals_rule_3"].sum() + sr["signals_rule_4"].sum() > sr["signals_rule_1"].sum() + sr["signals_rule_2"].sum()
+    pg.p(f"The charts traced every special cause in the quarter; signals with no assignable cause ran {pct(tot_s / tot_e - 1, 'mart_signal_rates with the expected rate: observed over expected less one, quarter', 0, was='23%')} above the design rate, the excess on rules 3 and 4.")
+    pg.h3("special-causes", "3.1 Special causes")
+    evq = allc.groupby("event").agg(first=("raised_at", "min"), chart_type=("chart_type", "first"), panel=("chart", "first"), cause=("cause_code", "first"), die=("die_id", "first")).reset_index()
+    evq["row"] = np.where(evq["panel"] == "coil-change means", "coil-change", evq["chart_type"].map(CHART_ROW))
+    evq["label"] = evq["cause"].map(SHORT)
+    cc_ = evq["cause"].value_counts()
+    n_dies = int(cc_.get("level after sharpening", 0) + cc_.get("level after the rebuild", 0))
+    assert n_dies == 9 and cc_.get("strip misfeed", 0) == 2 and cc_.get("slug pulling", 0) == 2
+    pg.p(f"The charts traced {n(n_sc, 'mart_signals: special-cause events on the characteristic charts, quarter (die events for level changes, runs otherwise)', was='18')} special causes on the characteristic charts and "
+         f"{n(len(stf), 'mart_per_stroke_stops: stops with a finding, quarter', was='112')} per-stroke stops with a finding, all closed by 30 June: "
+         f"{wd(n_dies, 'mart_signals: level-change die events, quarter', was='nine')} times a die came back from sharpening or rebuild at a new level, a drifting fixture, a soft coil, a sharpening logged at the wrong count, "
+         f"{wd(int(cc_['strip misfeed']), 'strip misfeed events', was='two')} strip misfeeds, {wd(int(cc_['slug pulling']), 'slug pulling events', was='two')} slug pulls, a gauge zero and a lubricant fault.")
+    for r in evq.itertuples():
+        pg.figval(fno[0] + 1, pd.Timestamp(r.first).strftime("%d %b"), f"mart_signals: first signal, {r.event}")
+    pg.figure(FIG.special_cause_timeline(evq[["first", "row", "label"]]), F("Special causes in the quarter"))
+    # F-14026, to the record's timeline
+    fd = sig[sig["cause_code"] == "fixture drift"]; assert set(fd["action"]) == {"fixture removed from service on the failed verification"}
+    rb = query("select event_date from intermediate.int_die_event_timeline where die_id = 'D-4026-A' and event_type = 'rebuild' and event_date between '2026-05-01' and '2026-05-31'").iloc[0]
+    r938 = query("select actual_start, actual_end from intermediate.int_run_shots where run_id = 'R26-00938'").iloc[0]
+    nxt = query("select min(actual_start) s from intermediate.int_run_shots where part_id = 'P-14026' and actual_start > ?", [r938.actual_end])["s"].iloc[0]
+    fvs = query("select verification_date, result from marts.mart_fixture_verifications where gauge_id = 'F-14026' and verification_date between '2026-05-28' and '2026-06-05' order by verification_date")
+    assert list(fvs["result"]) == ["pass", "pass", "fail"]
+    gs14 = query("select study_date, pct_grr_of_tolerance from marts.mart_gauge_studies where gauge_id = 'F-14026' and in_quarter order by study_date")
+    back = query("select back_in_service from intermediate.int_gauge_status where gauge_id = 'F-14026' and event_type = 'rebuild'")["back_in_service"].iloc[0]
+    gap_days = (pd.Timestamp(fvs["verification_date"].iloc[2]).normalize() - pd.Timestamp(fd["closed_at"].max()).normalize()).days
+    assert gap_days == 4
+    D = lambda t_: pd.Timestamp(t_).strftime("%d %B").lstrip("0")
+    pg.p(f"The fixture drift on P-14026 is the quarter's one cause traced to a fixture. D-4026-A was rebuilt on {txt(D(rb.event_date), 'int_die_event_timeline: D-4026-A rebuild', was='16 May')} and first ran on {txt(D(r938.actual_start), 'int_run_shots: R26-00938 start', was='28 May')}; "
+         f"its charts raised {n(len(fd), 'mart_signals: fixture drift signals', was='30')} signals coded fixture drift on 28 and 29 May, while F-14026's daily verifications on both days passed. "
+         f"P-14026 did not run again until {txt(D(nxt), 'int_run_shots: next P-14026 run', was='18 June')}. The fixture's verification failed on {txt(D(fvs['verification_date'].iloc[2]), 'mart_fixture_verifications: F-14026 fail', was='2 June')}, its restudy read "
+         f"{n(gs14['pct_grr_of_tolerance'].iloc[0], 'mart_gauge_studies: F-14026 restudy', '{:.1f}', was='16.7')}%, and it was rebuilt, restudied at {n(gs14['pct_grr_of_tolerance'].iloc[1], 'mart_gauge_studies: F-14026 after rebuild', '{:.1f}', was='5.3')}% on "
+         f"{txt(D(gs14['study_date'].iloc[1]), 'mart_gauge_studies: F-14026 after rebuild, date', was='17 June')} and back in service on {txt(D(back), 'int_gauge_status: F-14026 back in service', was='18 June')}. "
+         f"The {n(len(fd), 'mart_signals: fixture drift signals', was='30')} signals' closures give the action as the fixture's removal on the failed verification, an event {wd(gap_days, 'days from the last closure to the failed verification', was='four')} days after they were closed.")
+    rx = allc.groupby("cause_code").agg(ack_med=("minutes_to_acknowledge", "median"), ack_max=("minutes_to_acknowledge", "max"), close_med=("minutes_to_close", "median"), close_max=("minutes_to_close", "max")).reset_index().rename(columns={"cause_code": "cause"})
+    longest = rx.sort_values("close_max").iloc[-1]
+    pg.p(f"Signals with a special cause were acknowledged in a median {n(allc['minutes_to_acknowledge'].median(), 'mart_signals.minutes_to_acknowledge, special causes, median', '{:.1f}', was='3.1')} minutes and closed in a median "
+         f"{n(allc['minutes_to_close'].median(), 'mart_signals.minutes_to_close, special causes, median', was='130')} minutes; the longest, {txt(longest.cause, 'mart_signals: cause with the longest close', was='fixture drift')}, in "
+         f"{n(longest.close_max, 'mart_signals.minutes_to_close, longest', was='244')}.")
+    for r in rx.itertuples():
+        pg.figval(fno[0] + 1, f"{r.ack_med:.1f}, {r.ack_max:.1f}, {r.close_med:.0f}, {r.close_max:.0f}", f"mart_signals: minutes to acknowledge and close, median and longest, {r.cause}")
+    pg.figure(FIG.reaction_times(rx), F("Time to acknowledge and close, by cause"))
+    pg.h3("flagged", "3.2 What the charts flagged")
+    pg.p(f"In the quarter the routine charts raised {n(len(rt), 'mart_signals: routine signals, quarter', was='3,385')} signals: {n(n_ev, 'mart_signals: special-cause events on the routine charts', was='16')} were the first signal of a special-cause event, "
+         f"{n(n_fol, 'mart_signals: follow-on signals', was='400')} followed on from an event already found, and {n(n_nc, 'mart_signals: routine signals with no assignable cause', was='2,969')} had no assignable cause. "
+         f"The coil-change chart raised {n(len(ccs), 'mart_signals: coil-change chart signals, quarter', was='10')}, and the per-stroke charts stopped the presses {n(len(stp), 'mart_per_stroke_stops: stops, quarter', was='139')} times, "
+         f"{n(len(stf), 'mart_per_stroke_stops: stops with a finding, quarter', was='112')} on a finding. The {n(len(other), 'mart_signals: signals on coil-change and first-piece subgroups of the routine charts', was='671')} signals on coil-change and first-piece subgroups of the routine charts are not shown in the figure.")
+    fl = pd.DataFrame([{"group": "Routine characteristic charts", "a": n_ev, "o": n_fol, "b": n_nc}, {"group": "Coil-change chart", "a": len(soft), "o": 0, "b": len(ccs) - len(soft)},
+                       {"group": "Per-stroke charts", "a": len(stf), "o": 0, "b": len(stp) - len(stf)}])
+    for r in fl.itertuples():
+        pg.figval(fno[0] + 1, f"{r.a:,} / {r.o:,} / {r.b:,}", f"what the charts flagged: {r.group}")
+    pg.figure(DFIG.flagged_bars(fl, "d2_charts_flagged", ("First signal of a special cause", "Follow-on signal", "No assignable cause")), F("What the charts flagged"))
+    pg.h3("expectation", "3.3 Signals against expectation")
+    byc = sr.groupby("cls").agg(subgroups=("subgroups_in_scope", "sum"), signals=("signals_any_rule", "sum"), es=("es", "sum"))
+    byc["observed per 100"] = 100 * byc["signals"] / byc["subgroups"]; byc["expected per 100"] = 100 * byc["es"] / byc["subgroups"]; byc["ratio"] = byc["signals"] / byc["es"]
+    pg.p(f"On charts with no special cause, signals ran at {n(tot_s / tot_e, 'observed over expected, quarter', '{:.2f}', was='1.23')} times the expected rate, broadly across the plant; the excess is on rules 3 and 4 on the regression and X-bar and R charts, as in {D1_LINK}. "
+         f"Cut geometry ran at {n(byc.at['cut geometry', 'ratio'], 'observed over expected, cut geometry', '{:.2f}', was='1.46')} and hole diameter at {n(byc.at['hole diameter', 'ratio'], 'observed over expected, hole diameter', '{:.2f}', was='2.19')}, "
+         f"formed characteristics at {n(byc.at['formed', 'ratio'], 'observed over expected, formed', '{:.2f}', was='0.92')} and flatness at {n(byc.at['flatness', 'ratio'], 'observed over expected, flatness', '{:.2f}', was='0.92')}.")
+    f2 = byc.loc[["formed", "cut geometry", "hole diameter", "flatness"], ["observed per 100", "expected per 100", "ratio"]].reset_index()
+    for r in f2.itertuples():
+        pg.figval(fno[0] + 1, f"{r.ratio:.2f}", f"observed over expected, {r.cls}")
+    pg.figure(DFIG.signals_by_class(f2, {"formed": (0.9, 1.4), "cut geometry": (0.9, 1.4), "hole diameter": (0.9, 1.5), "flatness": (0.9, 1.4)}, name="d2_signals_against_expectation_by_class"), F("Signals against expectation by class"))
+    p1 = sr.groupby("press_id").agg(subgroups=("subgroups_in_scope", "sum"), signals=("signals_any_rule", "sum"), es=("es", "sum")).reset_index()
+    p1["observed per 100"] = 100 * p1["signals"] / p1["subgroups"]; p1["expected per 100"] = 100 * p1["es"] / p1["subgroups"]; p1["ratio"] = p1["signals"] / p1["es"]
+    p1["low"] = [100 * pci(k, m)[0] for k, m in zip(p1["signals"], p1["subgroups"])]; p1["high"] = [100 * pci(k, m)[1] for k, m in zip(p1["signals"], p1["subgroups"])]
+    top = p1.sort_values("ratio", ascending=False); assert list(top["press_id"].head(3)) == ["PR-04", "PR-11", "PR-03"] and list(top["press_id"].tail(2)) == ["PR-10", "PR-08"]
+    pr_ = p1.set_index("press_id")["ratio"]
+    pg.p(f"PR-04, PR-11 and PR-03 ran furthest above expectation, at {n(pr_['PR-04'], 'observed over expected, PR-04', '{:.2f}', was='1.67')}, {n(pr_['PR-11'], 'observed over expected, PR-11', '{:.2f}', was='1.48')} and "
+         f"{n(pr_['PR-03'], 'observed over expected, PR-03', '{:.2f}', was='1.41')} times, and PR-08 and PR-10 below it, at {n(pr_['PR-08'], 'observed over expected, PR-08', '{:.2f}', was='0.71')} and {n(pr_['PR-10'], 'observed over expected, PR-10', '{:.2f}', was='0.79')}.")
+    pg.figure(FIG.observed_expected_by_press(p1), F("Observed against expected signals by press"))
+    pg.p(f"The quarter's signals by rule follow the year's pattern in {D1_LINK}: the causes were found mostly on rules 1 and 2.")
+    pg.h3("per-stroke", "3.4 Per-stroke tonnage")
+    fc = stf["finding_class"].value_counts(); nf_q = stp[stp["finding_class"] == "nothing found"]; n3 = nf_q[nf_q["press_id"] == "PR-03"]
+    pg.p(f"The per-stroke charts stopped the presses {n(len(stp), 'mart_per_stroke_stops: stops, quarter', was='139')} times on {n(srq['strokes'].sum() / 1e6, 'mart_per_stroke_stop_rates.strokes, quarter, millions', '{:.1f}', was='23.2')} million strokes, "
+         f"{n(len(stf), 'stops with a finding, quarter', was='112')} on a finding: {n(int(fc['slug pulling']), 'slug pulling, quarter', was='68')} slug pulling, {n(int(fc['chipped punch']), 'chipped punch, quarter', was='23')} chipped punches and "
+         f"{n(int(fc['worn punch']), 'worn punch, quarter', was='21')} worn punches. PR-03 carried {n(len(n3), 'nothing found on PR-03, quarter', was='18')} of the {n(len(nf_q), 'nothing found, quarter', was='27')} stops with nothing found.")
+    pg.figure(FIG.stops_by_press(srq), F("Per-stroke stops by finding, by press"))
+    rtq = query("select * from marts.mart_per_stroke_run_tonnage")
+    lam, Lx = float(design["ewma_lambda"]), float(design["ewma_L"]); phi = float(rtq["baseline_lag_1_autocorrelation"].median())
+    neff = float(design["ewma_baseline_strokes"]) * (1 - phi) / (1 + phi); nx, nw = A._normal_nodes(11); sx, sw = A._chi_ratio_nodes(neff - 1, 11)
+    est = 1 / sum(a * w / A.ewma_arl(lam, Lx * s, c / np.sqrt(neff), phi) for c, a in zip(nx, nw) for s, w in zip(sx, sw))
+    phc = float(rtq["baseline_channel_share_lag_1_autocorrelation"].median()); nec = float(design["ewma_baseline_strokes"]) * (1 - phc) / (1 + phc)
+    cx, cw = A._normal_nodes(15); sx2, sw2 = A._chi_ratio_nodes(nec - 1, 15); Lcs = float(design["channel_share_L"])
+    r_cs = sum(a * w * (stats.norm.sf(Lcs * s - c / np.sqrt(nec)) + stats.norm.sf(Lcs * s + c / np.sqrt(nec))) for c, a in zip(cx, cw) for s, w in zip(sx2, sw2))
+    sq = srq.merge(presses, on="press_id"); e_ew = float((sq["strokes"] / est).sum()); e_cs = float((sq["strokes"] * sq["load_cell_channels"] * r_cs).sum())
+    r1066 = n3[n3["run_id"] == "R26-01066"]
+    yr3 = query("select run_id, count(*) n from marts.mart_per_stroke_stops where in_record and press_id = 'PR-03' and finding_class = 'nothing found' and chart = 'EWMA on the total' group by 1 order by n desc")
+    assert set(n3["chart"]) == {"EWMA on the total"} and list(yr3["run_id"].head(2)) == ["R26-01066", "R25-01992"]
+    prr = query("select led_by, count(*) n from marts.mart_punch_replacements where in_quarter group by 1").set_index("led_by")["n"]
+    pg.p(f"Stops with nothing found ran at {n(1e6 * len(nf_q) / srq['strokes'].sum(), 'nothing found per million strokes, quarter', '{:.2f}', was='1.16')} per million strokes: the EWMA stopped "
+         f"{n(int((nf_q['chart'] == 'EWMA on the total').sum()), 'nothing found on the EWMA, quarter', was='24')} times against about {n(e_ew, 'design stops with nothing found on the EWMA, quarter', '{:.0f}', was='9')} expected by design, and the channel-share charts "
+         f"{n(int((nf_q['chart'] == 'channel share').sum()), 'nothing found on the channel-share charts, quarter', was='3')} times against about {n(e_cs, 'design stops with nothing found on the channel-share charts, quarter', '{:.0f}', was='12')}. "
+         f"{n(len(r1066), 'nothing found on PR-03 on run R26-01066', was='15')} of PR-03's {n(len(n3), 'nothing found on PR-03, quarter', was='18')} came on R26-01066, the first run after the D-4026-A rebuild, and two runs carry "
+         f"{n(int(yr3['n'].head(2).sum()), 'PR-03 EWMA stops with nothing found on its two heaviest runs, the year', was='29')} of PR-03's {n(int(yr3['n'].sum()), 'PR-03 EWMA stops with nothing found, the year', was='41')} for the year. "
+         f"All {n(int(prr.sum()), 'mart_punch_replacements: quarter', was='44')} punch replacements followed a chart: {n(int(prr.get('channel share', 0)), 'punch replacements after the channel-share chart', was='23')} on the channel-share chart and "
+         f"{n(int(prr.get('EWMA on the total', 0)), 'punch replacements after the EWMA', was='21')} on the EWMA.")
+    pg.h3("limits", "3.5 Limits")
+    rq = query("select trigger, chart, cast(sum(limit_sets_in_quarter) as integer) n from marts.mart_limit_recalculations group by all having sum(limit_sets_in_quarter) > 0 order by 1, 2")
+    rq["chart"] = rq["chart"].replace({"tool-wear": "regression"}); rq["trigger"] = rq["trigger"].replace({"tool-wear re-fit": "regression re-fit"})
+    vq = query("select * from marts.mart_limit_verifications where in_quarter"); vq["chart"] = vq["chart"].replace({"tool-wear": "regression"})
+    vt = vq.groupby("chart").agg(done=("verification_id", "size"), failed=("result", lambda s_: int((s_ == "failed").sum()))).reindex(["X-bar and R", "three-way", "regression"]).reset_index()
+    assert int(cif["past_trigger"].sum()) == 0
+    bip = cif[cif["in_baseline"]].copy(); bip["days"] = (pd.Timestamp("2026-06-30") - pd.to_datetime(bip["baseline_started"]).dt.normalize()).dt.days
+    c23 = bip.set_index("characteristic_id").loc["C-23264-03"]; c34 = bip.set_index("characteristic_id").loc["C-34479-05"]
+    assert set(bip.loc[bip["days"] > 60, "characteristic_id"]) == {"C-23264-03", "C-34479-05"}
+    ls34 = query("select limit_set_id, chart, effective_from from marts.mart_limit_sets where characteristic_id = 'C-34479-05' and effective_to is null").iloc[0]
+    ch34 = query("select changed_on from marts.mart_chart_changes where characteristic_id = 'C-34479-05'").iloc[0]
+    assert ls34.chart == "X-bar and R"
+    pg.p(f"No chart is past its recalculation trigger at 30 June; {n(int(rq['n'].sum()), 'mart_limit_recalculations.limit_sets_in_quarter', was='53')} new limit sets were issued and "
+         f"{n(int(vt['failed'].sum()), 'mart_limit_verifications: failed, quarter', was='13')} of {n(int(vt['done'].sum()), 'mart_limit_verifications: quarter', was='369')} verifications failed. "
+         f"Two baselines are stale: C-23264-03 has been in baseline for {n(int(c23.days), 'mart_charts_in_force: days in baseline, C-23264-03', was='211')} days with {n(int(c23.baseline_subgroups_so_far), 'baseline subgroups so far, C-23264-03', was='21')} of 25 subgroups, "
+         f"and C-34479-05 for {n(int(c34.days), 'mart_charts_in_force: days in baseline, C-34479-05', was='103')} days with {n(int(c34.baseline_subgroups_so_far), 'baseline subgroups so far, C-34479-05', was='38')} subgroups but "
+         f"{wd(int(c34.baseline_coil_changes_so_far), 'baseline coil changes so far, C-34479-05', was='three')} of its {wd(design['three_way_baseline_coil_changes'], 'mart_chart_design.three_way_baseline_coil_changes', was='ten')} coil changes. "
+         f"C-34479-05 still runs on its X-bar and R limits from {txt(pd.Timestamp(ls34.effective_from).strftime('%B %Y'), 'mart_limit_sets.effective_from, C-34479-05 in force', was='April 2024')}, although it moved to a three-way chart on "
+         f"{txt(DAY(ch34.changed_on), 'mart_chart_changes.changed_on, C-34479-05', was='9 March 2026')}.")
+    for r in vt.itertuples():
+        pg.figval(fno[0] + 1, f"{r.failed} of {r.done}", f"mart_limit_verifications: failed of done, {r.chart}")
+    pg.figure(FIG.limits_and_verifications(rq, vt), F("Limit sets and verifications in the quarter"))
+    pg.h3("measurement", "3.6 Measurement systems")
+    gsq = query("select * from marts.mart_gauge_studies where in_quarter order by study_date, gauge_id")
+    gend = query("select quarter_end, count(*) filter (where past_due) pd from marts.mart_gauge_quarter_end group by 1"); assert (gend["pd"] == 0).all()
+    gg = var.groupby("gauge_id").agg(t=("gauge_type", "first"), pct=("pct_grr_of_tolerance", "first"))
+    fx_ = gg[gg["t"] == "check fixture"]; assert set(gg["t"]) == {"check fixture", "caliper", "indicator"} and (gg[gg["t"] != "check fixture"]["pct"] < 10).all()
+    pg.p(f"{meas_head[0].upper() + meas_head[1:]}.")
+    pg.p(f"{meas_ret}. No gauge was past calibration due at any quarter end, and {n(len(gsq), 'mart_gauge_studies: studies in the quarter', was='66')} gauge studies were run in the quarter. "
+         f"Of the {n(len(gg), 'mart_charts_in_force: gauges on variable charts', was='221')} gauges on variable charts, the {n(len(fx_), 'check fixtures on variable charts', was='180')} check fixtures have %GRR under 10% on "
+         f"{n(int((fx_['pct'] < 10).sum()), 'check fixtures under 10%', was='164')} and 10% to 30% on {n(int(((fx_['pct'] >= 10) & (fx_['pct'] < 30)).sum()), 'check fixtures at 10% to 30%', was='16')}; the "
+         f"{n(int((gg['t'] == 'caliper').sum()), 'calipers on variable charts', was='29')} calipers and {n(int((gg['t'] == 'indicator').sum()), 'indicators on variable charts', was='12')} indicators are all under 10%.")
+    gfx = gsq[gsq["gauge_type"] == "check fixture"].copy()
+    band = (((gfx["pct_grr_of_tolerance"] >= 10) & (gfx["pct_grr_of_tolerance"] < 30)) | ((gfx["previous_pct_grr"] >= 10) & (gfx["previous_pct_grr"] < 30))) | (gfx["gauge_id"] == "F-14026")
+    rest = gfx[~band]
+    pg.p(f"Of the {n(len(gfx), 'mart_gauge_studies: check fixture studies in the quarter', was='52')} fixture studies in the quarter, {n(len(rest), 'fixture studies in the quarter under 10% at both studies, F-14026 aside', was='44')} read under 10%, within "
+         f"{n((rest['pct_grr_of_tolerance'] - rest['previous_pct_grr']).abs().max(), 'largest move of %GRR, those fixtures', '{:.1f}', was='2.8')} points of the fixture's previous study; the figure shows the other {wd(len(gfx) - len(rest), 'fixture studies shown in the figure', was='eight')}.")
+    f5 = gfx[band].copy(); f5["label"] = f5["gauge_id"] + " (" + f5["study_date"].map(lambda d_: pd.Timestamp(d_).strftime("%d %b").lstrip("0")) + ")"
+    for r in f5.itertuples():
+        pg.figval(fno[0] + 1, f"{r.previous_pct_grr:.1f} to {r.pct_grr_of_tolerance:.1f}", f"mart_gauge_studies: previous and this study, {r.label}")
+    pg.figure(FIG.grr_before_after(f5), F("%GRR before and after"))
+    kall = query("select * from marts.mart_operator_kappa order by operator_id, study_date"); lq = kall[kall["latest"]]
+    kq = kall[(kall["operator_id"] == "E-1006") & kall["in_quarter"]].sort_values("study_date")
+    btw = query("""select count(*) n from staging.stg_spc__subgroups s join staging.stg_spc__characteristics c using (characteristic_id)
+                   where s.operator_id = 'E-1006' and c.type = 'burr height' and cast(s.sample_time as date) > ? and cast(s.sample_time as date) < ?""", [kq.iloc[0].study_date, kq.iloc[-1].study_date])["n"].iloc[0]
+    assert int(btw) == 0
+    pg.p(f"All {n(len(lq), 'mart_operator_kappa: operators', was='24')} burr check operators are qualified at 30 June, at kappa {n(lq['kappa'].min(), 'latest kappa, lowest', '{:.2f}', was='0.78')} to "
+         f"{n(lq['kappa'].max(), 'latest kappa, highest', '{:.2f}', was='0.89')}; E-1006 fell to {n(kq.iloc[0].kappa, 'kappa, E-1006, 14 April', '{:.2f}', was='0.66')} on {txt(D(kq.iloc[0].study_date), 'E-1006 below the line, date', was='14 April')} and was requalified on "
+         f"{txt(D(kq.iloc[-1].study_date), 'E-1006 requalified, date', was='28 April')} at {n(kq.iloc[-1].kappa, 'kappa, E-1006, 28 April', '{:.2f}', was='0.83')}, with no burr check recorded between.")
+    pg.figure(FIG.kappa_by_operator(kall, 0.75), F("Kappa by operator"))
+    pg.h3("dies", "3.7 Dies, first piece and recording")
     sh = query("select * from marts.mart_sharpenings where in_quarter order by sharpened_on, die_id"); shr = sh[sh["is_run_interval"]]; late = shr[shr["late"]]
-    pg.p(f"Dies were sharpened at or before their due count on {n(int((~shr['late']).sum()), 'mart_sharpenings: on time, quarter', was='69')} of {n(len(shr), 'mart_sharpenings: quarter', was='76')} sharpenings, and burr reached at most {pct(sh['burr_peak_share_of_limit'].max(), 'mart_sharpenings.burr_peak_share_of_limit, highest', was='90.8%')} of its limit on any interval. The {wd(len(late), 'late sharpenings', was='seven')} late sharpenings overran by "
-         f"{n(100 * (late['share_of_due_count'].min() - 1), 'late overrun, smallest', '{:.0f}', was='1')}% to {n(100 * (late['share_of_due_count'].max() - 1), 'late overrun, largest', '{:.0f}', was='9')}% of the count, each with a reason in the log: a toolmaker on a rebuild, punch steel on order, or a die booked on a running order. High-speed dies are pulled at a median "
-         f"{pct(shr[shr['press_group'] == 'high_speed']['share_of_due_count'].median(), 'share of the due count, high-speed, median', 0, was='87%')} of their count and medium dies at {pct(shr[shr['press_group'] == 'medium']['share_of_due_count'].median(), 'share of the due count, medium, median', 0, was='96%')}.")
-    late = late.copy(); late["on"] = late["sharpened_on"].map(DAY)
-    pg.table("Sharpenings against the due count; the late sharpenings", late, {"die_id": "Die", "press_id": "Press", "on": "Sharpened", "shots_in_interval_logged": "Shots in the interval", "sharpening_due_count": "Due count", "share_of_due_count": "Share of the count", "late_reason": "Reason in the log"},
-             {"Shots in the interval": F0, "Due count": F0, "Share of the count": P1})
-    pg.figure(FIG.sharpening_share(shr), "Figure 7: Shots at sharpening over the due count, by press group", "Each sharpening in the quarter that closes a logged interval: the shots in the interval as a share of the die's due count, by press group.")
-    stp = query("select * from marts.mart_per_stroke_stops where in_quarter"); srq = query("select * from marts.mart_per_stroke_stop_rates where period = 'quarter' order by press_id")
-    srec = query("select sum(strokes) s, sum(stops_nothing_found) nf from marts.mart_per_stroke_stop_rates where period = 'record'").iloc[0]; fcq = stp["finding_class"].value_counts(); p3 = srq.set_index("press_id").loc["PR-03"]
-    peq = query("select * from marts.mart_parts_exposed where in_quarter")
-    pg.p(f"The per-stroke charts stopped the presses {n(len(stp), 'mart_per_stroke_stops: stops, quarter', was='139')} times on {n(srq['strokes'].sum() / 1e6, 'mart_per_stroke_stop_rates.strokes, quarter, millions', '{:.1f}', was='23.2')} million strokes: {n(fcq['slug pulling'], 'slug pulling, quarter', was='68')} on slug pulling, {n(fcq['chipped punch'], 'chipped punch, quarter', was='23')} on a chipped punch, {n(fcq['worn punch'], 'worn punch, quarter', was='21')} on a worn punch, and "
-         f"{n(fcq['nothing found'], 'nothing found, quarter', was='27')} with nothing found, {n(srq['stops_nothing_found'].sum() / (srq['strokes'].sum() / 1e6), 'nothing found per million strokes, quarter', '{:.2f}', was='1.16')} per million strokes. PR-03 carries {n(p3.stops_nothing_found, 'nothing found, PR-03, quarter', was='18')} of the {n(fcq['nothing found'], 'nothing found, quarter', was='27')}, at "
-         f"{n(p3.stops_nothing_found_per_million_strokes, 'nothing found per million, PR-03, quarter', '{:.2f}', was='3.78')} per million against {n(srec.nf / (srec.s / 1e6), 'nothing found per million, plant, the year', '{:.2f}', was='1.02')} across the year. Chipped punches were stopped a median "
-         f"{n(peq['strokes_exposed_per_stroke_charts'].median(), 'mart_parts_exposed: median strokes, quarter', was='0')} strokes after the onset, 90th percentile {n(peq['strokes_exposed_per_stroke_charts'].quantile(0.9), 'mart_parts_exposed: 90th percentile strokes, quarter', was='31')}.")
-    pg.figure(FIG.stops_by_press(srq), "Figure 8: Per-stroke stops by finding, by press", "Stops of the press by the per-stroke charts in the quarter, by the toolmaker's finding.")
-    pr = query("select * from marts.mart_punch_replacements where in_quarter"); pt = pr.groupby(["punch_condition", "led_by"]).size()
-    pg.p(f"All {n(len(pr), 'mart_punch_replacements: quarter', was='44')} punch replacements followed a chart: {n(pt[('chipped', 'channel share')], 'chipped, channel share', was='19')} chipped punches on the channel-share chart and {n(pt[('chipped', 'EWMA on the total')], 'chipped, EWMA', was='4')} on the EWMA, {n(pt[('worn', 'EWMA on the total')], 'worn, EWMA', was='17')} worn punches on the EWMA and "
-         f"{n(pt[('worn', 'channel share')], 'worn, channel share', was='4')} on the channel-share chart.")
-    pg.figure(FIG.punch_replacements(pr), "Figure 9: Punch replacements by what led to them", "Punch replacements in the die log in the quarter, by the condition found and the per-stroke chart that stopped the press.")
+    assert late["late_reason"].notna().all()
+    pg.p(f"{n(int((~shr['late']).sum()), 'mart_sharpenings: at or before the due count, quarter', was='69')} of {n(len(shr), 'mart_sharpenings: quarter', was='76')} sharpenings were at or before the due count, and burr reached at most "
+         f"{pct(shr['burr_peak_share_of_limit'].max(), 'mart_sharpenings.burr_peak_share_of_limit, highest', was='90.8%')} of its limit; the {wd(len(late), 'late sharpenings', was='seven')} late ones overran by "
+         f"{n(100 * (late['share_of_due_count'].min() - 1), 'late overrun, smallest', '{:.0f}', was='1')}% to {n(100 * (late['share_of_due_count'].max() - 1), 'late overrun, largest', '{:.0f}', was='9')}%, each with a reason in the log.")
+    for r in late.itertuples():
+        pg.figval(fno[0] + 1, f"{100 * r.share_of_due_count:.1f}%", f"mart_sharpenings.share_of_due_count, {r.die_id}, {DAY(r.sharpened_on)}")
+    pg.figure(FIG.sharpening_share(shr, late), F("Shots at sharpening as a share of the due count, by press group"))
+    ht = held["held_characteristic_type"].value_counts(); fp9 = fpa[fpa["run_id"] == "R26-01002"].iloc[0]
+    rep9 = query("select event_date from intermediate.int_die_event_timeline where die_id = ? and event_type = 'repair' and event_date <= ? order by event_date desc", [fp9.die_id, fp9.first_piece_at]).iloc[0]
+    pg.p(f"{n(held_n, 'mart_first_piece_approvals.held, quarter', was='19')} of {n(starts, 'mart_first_piece_approvals: run starts, quarter', was='583')} run starts were held at the first piece, released in a median "
+         f"{n(held['minutes_to_release'].median(), 'minutes to release, held, median', was='62')} minutes against {n(passed['minutes_to_release'].median(), 'minutes to release, passed, median', was='12')} for a passed first piece; "
+         f"formed heights held {n(int(ht.get('formed height', 0)), 'held on formed height', was='8')}, among them the PR-09 hold on {txt(D(fp9.first_piece_at), 'mart_first_piece_approvals: R26-01002 first piece', was='9 June')} after the die repair of "
+         f"{txt(D(rep9.event_date), 'int_die_event_timeline: repair before R26-01002', was='8 June')}.")
+    assert fp9.held_characteristic_type == "formed height" and fp9.press_id == "PR-09"
+    lg = held.sort_values("minutes_to_release").iloc[-1]
+    pg.figval(fno[0] + 1, f"{lg.minutes_to_release:.0f}", f"mart_first_piece_approvals.minutes_to_release, {lg.run_id}")
+    pg.figure(FIG.first_piece_rows(held, passed), F("First-piece time to release"))
+    pc = query("select press_id, shift, count(*) planned, count(*) filter (where recorded) recorded from marts.mart_recording_planned_checks where in_quarter group by all order by 1, 2"); pc["share"] = pc["recorded"] / pc["planned"]
+    pv = pc.pivot(index="press_id", columns="shift", values="share"); tot = pc.groupby("shift")[["planned", "recorded"]].sum()
+    hi_n = pv.index[pv["nights"] > pv["days"]].tolist(); assert hi_n == ["PR-09", "PR-10", "PR-11"]
+    pg.p(f"Planned checks were recorded on {pct(tot.at['days', 'recorded'] / tot.at['days', 'planned'], 'planned checks recorded, days', was='97.9%')} of day-shift occasions and "
+         f"{pct(tot.at['nights', 'recorded'] / tot.at['nights', 'planned'], 'planned checks recorded, nights', was='96.9%')} on nights; nights ran lower on {n(int((pv['nights'] < pv['days']).sum()), 'presses lower on nights', was='8')} presses, and higher on PR-09 to PR-11.")
+    for p_ in pv.index:
+        pg.figval(fno[0] + 1, f"{100 * pv.at[p_, 'days']:.1f}% / {100 * pv.at[p_, 'nights']:.1f}%", f"mart_recording_planned_checks: recorded share, days and nights, {p_}")
+    pg.figure(FIG.planned_checks_heatmap(pv), F("Planned checks recorded, by press and shift"))
 
-    # ═══════════════ 7. First-piece approvals and recording
-    pg.h2("first-piece", "7. First-piece approvals and recording")
-    passed = fpa[~fpa["held"]]; ht = held["held_characteristic_type"].value_counts(); lg = held.sort_values("minutes_to_release", ascending=False)
-    pg.p(f"{n(len(held), 'held', was='19')} of {n(len(fpa), 'run starts', was='583')} run starts were held at the first piece ({pct(len(held) / len(fpa), 'held share', was='3.3%')}), all released, at a median {n(held['minutes_to_release'].median(), 'held, median minutes', was='62')} minutes; passed first pieces were released in a median {n(passed['minutes_to_release'].median(), 'passed, median minutes', was='12')} minutes. Formed heights held "
-         f"{n(ht.get('formed height', 0), 'held on formed height', was='8')}, hole-to-edge {n(ht.get('hole-to-edge', 0), 'held on hole-to-edge', was='4')}, burr height {n(ht.get('burr height', 0), 'held on burr height', was='3')}, bend angle {n(ht.get('bend angle', 0), 'held on bend angle', was='2')}, hole diameter {n(ht.get('hole diameter', 0), 'held on hole diameter', was='1')} and hole-to-hole {n(ht.get('hole-to-hole', 0), 'held on hole-to-hole', was='1')}. One hold, "
-         f"{txt(lg.iloc[0].run_id, 'longest hold, run', was='R26-00796')} on {txt(lg.iloc[0].press_id, 'longest hold, press', was='PR-01')} on {txt(pd.Timestamp(lg.iloc[0].first_piece_at).strftime('%d %B').lstrip('0'), 'longest hold, date', was='5 May')}, took {n(lg.iloc[0].minutes_to_release, 'longest hold, minutes', was='470')} minutes on a formed height; the next longest took {n(lg.iloc[1].minutes_to_release, 'second longest hold, minutes', was='78')}.")
-    pg.figure(FIG.first_piece_release(held, passed), "Figure 10: First-piece time to release, with the characteristic that held each", "Minutes from the first piece to its release: passed first pieces as a histogram, and each held first piece as a point beside the characteristic that held it.")
-    pc = query("select press_id, shift, count(*) planned, count(*) filter (where recorded) recorded from marts.mart_recording_planned_checks where in_quarter group by all order by 1, 2"); pc["recorded share"] = pc["recorded"] / pc["planned"]
-    tot = pc.groupby("shift")[["planned", "recorded"]].sum(); le = query("select count(*) n, count(*) filter (where late_entry) l, median(minutes_to_entry) m from marts.mart_recording_routine_subgroups where in_quarter").iloc[0]
-    pg.p(f"Planned checks were recorded on {pct(tot.at['days', 'recorded'] / tot.at['days', 'planned'], 'planned checks recorded, days', was='97.9%')} of day-shift occasions and {pct(tot.at['nights', 'recorded'] / tot.at['nights', 'planned'], 'planned checks recorded, nights', was='96.9%')} on nights, with no press under "
-         f"{pct(np.floor(pc['recorded share'].min() * 1000) / 1000, 'lowest press and shift, to the tenth of a point below', was='95.5%')} on either shift. {pct(le.l / le.n, 'late entries', 2, was='1.50%')} of routine entries were made more than 20 minutes after the parts; the median entry follows the parts by {wd(le.m, 'median minutes to entry', was='one')} minute.")
-    pg.figure(FIG.planned_checks(pc), "Figure 11: Planned checks recorded by press and shift", "Share of the planned routine checks recorded in the quarter, by press and shift.")
+    # ═══════════════ 1. Summary, written last, placed first
+    last_section = pg.section; pg.section = "1. Summary"
+    summary = []
+    summary.append('<h2 id="summary">1. Summary</h2>')
+    sent = (f"The quarter ran in control: {n(int((ccap['ppk'] >= 1.33).sum()), 'critical at or above 1.33', was='93')} of {n(len(ccap), 'critical characteristics', was='100')} critical characteristics held above Ppk 1.33, "
+            f"signals ran at {n(tot_s / tot_e, 'observed over expected, quarter', '{:.2f}', was='1.23')} times the expected rate with the excess on rules 3 and 4, every special cause was traced and closed by 30 June, "
+            f"no chart took limits from a gauge out of service, and {n(held_n, 'held, quarter', was='19')} of {n(starts, 'run starts, quarter', was='583')} run starts were held at the first piece.")
+    summary.append(f"<p>{sent}</p>")
+    tiles = [(f"{n(int((ccap['ppk'] >= 1.33).sum()), 'critical at or above 1.33', was='93')} of {n(len(ccap), 'critical characteristics', was='100')}", "critical characteristics above Ppk 1.33"),
+             (f"{n(tot_s / tot_e, 'observed over expected, quarter', '{:.2f}', was='1.23')}x", "signals against the expected rate, charts with no special cause"),
+             (f"{n(n_sc, 'special causes on the characteristic charts', was='18')}", "special causes on the characteristic charts, all closed by 30 June"),
+             (f"{n(len(stf), 'per-stroke stops with a finding', was='112')}", "per-stroke stops with a finding"),
+             (f"{n(on_out, 'mart_charts_in_force with mart_gauge_quarter_end: charts on a gauge past due or away at 30 June', was='0')}", "charts on limits from a gauge out of service"),
+             (f"{n(held_n, 'held', was='19')} of {n(starts, 'run starts', was='583')}", f"run starts held, median {n(held['minutes_to_release'].median(), 'minutes to release, held, median', was='62')} minutes to release")]
+    summary.append('<div style="display:flex;flex-wrap:wrap;gap:12px;margin:14px 0 24px;">' + "".join(
+        f'<div style="flex:1 1 120px;border:1px solid #DDE3E8;border-radius:8px;padding:12px 14px;"><div style="font-size:24px;font-weight:700;color:{S.BRAND_BLUE};line-height:1.2;">{big}</div>'
+        f'<div style="font-size:12.5px;color:#555;margin-top:4px;">{lab}</div></div>' for big, lab in tiles) + "</div>")
+    for k_, blk in enumerate(summary):
+        pg.body.insert(body_summary_at + k_, blk)
+    pg.section = last_section
 
     # ═══════════════ Appendix
     pg.h2("appendix", "Appendix")
-    same_day = query("select count(*) n, count(*) filter (where cast(actual_start as date) = sharpening_date) d from intermediate.int_run_shots where shots_since_sharpening_at_start is not null").iloc[0]
-    span = int(query("select count(*) n from intermediate.int_run_shots r where shots_since_sharpening_at_start is not null and exists (select 1 from intermediate.int_sharpening_intervals i where i.die_id = r.die_id and i.interval_start between cast(r.actual_start as date) and cast(r.actual_end as date))")["n"].iloc[0])
-    pg.raw(DEFINITIONS.format(placed=n(same_day.d, 'int_run_shots: runs starting on the day their sharpening is logged', was='15'), runs=n(same_day.n, 'int_run_shots: runs with a shot count', was='1,399'),
-                              span=n(span, 'int_run_shots with int_sharpening_intervals: runs spanning a logged sharpening date', was='92')))
+    pg.raw(DEFINITIONS)
     srq2 = srq.merge(pc.groupby("press_id")[["planned", "recorded"]].sum().reset_index(), on="press_id"); srq2["share"] = srq2["recorded"] / srq2["planned"]
-    srq2 = srq2.merge(sig.groupby("press_id").agg(alarms=("alarm_id", "count"), assignable=("assignable_cause", "sum")).reset_index(), on="press_id", how="left")
+    srq2 = srq2.merge(sig.groupby("press_id").agg(signals=("alarm_id", "count"), special=("assignable_cause", "sum")).reset_index(), on="press_id", how="left")
     srq2 = srq2.merge(fpa.groupby("press_id").agg(starts=("approval_id", "count"), holds=("held", "sum")).reset_index(), on="press_id", how="left")
-    pg.table("The full tables by press, April to June 2026", srq2, {"press_id": "Press", "alarms": "Alarms", "assignable": "Assignable causes", "starts": "Run starts", "holds": "First-piece holds", "strokes": "Strokes", "stops": "Per-stroke stops", "stops_nothing_found": "Nothing found", "planned": "Planned checks", "share": "Recorded"},
-             {"Alarms": F0, "Assignable causes": F0, "Run starts": F0, "First-piece holds": F0, "Strokes": F0, "Per-stroke stops": F0, "Nothing found": F0, "Planned checks": F0, "Recorded": P1})
-    al = sig[["alarm_id", "raised_at", "press_id", "characteristic_id", "chart", "rule", "disposition", "cause_code", "minutes_to_close"]].copy(); al["raised_at"] = al["raised_at"].map(lambda t: pd.Timestamp(t).strftime("%d %b %H:%M").lstrip("0")); al["cause_code"] = al["cause_code"].fillna("")
-    pg.table("Every signal in the quarter with its disposition", al, {"alarm_id": "Alarm", "raised_at": "Raised", "press_id": "Press", "characteristic_id": "Characteristic", "chart": "Chart", "rule": "Rule", "disposition": "Disposition", "cause_code": "Cause", "minutes_to_close": "Minutes to close"},
-             {"Rule": F0, "Minutes to close": F1})
-
-    toc = [("summary", "1. Summary"), ("signals", "2. Signals and reaction"), ("limits", "3. Limits governance"), ("capability", "4. Capability"), ("measurement", "5. Measurement gating"), ("dies", "6. Dies and per-stroke monitoring"), ("first-piece", "7. First-piece approvals and recording"), ("appendix", "Appendix")]
-    html = S.report_shell("SPC Quarterly Review, April to June 2026", "", "July 2026", "\n".join(pg.body), toc)
+    pg.table("A1. The full tables by press, April to June 2026", srq2, {"press_id": "Press", "signals": "Signals", "special": "With a special cause", "starts": "Run starts", "holds": "First-piece holds", "strokes": "Strokes",
+                                                                       "stops": "Per-stroke stops", "stops_nothing_found": "Nothing found", "planned": "Planned checks", "share": "Recorded"},
+             {"Signals": F0, "With a special cause": F0, "Run starts": F0, "First-piece holds": F0, "Strokes": F0, "Per-stroke stops": F0, "Nothing found": F0, "Planned checks": F0, "Recorded": P1})
+    rows = []
+    for c_ in FIG.CLASS_ORDER:
+        g_ = cap[cap["cls"] == c_]
+        rows.append({"class": FIG.CLASS_LABEL[c_], "n": len(g_), "ppk": g_["ppk"].median(), "iqr": f"{g_['ppk'].quantile(0.25):.2f} to {g_['ppk'].quantile(0.75):.2f}", "cpk": g_["cpk"].median(), "gap": g_["cpk_less_ppk"].median(), "u": int((g_["ppk"] < 1.33).sum())})
+    pg.table("A2. Cpk and Ppk by class, April to June 2026", pd.DataFrame(rows), {"class": "Class", "n": "Characteristics", "ppk": "Ppk, median", "iqr": "Ppk, interquartile range", "cpk": "Cpk, median", "gap": "Cpk less Ppk", "u": "Below 1.33"},
+             {"Characteristics": F0, "Ppk, median": F2, "Cpk, median": F2, "Cpk less Ppk": F2, "Below 1.33": F0})
+    bip["started"] = bip["baseline_started"].map(DAY); bip["so_far"] = bip["baseline_subgroups_so_far"].astype(float); bip["coils"] = bip["baseline_coil_changes_so_far"].astype(float)
+    bip["chart"] = bip["chart_type"].map(lambda c_: CHART_ROW.get(c_, c_))
+    pg.table("A3. Baselines in progress at 30 June 2026", bip.sort_values("days", ascending=False), {"characteristic_id": "Characteristic", "part_id": "Part", "press_id": "Press", "chart": "Chart", "started": "Baseline started", "days": "Days",
+                                                                                                   "so_far": "Subgroups so far", "coils": "Coil changes so far"},
+             {"Days": F0, "Subgroups so far": F0, "Coil changes so far": F0})
+    log = sig[["alarm_id", "raised_at", "press_id", "characteristic_id", "chart", "rule", "subgroup_type", "assignable_cause", "cause_code", "minutes_to_acknowledge", "minutes_to_close"]].copy()
+    log["outcome"] = np.where(log["assignable_cause"], "special cause", "no assignable cause"); log = log.drop(columns="assignable_cause")
     out = S.DOCS / "reports"; out.mkdir(parents=True, exist_ok=True)
+    log.to_csv(out / "spc_quarterly_review_2026_q2_signals.csv", index=False, lineterminator="\n")
+    pg.p(f'<strong>The quarter\'s signal log.</strong> Every one of the quarter\'s {n(len(sig), "mart_signals: signals, quarter", was="4,066")} signals with its chart, rule, outcome and cause is in '
+         '<a href="spc_quarterly_review_2026_q2_signals.csv">the signal log (CSV)</a>.')
+
+    toc = [("summary", "1. Summary"), ("capability", "2. Capability Review"), ("where", "2.1 Where capability stands", "sub"), ("design-explains", "2.2 What the chart design explains", "sub"),
+           ("year", "2.3 Across the year", "sub"), ("below", "2.4 Characteristics below 1.33", "sub"), ("attribute", "2.5 Attribute features", "sub"), ("by-press", "2.6 By press", "sub"),
+           ("spc", "3. SPC Review"), ("special-causes", "3.1 Special causes", "sub"), ("flagged", "3.2 What the charts flagged", "sub"), ("expectation", "3.3 Signals against expectation", "sub"),
+           ("per-stroke", "3.4 Per-stroke tonnage", "sub"), ("limits", "3.5 Limits", "sub"), ("measurement", "3.6 Measurement systems", "sub"), ("dies", "3.7 Dies, first piece and recording", "sub"), ("appendix", "Appendix")]
+    html = S.report_shell("Quarterly Capability &amp; SPC Review, April to June 2026", "", "July 2026", "\n".join(pg.body), toc)
     (out / "spc_quarterly_review_2026_q2.html").write_text(html, encoding="utf8", newline="\n")
     trace, off = pg.check()
     return html, trace, off, pg.figures
 
 
 DEFINITIONS = """<h3 id="definitions">Definitions</h3>
-<p><strong>Periods and press groups.</strong> The quarter is 1 April to 30 June 2026; the record is 1 July 2025 to 30 June 2026, exported 13 July 2026. High-speed presses are PR-01 to PR-04, checked every 30 minutes; medium presses are PR-05 to PR-11, checked hourly. Status at 30 June is as at the end of that day.</p>
-<p><strong>Signals and recording.</strong> An alarm is one chart and rule signalled on a subgroup. Observed against expected counts routine subgroups under limits in force, outside any sharpening interval in which the chart carried an assignable cause, once each with a signal on any of the characteristic's charts; the expectation is the false-alarm rate for limits estimated from the chart's own baseline size under the rules in force on it, by the Markov chain method. A planned check falls on the clock at the part's check frequency inside a shift the press worked, from 20 minutes after production starts to 2 minutes before the run ends, and is recorded when a routine check falls from 6 minutes before to 12 minutes after it. A late entry is more than 20 minutes after the parts.</p>
-<p><strong>Capability and limits.</strong> Ppk on overall sigma from all readings; Cpk by class: between/within on three-way charts, residual about the line on regression charts, pooled within-subgroup on X-bar and R. Capability intervals by Bissell's approximation. Flatness on the upper index only. Critical characteristics with 60 routine subgroups or more in the quarter, and every flatness characteristic. A limit set's trigger is the reason recorded with it; a chart is in a baseline when its last routine subgroup in the quarter was charted under provisional limits.</p>
-<p><strong>Dies, gauges and nonconformances.</strong> A sharpening's shots are the die's corrected shot count at the sharpening less its count at the one before; the due count is in the die master. Burr height is the lab gauge's five readings, against the upper limit. A gauge is out of gating status when it is past calibration due, away for calibration, or has no study on file; a hand gauge is covered by the latest study of its type at its press. The die log carries dates without times, so {placed} of {runs} runs that start on a sharpening day are placed in the interval by the day, and {span} span a logged sharpening date.</p>"""
+<p><strong>Periods.</strong> The quarter is 1 April to 30 June 2026; the record is 1 July 2025 to 30 June 2026, exported 13 July 2026. High-speed presses are PR-01 to PR-04; medium presses PR-05 to PR-11.</p>
+<p><strong>Signals.</strong> A signal is a point beyond a control limit or a run-rule pattern on one panel of a chart. A special cause is a specific, identifiable source of variation found behind a signal; a die back from sharpening or rebuild at a new level is one special cause however many runs it signals on, and every other cause is one per run. The first signal of a special cause is the earliest signal of that event; the signals after it are follow-on signals. A signal with no assignable cause is one where the investigation finds nothing.</p>
+<p><strong>Expected rate.</strong> For each characteristic chart, at its own rules and the size of the baseline its limits came from, the chance that a routine subgroup carries at least one signal on any of its panels, with the estimation error of the baseline allowed for; summed over the chart's routine subgroups under limits in force, outside any interval with a special cause, and set against the subgroups observed to carry at least one signal. The per-stroke charts' design rate is the EWMA's in-control run length with its parameters estimated from the run's baseline strokes, and each channel-share chart's rate at its limit, summed over each press's charts and strokes.</p>
+<p><strong>Capability.</strong> The population is the critical characteristics with 60 routine subgroups or more in the period, reported on Ppk, and every flatness characteristic, reported on Ppu. Ppk is on the overall sigma of all readings; Cpk is on the short-term sigma of each chart type: between and within subgroups on three-way charts, the residual about the wear line on regression charts, pooled within subgroups on X-bar and R charts. Intervals are 95%, by Bissell's approximation. The variance shares behind each characteristic are those of the control chart design study, with tool wear fitted first.</p>
+<p><strong>Gauges.</strong> A gauge's removal and return are dated without a time; a subgroup recorded on either day cannot be placed before or after it.</p>"""
 
 
 if __name__ == "__main__":

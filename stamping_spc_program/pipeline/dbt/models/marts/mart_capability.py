@@ -1,4 +1,5 @@
-"""Capability by characteristic, for the review quarter and for the record. Grain: one row per critical variable
+"""Capability by characteristic, for the review quarter, for the record, and for each calendar quarter of the record
+(period "2025 Q3" to "2026 Q2"). Grain: one row per critical variable
 characteristic, and every flatness characteristic, per period with at least the minimum routine subgroups in the period.
 
 Ppk on overall sigma from all readings, every class. Cpk by class:
@@ -6,7 +7,8 @@ Ppk on overall sigma from all readings, every class. Cpk by class:
   combined with the between-subgroup sigma from the moving range of subgroup means (MR-bar / 1.128, less the within
   share of a subgroup mean, not below zero);
 - hole diameter (tool-wear charts): sigma of the readings about the regression of subgroup means on shots since
-  sharpening, on subgroups with the shot count known; Ppk carries the wear over the interval;
+  sharpening, on subgroups with the shot count known (none reported where fewer than 30 have it); Ppk carries the wear
+  over the interval;
 - hole position, length, width and flatness: pooled within-subgroup standard deviation.
 One-sided characteristics (flatness) carry the upper index only. Intervals are 95%, by Bissell's approximation on the
 number of readings for Ppk and on the number of subgroups for Cpk.
@@ -34,7 +36,8 @@ def model(dbt, session):
           & h["characteristic_class"].isin(["formed", "hole diameter", "hole position", "length and width", "flatness"])]
     h = h.sort_values(["characteristic_id", "sample_time", "subgroup_id"], kind="stable")
     rows = []
-    for period, sel in (("quarter", h[h["sample_time"] >= q0]), ("record", h)):
+    quarters = [(f"{d.year} Q{(d.month - 1) // 3 + 1}", h[(h["sample_time"] >= d) & (h["sample_time"] < d + pd.DateOffset(months=3))]) for d in pd.date_range("2025-07-01", "2026-04-01", freq="3MS")]
+    for period, sel in [("quarter", h[h["sample_time"] >= q0]), ("record", h)] + quarters:
         for cid, g in sel.groupby("characteristic_id", sort=True):
             if len(g) < min_n:
                 continue
@@ -48,10 +51,13 @@ def model(dbt, session):
                 sb2 = max(mr ** 2 - sw ** 2 / 5, 0.0)
                 s_short = float(np.sqrt(sw ** 2 + sb2)); definition = "between/within"
             elif cls == "hole diameter":
-                k = g[g["shots_since_sharpening"].notna()]
-                xk = k[R5].values.astype(float); s = k["shots_since_sharpening"].values.astype(float)
-                b1, b0 = np.polyfit(s, xk.mean(1), 1)
-                s_short = float(np.std(xk - (b0 + b1 * s)[:, None], ddof=2)); definition = "residual about the wear regression"
+                k = g[g["shots_since_sharpening"].notna()]; definition = "residual about the wear regression"
+                if len(k) >= 30:
+                    xk = k[R5].values.astype(float); s = k["shots_since_sharpening"].values.astype(float)
+                    b1, b0 = np.polyfit(s, xk.mean(1), 1)
+                    s_short = float(np.std(xk - (b0 + b1 * s)[:, None], ddof=2))
+                else:
+                    s_short = np.nan
             else:
                 s_short = sw_pooled; definition = "pooled within-subgroup"
             upper_p = (usl - m) / (3 * so); upper_k = (usl - m) / (3 * s_short)
