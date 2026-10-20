@@ -173,7 +173,7 @@ def build():
          f"{n(len(stp) - len(stf), 'mart_per_stroke_stops: nothing found, quarter', was='27')} with no assignable cause.")
     for r in fl.itertuples():
         pg.figval(fno[0] + 1, f"{r.a:,} / {r.o:,} / {r.b:,}", f"what the charts flagged: {r.group}")
-    pg.figure(DFIG.flagged_bars(fl, "d2_charts_flagged", ("First signal of a special cause", "Follow-on signal", "No assignable cause"), alt="SPC chart signals and causes, Q2 2026"), F("SPC Chart Signals and Causes, Q2 '26"))
+    pg.figure(DFIG.flagged_bars(fl, "d2_charts_flagged", ("First signal of a special cause", "Follow-on signal", "No assignable cause"), alt="SPC chart signals and causes, Q2 2026", legend_y=-0.17), F("SPC Chart Signals and Causes, Q2 '26"))
     evq = allc.groupby("event").agg(first=("raised_at", "min"), chart_type=("chart_type", "first"), panel=("chart", "first"), cause=("cause_code", "first"), die=("die_id", "first")).reset_index()
     evq["row"] = evq["chart_type"].map(CHART_ROW); assert evq["row"].notna().all()
     evq["label"] = evq["cause"].map(SHORT)
@@ -276,18 +276,26 @@ def build():
     last_section = pg.section; pg.section = "1. Summary"
     summary = []
     summary.append('<h2 id="summary">1. Summary</h2>')
-    sent = (f"The quarter ran in control: {n(int((ccap['ppk'] >= 1.33).sum()), 'critical at or above 1.33', was='93')} of {n(len(ccap), 'critical characteristics', was='100')} critical characteristics held above Ppk 1.33, "
-            f"signals ran at {n(tot_s / tot_e, 'observed over expected, quarter', '{:.2f}', was='1.23')} times the expected rate with the excess on rules 3 and 4, every special cause was traced and closed by 30 June, "
-            f"no chart took limits from a gauge out of service, and {n(held_n, 'held, quarter', was='19')} of {n(starts, 'run starts, quarter', was='583')} run starts were held at the first piece.")
-    summary.append(f"<p>{sent}</p>")
+    mon = u[(u["ppk_high"] >= 1.33) & ~u["customer"]]; wholly = u[u["ppk_high"] < 1.33]; both = u[u["cpk"] < 1.33]
+    assert len(mon) == 4 and len(wholly) == 2 and len(both) == 1 and len(mon) + len(wholly) + len(both) == len(u)
+    g10 = gsq[gsq["pct_grr_of_tolerance"] >= 10]
+    summary.append(f"<p>In Q2 2026, {n(int((ccap['ppk'] >= 1.33).sum()), 'critical at or above 1.33', was='93')} of {n(len(ccap), 'critical characteristics', was='100')} critical characteristics held above the Ppk threshold of 1.33. "
+                   f"Of the {wd(len(u), 'mart_capability: below 1.33, quarter', was='seven')} that were below the Ppk threshold, {wd(len(mon), 'mart_capability: below 1.33 with ppk_high at or above 1.33 and cpk at or above 1.33, quarter', was='four')} had confidence intervals that extended over the threshold, and are flagged for monitoring. "
+                   f"{txt('Three', 'mart_capability: ppk_high under 1.33 or cpk under 1.33, quarter (3)', was='Three')} were flagged as needing to be reported to the customers: {wd(len(wholly), 'mart_capability: ppk_high under 1.33, quarter', was='two')} had confidence intervals wholly under the Ppk threshold, "
+                   f"and {wd(len(both), 'mart_capability: ppk and cpk under 1.33, quarter', was='one')} was under both the Ppk and Cpk threshold.</p>")
+    summary.append(f"<p>Signals with no assignable cause ran slightly above expectations at {n(tot_s / tot_e, 'observed over expected, quarter', '{:.2f}', was='1.23')}x. "
+                   f"100% of the {n(n_sc, 'special causes on the characteristic charts, all closed by 30 June', was='18')} special causes found on the characteristic chart signals were closed by the end of the quarter. "
+                   f"{n(len(stf), 'per-stroke stops with a finding', was='112')} of the {n(len(stp), 'per-stroke stops, quarter', was='139')} ({pct(len(stf) / len(stp), 'per-stroke stops with a finding, share', 0)}) stops on the per-stroke tonnage charts found a special cause. "
+                   f"{pct(len(g10) / len(gsq), 'mart_gauge_studies: studies in the quarter at or above 10% of tolerance, share (7 of 66)', 0, was='11%')} of gauge studies were above the 10% GRR threshold, all flagged for studies. "
+                   f"{'No' if on_out == 0 else n(on_out, 'charts on a gauge out of service')} charts in the quarter set limits from a gauge that was out of service.</p>")
     tiles = [(f"{n(int((ccap['ppk'] >= 1.33).sum()), 'critical at or above 1.33', was='93')} of {n(len(ccap), 'critical characteristics', was='100')}", "critical characteristics above Ppk 1.33"),
-             (f"{n(tot_s / tot_e, 'observed over expected, quarter', '{:.2f}', was='1.23')}x", "signals against the expected rate, charts with no special cause"),
-             (f"{n(n_sc, 'special causes on the characteristic charts', was='18')}", "special causes on the characteristic charts, all closed by 30 June"),
-             (f"{n(len(stf), 'per-stroke stops with a finding', was='112')}", "per-stroke stops with a finding"),
-             (f"{n(on_out, 'mart_charts_in_force with mart_gauge_quarter_end: charts on a gauge past due or away at 30 June', was='0')}", "charts on limits from a gauge out of service"),
-             (f"{n(held_n, 'held', was='19')} of {n(starts, 'run starts', was='583')}", f"run starts held, median {n(held['minutes_to_release'].median(), 'minutes to release, held, median', was='62')} minutes to release")]
-    summary.append('<div style="display:flex;flex-wrap:wrap;gap:12px;margin:14px 0 24px;">' + "".join(
-        f'<div style="flex:1 1 120px;border:1px solid #DDE3E8;border-radius:8px;padding:12px 14px;"><div style="font-size:24px;font-weight:700;color:{S.BRAND_BLUE};line-height:1.2;">{big}</div>'
+             (f"{n(len(u[u['customer']]), 'mart_capability: ppk_high under 1.33 or cpk under 1.33, quarter', was='3')}", "characteristics flagged for customer reports"),
+             (f"{n(tot_s / tot_e, 'observed over expected, quarter', '{:.2f}', was='1.23')}x", "signals without assignable cause against the expected rate"),
+             (f"{n(n_sc, 'special causes on the characteristic charts', was='18')}", "special causes on the characteristic charts closed by end of quarter"),
+             (f"{n(len(stf), 'per-stroke stops with a finding', was='112')} of {n(len(stp), 'per-stroke stops, quarter', was='139')}", "per-stroke tonnage stops with a special cause finding"),
+             (f"{n(on_out, 'mart_charts_in_force with mart_gauge_quarter_end: charts on a gauge past due or away at 30 June', was='0')}", "charts on limits from an out of service gauge")]
+    summary.append('<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 24px;">' + "".join(
+        f'<div style="border:1px solid #DDE3E8;border-radius:8px;padding:12px 14px;"><div style="font-size:24px;font-weight:700;color:{S.BRAND_BLUE};line-height:1.2;">{big}</div>'
         f'<div style="font-size:12.5px;color:#555;margin-top:4px;">{lab}</div></div>' for big, lab in tiles) + "</div>")
     for k_, blk in enumerate(summary):
         pg.body.insert(body_summary_at + k_, blk)

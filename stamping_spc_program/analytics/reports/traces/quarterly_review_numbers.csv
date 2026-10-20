@@ -269,15 +269,22 @@ Figure: Signals against expectation by chart type,2.19,"observed over expected, 
 "Figure: %GRR by Gauge, Studies Over 10% in Q2 '26",16.7 to 5.3,"mart_gauge_studies: previous and this study, F-14026 (17 Jun)",
 1. Summary,93,critical at or above 1.33,93
 1. Summary,100,critical characteristics,100
+1. Summary,seven,"mart_capability: below 1.33, quarter",seven
+1. Summary,four,"mart_capability: below 1.33 with ppk_high at or above 1.33 and cpk at or above 1.33, quarter",four
+1. Summary,Three,"mart_capability: ppk_high under 1.33 or cpk under 1.33, quarter (3)",Three
+1. Summary,two,"mart_capability: ppk_high under 1.33, quarter",two
+1. Summary,one,"mart_capability: ppk and cpk under 1.33, quarter",one
 1. Summary,1.23,"observed over expected, quarter",1.23
-1. Summary,19,"held, quarter",19
-1. Summary,583,"run starts, quarter",583
+1. Summary,18,"special causes on the characteristic charts, all closed by 30 June",18
+1. Summary,112,per-stroke stops with a finding,112
+1. Summary,139,"per-stroke stops, quarter",139
+1. Summary,81%,"per-stroke stops with a finding, share",
+1. Summary,11%,"mart_gauge_studies: studies in the quarter at or above 10% of tolerance, share (7 of 66)",11%
 1. Summary,93,critical at or above 1.33,93
 1. Summary,100,critical characteristics,100
+1. Summary,3,"mart_capability: ppk_high under 1.33 or cpk under 1.33, quarter",3
 1. Summary,1.23,"observed over expected, quarter",1.23
 1. Summary,18,special causes on the characteristic charts,18
 1. Summary,112,per-stroke stops with a finding,112
+1. Summary,139,"per-stroke stops, quarter",139
 1. Summary,0,mart_charts_in_force with mart_gauge_quarter_end: charts on a gauge past due or away at 30 June,0
-1. Summary,19,held,19
-1. Summary,583,run starts,583
-1. Summary,62,"minutes to release, held, median",62
