@@ -1,26 +1,105 @@
-# spc-quality-ml
+# SPC & Capability Study: Metal Stamping 
 
-SPC and quality analytics for two shops. At an injection molder, every shot from an instrumented cell is retained, charted, measured and screened. At a progressive-die metal stamper, every chart in use is assessed, then redesigned with per-stroke tonnage monitoring, and the results are measured.
+Statistical process control as it runs at a progressive-die metal stamper with eleven presses, based on the shop's data records over the past year (July 2025 to June 2026). 
 
-## Injection molding: cavity pressure monitoring and predictive quality
+<br>
 
-A data platform, an SPC layer and three model components for an injection molder's instrumented cell of two presses and six molds with cavity pressure sensors. The work joins every shot to its job, resin lot, setpoints and audits, runs the shop's control-chart rules on every shot, adds drift detection, puts a predicted weight and dimension on every shot and screens for shots unlike anything validated, and measures what each layer detects against how often it flags good parts. It delivers the monitoring unit screen and shift chart, run reports at job close, a quality dashboard, an ML overview, an ML technical report and an MLOps monitoring report.
+Two reports were created:
+- **[SPC Chart Design & Performance:](https://brimsystems.github.io/spc-capability/docs/reports/control_chart_design.html)** Comprehensive review of all active SPC charts. Includes overview of chart type selections, variance decompositions, measurement systems, and control limits. Statistical analyses review chart signals, special causes found, and observed vs. expected performance. 
+- **[Capability & SPC Review, Q2 2026:](https://brimsystems.github.io/spc-capability/docs/reports/spc_quarterly_review_2026_q2.html)** Quarterly review summarizing capability (Ppk/Ppu and Cpk/Cpu) across characteristics, as well as statistical process control performance. 
 
-[![Monitoring unit screen with the predicted weight, dimension and anomaly state](molding_predictive_quality/docs/screenshots/unit_screen.png)](https://brimsystems.github.io/spc-capability/molding_predictive_quality/docs/reports/unit_screen.html)
+<br>
 
-Read the [case README](molding_predictive_quality/README.md) and the [deliverables index](https://brimsystems.github.io/spc-capability/molding_predictive_quality/docs/index.html).
+Two SPC outputs were built, embedded in the shop's statistical software:
 
-## Metal stamping: SPC program
+**[SPC terminal screen](https://brimsystems.github.io/spc-capability/docs/screens/spc_terminal_pr_03.html)**, showing a three-way chart at the press monitoring formed heights and bend angles, before and after a coil change. 
+[![SPC terminal screen, PR-03](docs/readme/spc_terminal_screen.png)](https://brimsystems.github.io/spc-capability/docs/screens/spc_terminal_pr_03.html)
 
-Statistical process control as it runs at a progressive-die metal stamper with eleven presses, in two documents from the quality engineer's working set:
-- the control chart design revalidation, which derives each class's chart from its variance structure (three-way charts with coil-change centring on formed characteristics, tool-wear charts on hole diameters, X-bar and R on hole position and flatness), sets out limits governance across sharpenings, and measures false-alarm rates and detection by ARL against the design, including the per-stroke EWMA on press tonnage;
-- the SPC quarterly review for April to June 2026: signals against expectation and their dispositions, capability with intervals by the right index for each chart, measurement gating, sharpenings, per-stroke stops and first-piece approvals.
+**[Press monitor screen](https://brimsystems.github.io/spc-capability/docs/screens/press_monitor_pr_03.html)**, showing per-stroke tonnage on EWMA and channel-share panels, at the moment of a stop due to a chipped punch. 
+[![Press monitor screen, PR-03](docs/readme/press_monitor_screen.png)](https://brimsystems.github.io/spc-capability/docs/screens/press_monitor_pr_03.html)
 
-The plant at summary level and one part family in full, with the PR-03 SPC terminal and press monitor screens at the moment of a per-stroke stop.
+## Business Context
 
-[![SPC terminal screen, PR-03](stamping_spc_program/docs/readme/spc_terminal_screen.png)](https://brimsystems.github.io/spc-capability/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)
+The shop is a progressive-die metal stamper:
+- about 110 employees, IATF 16949 certified;
+- one plant with eleven presses, four high-speed and seven medium;
+- about 180 part numbers on about 170 dies, for automotive, appliance, HVAC, industrial, electrical and consumer customers.
 
-Read the [case README](stamping_spc_program/README.md) and the [deliverables index](https://brimsystems.github.io/spc-capability/stamping_spc_program/docs/index.html).
+The program it runs:
+- **Charts by characteristic class.** Formed heights and bend angles on three-way charts; hole diameters on regression charts with limits sloped on predicted tool wear; cut geometry (hole position and part length and width) and flatness on X-bar and R chart; sheared edges and pin diameter attribute checks on p charts.
+- **Control limits held under verification.** Each characteristic class carries its own process for setting control limits. Limits are set from a baseline (the first 25 subgroups of a run; for three-way charts these subgroups span at least 10 coil changes) and held across runs. New baselines are triggered by failed verifications, rebuilds, and forming-station repairs. Annual review process compares most recent 25 subgroups to baselines and flags changes over a threshold. 
+- **Per-stroke monitoring.** An EWMA on the per-stroke tonnage total and a residual chart on each channel's share, on every press, stopping the press on each signal.
+- **Measurement gating.** No gauge feeds a chart without a current calibration and a gauge study; check fixtures are verified daily against a master part, and burr check operators are qualified quarterly against the burr gauge.
+- **Sharpening at the count.** Each die is sharpened at the shot count where its burr line reaches 80% of the limit.
+
+## Methods
+
+**Statistics:**
+- **Control charts:** X-bar and R, three-way (individuals on subgroup means with limits from the spread of the baseline means, moving range, range), regression charts with limits about a regression on tool-wear (shots since sharpening), p charts; signals produced as per WECO run rules on applicable charts.
+- **Capability:** Ppk on overall sigma; Cpk by chart class (pooled within-subgroup, between/within, residual about the regression); one-sided indices on bounded characteristics; Bissell's approximation for intervals.
+- **Variance components:** nested method of moments (within subgroup, between subgroups within coil, between coils, between sharpening intervals).
+- **Chart performance:** ARL by the Markov chain method, for AR(1) subgroup means, and for the EWMA on AR(1) per-stroke data; the three-way charts' coil-change  expectations by Monte Carlo on the record's coil lots.
+- **Measurement:** gauge R&R by the AIAG MSA ANOVA method, %tolerance at 6 sigma and ndc; attribute agreement by Fleiss' kappa.
+
+**Data engineering:**
+- The exported files are loaded to DuckDB with dlt; the per-stroke press monitor export is read in place as Parquet.
+- A dbt project builds 75 staging, intermediate and mart models with 297 schema tests, and every mart carries the export batch id.
+
+## Data
+
+Twelve months of the shop's records, July 2025 to June 2026, in export batch 20260713T053000Z-SPC12M:
+- 379,677 subgroups on 1,560 characteristics;
+- 2,228 production runs and 1,914 coils;
+- 37.9 million press strokes: April to June 2026 on all presses, and the full year on PR-03.
+
+Conditions of the record:
+- the die log carries dates without times, so 15 runs that start on a sharpening day are placed in a sharpening interval by the day;
+- the SPC software leaves the subgroup mean blank on laboratory burr readings, which are averaged from the readings;
+- a run started on a coil already in use plots no new point on the coil-change chart;
+- 0.27% of the quarter's subgroups were recorded against a gauge away for calibration.
+
+| Source | Tables | Records |
+|---|---|---|
+| SPC software | characteristics, control limits, limit verifications, subgroups, alarms with dispositions, reaction plan steps | 404,717 |
+| Press monitors | per-stroke peaks, tonnage windows, fault events | 37,905,094 |
+| ERP | parts, dies, presses, production runs, coils | 4,503 |
+| QMS | nonconformances, corrective actions, first-piece approvals | 2,403 |
+| Die maintenance log | sharpenings with corrections, punch replacements, rebuilds, repairs | 1,114 |
+| Calibration system | gauges, calibrations, gauge studies, fixture verifications, attribute qualifications | 5,913 |
+| Study worksheets | gauge R&R studies, as recorded | 52 |
+
+The pipeline runs in three stages:
+- `pipeline/load` loads each exported file to the `raw` schema;
+- `pipeline/dbt` builds one staging model per source table, then the intermediate models (the characteristic history with run, press, coil, die shot count, limits in force and gauge status joined; coil assignment; sharpening intervals; limit sets with their basis and verifications; alarm dispositions with time to reaction and closure), then the marts the two documents and the screens read;
+- `analytics/build_all.py` writes every figure, both documents, the two screens, `docs/index.html`, this README and the number traces.
+
+## How to run
+
+Python 3.12 or later. Run from the repository root.
+
+```bash
+python -m venv .venv
+```
+
+Activate it: `.venv\Scripts\activate` on Windows, `source .venv/bin/activate` on Linux and macOS. Then:
+
+```bash
+pip install -e .
+```
+
+```bash
+python -m pipeline.load.load_exports
+```
+
+```bash
+cd pipeline/dbt && dbt build --profiles-dir . && cd ../..
+```
+
+```bash
+python -m analytics.build_all
+```
+
+The last command writes every figure under `docs/figures`, the two documents, the two screens, `docs/index.html`, this README and the number traces.
 
 ## Author
 
