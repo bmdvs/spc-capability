@@ -422,7 +422,7 @@ def build():
          f"{n(pb74.anderson_darling, 'mart_phase1_baselines.anderson_darling', '{:.2f}', was='0.53')} against a critical value of {n(pb74.anderson_darling_critical_5pct, 'mart_phase1_baselines.anderson_darling_critical_5pct', '{:.2f}', was='0.73')}. Subgroup "
          f"{n(scr.baseline_subgroup_no, 'mart_phase1_baseline_subgroups: screened subgroup', was='18')} carries a range of {n(scr.subgroup_range, 'mart_phase1_baseline_subgroups.subgroup_range, screened', '{:.3f}', was='0.106')} mm, beyond the range limit, and is flagged. The record keeps it in the limits; recomputed without it the mean limits move by under "
          f"{n(0.002 if move < 0.002 else move, 'mart_phase1_baseline_subgroups: largest move of the mean limits without the screened subgroup', '{:.3f}', was='0.002')} mm and the range limit by {n(abs(2.114 * rbar - b0.ucl_range), 'mart_phase1_baseline_subgroups: move of the range limit without the screened subgroup', '{:.3f}', was='0.005')} mm.")
-    pg.figure(FIG.phase1_baseline(b, b0.centre_line, b0.ucl_mean, b0.lcl_mean, b0.ucl_range), "Figure 15: A Phase I baseline after a rebuild, C-11333-02, 11 May 2026",
+    pg.figure("", "Figure 15: A Phase I baseline after a rebuild, C-11333-02, 11 May 2026",
               "The 25 routine subgroups of limit set LS-00074 on C-11333-02 (hole to edge B), run R26-00820: means against the computed centre line and limits, ranges against the range limit. Subgroup 18 is flagged on the range and kept in the limits, as the record has it.")
     mv_p1 = take(m_p1)
     t5 = ls[ls["characteristic_id"] == "C-15731-02"]; inforce = t5[t5["effective_to"].isna()].iloc[0]
@@ -919,13 +919,18 @@ def build():
     f14a = gsF[(gsF["gauge_id"] == "F-14026") & (gsF["study_trigger"] == "after rebuild")].iloc[0]
     f11 = gsF[gsF["gauge_id"] == "F-11333"].iloc[-1]
     assert float(gg_.set_index("gauge_id").at["F-14026", "pct"]) == float(f14a.pct_grr_of_tolerance)
-    o32.append(P(f"<strong>Precision.</strong> {n(int((gg_['pct'] < 10).sum()), 'mart_charts_in_force.pct_grr_of_tolerance: variable-chart gauges under 10%', was='205')} of the {n(len(gg_), 'mart_charts_in_force: variable-chart gauges', was='221')} variable-chart gauges study under 10% of tolerance and "
-                 f"{n(int(((gg_['pct'] >= 10) & (gg_['pct'] < 30)).sum()), 'mart_charts_in_force.pct_grr_of_tolerance: variable-chart gauges at 10% to 30%', was='16')} at 10% to 30%, none above; {ndc_txt}. "
-                 f"F-14026 shows the system at work: its daily verification failed on {txt(DAY(fvf['verification_date'].iloc[0]), 'mart_fixture_verifications.verification_date, F-14026 fail', was='2 June 2026')}, its restudy on "
-                 f"{txt(DAY(f14r.study_date).rsplit(' ', 1)[0], 'mart_gauge_studies.study_date, F-14026 restudy', was='3 June')} read {n(f14r.pct_grr_of_tolerance, 'mart_gauge_studies.pct_grr_of_tolerance, F-14026 restudy', '{:.1f}', was='16.7')}%, and it was rebuilt and restudied at "
-                 f"{n(f14a.pct_grr_of_tolerance, 'mart_gauge_studies.pct_grr_of_tolerance, F-14026 after rebuild', '{:.1f}', was='5.3')}% on {txt(DAY(f14a.study_date).rsplit(' ', 1)[0], 'mart_gauge_studies.study_date, F-14026 after rebuild', was='17 June')}. "
-                 f"F-11333, at {n(f11.pct_grr_of_tolerance, 'mart_gauge_studies.pct_grr_of_tolerance, F-11333', '{:.1f}', was='16.3')}% on {txt(DAY(f11.study_date).rsplit(' ', 1)[0], 'mart_gauge_studies.study_date, F-11333', was='5 May')}, is in service with a restudy due "
-                 f"{txt(DAY(f11.restudy_due).rsplit(' ', 1)[0], 'mart_gauge_studies.restudy_due, F-11333', was='17 August')}."))
+    band_ = gg_[(gg_["pct"] >= 10) & (gg_["pct"] < 30)]
+    sched_ = vch.drop_duplicates("gauge_id").set_index("gauge_id").loc[band_["gauge_id"], "restudy_scheduled"].fillna(False).astype(bool)
+    assert sched_.all(), "a gauge at 10% to 30% without a restudy scheduled"
+    rebuilt_n = int((cal_["result"] == "rebuilt").sum()); assert rebuilt_n == 1
+    gap_ = (pd.Timestamp(f14a.study_date) - pd.Timestamp(f14r.study_date)).days; assert 13 <= gap_ <= 15
+    o32.append(P(f"<strong>Precision.</strong> {n(int((gg_['pct'] < 10).sum()), 'mart_charts_in_force.pct_grr_of_tolerance: variable-chart gauges under 10%', was='205')} of the {n(len(gg_), 'mart_charts_in_force: variable-chart gauges', was='221')} "
+                 f"({pct((gg_['pct'] < 10).mean(), 'variable-chart gauges under 10%, share', 0, was='93%')}) variable-chart gauges have a gauge R&amp;R (%GRR) under the 10% threshold. "
+                 f"{n(len(band_), 'mart_charts_in_force.pct_grr_of_tolerance: variable-chart gauges at 10% to 30%', was='16')} ({pct(len(band_) / len(gg_), 'variable-chart gauges at 10% to 30%, share', 0, was='7%')}) are between 10% and 30%, and each has a restudy scheduled. "
+                 "None of the gauges sit above the 30% tolerance threshold."))
+    o32.append(P(f"{txt('One', 'stg_calibration__calibrations: check fixtures rebuilt in the year (1)', was='One')} check fixture ({txt(rb_g.iloc[0], 'stg_calibration__calibrations.gauge_id, rebuilt', was='F-14026')}) was rebuilt over the past year, shown below. "
+                 f"It failed its daily verification, read {n(f14r.pct_grr_of_tolerance, 'mart_gauge_studies.pct_grr_of_tolerance, F-14026 restudy', '{:.1f}', was='16.7')}% on restudy, and was rebuilt and restudied at "
+                 f"{n(f14a.pct_grr_of_tolerance, 'mart_gauge_studies.pct_grr_of_tolerance, F-14026 after rebuild', '{:.1f}', was='5.3')}% {txt('two weeks', 'mart_gauge_studies: days from the F-14026 restudy to the study after the rebuild (14)', was='two weeks')} later."))
     for r_ in gg_.itertuples():
         pg.figval(150, f"{r_.pct:.1f}", f"mart_charts_in_force.pct_grr_of_tolerance, {r_.gauge_id}")
     pg.figval(150, f"{f14r.pct_grr_of_tolerance:.1f}", "mart_gauge_studies.pct_grr_of_tolerance, F-14026 restudy before the rebuild")
@@ -936,21 +941,25 @@ def build():
     msc = ms_.groupby("characteristic_class")["share"].median()
     o32.append(P(f"<strong>Measurement's share.</strong> The gauge accounts for {pct(msc['cut geometry'], 'approximated from mart_charts_in_force.pct_grr_of_tolerance, tolerance and mart_variance_components.sigma_within: gauge share of within-subgroup variance, cut geometry, median', was='1.5%')} of the within-subgroup variance on cut geometry, "
                  f"{pct(msc['formed'], 'approximated gauge share of within-subgroup variance, formed, median', was='1.2%')} on formed characteristics, {pct(msc['hole diameter'], 'approximated gauge share of within-subgroup variance, hole diameter, median', was='2.7%')} on hole diameter and "
-                 f"{pct(msc['flatness'], 'approximated gauge share of within-subgroup variance, flatness, median', was='0.9%')} on flatness, so the within-subgroup variance in 3.1 is almost entirely the process's own."))
+                 f"{pct(msc['flatness'], 'approximated gauge share of within-subgroup variance, flatness, median', was='0.9%')} on flatness, so the within-subgroup variance identified in 3.1 is almost entirely the process's own."))
     for c_ in ("cut geometry", "formed", "hole diameter", "flatness"):
         pg.figval(151, f"{100 * msc[c_]:.1f}%", f"approximated gauge share of within-subgroup variance, {c_}, median")
-    pg.figure(FIG.measurement_share(msc), "Figure 151: Measurement's share of within-subgroup variance by class", "Approximated from %GRR, tolerance and within-subgroup sigma."); entries[keys[-1]] = pg.body[-1]; o32.append(keys[-1])
+    pg.figure(FIG.measurement_share(msc), "Figure 151: Measurement's share of within-subgroup variance by class"); entries[keys[-1]] = pg.body[-1]; o32.append(keys[-1])
     kall_ = query("select * from marts.mart_operator_kappa order by operator_id, study_date"); lq_ = kall_[kall_["latest"]]
     assert set(lq_["result"]) == {"qualified"}
     k6 = kall_[(kall_["operator_id"] == "E-1006") & (kall_["study_date"] >= "2025-07-01") & (kall_["study_date"] < "2026-07-01")]
     k6b = k6[k6["result"] == "below the requalification line"].iloc[0]; k6r = k6[k6["requalification_of"].notna()].iloc[0]
-    o32.append(P(f"<strong>Attribute agreement.</strong> All {n(len(lq_), 'mart_operator_kappa: operators', was='24')} burr-check operators are qualified, at kappa {n(lq_['kappa'].min(), 'mart_operator_kappa.kappa, latest, lowest', '{:.2f}', was='0.78')} to "
-                 f"{n(lq_['kappa'].max(), 'mart_operator_kappa.kappa, latest, highest', '{:.2f}', was='0.89')}; E-1006 fell below the requalification line at kappa {n(k6b.kappa, 'mart_operator_kappa.kappa, E-1006 below the line', '{:.2f}', was='0.66')} on "
+    KAPPA_LINE = 0.75
+    assert lq_["kappa"].min() > KAPPA_LINE and k6b.kappa < KAPPA_LINE
+    o32.append(P(f"<strong>Attribute agreement.</strong> All {n(len(lq_), 'mart_operator_kappa: operators', was='24')} burr-check operators are qualified per the latest attribute agreement study, at kappa "
+                 f"{n(lq_['kappa'].min(), 'mart_operator_kappa.kappa, latest, lowest', '{:.2f}', was='0.78')} to {n(lq_['kappa'].max(), 'mart_operator_kappa.kappa, latest, highest', '{:.2f}', was='0.89')} (1.00 means perfect agreement), "
+                 f"all above the {txt('0.75', 'qualification threshold given for D1 (the record states results against the requalification line, not its value)', was='0.75')} threshold. "
+                 f"E-1006 fell below the requalification line at kappa {n(k6b.kappa, 'mart_operator_kappa.kappa, E-1006 below the line', '{:.2f}', was='0.66')} on "
                  f"{txt(DAY(k6b.study_date), 'mart_operator_kappa.study_date, E-1006 below the line', was='14 April 2026')} and was requalified at {n(k6r.kappa, 'mart_operator_kappa.kappa, E-1006 requalified', '{:.2f}', was='0.83')} on "
                  f"{txt(DAY(k6r.study_date).rsplit(' ', 1)[0], 'mart_operator_kappa.study_date, E-1006 requalified', was='28 April')}."))
     for r_ in lq_.itertuples():
         pg.figval(152, f"{r_.kappa:.2f}", f"mart_operator_kappa.kappa, latest, {r_.operator_id}")
-    pg.figure(FIG.kappa_latest(lq_), "Figure 152: Burr-check operator kappa"); entries[keys[-1]] = pg.body[-1]; o32.append(keys[-1])
+    pg.figure(FIG.kappa_latest(lq_, KAPPA_LINE), "Figure 152: Burr-check operator kappa"); entries[keys[-1]] = pg.body[-1]; o32.append(keys[-1])
     o22 = [h(2, "design", "3. Chart Design"), h(3, "chart-types", "3.1 Chart Types")]
     types_ = ["X-bar and R", "three-way", "regression", "p", "EWMA", "channel share"]
     assert set(cif["chart_type"]) == {"Xbar-R", "three-way (I-MR-R)", "tool-wear", "p"} and n_ps == len(presses) + int(presses["load_cell_channels"].sum())
@@ -1066,28 +1075,14 @@ def build():
     assert (np.abs(win["ewma"] - bs["mean"]) <= Lx * bs["sz"]).all() and all((np.abs((win[f"share_{c_}"] - bs[f"level_{c_}"]) / bs[f"sd_{c_}"]) <= Lx).all() for c_ in ("ch1", "ch2", "ch3", "ch4")), "the per-stroke sample is not in control"
     o22.append(sample(SC.per_stroke(win, bs, lam, Lx, {"run": RUNS_, "press": rr_.press_id, "part": rr_.part_id}), f"Sample per-stroke tonnage charts: run {RUNS_}, {rr_.press_id}", [(f"{bs['mean']:.1f}", f"mart_per_stroke_run_tonnage.baseline_total_kn_mean, {RUNS_}")]))
     o22 += o32
-    o22.append(h(3, "limits", "3.3 Setting and holding limits"))
-    o22.append(P(f"The rules below govern the {n(len(cif), 'mart_charts_in_force: charts', was='1,380')} characteristic charts; the tonnage charts set theirs per run, as above."))
-    o22.append(P(f"<strong>Setting and holding the limits.</strong> A characteristic chart's limits come from a Phase I baseline of {n(design['baseline_subgroups'], 'mart_chart_design.baseline_subgroups', was='25')} subgroups, spanning at least ten coil changes on a three-way chart; subgroups outside the baseline's own limits are screened "
-                 f"({n(int(pb['screened_subgroups'].sum()), 'mart_phase1_baselines.screened_subgroups, total', was='94')} in {n(int((pb['screened_subgroups'] > 0).sum()), 'mart_phase1_baselines: baselines with a subgroup screened', was='64')} baselines in the year) and the means tested for normality "
-                 f"({pct(pb['normal_at_5pct'].mean(), 'mart_phase1_baselines.normal_at_5pct, share', was='92.9%')} pass). The limits are then held, and a sharpening does not reset them: the first {n(design['verification_subgroups'], 'mart_chart_design.verification_subgroups', was='25')} subgroups after it verify them, "
-                 "and only a failed verification, a rebuild or the annual review starts a new baseline; a regression chart's planned trigger re-fits its line instead. Formed charts are verified after a rebuild or forming-station repair only, since sharpening does not touch the forming stations. "
-                 f"The die log carries dates without times, so a run is placed by the last sharpening dated on or before its start day; {n(same_day.d, 'int_run_shots: runs starting on the day their sharpening is logged', was='15')} of {n(same_day.n, 'int_run_shots: runs with a shot count', was='1,399')} runs start on a sharpening day and "
-                 f"{n(span, 'int_run_shots with int_sharpening_intervals: runs spanning a logged sharpening date', was='92')} span one. "
-                 f"At 30 June {n(int(cif['in_baseline'].sum()), 'mart_charts_in_force.in_baseline', was='16')} charts are in a baseline and {'none' if int(cif['past_trigger'].sum()) == 0 else n(int(cif['past_trigger'].sum()), 'mart_charts_in_force.past_trigger')} is past its recalculation trigger."))
-    o22.append(P(f"The baseline on C-11333-02, taken on the run of {txt(DAY(b['sample_time'].min()), 'mart_phase1_baseline_subgroups: date of the baseline run', was='11 May 2026')} after the rebuild of {txt(DAY(rb_.event_date).rsplit(' ', 1)[0], 'int_die_event_timeline: rebuild of D-1333-C', was='9 May')}, shows the procedure: "
-                 f"{n(len(b), 'mart_phase1_baseline_subgroups: subgroups', was='25')} routine subgroups, limits {n(b0.lcl_mean, 'mart_phase1_baseline_subgroups.lcl_mean', '{:.3f}', was='24.381')} to {n(b0.ucl_mean, 'mart_phase1_baseline_subgroups.ucl_mean', '{:.3f}', was='24.435')} mm on the means and a range limit of "
-                 f"{n(b0.ucl_range, 'mart_phase1_baseline_subgroups.ucl_range', '{:.4f}', was='0.0988')} mm, Anderson-Darling {n(pb74.anderson_darling, 'mart_phase1_baselines.anderson_darling', '{:.2f}', was='0.53')} against {n(pb74.anderson_darling_critical_5pct, 'mart_phase1_baselines.anderson_darling_critical_5pct', '{:.2f}', was='0.73')}. "
-                 f"Subgroup {n(scr.baseline_subgroup_no, 'mart_phase1_baseline_subgroups: screened subgroup', was='18')} carries a range of {n(scr.subgroup_range, 'mart_phase1_baseline_subgroups.subgroup_range, screened', '{:.3f}', was='0.106')} mm, beyond the range limit; it is flagged and kept, and without it the mean limits move by under "
-                 f"{n(0.002 if move < 0.002 else move, 'mart_phase1_baseline_subgroups: largest move of the mean limits without the screened subgroup', '{:.3f}', was='0.002')} mm."))
-    assert move < 0.002 and scr.subgroup_range > b0.ucl_range
-    o22.append(B["fam_p1_fig"])
-    o22.append(P(f"<strong>The year's limit sets.</strong> {n(int(rc.sum()), 'mart_limit_recalculations: limit sets in the year', was='319')} new sets were issued on the {n(len(var), 'mart_charts_in_force: variable charts', was='897')} variable charts "
-                 f"({n(int((var['limits_effective_from'] < pd.Timestamp('2025-07-01')).sum()), 'mart_charts_in_force.limits_effective_from before 1 July 2025, variable charts', was='671')} run on limits issued before the record, {n(int((var['limits_effective_from'] >= pd.Timestamp('2025-07-01')).sum()), 'mart_charts_in_force.limits_effective_from in the year, variable charts', was='226')} on limits issued in the year): "
-                 f"{n(rc['rebuild'], 'mart_limit_recalculations: rebuild', was='146')} after rebuilds, spread through the year; {n(rc['annual review'], 'mart_limit_recalculations: annual review', was='74')} at the annual review of 19 January, {n(ar_jm, 'mart_limit_recalculations: annual review, January to March', was='71')} of them in January to March; "
-                 f"{n(rc['tool-wear re-fit'], 'mart_limit_recalculations: tool-wear re-fit', was='65')} regression lines re-fitted; {n(rc['failed verification'], 'mart_limit_recalculations: failed verification', was='34')} after a failed verification. "
-                 f"Two charts changed design: C-34479-05 above, and C-15731-02's recalculation trigger, shortened from {n(tw.from_value, 'mart_chart_changes.from_value', was='30')} to {n(tw.to_value, 'mart_chart_changes.to_value', was='20')} subgroups from "
-                 f"{txt(DAY(tw.changed_on), 'mart_chart_changes.changed_on', was='8 December 2025')} after its intervals shortened under the burr line."))
+    o22.append(h(3, "limits", "3.3 Control Limits"))
+    n_new_ = int((var["limits_effective_from"] >= pd.Timestamp("2025-07-01")).sum()); n_old_ = int((var["limits_effective_from"] < pd.Timestamp("2025-07-01")).sum())
+    assert n_new_ + n_old_ == len(var)
+    o22.append(P(f"Over the past 12 months, {n(int(rc.sum()), 'mart_limit_recalculations: limit sets in the year', was='319')} new control limits were issued on the {n(len(var), 'mart_charts_in_force: variable charts', was='897')} variable charts "
+                 f"({n(n_old_, 'mart_charts_in_force.limits_effective_from before 1 July 2025, variable charts', was='671')} run on limits issued before the record, {n(n_new_, 'mart_charts_in_force.limits_effective_from in the year, variable charts', was='226')} on limits issued in the year), as shown below."))
+    entries[B["fig_recalc"]] = re.sub(r"<img[^>]*>", FIG.recalculations(by_month, labels=True), entries[B["fig_recalc"]], count=1)
+    entries[B["fig_recalc"]] = re.sub(r"(chart-title'>Figure \d+: )New limit sets by month and trigger", lambda m_: m_.group(1) + "New Control Limits Set by Trigger, Last 12 Months", entries[B["fig_recalc"]], count=1)
+    assert "New Control Limits Set by Trigger" in entries[B["fig_recalc"]]
     cap(B["fig_recalc"]); o22.append(B["fig_recalc"])
     o22.append(P(f"Verification held the limits across {n(len(shp), 'mart_limit_verifications: sharpenings', was='408')} sharpenings and failed on {n(int(shp.sum()), 'mart_limit_verifications: sharpenings with a failure', was='33')} of them ({pct(shp.mean(), 'share of sharpenings failed', was='8.1%')}), inside its design range of 3% to 9%; by chart, "
                  f"{n(x1.failed, 'mart_limit_verifications: X-bar and R failed', was='34')} of {n(x1.verifications, 'mart_limit_verifications: X-bar and R after sharpening', was='1,100')} X-bar and R ({pct(x1.rate, 'X-bar and R failure rate', was='3.1%')}), {n(x2.failed, 'mart_limit_verifications: tool-wear failed', was='2')} of "
@@ -1095,9 +1090,6 @@ def build():
                  f"({pct(x3.rate, 'three-way failure rate', was='2.1%')}). The passes sit at a median {n(ok['mean_offset_sigma'].abs().median(), 'mart_limit_verifications.mean_offset_sigma, passes, median absolute', '{:.2f}', was='0.21')} sigma from centre, and the chance of a false failure is under "
                  f"{n(0.001 if ff_rate < 0.00001 else ff_rate * 100, 'analytics.chart_performance: false-failure rate of the mean criterion, limits from 25 subgroups', '{:.3f}', was='0.001')}%, so each failure is a die that came back at a different level."))
     o22.append(B["tab_verif"])
-    o22.append(P(f"<strong>The annual review's three-way sets.</strong> {n(len(below), 'mart_limit_sets: three-way annual-review sets below the minimum', was='23')} of the {n(len(rw), 'mart_limit_sets: three-way annual-review sets', was='45')} three-way sets issued at the review span "
-                 f"{wd(below['coil_changes_spanned'].min(), 'mart_limit_sets.coil_changes_spanned, lowest', was='one')} to {wd(below['coil_changes_spanned'].max(), 'mart_limit_sets.coil_changes_spanned, highest', was='nine')} coil changes, because the review computed on a trailing window of "
-                 f"{n(below['subgroups_used'].min(), 'mart_limit_sets.subgroups_used, lowest', was='50')} to {n(below['subgroups_used'].max(), 'mart_limit_sets.subgroups_used, highest', was='978')} subgroups rather than the ten-coil baseline rule. Their centre lines are sound; their limits understate the coil offset. They are re-issued as ten coil changes accrue."))
     # ═══ 2.3 Performance
     # special-cause runs: a run with an assignable cause on any characteristic chart, or a tonnage stop with a finding
     st_find = stops[stops["finding_class"] != "nothing found"]
@@ -1347,7 +1339,7 @@ def build():
     cap(B["fig_parts"]); o23.append(B["fig_parts"])
     order += o22 + o23
     gone = ("A1. The family's charts in force", "A2. The family's characteristics", "A3. The family's limit history", "A4. C-15731-02's ten limit sets")
-    order += [k for k in keys if appendix_key <= k < first_new and not any(entries[k].startswith(f"<div class='chart-title'>{g_}") for g_ in gone)]          # the appendix, as built
+    app_all = {k for k in keys if appendix_key <= k < first_new}          # the appendix, as built
     used = set(order)
     assert len(used) == len(order), "a block placed twice"
     dropped = {k for k in keys if k < first_new and k not in used}
@@ -1355,7 +1347,7 @@ def build():
     fam_ex = {B["fam_bc_fig"], B["fam_grr"], B["fam_tw_fig"], B["fam_table"], B["fam_fig"], B["fam_ps_fig"]}
     app_gone = {k for k in keys if appendix_key <= k < first_new and any(entries[k].startswith(f"<div class='chart-title'>{g_}") for g_ in gone)}
     assert len(app_gone) == 4
-    assert exhibits == {B["tab_arl"], B["tab_obs"], B["fig_classes"], B["fig_press_class"], B["fig_threeway"], B["fig_wear"], B["fig_arl"], B["fig_var"], B["fam_cf_fig"]} | fam_ex | app_gone, [entries[k][:90] for k in exhibits]
+    assert exhibits == {B["tab_arl"], B["tab_obs"], B["fig_classes"], B["fig_press_class"], B["fig_threeway"], B["fig_wear"], B["fig_arl"], B["fig_var"], B["fam_cf_fig"], B["fam_p1_fig"]} | fam_ex | {k for k in app_all if "chart-title'>" in entries[k]}, [entries[k][:90] for k in exhibits]
     rows = [(r, k) for r, k in pg.trace if k not in dropped]
     label, pos = {}, {}
     cur = ""
@@ -1389,8 +1381,8 @@ def build():
     pg.body = [re.sub(r"(chart-title'>)Figure \d+: ", r"\1", blk) for blk in pg.body]
     pg.trace = [((f"Figure: {ftitle[int(t[0].split()[1])]}" if re.fullmatch(r"Figure \d+", t[0]) else t[0]),) + tuple(t[1:]) for t in pg.trace]
     toc = [("exec-summary", "1. Executive Summary"), ("overview", "2. Active SPC Charts"),
-           ("design", "3. Chart Design"), ("chart-types", "3.1 Chart Types", "sub"), ("measurement", "3.2 Measurement systems", "sub"), ("limits", "3.3 Setting and holding limits", "sub"),
-           ("performance", "4. Chart Performance"), ("signals", "4.1 Signals and causes", "sub"), ("expected", "4.2 Observed against expected", "sub"), ("appendix", "Appendix")]
+           ("design", "3. Chart Design"), ("chart-types", "3.1 Chart Types", "sub"), ("measurement", "3.2 Measurement systems", "sub"), ("limits", "3.3 Control Limits", "sub"),
+           ("performance", "4. Chart Performance"), ("signals", "4.1 Signals and causes", "sub"), ("expected", "4.2 Observed against expected", "sub")]
     html = S.report_shell("Control Chart Design", "Revalidation on the July 2025 to June 2026 record", "July 2026", "\n".join(pg.body), toc)
     out = S.DOCS / "reports"; out.mkdir(parents=True, exist_ok=True)
     (out / "control_chart_design.html").write_text(html, encoding="utf8", newline="\n")
