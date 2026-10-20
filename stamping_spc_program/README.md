@@ -5,18 +5,18 @@ Statistical process control as it runs at a progressive-die metal stamper with e
 <br>
 
 Two reports were created:
-- **[SPC Chart Design & Performance:](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/control_chart_design.html)** Comprehensive review of all active SPC charts. Includes overview of chart type selections, variance decompositions, measurement systems, and control limits. Statistical analyses review chart signals, special causes found, and observed vs. expected performance. 
-- **[Capability & SPC Review, Q2 2026:](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/reports/spc_quarterly_review_2026_q2.html)** Quarterly review summarizing capability (Ppk/Ppu and Cpk/Cpu) across characteristics, as well as statistical process control performance. 
+- **[SPC Chart Design & Performance:](https://brimsystems.github.io/spc-capability/stamping_spc_program/docs/reports/control_chart_design.html)** Comprehensive review of all active SPC charts. Includes overview of chart type selections, variance decompositions, measurement systems, and control limits. Statistical analyses review chart signals, special causes found, and observed vs. expected performance. 
+- **[Capability & SPC Review, Q2 2026:](https://brimsystems.github.io/spc-capability/stamping_spc_program/docs/reports/spc_quarterly_review_2026_q2.html)** Quarterly review summarizing capability (Ppk/Ppu and Cpk/Cpu) across characteristics, as well as statistical process control performance. 
 
 <br>
 
 Two SPC outputs were built, embedded in the shop's statistical software:
 
-**[SPC terminal screen](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)**, showing a three-way chart at the press monitoring formed heights and bend angles, before and after a coil change. 
-[![SPC terminal screen, PR-03](docs/readme/spc_terminal_screen.png)](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)
+**[SPC terminal screen](https://brimsystems.github.io/spc-capability/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)**, showing a three-way chart at the press monitoring formed heights and bend angles, before and after a coil change. 
+[![SPC terminal screen, PR-03](docs/readme/spc_terminal_screen.png)](https://brimsystems.github.io/spc-capability/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)
 
-**[Press monitor screen](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/press_monitor_pr_03.html)**, showing per-stroke tonnage on EWMA and channel-share panels, at the moment of a stop due to a chipped punch. 
-[![Press monitor screen, PR-03](docs/readme/press_monitor_screen.png)](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/press_monitor_pr_03.html)
+**[Press monitor screen](https://brimsystems.github.io/spc-capability/stamping_spc_program/docs/screens/press_monitor_pr_03.html)**, showing per-stroke tonnage on EWMA and channel-share panels, at the moment of a stop due to a chipped punch. 
+[![Press monitor screen, PR-03](docs/readme/press_monitor_screen.png)](https://brimsystems.github.io/spc-capability/stamping_spc_program/docs/screens/press_monitor_pr_03.html)
 
 ## Business Context
 
@@ -44,7 +44,6 @@ The program it runs:
 **Data engineering:**
 - The exported files are loaded to DuckDB with dlt; the per-stroke press monitor export is read in place as Parquet.
 - A dbt project builds 75 staging, intermediate and mart models with 297 schema tests, and every mart carries the export batch id.
-- Every table, figure and page is written by scripts that read the marts; no number is typed into a page, and each page has a trace of every number it prints and the mart it is read from under `analytics/reports/traces/`. Two consecutive builds are byte-identical.
 
 ## Data
 

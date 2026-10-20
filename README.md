@@ -6,9 +6,9 @@ SPC and quality analytics for two shops. At an injection molder, every shot from
 
 A data platform, an SPC layer and three model components for an injection molder's instrumented cell of two presses and six molds with cavity pressure sensors. The work joins every shot to its job, resin lot, setpoints and audits, runs the shop's control-chart rules on every shot, adds drift detection, puts a predicted weight and dimension on every shot and screens for shots unlike anything validated, and measures what each layer detects against how often it flags good parts. It delivers the monitoring unit screen and shift chart, run reports at job close, a quality dashboard, an ML overview, an ML technical report and an MLOps monitoring report.
 
-[![Monitoring unit screen with the predicted weight, dimension and anomaly state](molding_predictive_quality/docs/screenshots/unit_screen.png)](https://brimsystems.github.io/spc-quality-ml/molding_predictive_quality/docs/reports/unit_screen.html)
+[![Monitoring unit screen with the predicted weight, dimension and anomaly state](molding_predictive_quality/docs/screenshots/unit_screen.png)](https://brimsystems.github.io/spc-capability/molding_predictive_quality/docs/reports/unit_screen.html)
 
-Read the [case README](molding_predictive_quality/README.md) and the [deliverables index](https://brimsystems.github.io/spc-quality-ml/molding_predictive_quality/docs/index.html).
+Read the [case README](molding_predictive_quality/README.md) and the [deliverables index](https://brimsystems.github.io/spc-capability/molding_predictive_quality/docs/index.html).
 
 ## Metal stamping: SPC program
 
@@ -18,9 +18,9 @@ Statistical process control as it runs at a progressive-die metal stamper with e
 
 The plant at summary level and one part family in full, with the PR-03 SPC terminal and press monitor screens at the moment of a per-stroke stop.
 
-[![SPC terminal screen, PR-03](stamping_spc_program/docs/readme/spc_terminal_screen.png)](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)
+[![SPC terminal screen, PR-03](stamping_spc_program/docs/readme/spc_terminal_screen.png)](https://brimsystems.github.io/spc-capability/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)
 
-Read the [case README](stamping_spc_program/README.md) and the [deliverables index](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/index.html).
+Read the [case README](stamping_spc_program/README.md) and the [deliverables index](https://brimsystems.github.io/spc-capability/stamping_spc_program/docs/index.html).
 
 ## Author
 
