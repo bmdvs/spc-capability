@@ -7,7 +7,7 @@ Statistical process control as it runs at a progressive-die metal stamper with e
 
 Two SPC outputs created, embedded in the shop's statistical software:
 
-**[SPC terminal screen](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)**, showing a three-way chart at the press monitoring formed heights and bend angles. 
+**[SPC terminal screen](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)**, showing a three-way chart at the press monitoring formed heights and bend angles, before and after a coil change. 
 [![SPC terminal screen, PR-03](docs/readme/spc_terminal_screen.png)](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/spc_terminal_pr_03.html)
 
 **[Press monitor screen](https://brimsystems.github.io/spc-quality-ml/stamping_spc_program/docs/screens/press_monitor_pr_03.html)**, showing per-stroke tonnage on EWMA and channel-share panels, at the moment of a stop due to a chipped punch. 
