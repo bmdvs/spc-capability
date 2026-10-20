@@ -1,6 +1,27 @@
 version: 2
 
 models:
+  - name: mart_tonnage_components
+    description: Per-stroke tonnage components by run, as shares of the part's mean.
+    columns:
+      - name: run_id
+        tests: [not_null, unique]
+      - name: ss_stroke_to_stroke
+        tests:
+          - in_range:
+              arguments:
+                min_value: 0
+                max_value: 1000000000
+  - name: mart_attribute_fails_by_interval
+    description: Attribute check fails by fifth of the sharpening interval.
+    columns:
+      - name: interval_fifth
+        tests:
+          - not_null
+          - in_range:
+              arguments:
+                min_value: 1
+                max_value: 5
   - name: mart_variance_components
     description: Variance components by characteristic over the record.
     config:
