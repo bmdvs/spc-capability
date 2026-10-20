@@ -248,7 +248,7 @@ def special_cause_timeline(ev):
     ax.set_xlim(pd.Timestamp("2026-03-29"), pd.Timestamp("2026-07-02"))
     wk = pd.date_range("2026-03-30", "2026-06-29", freq="14D")
     ax.set_xticks(wk); ax.set_xticklabels([w.strftime("%d %b").lstrip("0") for w in wk], fontsize=8.5)
-    ax.set_xlabel("Week of the first signal, April to June 2026")
+    ax.set_xlabel("Week of the first signal")
     return S.save(f, "d2_special_causes_timeline", "Special causes found at variable characteristic charts")
 
 
