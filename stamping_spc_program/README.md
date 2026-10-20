@@ -44,7 +44,6 @@ The program it runs:
 **Data engineering:**
 - The exported files are loaded to DuckDB with dlt; the per-stroke press monitor export is read in place as Parquet.
 - A dbt project builds 75 staging, intermediate and mart models with 297 schema tests, and every mart carries the export batch id.
-- Every table, figure and page is written by scripts that read the marts; no number is typed into a page, and each page has a trace of every number it prints and the mart it is read from under `analytics/reports/traces/`. Two consecutive builds are byte-identical.
 
 ## Data
 
