@@ -1,194 +1,358 @@
 section,value_as_printed,read_from,value_in_the_text
-1. Summary,1.23,"mart_signal_rates with the expected rate: observed over expected, quarter",1.23
-1. Summary,93,mart_capability: critical characteristics at or above 1.33,93
-1. Summary,100,mart_capability: critical characteristics,100
-1. Summary,19,mart_first_piece_approvals.held,19
-1. Summary,583,mart_first_piece_approvals: run starts,583
-1. Summary,3.80,"observed per 100, quarter",3.80
-1. Summary,3.08,"expected per 100, quarter",3.08
-1. Summary,418,"mart_signals: assignable-cause alarms, quarter",418
-1. Summary,21,mart_signals: runs with an assignable cause,21
-1. Summary,1.51,"mart_capability.ppk, formed, median",1.51
-1. Summary,1.64,"mart_capability.ppk, hole position, median",1.64
-1. Summary,1.63,"mart_capability.ppk, hole diameter, median",1.63
-1. Summary,1.81,"mart_capability.ppk, flatness, median",1.81
-1. Summary,0,"mart_charts_in_force with mart_gauge_quarter_end: variable charts fed by a gauge past due, away or without a study",0
-1. Summary,897,mart_charts_in_force: variable charts,897
-1. Summary,16,mart_charts_in_force.restudy_scheduled: gauges,16
-1. Summary,19,mart_first_piece_approvals.held,19
-1. Summary,583,mart_first_piece_approvals: run starts,583
-1. Summary,62,"mart_first_piece_approvals.minutes_to_release, held, median",62
-1. Summary,10:55,mart_per_stroke_stops.stopped_at,10:55
-1. Summary,"239,498",mart_per_stroke_stops.stop_stroke_no,"239,498"
-1. Summary,34,mart_parts_exposed.strokes_exposed_per_stroke_charts,34
-1. Summary,11:55,mart_per_stroke_stops.cleared_at,11:55
-1. Summary,27 May,"mart_signals.raised_at, soft coil",27 May
-1. Summary,36.6,mart_coil_change_points.certificate_hardness_hrb,36.6
-1. Summary,40.2,"stg_erp__coils.certificate_hardness_hrb, C110 0.99 mm, median",40.2
-1. Summary,30,mart_signals: fixture drift alarms,30
-1. Summary,2 June,mart_fixture_verifications.verification_date,2 June
-1. Summary,0.019,mart_fixture_verifications.master_deviation_mm,0.019
-1. Summary,0.016,mart_fixture_verifications.tolerance_mm,0.016
-1. Summary,16.7,"mart_gauge_studies.pct_grr_of_tolerance, restudy",16.7
-1. Summary,18 June,"stg_calibration__calibrations.done, rebuild",18 June
-1. Summary,5.3,"mart_gauge_studies.pct_grr_of_tolerance, after rebuild",5.3
-1. Summary,14 April,mart_operator_kappa.study_date,14 April
-1. Summary,0.66,mart_operator_kappa.kappa,0.66
-1. Summary,28 April,mart_operator_kappa.study_date,28 April
-1. Summary,0.83,mart_operator_kappa.kappa,0.83
-1. Summary,16 May,"mart_signals.raised_at, wrong count",16 May
-1. Summary,9 June,mart_first_piece_approvals.first_piece_at,9 June
-1. Summary,44,mart_first_piece_approvals.minutes_to_release,44
-1. Summary,six,"mart_signals: further assignable causes, runs",Six
-1. Summary,two,"slug pulling, runs",two
-1. Summary,two,"strip misfeed, runs",two
-1. Summary,one,"lubricant, runs",one
-1. Summary,one,"gauge zero, runs",one
-2. Signals and reaction,1.23,"observed over expected, quarter",1.23
-2. Signals and reaction,418,mart_signals: assignable-cause alarms,418
-2. Signals and reaction,3,"mart_signals.minutes_to_acknowledge, assignable, median",3
-2. Signals and reaction,2,"mart_signals.minutes_to_close, assignable, median, hours",2
-2. Signals and reaction,"4,066","mart_signals: alarms, quarter","4,066"
-2. Signals and reaction,"3,120",mart_signals: subgroups with an alarm,"3,120"
-2. Signals and reaction,"3,648",mart_signals: no cause found,"3,648"
-2. Signals and reaction,24,"mart_signals.minutes_to_close, no cause found, median",24
-2. Signals and reaction,1.42,"observed over expected, X-bar and R, quarter",1.42
-2. Signals and reaction,0.92,"observed over expected, three-way, quarter",0.92
-2. Signals and reaction,2.19,"observed over expected, tool-wear, quarter",2.19
-2. Signals and reaction,PR-04,press with the highest observed rate,PR-04
-2. Signals and reaction,5.27,"observed per 100, PR-04",5.27
-2. Signals and reaction,3.16,"expected per 100, PR-04",3.16
-2. Signals and reaction,PR-08 and PR-10,presses observed below expected,PR-08 and PR-10
-2. Signals and reaction,356,mart_signals: level after sharpening,356
-2. Signals and reaction,12,mart_signals: runs with level after sharpening,12
-2. Signals and reaction,484,"mart_signals: family alarms, quarter",484
-2. Signals and reaction,54,mart_signals: family alarms with an assignable cause,54
-2. Signals and reaction,30,mart_signals: fixture drift alarms,30
-2. Signals and reaction,23,"mart_signals: level after the rebuild, family",23
-2. Signals and reaction,28 May,"mart_limit_verifications.event_date, P-14026 rebuild",28 May
-2. Signals and reaction,30 June,"mart_limit_verifications.verified_at, P-14026",30 June
-2. Signals and reaction,430,"mart_signals: family alarms, no cause found",430
-3. Limits governance,53,mart_limit_recalculations.limit_sets_in_quarter,53
-3. Limits governance,21,"rebuild, quarter",21
-3. Limits governance,20,"tool-wear re-fit, quarter",20
-3. Limits governance,9,"failed verification, quarter",9
-3. Limits governance,3,"annual review, quarter",3
-3. Limits governance,339,"mart_limit_verifications: verifications after a sharpening, quarter",339
-3. Limits governance,10,"failed after a sharpening, quarter",10
-3. Limits governance,30,"three-way verifications after a rebuild, quarter",30
-3. Limits governance,3,"three-way failed, quarter",3
-3. Limits governance,P-14026,"mart_limit_verifications.part_id, three-way failures",P-14026
-3. Limits governance,30 June,mart_limit_verifications.verified_at,30 June
-3. Limits governance,16,mart_charts_in_force.in_baseline,16
-3. Limits governance,12,"in baseline, X-bar and R",12
-3. Limits governance,4,"in baseline, three-way",4
-3. Limits governance,1 December 2025,mart_charts_in_force.baseline_started,1 December 2025
-3. Limits governance,21,mart_charts_in_force.baseline_subgroups_so_far,21
-4. Capability,93,critical at or above 1.33,93
-4. Capability,100,critical characteristics,100
-4. Capability,1.51,formed Ppk median,1.51
-4. Capability,1.41,"formed Ppk, 25th percentile",1.41
-4. Capability,1.59,"formed Ppk, 75th percentile",1.59
-4. Capability,1.64,hole position Ppk median,1.64
-4. Capability,1.63,hole diameter Ppk median,1.63
-4. Capability,1.81,flatness Ppu median,1.81
-4. Capability,0.09,"formed Cpk less Ppk, median",0.09
-4. Capability,0.38,"hole diameter Cpk less Ppk, median",0.38
-4. Capability,11,mart_capability: family at or above 1.33,11
-4. Capability,13,mart_capability: family characteristics,13
-4. Capability,ten,family with the interval clear of 1.33,ten
-4. Capability,1.30,"mart_capability.ppk_low, C-15731-03",1.30
-4. Capability,two,family below 1.33,Two
-4. Capability,1.30,"ppk, C-15731-05",1.30
-4. Capability,1.22,"ppk_low, C-15731-05",1.22
-4. Capability,1.38,"ppk_high, C-15731-05",1.38
-4. Capability,1.23,"ppk, C-15731-06",1.23
-4. Capability,1.15,"ppk_low, C-15731-06",1.15
-4. Capability,1.31,"ppk_high, C-15731-06",1.31
-4. Capability,seven,mart_capability: under 1.33,seven
-4. Capability,six,formed under 1.33,six
-4. Capability,7,"share_between_coils, formed under 1.33, lowest",7
-4. Capability,31,"share_between_coils, formed under 1.33, highest",31
-4. Capability,13.5%,"mart_variance_components.share_between_coils, formed, median",13.5%
-4. Capability,1.32,"ppk, C-39736-01",1.32
-4. Capability,2.12,"cpk, C-39736-01",2.12
-5. Measurement gating,897,mart_charts_in_force: variable charts with a study,897
-5. Measurement gating,897,variable charts,897
-5. Measurement gating,66,mart_gauge_studies: studies in the quarter,66
-5. Measurement gating,52,studies on check fixtures,52
-5. Measurement gating,59,under 10%,59
-5. Measurement gating,7,10% to 30%,7
-5. Measurement gating,six,mart_gauge_studies: 10% to 30% with a restudy date,six
-5. Measurement gating,F-14026,mart_gauge_studies: 10% to 30% without a restudy date,F-14026
-5. Measurement gating,180,check fixtures on file,180
-5. Measurement gating,164,fixtures under 10%,164
-5. Measurement gating,16,fixtures at 10% to 30%,16
-5. Measurement gating,30,fixture drift alarms,30
-5. Measurement gating,four,days from the last drift alarm to the failed verification,four
-5. Measurement gating,16.7,restudy %GRR,16.7
-5. Measurement gating,4,restudy ndc,4
-5. Measurement gating,5.3,after-rebuild %GRR,5.3
-5. Measurement gating,15,after-rebuild ndc,15
-5. Measurement gating,"1,052","mart_fixture_verifications: passes, quarter","1,052"
-5. Measurement gating,24,mart_operator_kappa: operators,24
-5. Measurement gating,0.78,"latest kappa, lowest",0.78
-5. Measurement gating,0.89,"latest kappa, highest",0.89
-5. Measurement gating,0.82,"latest kappa, median",0.82
-5. Measurement gating,0.66,"kappa, 14 April",0.66
-5. Measurement gating,0.83,"kappa, 28 April",0.83
-5. Measurement gating,261,"mart_measurement_subgroups.subgroups_on_gauge_away, quarter",261
-5. Measurement gating,0.27%,share of the quarter,0.27%
-5. Measurement gating,89,int_characteristic_history with int_gauge_status: on runs begun on or before the removal day,89
-5. Measurement gating,172,the rest,172
-5. Measurement gating,1,"days after the removal, fewest",1
-5. Measurement gating,15,"days after the removal, most",15
-6. Dies and per-stroke monitoring,69,"mart_sharpenings: on time, quarter",69
-6. Dies and per-stroke monitoring,76,mart_sharpenings: quarter,76
-6. Dies and per-stroke monitoring,90.8%,"mart_sharpenings.burr_peak_share_of_limit, highest",90.8%
-6. Dies and per-stroke monitoring,seven,late sharpenings,seven
-6. Dies and per-stroke monitoring,1,"late overrun, smallest",1
-6. Dies and per-stroke monitoring,9,"late overrun, largest",9
-6. Dies and per-stroke monitoring,87%,"share of the due count, high-speed, median",87%
-6. Dies and per-stroke monitoring,96%,"share of the due count, medium, median",96%
-6. Dies and per-stroke monitoring,139,"mart_per_stroke_stops: stops, quarter",139
-6. Dies and per-stroke monitoring,23.2,"mart_per_stroke_stop_rates.strokes, quarter, millions",23.2
-6. Dies and per-stroke monitoring,68,"slug pulling, quarter",68
-6. Dies and per-stroke monitoring,23,"chipped punch, quarter",23
-6. Dies and per-stroke monitoring,21,"worn punch, quarter",21
-6. Dies and per-stroke monitoring,27,"nothing found, quarter",27
-6. Dies and per-stroke monitoring,1.16,"nothing found per million strokes, quarter",1.16
-6. Dies and per-stroke monitoring,18,"nothing found, PR-03, quarter",18
-6. Dies and per-stroke monitoring,27,"nothing found, quarter",27
-6. Dies and per-stroke monitoring,3.78,"nothing found per million, PR-03, quarter",3.78
-6. Dies and per-stroke monitoring,1.02,"nothing found per million, plant, the year",1.02
-6. Dies and per-stroke monitoring,0,"mart_parts_exposed: median strokes, quarter",0
-6. Dies and per-stroke monitoring,31,"mart_parts_exposed: 90th percentile strokes, quarter",31
-6. Dies and per-stroke monitoring,44,mart_punch_replacements: quarter,44
-6. Dies and per-stroke monitoring,19,"chipped, channel share",19
-6. Dies and per-stroke monitoring,4,"chipped, EWMA",4
-6. Dies and per-stroke monitoring,17,"worn, EWMA",17
-6. Dies and per-stroke monitoring,4,"worn, channel share",4
-7. First-piece approvals and recording,19,held,19
-7. First-piece approvals and recording,583,run starts,583
-7. First-piece approvals and recording,3.3%,held share,3.3%
-7. First-piece approvals and recording,62,"held, median minutes",62
-7. First-piece approvals and recording,12,"passed, median minutes",12
-7. First-piece approvals and recording,8,held on formed height,8
-7. First-piece approvals and recording,4,held on hole-to-edge,4
-7. First-piece approvals and recording,3,held on burr height,3
-7. First-piece approvals and recording,2,held on bend angle,2
-7. First-piece approvals and recording,1,held on hole diameter,1
-7. First-piece approvals and recording,1,held on hole-to-hole,1
-7. First-piece approvals and recording,R26-00796,"longest hold, run",R26-00796
-7. First-piece approvals and recording,PR-01,"longest hold, press",PR-01
-7. First-piece approvals and recording,5 May,"longest hold, date",5 May
-7. First-piece approvals and recording,470,"longest hold, minutes",470
-7. First-piece approvals and recording,78,"second longest hold, minutes",78
-7. First-piece approvals and recording,97.9%,"planned checks recorded, days",97.9%
-7. First-piece approvals and recording,96.9%,"planned checks recorded, nights",96.9%
-7. First-piece approvals and recording,95.5%,"lowest press and shift, to the tenth of a point below",95.5%
-7. First-piece approvals and recording,1.50%,late entries,1.50%
-7. First-piece approvals and recording,one,median minutes to entry,one
-Appendix,15,int_run_shots: runs starting on the day their sharpening is logged,15
-Appendix,"1,399",int_run_shots: runs with a shot count,"1,399"
-Appendix,92,int_run_shots with int_sharpening_intervals: runs spanning a logged sharpening date,92
+,9,int_characteristic_history with int_gauge_status: subgroups recorded strictly between a gauge removal and its return,9
+,two,gauges with a subgroup recorded while away,two
+,252,subgroups on the return day of a gauge,252
+2. Capability Review,seven,"mart_capability: below 1.33, quarter",seven
+2.1 Where capability stands,93,"mart_capability: critical characteristics at or above 1.33, quarter",93
+2.1 Where capability stands,100,"mart_capability: critical characteristics with 60 routine subgroups or more, quarter",100
+2.1 Where capability stands,seven,"mart_capability: below 1.33, quarter",seven
+2.1 Where capability stands,six,"below 1.33, formed",six
+2.1 Where capability stands,one,"below 1.33, hole diameter",one
+2.1 Where capability stands,11,"mart_capability: flatness characteristics, quarter",11
+Figure 1,1.73,"mart_capability.ppk, C-10090-08",
+Figure 1,1.78,"mart_capability.ppk, C-10531-07",
+Figure 1,1.60,"mart_capability.ppk, C-11333-02",
+Figure 1,1.52,"mart_capability.ppk, C-11333-04",
+Figure 1,1.51,"mart_capability.ppk, C-11333-05",
+Figure 1,1.58,"mart_capability.ppk, C-11348-06",
+Figure 1,1.83,"mart_capability.ppk, C-11687-01",
+Figure 1,1.27,"mart_capability.ppk, C-11687-04",
+Figure 1,1.57,"mart_capability.ppk, C-11687-05",
+Figure 1,1.43,"mart_capability.ppk, C-11687-06",
+Figure 1,1.66,"mart_capability.ppk, C-12485-05",
+Figure 1,1.62,"mart_capability.ppk, C-12485-06",
+Figure 1,1.77,"mart_capability.ppk, C-12587-05",
+Figure 1,1.87,"mart_capability.ppk, C-12587-06",
+Figure 1,1.85,"mart_capability.ppk, C-13459-04",
+Figure 1,1.61,"mart_capability.ppk, C-13708-02",
+Figure 1,1.97,"mart_capability.ppk, C-13708-03",
+Figure 1,1.36,"mart_capability.ppk, C-13708-04",
+Figure 1,1.62,"mart_capability.ppk, C-13708-05",
+Figure 1,1.45,"mart_capability.ppk, C-13708-06",
+Figure 1,1.71,"mart_capability.ppk, C-14026-03",
+Figure 1,1.58,"mart_capability.ppk, C-14026-04",
+Figure 1,1.57,"mart_capability.ppk, C-14026-05",
+Figure 1,1.46,"mart_capability.ppk, C-14026-06",
+Figure 1,1.41,"mart_capability.ppk, C-14026-08",
+Figure 1,1.67,"mart_capability.ppk, C-14393-03",
+Figure 1,1.77,"mart_capability.ppk, C-15609-01",
+Figure 1,1.71,"mart_capability.ppk, C-15609-03",
+Figure 1,1.54,"mart_capability.ppk, C-15609-04",
+Figure 1,1.51,"mart_capability.ppk, C-15609-05",
+Figure 1,1.64,"mart_capability.ppk, C-15609-06",
+Figure 1,1.57,"mart_capability.ppk, C-15731-02",
+Figure 1,1.39,"mart_capability.ppk, C-15731-03",
+Figure 1,1.30,"mart_capability.ppk, C-15731-05",
+Figure 1,1.23,"mart_capability.ppk, C-15731-06",
+Figure 1,1.50,"mart_capability.ppk, C-15731-07",
+Figure 1,1.51,"mart_capability.ppk, C-16291-02",
+Figure 1,1.38,"mart_capability.ppk, C-16315-02",
+Figure 1,1.65,"mart_capability.ppk, C-16315-03",
+Figure 1,1.34,"mart_capability.ppk, C-16315-05",
+Figure 1,1.31,"mart_capability.ppk, C-16315-06",
+Figure 1,1.50,"mart_capability.ppk, C-16315-07",
+Figure 1,1.65,"mart_capability.ppk, C-17862-05",
+Figure 1,1.82,"mart_capability.ppk, C-18000-04",
+Figure 1,1.81,"mart_capability.ppk, C-19387-09",
+Figure 1,1.56,"mart_capability.ppk, C-20417-01",
+Figure 1,1.49,"mart_capability.ppk, C-20417-04",
+Figure 1,1.64,"mart_capability.ppk, C-20417-06",
+Figure 1,1.41,"mart_capability.ppk, C-20417-08",
+Figure 1,1.49,"mart_capability.ppk, C-20417-09",
+Figure 1,1.81,"mart_capability.ppk, C-22558-01",
+Figure 1,1.62,"mart_capability.ppk, C-22558-05",
+Figure 1,1.43,"mart_capability.ppk, C-22558-06",
+Figure 1,1.93,"mart_capability.ppk, C-22617-01",
+Figure 1,1.59,"mart_capability.ppk, C-22617-04",
+Figure 1,1.40,"mart_capability.ppk, C-22617-05",
+Figure 1,1.55,"mart_capability.ppk, C-22617-06",
+Figure 1,1.72,"mart_capability.ppk, C-23068-06",
+Figure 1,1.67,"mart_capability.ppk, C-23247-02",
+Figure 1,1.76,"mart_capability.ppk, C-23247-03",
+Figure 1,1.54,"mart_capability.ppk, C-23247-07",
+Figure 1,1.78,"mart_capability.ppk, C-23247-08",
+Figure 1,1.79,"mart_capability.ppk, C-23247-09",
+Figure 1,1.94,"mart_capability.ppk, C-24604-06",
+Figure 1,1.85,"mart_capability.ppk, C-24604-07",
+Figure 1,1.69,"mart_capability.ppk, C-26076-02",
+Figure 1,1.49,"mart_capability.ppk, C-26076-03",
+Figure 1,1.62,"mart_capability.ppk, C-26076-04",
+Figure 1,1.28,"mart_capability.ppk, C-26076-05",
+Figure 1,1.45,"mart_capability.ppk, C-26076-06",
+Figure 1,1.62,"mart_capability.ppk, C-26998-02",
+Figure 1,1.65,"mart_capability.ppk, C-26998-04",
+Figure 1,1.57,"mart_capability.ppk, C-26998-05",
+Figure 1,1.67,"mart_capability.ppk, C-27463-02",
+Figure 1,1.71,"mart_capability.ppk, C-28553-01",
+Figure 1,1.57,"mart_capability.ppk, C-28553-02",
+Figure 1,1.58,"mart_capability.ppk, C-28553-04",
+Figure 1,1.60,"mart_capability.ppk, C-28553-05",
+Figure 1,1.74,"mart_capability.ppk, C-28553-06",
+Figure 1,1.84,"mart_capability.ppk, C-29540-01",
+Figure 1,1.48,"mart_capability.ppk, C-29540-05",
+Figure 1,1.51,"mart_capability.ppk, C-29540-06",
+Figure 1,1.63,"mart_capability.ppk, C-31102-01",
+Figure 1,1.91,"mart_capability.ppk, C-31102-03",
+Figure 1,1.51,"mart_capability.ppk, C-31102-04",
+Figure 1,1.36,"mart_capability.ppk, C-31102-05",
+Figure 1,1.39,"mart_capability.ppk, C-31102-06",
+Figure 1,1.64,"mart_capability.ppk, C-31540-02",
+Figure 1,1.91,"mart_capability.ppk, C-31540-08",
+Figure 1,1.33,"mart_capability.ppk, C-35987-01",
+Figure 1,1.54,"mart_capability.ppk, C-35987-03",
+Figure 1,1.59,"mart_capability.ppk, C-35987-05",
+Figure 1,1.41,"mart_capability.ppk, C-35987-06",
+Figure 1,1.45,"mart_capability.ppk, C-35987-07",
+Figure 1,1.64,"mart_capability.ppk, C-36526-03",
+Figure 1,1.43,"mart_capability.ppk, C-36526-05",
+Figure 1,1.53,"mart_capability.ppk, C-36526-07",
+Figure 1,1.24,"mart_capability.ppk, C-37007-06",
+Figure 1,1.54,"mart_capability.ppk, C-37329-02",
+Figure 1,1.41,"mart_capability.ppk, C-37329-05",
+Figure 1,1.66,"mart_capability.ppk, C-37329-06",
+Figure 1,1.64,"mart_capability.ppk, C-37329-08",
+Figure 1,1.84,"mart_capability.ppk, C-37329-09",
+Figure 1,1.39,"mart_capability.ppk, C-37771-02",
+Figure 1,1.54,"mart_capability.ppk, C-37771-03",
+Figure 1,1.37,"mart_capability.ppk, C-37771-04",
+Figure 1,1.41,"mart_capability.ppk, C-37771-05",
+Figure 1,1.48,"mart_capability.ppk, C-37771-06",
+Figure 1,1.32,"mart_capability.ppk, C-39736-01",
+Figure 1,1.57,"mart_capability.ppk, C-39736-04",
+Figure 1,1.52,"mart_capability.ppk, C-39736-07",
+2.2 What the chart design explains,0.09,"mart_capability.cpk_less_ppk, formed, median",0.09
+2.2 What the chart design explains,0.38,"mart_capability.cpk_less_ppk, hole diameter, median",0.38
+2.3 Across the year,1.49,"mart_capability: formed median Ppk, lowest quarter",1.49
+2.3 Across the year,1.51,"mart_capability: formed median Ppk, highest quarter",1.51
+2.3 Across the year,1.73,"mart_capability: hole diameter median Ppk, 2025 Q3",1.73
+2.3 Across the year,1.63,"mart_capability: hole diameter median Ppk, 2026 Q2",1.63
+2.3 Across the year,7,"mart_capability: below 1.33, 2026 Q2",7
+2.3 Across the year,3,"mart_capability: below 1.33, earlier quarters, fewest",3
+2.3 Across the year,4,"mart_capability: below 1.33, earlier quarters, most",4
+Figure 3,100 of 103,"mart_capability: at or above 1.33 over the population, 2025 Q3",
+Figure 3,105 of 109,"mart_capability: at or above 1.33 over the population, 2025 Q4",
+Figure 3,113 of 116,"mart_capability: at or above 1.33 over the population, 2026 Q1",
+Figure 3,104 of 111,"mart_capability: at or above 1.33 over the population, 2026 Q2",
+Figure 3,1.64,"mart_capability: median Ppk, cut geometry, 2025 Q3",
+Figure 3,1.77,"mart_capability: median Ppk, flatness, 2025 Q3",
+Figure 3,1.51,"mart_capability: median Ppk, formed, 2025 Q3",
+Figure 3,1.73,"mart_capability: median Ppk, hole diameter, 2025 Q3",
+Figure 3,1.66,"mart_capability: median Ppk, cut geometry, 2025 Q4",
+Figure 3,1.85,"mart_capability: median Ppk, flatness, 2025 Q4",
+Figure 3,1.49,"mart_capability: median Ppk, formed, 2025 Q4",
+Figure 3,1.73,"mart_capability: median Ppk, hole diameter, 2025 Q4",
+Figure 3,1.72,"mart_capability: median Ppk, cut geometry, 2026 Q1",
+Figure 3,1.75,"mart_capability: median Ppk, flatness, 2026 Q1",
+Figure 3,1.50,"mart_capability: median Ppk, formed, 2026 Q1",
+Figure 3,1.72,"mart_capability: median Ppk, hole diameter, 2026 Q1",
+Figure 3,1.64,"mart_capability: median Ppk, cut geometry, 2026 Q2",
+Figure 3,1.81,"mart_capability: median Ppk, flatness, 2026 Q2",
+Figure 3,1.51,"mart_capability: median Ppk, formed, 2026 Q2",
+Figure 3,1.63,"mart_capability: median Ppk, hole diameter, 2026 Q2",
+2.4 Characteristics below 1.33,seven,"mart_capability: below 1.33, quarter",seven
+2.4 Characteristics below 1.33,"C-15731-06, C-37007-06 and C-16315-06","mart_capability: ppk_high under 1.33 or cpk under 1.33, quarter","C-15731-06, C-37007-06 and C-16315-06"
+Figure 4,1.27 (1.19 to 1.34); between coils 13%,"mart_capability and mart_variance_components, C-11687-04",
+Figure 4,1.30 (1.22 to 1.38); between subgroups 6%,"mart_capability and mart_variance_components, C-15731-05",
+Figure 4,1.23 (1.15 to 1.31); between coils 30%,"mart_capability and mart_variance_components, C-15731-06",
+Figure 4,1.31 (1.22 to 1.40); between coils 12%,"mart_capability and mart_variance_components, C-16315-06",
+Figure 4,1.28 (1.17 to 1.38); between coils 19%,"mart_capability and mart_variance_components, C-26076-05",
+Figure 4,1.24 (1.14 to 1.33); between coils 15%,"mart_capability and mart_variance_components, C-37007-06",
+Figure 4,1.32 (1.22 to 1.41); tool wear 12%; Cpk 2.12,"mart_capability and mart_variance_components, C-39736-01",
+2.5 Attribute features,"1,346","stg_spc__subgroups: burr fails per million, 2026 Q2",
+2.5 Attribute features,"1,160","burr fails per million, earlier quarters, lowest",
+2.5 Attribute features,"1,203","burr fails per million, earlier quarters, highest",
+2.5 Attribute features,845,"stg_spc__subgroups: pin fails per million, 2026 Q2",
+2.5 Attribute features,734,"pin fails per million, earlier quarters, lowest",
+2.5 Attribute features,"1,062","pin fails per million, earlier quarters, highest",
+Figure 5,1203,"fails per million, burr height, 2025Q3 (67 of 55,695)",
+Figure 5,1168,"fails per million, burr height, 2025Q4 (61 of 52,235)",
+Figure 5,1160,"fails per million, burr height, 2026Q1 (64 of 55,160)",
+Figure 5,1346,"fails per million, burr height, 2026Q2 (76 of 56,445)",
+Figure 5,734,"fails per million, hole diameter, 2025Q3 (61 of 83,115)",
+Figure 5,792,"fails per million, hole diameter, 2025Q4 (61 of 77,040)",
+Figure 5,1062,"fails per million, hole diameter, 2026Q1 (85 of 80,030)",
+Figure 5,845,"fails per million, hole diameter, 2026Q2 (71 of 84,040)",
+2.6 By press,C-37007-06,"mart_capability: the PR-11 characteristic, quarter",C-37007-06
+3. SPC Review,23%,"mart_signal_rates with the expected rate: observed over expected less one, quarter",23%
+3.1 Special causes,18,"mart_signals: special-cause events on the characteristic charts, quarter (die events for level changes, runs otherwise)",18
+3.1 Special causes,112,"mart_per_stroke_stops: stops with a finding, quarter",112
+3.1 Special causes,nine,"mart_signals: level-change die events, quarter",nine
+3.1 Special causes,two,strip misfeed events,two
+3.1 Special causes,two,slug pulling events,two
+Figure 6,04 May,"mart_signals: first signal, D-1209-A|7|level after sharpening",
+Figure 6,01 Apr,"mart_signals: first signal, D-2617-A|3|level after sharpening",
+Figure 6,28 May,"mart_signals: first signal, D-4026-A|7|level after the rebuild",
+Figure 6,15 Apr,"mart_signals: first signal, D-4813-C|7|level after sharpening",
+Figure 6,17 Jun,"mart_signals: first signal, D-4813-C|8|level after sharpening",
+Figure 6,23 Apr,"mart_signals: first signal, D-6291-A|3|level after sharpening",
+Figure 6,08 Jun,"mart_signals: first signal, D-6291-A|4|level after sharpening",
+Figure 6,15 May,"mart_signals: first signal, D-6998-B|2|level after sharpening",
+Figure 6,29 May,"mart_signals: first signal, D-7862-C|5|level after sharpening",
+Figure 6,02 Apr,"mart_signals: first signal, R26-00570|strip misfeed",
+Figure 6,13 Apr,"mart_signals: first signal, R26-00636|gauge zero",
+Figure 6,01 May,"mart_signals: first signal, R26-00766|lubricant",
+Figure 6,15 May,"mart_signals: first signal, R26-00855|slug pulling",
+Figure 6,16 May,"mart_signals: first signal, R26-00867|sharpening logged at the wrong count",
+Figure 6,27 May,"mart_signals: first signal, R26-00920|soft coil",
+Figure 6,28 May,"mart_signals: first signal, R26-00938|fixture drift",
+Figure 6,05 Jun,"mart_signals: first signal, R26-00985|strip misfeed",
+Figure 6,09 Jun,"mart_signals: first signal, R26-00998|slug pulling",
+3.1 Special causes,16 May,int_die_event_timeline: D-4026-A rebuild,16 May
+3.1 Special causes,28 May,int_run_shots: R26-00938 start,28 May
+3.1 Special causes,30,mart_signals: fixture drift signals,30
+3.1 Special causes,18 June,int_run_shots: next P-14026 run,18 June
+3.1 Special causes,2 June,mart_fixture_verifications: F-14026 fail,2 June
+3.1 Special causes,16.7,mart_gauge_studies: F-14026 restudy,16.7
+3.1 Special causes,5.3,mart_gauge_studies: F-14026 after rebuild,5.3
+3.1 Special causes,17 June,"mart_gauge_studies: F-14026 after rebuild, date",17 June
+3.1 Special causes,18 June,int_gauge_status: F-14026 back in service,18 June
+3.1 Special causes,30,mart_signals: fixture drift signals,30
+3.1 Special causes,four,days from the last closure to the failed verification,four
+3.1 Special causes,3.1,"mart_signals.minutes_to_acknowledge, special causes, median",3.1
+3.1 Special causes,130,"mart_signals.minutes_to_close, special causes, median",130
+3.1 Special causes,fixture drift,mart_signals: cause with the longest close,fixture drift
+3.1 Special causes,244,"mart_signals.minutes_to_close, longest",244
+Figure 7,"2.8, 5.5, 118, 244","mart_signals: minutes to acknowledge and close, median and longest, fixture drift",
+Figure 7,"5.5, 5.5, 116, 116","mart_signals: minutes to acknowledge and close, median and longest, gauge zero",
+Figure 7,"3.2, 6.0, 130, 240","mart_signals: minutes to acknowledge and close, median and longest, level after sharpening",
+Figure 7,"3.3, 5.9, 160, 240","mart_signals: minutes to acknowledge and close, median and longest, level after the rebuild",
+Figure 7,"1.7, 1.7, 67, 67","mart_signals: minutes to acknowledge and close, median and longest, lubricant",
+Figure 7,"4.1, 4.1, 121, 121","mart_signals: minutes to acknowledge and close, median and longest, sharpening logged at the wrong count",
+Figure 7,"2.9, 3.0, 165, 181","mart_signals: minutes to acknowledge and close, median and longest, slug pulling",
+Figure 7,"4.1, 4.1, 202, 202","mart_signals: minutes to acknowledge and close, median and longest, soft coil",
+Figure 7,"4.4, 5.1, 176, 187","mart_signals: minutes to acknowledge and close, median and longest, strip misfeed",
+3.2 What the charts flagged,"3,385","mart_signals: routine signals, quarter","3,385"
+3.2 What the charts flagged,16,mart_signals: special-cause events on the routine charts,16
+3.2 What the charts flagged,400,mart_signals: follow-on signals,400
+3.2 What the charts flagged,"2,969",mart_signals: routine signals with no assignable cause,"2,969"
+3.2 What the charts flagged,10,"mart_signals: coil-change chart signals, quarter",10
+3.2 What the charts flagged,139,"mart_per_stroke_stops: stops, quarter",139
+3.2 What the charts flagged,112,"mart_per_stroke_stops: stops with a finding, quarter",112
+3.2 What the charts flagged,671,mart_signals: signals on coil-change and first-piece subgroups of the routine charts,671
+Figure 8,"16 / 400 / 2,969",what the charts flagged: Routine characteristic charts,
+Figure 8,1 / 0 / 9,what the charts flagged: Coil-change chart,
+Figure 8,112 / 0 / 27,what the charts flagged: Per-stroke charts,
+3.3 Signals against expectation,1.23,"observed over expected, quarter",1.23
+3.3 Signals against expectation,1.46,"observed over expected, cut geometry",1.46
+3.3 Signals against expectation,2.19,"observed over expected, hole diameter",2.19
+3.3 Signals against expectation,0.92,"observed over expected, formed",0.92
+3.3 Signals against expectation,0.92,"observed over expected, flatness",0.92
+Figure 9,0.92,"observed over expected, formed",
+Figure 9,1.46,"observed over expected, cut geometry",
+Figure 9,2.19,"observed over expected, hole diameter",
+Figure 9,0.92,"observed over expected, flatness",
+3.3 Signals against expectation,1.67,"observed over expected, PR-04",1.67
+3.3 Signals against expectation,1.48,"observed over expected, PR-11",1.48
+3.3 Signals against expectation,1.41,"observed over expected, PR-03",1.41
+3.3 Signals against expectation,0.71,"observed over expected, PR-08",0.71
+3.3 Signals against expectation,0.79,"observed over expected, PR-10",0.79
+3.4 Per-stroke tonnage,139,"mart_per_stroke_stops: stops, quarter",139
+3.4 Per-stroke tonnage,23.2,"mart_per_stroke_stop_rates.strokes, quarter, millions",23.2
+3.4 Per-stroke tonnage,112,"stops with a finding, quarter",112
+3.4 Per-stroke tonnage,68,"slug pulling, quarter",68
+3.4 Per-stroke tonnage,23,"chipped punch, quarter",23
+3.4 Per-stroke tonnage,21,"worn punch, quarter",21
+3.4 Per-stroke tonnage,18,"nothing found on PR-03, quarter",18
+3.4 Per-stroke tonnage,27,"nothing found, quarter",27
+3.4 Per-stroke tonnage,1.16,"nothing found per million strokes, quarter",1.16
+3.4 Per-stroke tonnage,24,"nothing found on the EWMA, quarter",24
+3.4 Per-stroke tonnage,9,"design stops with nothing found on the EWMA, quarter",9
+3.4 Per-stroke tonnage,3,"nothing found on the channel-share charts, quarter",3
+3.4 Per-stroke tonnage,12,"design stops with nothing found on the channel-share charts, quarter",12
+3.4 Per-stroke tonnage,15,nothing found on PR-03 on run R26-01066,15
+3.4 Per-stroke tonnage,18,"nothing found on PR-03, quarter",18
+3.4 Per-stroke tonnage,29,"PR-03 EWMA stops with nothing found on its two heaviest runs, the year",29
+3.4 Per-stroke tonnage,41,"PR-03 EWMA stops with nothing found, the year",41
+3.4 Per-stroke tonnage,44,mart_punch_replacements: quarter,44
+3.4 Per-stroke tonnage,23,punch replacements after the channel-share chart,23
+3.4 Per-stroke tonnage,21,punch replacements after the EWMA,21
+3.5 Limits,53,mart_limit_recalculations.limit_sets_in_quarter,53
+3.5 Limits,13,"mart_limit_verifications: failed, quarter",13
+3.5 Limits,369,mart_limit_verifications: quarter,369
+3.5 Limits,211,"mart_charts_in_force: days in baseline, C-23264-03",211
+3.5 Limits,21,"baseline subgroups so far, C-23264-03",21
+3.5 Limits,103,"mart_charts_in_force: days in baseline, C-34479-05",103
+3.5 Limits,38,"baseline subgroups so far, C-34479-05",38
+3.5 Limits,three,"baseline coil changes so far, C-34479-05",three
+3.5 Limits,ten,mart_chart_design.three_way_baseline_coil_changes,ten
+3.5 Limits,April 2024,"mart_limit_sets.effective_from, C-34479-05 in force",April 2024
+3.5 Limits,9 March 2026,"mart_chart_changes.changed_on, C-34479-05",9 March 2026
+Figure 12,10 of 319,"mart_limit_verifications: failed of done, X-bar and R",
+Figure 12,3 of 30,"mart_limit_verifications: failed of done, three-way",
+Figure 12,0 of 20,"mart_limit_verifications: failed of done, regression",
+3.6 Measurement systems,66,mart_gauge_studies: studies in the quarter,66
+3.6 Measurement systems,221,mart_charts_in_force: gauges on variable charts,221
+3.6 Measurement systems,180,check fixtures on variable charts,180
+3.6 Measurement systems,164,check fixtures under 10%,164
+3.6 Measurement systems,16,check fixtures at 10% to 30%,16
+3.6 Measurement systems,29,calipers on variable charts,29
+3.6 Measurement systems,12,indicators on variable charts,12
+3.6 Measurement systems,52,mart_gauge_studies: check fixture studies in the quarter,52
+3.6 Measurement systems,44,"fixture studies in the quarter under 10% at both studies, F-14026 aside",44
+3.6 Measurement systems,2.8,"largest move of %GRR, those fixtures",2.8
+3.6 Measurement systems,eight,fixture studies shown in the figure,eight
+Figure 13,19.7 to 23.4,"mart_gauge_studies: previous and this study, F-13459 (4 May)",
+Figure 13,15.0 to 16.3,"mart_gauge_studies: previous and this study, F-11333 (5 May)",
+Figure 13,19.4 to 18.8,"mart_gauge_studies: previous and this study, F-16662 (6 May)",
+Figure 13,15.8 to 16.8,"mart_gauge_studies: previous and this study, F-29216 (13 May)",
+Figure 13,7.4 to 16.7,"mart_gauge_studies: previous and this study, F-14026 (3 Jun)",
+Figure 13,17.1 to 19.1,"mart_gauge_studies: previous and this study, F-36044 (8 Jun)",
+Figure 13,13.3 to 13.3,"mart_gauge_studies: previous and this study, F-19604 (16 Jun)",
+Figure 13,16.7 to 5.3,"mart_gauge_studies: previous and this study, F-14026 (17 Jun)",
+3.6 Measurement systems,24,mart_operator_kappa: operators,24
+3.6 Measurement systems,0.78,"latest kappa, lowest",0.78
+3.6 Measurement systems,0.89,"latest kappa, highest",0.89
+3.6 Measurement systems,0.66,"kappa, E-1006, 14 April",0.66
+3.6 Measurement systems,14 April,"E-1006 below the line, date",14 April
+3.6 Measurement systems,28 April,"E-1006 requalified, date",28 April
+3.6 Measurement systems,0.83,"kappa, E-1006, 28 April",0.83
+"3.7 Dies, first piece and recording",69,"mart_sharpenings: at or before the due count, quarter",69
+"3.7 Dies, first piece and recording",76,mart_sharpenings: quarter,76
+"3.7 Dies, first piece and recording",90.8%,"mart_sharpenings.burr_peak_share_of_limit, highest",90.8%
+"3.7 Dies, first piece and recording",seven,late sharpenings,seven
+"3.7 Dies, first piece and recording",1,"late overrun, smallest",1
+"3.7 Dies, first piece and recording",9,"late overrun, largest",9
+Figure 15,105.5%,"mart_sharpenings.share_of_due_count, D-2139-A, 4 April 2026",
+Figure 15,103.7%,"mart_sharpenings.share_of_due_count, D-0090-A, 7 April 2026",
+Figure 15,107.0%,"mart_sharpenings.share_of_due_count, D-2485-A, 10 April 2026",
+Figure 15,107.3%,"mart_sharpenings.share_of_due_count, D-5731-A, 28 May 2026",
+Figure 15,108.7%,"mart_sharpenings.share_of_due_count, D-7771-A, 30 May 2026",
+Figure 15,108.3%,"mart_sharpenings.share_of_due_count, D-6315-A, 13 June 2026",
+Figure 15,101.3%,"mart_sharpenings.share_of_due_count, D-2409-A, 16 June 2026",
+"3.7 Dies, first piece and recording",19,"mart_first_piece_approvals.held, quarter",19
+"3.7 Dies, first piece and recording",583,"mart_first_piece_approvals: run starts, quarter",583
+"3.7 Dies, first piece and recording",62,"minutes to release, held, median",62
+"3.7 Dies, first piece and recording",12,"minutes to release, passed, median",12
+"3.7 Dies, first piece and recording",8,held on formed height,8
+"3.7 Dies, first piece and recording",9 June,mart_first_piece_approvals: R26-01002 first piece,9 June
+"3.7 Dies, first piece and recording",8 June,int_die_event_timeline: repair before R26-01002,8 June
+Figure 16,470,"mart_first_piece_approvals.minutes_to_release, R26-00796",
+"3.7 Dies, first piece and recording",97.9%,"planned checks recorded, days",97.9%
+"3.7 Dies, first piece and recording",96.9%,"planned checks recorded, nights",96.9%
+"3.7 Dies, first piece and recording",8,presses lower on nights,8
+Figure 17,97.6% / 97.1%,"mart_recording_planned_checks: recorded share, days and nights, PR-01",
+Figure 17,98.2% / 96.0%,"mart_recording_planned_checks: recorded share, days and nights, PR-02",
+Figure 17,98.3% / 97.4%,"mart_recording_planned_checks: recorded share, days and nights, PR-03",
+Figure 17,98.2% / 96.8%,"mart_recording_planned_checks: recorded share, days and nights, PR-04",
+Figure 17,98.0% / 95.7%,"mart_recording_planned_checks: recorded share, days and nights, PR-05",
+Figure 17,98.0% / 95.6%,"mart_recording_planned_checks: recorded share, days and nights, PR-06",
+Figure 17,99.0% / 97.2%,"mart_recording_planned_checks: recorded share, days and nights, PR-07",
+Figure 17,97.8% / 95.5%,"mart_recording_planned_checks: recorded share, days and nights, PR-08",
+Figure 17,97.2% / 97.9%,"mart_recording_planned_checks: recorded share, days and nights, PR-09",
+Figure 17,97.4% / 98.2%,"mart_recording_planned_checks: recorded share, days and nights, PR-10",
+Figure 17,96.3% / 98.9%,"mart_recording_planned_checks: recorded share, days and nights, PR-11",
+1. Summary,93,critical at or above 1.33,93
+1. Summary,100,critical characteristics,100
+1. Summary,1.23,"observed over expected, quarter",1.23
+1. Summary,19,"held, quarter",19
+1. Summary,583,"run starts, quarter",583
+1. Summary,93,critical at or above 1.33,93
+1. Summary,100,critical characteristics,100
+1. Summary,1.23,"observed over expected, quarter",1.23
+1. Summary,18,special causes on the characteristic charts,18
+1. Summary,112,per-stroke stops with a finding,112
+1. Summary,0,mart_charts_in_force with mart_gauge_quarter_end: charts on a gauge past due or away at 30 June,0
+1. Summary,19,held,19
+1. Summary,583,run starts,583
+1. Summary,62,"minutes to release, held, median",62
+Appendix,"4,066","mart_signals: signals, quarter","4,066"

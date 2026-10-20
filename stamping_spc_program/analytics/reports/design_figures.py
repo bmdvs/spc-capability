@@ -344,7 +344,7 @@ def stops_by_finding(t, order, charts, name="d1_stops_by_finding_and_chart", alt
     return S.save(f, name, alt)
 
 
-def signals_by_class(f2, bands):
+def signals_by_class(f2, bands, name="d1_signals_against_expectation_by_class"):
     """f2: cls, observed per 100, expected per 100, ratio, in page order. Grouped bars per class with the design band (the
     observed rate the band allows) shaded behind the pair and the ratio above it; a column whose ratio is outside its band
     sits on the warning tint, as a body-table row would; a fifth column for sheared edges carries no bar."""
@@ -364,7 +364,7 @@ def signals_by_class(f2, bands):
     ax.set_xlim(-0.6, k + 0.6); ax.set_ylabel("Signals per 100 routine subgroups")
     ax.set_ylim(0, max(f2["observed per 100"].max(), (f2["expected per 100"] * 1.5).max()) * 1.25)
     ax.legend(frameon=False, fontsize=8.5, loc="upper right", ncol=3)
-    return S.save(f, "d1_signals_against_expectation_by_class", "Signals against expectation by characteristic class")
+    return S.save(f, name, "Signals against expectation by characteristic class")
 
 
 def family_signals(ff2, bands):
