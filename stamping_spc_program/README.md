@@ -1,6 +1,6 @@
 # SPC & Capability Study: Metal Stamping 
 
-Statistical process control as it runs at a progressive-die metal stamper with eleven presses, based on the shop's records over the past year (July 2025 to June 2026). 
+Statistical process control as it runs at a progressive-die metal stamper with eleven presses, based on the shop's data records over the past year (July 2025 to June 2026). 
 
 <br>
 
