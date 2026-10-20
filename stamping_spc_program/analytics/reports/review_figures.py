@@ -16,7 +16,7 @@ def observed_expected_by_press(p1):
     ax.scatter(S.sig(p1["expected per 100"]), y, marker="|", s=260, color=S.AMBER, linewidths=2.4, label="Expected", zorder=4)
     ax.set_yticks(y); ax.set_yticklabels(p1["press_id"]); ax.invert_yaxis()
     ax.set_xlabel("Signals per 100 routine subgroups, April to June 2026"); ax.legend(frameon=False, ncol=2, loc="upper center", bbox_to_anchor=(0.5, 1.12))
-    return S.save(f, "d2_observed_against_expected_by_press", "Observed against expected signals by press")
+    return S.save(f, "d2_observed_against_expected_by_press", "Signals with no assignable cause, observed vs. expected, by press")
 
 
 def signals_by_rule_and_cause(tab):
@@ -60,7 +60,7 @@ def grr_before_after(f5):
     ax.scatter(S.sig(d["pct_grr_of_tolerance"]), y, s=22, color=S.BRAND_BLUE, label="Study in the quarter", zorder=3)
     ax.axvline(10, color=S.AMBER, linestyle="--", linewidth=1, label="10%"); ax.axvline(30, color=S.RED, linestyle="--", linewidth=1, label="30%")
     ax.set_yticks(y); ax.set_yticklabels(d["label"], fontsize=8); ax.set_ylim(len(d) - 0.5, -0.5); ax.set_xlabel("%GRR of tolerance"); ax.legend(frameon=False, ncol=4, loc="lower center", bbox_to_anchor=(0.5, 1.0), fontsize=9)
-    return S.save(f, "d2_grr_before_and_after", "%GRR before and after, fixtures studied in the quarter")
+    return S.save(f, "d2_grr_before_and_after", "%GRR by gauge, studies over 10% in Q2 2026")
 
 
 def kappa_by_operator(kp, line):
@@ -99,9 +99,16 @@ def stops_by_press(srq):
     cols = [("stops_chipped_punch", "chipped punch", S.RED), ("stops_worn_punch", "worn punch", S.AMBER), ("stops_slug_pulling", "slug pulling", S.ACCENT), ("stops_nothing_found", "nothing found", S.GREY)]
     bottom = np.zeros(len(srq))
     for c, lab, colour in cols:
-        v = srq[c].values.astype(float); ax.bar(range(len(srq)), v, bottom=bottom, color=colour, label=lab, width=0.7); bottom += v
-    ax.set_xticks(range(len(srq))); ax.set_xticklabels(srq["press_id"]); ax.set_ylabel("Stops, April to June 2026"); ax.legend(frameon=False, ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.13))
-    return S.save(f, "d2_per_stroke_stops_by_press", "Per-stroke stops by finding, by press")
+        v = srq[c].values.astype(float); ax.bar(range(len(srq)), v, bottom=bottom, color=colour, label=lab, width=0.7)
+        for i, (b0, vv) in enumerate(zip(bottom, v)):
+            if vv >= 1:
+                ax.text(i, b0 + vv / 2, f"{int(vv)}", ha="center", va="center", fontsize=7.5, color=S.TEXT if colour in (S.GREY, S.AMBER) else "white")
+        bottom += v
+    for i, t in enumerate(bottom):
+        ax.text(i, t + bottom.max() * 0.015, f"{int(t)}", ha="center", va="bottom", fontsize=8.5)
+    ax.set_ylim(0, bottom.max() * 1.1)
+    ax.set_xticks(range(len(srq))); ax.set_xticklabels(srq["press_id"]); ax.set_ylabel("Signals, Q2 '26"); ax.legend(frameon=False, ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.13))
+    return S.save(f, "d2_per_stroke_stops_by_press", "Per-stroke tonnage stops by finding, by press")
 
 
 def punch_replacements(pr):
@@ -151,15 +158,15 @@ def ppk_by_class(cap):
         ax.scatter(S.sig(g.loc[~low, "ppk"]), y[~low.values], s=16, color=S.BRAND_BLUE, alpha=0.65, zorder=3)
         ax.scatter(S.sig(g.loc[low, "ppk"]), y[low.values], s=26, color=S.RED, zorder=4)
         m = float(g["ppk"].median()); ax.plot([m, m], [i - 0.32, i + 0.32], color=S.TEXT, linewidth=2, zorder=5)
-        lows = g[low].sort_values("ppk").reset_index(drop=True); ylow = y[low.values][np.argsort(g.loc[low, "ppk"].values)]
-        slots = np.linspace(i - 0.38, i + 0.38, len(lows)) if len(lows) > 1 else np.array([i - 0.2])
-        for k, r in lows.iterrows():
-            ax.annotate(r.characteristic_id, (r.ppk, ylow[k]), xytext=(1.115, slots[k]), textcoords="data", ha="left", va="center", fontsize=7.5, color=S.RED,
-                        arrowprops=dict(arrowstyle="-", color=S.RED, linewidth=0.5, alpha=0.6))
+        if c == "cut geometry":
+            ax.text(m, i - 0.36, "class median", ha="center", va="bottom", fontsize=8, color=S.TEXT,
+                    bbox=dict(boxstyle="round,pad=0.2", facecolor="white", edgecolor="#CCCCCC", linewidth=0.6), zorder=6)
+        if i:
+            ax.axhline(i - 0.5, color="#CCCCCC", linewidth=0.8, zorder=1)
     ax.axvline(1.33, color=S.RED, linestyle="--", linewidth=1); ax.axvline(1.67, color=S.GREY, linestyle="--", linewidth=0.9)
-    ax.text(1.33, len(CLASS_ORDER) - 0.45, "1.33", ha="center", fontsize=8.5, color=S.RED); ax.text(1.67, len(CLASS_ORDER) - 0.45, "1.67", ha="center", fontsize=8.5, color=S.DARK_GREY)
-    ax.set_yticks(range(len(CLASS_ORDER))); ax.set_yticklabels([f"{CLASS_LABEL[c]} ({int((cap['cls'] == c).sum())})" for c in CLASS_ORDER]); ax.set_ylim(len(CLASS_ORDER) - 0.4, -0.6)
-    ax.set_xlim(1.1, None); ax.set_xlabel("Ppk, April to June 2026 (the bar marks the class median)")
+    ax.text(1.33, len(CLASS_ORDER) - 0.42, "1.33", ha="center", fontsize=8.5, color=S.RED); ax.text(1.67, len(CLASS_ORDER) - 0.42, "1.67", ha="center", fontsize=8.5, color=S.DARK_GREY)
+    ax.set_yticks(range(len(CLASS_ORDER))); ax.set_yticklabels([f"{CLASS_LABEL[c]} ({int((cap['cls'] == c).sum())})" for c in CLASS_ORDER]); ax.set_ylim(len(CLASS_ORDER) - 0.35, -0.62)
+    ax.set_xlim(1.1, None); ax.set_xlabel("Ppk and Ppu, Q2 '26")
     return S.save(f, "d2_ppk_by_class", "Ppk by class")
 
 
@@ -171,7 +178,9 @@ def cpk_against_ppk(cap):
     for c in CLASS_ORDER:
         g = cap[cap["cls"] == c]
         ax.scatter(S.sig(g["ppk"]), S.sig(g["cpk"]), s=20, color=CLASS_COLOURS[c], label=CLASS_LABEL[c], zorder=3, alpha=0.85)
-    ax.set_xlim(lo, hi); ax.set_ylim(lo, hi); ax.set_xlabel("Ppk"); ax.set_ylabel("Cpk")
+    lowc = cap[cap["cpk"] < 1.33]
+    ax.scatter(S.sig(lowc["ppk"]), S.sig(lowc["cpk"]), s=34, color=S.RED, zorder=5)
+    ax.set_xlim(lo, hi); ax.set_ylim(lo, hi); ax.set_xlabel("Ppk, Q2 '26"); ax.set_ylabel("Cpk, Q2 '26")
     ax.legend(frameon=False, fontsize=8.5, loc="lower right")
     return S.save(f, "d2_cpk_against_ppk", "Cpk against Ppk")
 
@@ -203,7 +212,7 @@ def below_133(u):
         ax.text(1.47, i, r.label, va="center", fontsize=8.5, color=S.TEXT)
     ax.axvline(1.33, color=S.RED, linestyle="--", linewidth=1)
     ax.set_yticks(range(len(d))); ax.set_yticklabels(d["characteristic_id"]); ax.invert_yaxis(); ax.set_xlim(1.1, 1.72)
-    ax.set_xlabel("Ppk with 95% interval (filled: for the customer)")
+    ax.set_xlabel("Ppk with 95% interval")
     return S.save(f, "d2_characteristics_below_133", "Characteristics below Ppk 1.33")
 
 
@@ -214,12 +223,12 @@ def fails_by_quarter(g):
     for (chk, lab, colour, dx) in (("burr height", "Burr checks", S.GREEN, -0.06), ("hole diameter", "Pin checks", S.AMBER, 0.06)):
         d = g[g["t"] == chk].set_index("quarter").reindex(qs)
         ax.errorbar(x + dx, S.sig(d["per_million"]), yerr=[S.sig(d["per_million"] - d["lo"]), S.sig(d["hi"] - d["per_million"])], fmt="o-", color=colour, capsize=3, label=lab)
-    ax.set_xticks(x); ax.set_xticklabels([q.replace("Q", " Q") for q in qs]); ax.set_ylim(0, None); ax.set_ylabel("Fails per million pieces checked")
+    ax.set_xticks(x); ax.set_xticklabels([q.replace("Q", " Q") for q in qs]); ax.set_ylim(0, None); ax.set_ylabel("Fail rate (per million checked)")
     ax.legend(frameon=False, loc="lower right")
-    return S.save(f, "d2_attribute_fails_by_quarter", "Burr and pin fails per million, by quarter")
+    return S.save(f, "d2_attribute_fails_by_quarter", "Burr and pin fail rates, by quarter")
 
 
-ROWS_TL = ["X-bar and R", "three-way", "regression", "coil-change"]
+ROWS_TL = ["X-bar and R", "three-way", "regression"]
 
 
 def special_cause_timeline(ev):
@@ -233,12 +242,14 @@ def special_cause_timeline(ev):
         off = (9, -13, 21, -25)[k % 4]
         ax.annotate(r.label, (pd.Timestamp(r.first), y), xytext=(0, off), textcoords="offset points", ha="center", va="center", fontsize=7, color=S.TEXT,
                     arrowprops=dict(arrowstyle="-", color=S.GREY, linewidth=0.4) if abs(off) > 15 else None)
-    ax.set_yticks(range(len(ROWS_TL))); ax.set_yticklabels(ROWS_TL); ax.set_ylim(len(ROWS_TL) - 0.35, -0.75)
+    for k in range(1, len(ROWS_TL)):
+        ax.axhline(k - 0.5, color="#CCCCCC", linewidth=0.8, zorder=1)
+    ax.set_yticks(range(len(ROWS_TL))); ax.set_yticklabels(["X-bar and R", "Three-way", "Regression"]); ax.set_ylim(len(ROWS_TL) - 0.5, -0.5)
     ax.set_xlim(pd.Timestamp("2026-03-29"), pd.Timestamp("2026-07-02"))
     wk = pd.date_range("2026-03-30", "2026-06-29", freq="14D")
     ax.set_xticks(wk); ax.set_xticklabels([w.strftime("%d %b").lstrip("0") for w in wk], fontsize=8.5)
     ax.set_xlabel("Week of the first signal, April to June 2026")
-    return S.save(f, "d2_special_causes_timeline", "Special causes in the quarter")
+    return S.save(f, "d2_special_causes_timeline", "Special causes found at variable characteristic charts")
 
 
 def reaction_times(rx):
@@ -265,7 +276,11 @@ def limits_and_verifications(rq, vt):
     for c in CHART_COLOURS:
         v = np.array([int(rq[(rq["trigger"] == t) & (rq["chart"] == c)]["n"].sum()) for t in trig])
         if v.sum():
-            a1.barh(range(len(trig)), v, left=left, color=CHART_COLOURS[c], label=c, height=0.6); left += v
+            a1.barh(range(len(trig)), v, left=left, color=CHART_COLOURS[c], label=c, height=0.6)
+            for i, (l0, vv) in enumerate(zip(left, v)):
+                if vv >= 2:
+                    a1.text(l0 + vv / 2, i, f"{int(vv)}", ha="center", va="center", fontsize=8, color="white")
+            left += v
     for i, t in enumerate(left):
         a1.text(t + 0.4, i, f"{int(t)}", va="center", fontsize=8.5)
     a1.set_yticks(range(len(trig))); a1.set_yticklabels(trig); a1.set_xlabel("New limit sets"); a1.set_xlim(0, max(left) * 1.2); a1.legend(frameon=False, fontsize=8, ncol=3, loc="upper center", bbox_to_anchor=(0.4, -0.2))
@@ -274,8 +289,8 @@ def limits_and_verifications(rq, vt):
     a2.barh(range(len(d)), d["failed"], left=d["done"] - d["failed"], color=S.RED, height=0.6, label="Failed")
     for i, r in d.iterrows():
         a2.text(r.done + 4, i, f"{int(r.failed)} of {int(r.done)} failed", va="center", fontsize=8.5)
-    a2.set_yticks(range(len(d))); a2.set_yticklabels(d["chart"]); a2.set_xlabel("Verifications"); a2.set_xlim(0, d["done"].max() * 1.6); a2.legend(frameon=False, fontsize=8, ncol=2, loc="upper center", bbox_to_anchor=(0.4, -0.2))
-    return S.save(f, "d2_limit_sets_and_verifications", "Limit sets and verifications in the quarter")
+    a2.set_yticks(range(len(d))); a2.set_yticklabels(d["chart"]); a2.invert_yaxis(); a2.set_xlabel("Verifications"); a2.set_xlim(0, d["done"].max() * 1.6); a2.legend(frameon=False, fontsize=8, ncol=2, loc="upper center", bbox_to_anchor=(0.4, -0.2))
+    return S.save(f, "d2_limit_sets_and_verifications", "Control limit sets and verifications, Q2 2026")
 
 
 def first_piece_rows(held, passed, cap_at=120):
