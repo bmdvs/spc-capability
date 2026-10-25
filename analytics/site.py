@@ -10,7 +10,7 @@ import pandas as pd
 from analytics.data import query
 from analytics.style import style as S
 
-PAGES_BASE = "https://brimsystems.github.io/spc-capability/"          # where the pages are served; README links to pages use it, links to files stay relative
+PAGES_BASE = "https://bmdvs.github.io/spc-capability/"          # where the pages are served; README links to pages use it, links to files stay relative
 D1, D2 = "docs/reports/control_chart_design.html", "docs/reports/spc_quarterly_review_2026_q2.html"
 PAGES = [("Control Chart Design", "reports/control_chart_design.html", "Revalidation", "The chart for each characteristic class from its variance structure, limits governance across sharpenings and rebuilds, ARL and false-alarm rates by chart and rule, the three-way and tool-wear chart designs, the per-stroke EWMA design, and the charts in force at 30 June 2026. Plant-wide, with the PR-03 copper family in full."),
          ("SPC Quarterly Review, April to June 2026", "reports/spc_quarterly_review_2026_q2.html", "Quarterly review", "Signals against expectation and their dispositions, recalculations and verifications, Cpk and Ppk with intervals, gauge studies and operator qualification, sharpenings against the due count, per-stroke stops, first-piece holds and recording. Every signal of the quarter in the appendix."),
@@ -110,7 +110,7 @@ HOW_TO_RUN = ("## How to run\n\nPython 3.12 or later. Run from the repository ro
               "```bash\ncd pipeline/dbt && dbt build --profiles-dir . && cd ../..\n```\n\n```bash\npython -m analytics.build_all\n```\n\n"
               "The last command writes every figure under `docs/figures`, the two documents, the two screens, `docs/index.html`, this README and the number traces.\n")
 
-AUTHOR = "## Author\n\nBrian Davis. Data engineering and applied analytics/ML for manufacturers. Other work: [github.com/brimsystems](https://github.com/brimsystems?tab=repositories).\n"
+AUTHOR = "## Author\n\nBrian Davis. Data engineering and applied analytics/ML for manufacturers. Other work: [github.com/bmdvs](https://github.com/bmdvs?tab=repositories).\n"
 
 
 def landing():
